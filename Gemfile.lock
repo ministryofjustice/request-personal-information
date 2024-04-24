@@ -103,8 +103,9 @@ GEM
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
-    cssbundling-rails (1.4.0)
+    dartsass-rails (0.5.0)
       railties (>= 6.0.0)
+      sass-embedded (~> 1.63)
     date (3.3.4)
     debug (1.9.2)
       irb (~> 1.10)
@@ -524,6 +525,18 @@ GEM
     rubocop-rspec_rails (2.28.3)
       rubocop (~> 1.40)
     ruby-progressbar (1.13.0)
+    sass-embedded (1.75.0-aarch64-linux-gnu)
+      google-protobuf (>= 3.25, < 5.0)
+    sass-embedded (1.75.0-arm-linux-gnueabihf)
+      google-protobuf (>= 3.25, < 5.0)
+    sass-embedded (1.75.0-arm64-darwin)
+      google-protobuf (>= 3.25, < 5.0)
+    sass-embedded (1.75.0-x86-linux-gnu)
+      google-protobuf (>= 3.25, < 5.0)
+    sass-embedded (1.75.0-x86_64-darwin)
+      google-protobuf (>= 3.25, < 5.0)
+    sass-embedded (1.75.0-x86_64-linux-gnu)
+      google-protobuf (>= 3.25, < 5.0)
     sentry-rails (5.17.3)
       railties (>= 5.0)
       sentry-ruby (~> 5.17.3)
@@ -579,7 +592,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
-  cssbundling-rails
+  dartsass-rails (~> 0.5.0)
   debug
   govuk-components
   govuk_app_config
@@ -595,7 +608,6 @@ DEPENDENCIES
   sentry-ruby
   simplecov
   simplecov-json
-  sprockets
   sprockets-rails
 
 RUBY VERSION

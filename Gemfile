@@ -12,9 +12,8 @@ gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 gem "sentry-rails"
 gem "sentry-ruby"
 
-gem "cssbundling-rails"
+gem "dartsass-rails", "~> 0.5.0"
 gem "jsbundling-rails"
-gem "sprockets"
 gem "sprockets-rails"
 
 group :test do
