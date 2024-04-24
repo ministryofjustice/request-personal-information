@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 12
+  template: template0
+
+development:
+  <<: *default
+  database: request_personal_information_development
+  url: <%= ENV["DATABASE_URL"]%>
+
+test:
+  <<: *default
+  database: request_personal_information_test
+  url: <%= ENV["DATABASE_URL"] %>
+
+production:
+  <<: *default
+  database: request_personal_information_production
+  url: <%= ENV["DATABASE_URL"]%>
