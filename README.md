@@ -22,3 +22,26 @@ A public site to allow Subject Access Requests to be made for details of persona
 $ git clone git@github.com:ministryofjustice/request-personal-information.git
 $ cd request-personal-information
 ```
+
+### Setup application
+
+Ths application has the following dependencies which need to be installed
+- node
+- yarn
+- postgres
+- ruby (see .ruby-version for required version)
+
+Once these dependencies are available, the following commands should work to complete the initial setup:
+
+```bash
+$ bin/setup
+$ yarn
+```
+
+### Run application
+
+The following command will build js/css, watch for any changes and make the site available at http://localhost:3000
+
+```bash
+$ bin/dev
+```
