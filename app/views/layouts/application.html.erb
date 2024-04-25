@@ -4,7 +4,6 @@
     <title><%= [yield(:page_title).presence, t('service.name')].compact.join(' - ') %></title>
 
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
     <%= tag :meta, name: 'viewport', content: 'width=device-width, initial-scale=1' %>
     <%= tag :meta, property: 'og:image', content: asset_path('images/govuk-opengraph-image.png') %>
@@ -47,6 +46,6 @@
     </div>
 
     <%= govuk_footer(meta_items_title: "Support links", meta_items: {
-      t("footer.accessibility") => "/accessibility", t("footer.help") => "https://www.gov.uk/help", t("footer.cookie") => "https://www.gov.uk/help/cookies", t("footer.contact") => "https://www.gov.uk/contact-court-funds-office" }) %>
+      t("footer.help") => "https://www.gov.uk/help", t("footer.cookie") => "https://www.gov.uk/help/cookies" }) %>
   </body>
 </html>
