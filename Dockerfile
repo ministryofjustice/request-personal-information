@@ -1,6 +1,4 @@
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.3.1
-FROM ruby:3.3.1-alpine as base
+FROM ruby:3.3.1-slim as base
 
 # Rails app lives here
 WORKDIR /app
@@ -13,7 +11,7 @@ ENV RAILS_ENV="production"
 FROM base as build
 
 # Install packages needed to build gems
-RUN apk add --no-cache \
+RUN apt-get add --no-cache \
     build-base \
     postgresql16-dev \
     tzdata \
@@ -46,7 +44,7 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 FROM base
 
 # libpq: required to run postgres, tzdata: required to set timezone
-RUN apk add --no-cache libpq tzdata
+RUN apt-get add --no-cache libpq tzdata
 
 # Copy built artifacts: gems, application
 COPY --from=build /app /app
