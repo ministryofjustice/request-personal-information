@@ -38,6 +38,7 @@ $ bin/setup
 $ yarn
 ```
 
+
 ### Run application
 
 The following command will build js/css, watch for any changes and make the site available at http://localhost:3000
