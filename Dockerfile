@@ -1,31 +1,36 @@
-# syntax = docker/dockerfile:1
-
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.3.1
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
+FROM ruby:3.3.1-alpine as base
 
 # Rails app lives here
-WORKDIR /rails
+WORKDIR /app
 
 # Set production environment
-ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+ENV RAILS_ENV="production"
 
 
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
 # Install packages needed to build gems
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
+RUN apk add --no-cache \
+    build-base \
+    postgresql16-dev \
+    tzdata \
+    yarn
 
-# Install application gems
-COPY Gemfile Gemfile.lock ./
-RUN bundle install && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
+# Copy required files
+COPY .ruby-version Gemfile* ./
+
+# Install gems and remove gem cache
+RUN gem install bundler -v 2.4.19
+RUN bundle config deployment true && \
+    bundle config without development test && \
+    bundle install --jobs 4 --retry 3
+
+# Install node packages defined in package.json
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --check-files
 
 # Copy application code
 COPY . .
@@ -40,23 +45,30 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 # Final stage for app image
 FROM base
 
-# Install packages needed for deployment
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+# libpq: required to run postgres, tzdata: required to set timezone
+RUN apk add --no-cache libpq tzdata
 
 # Copy built artifacts: gems, application
+COPY --from=build /app /app
 COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /rails /rails
+COPY --from=build /node_modules /nmode_modules
 
-# Run and own only the runtime files as a non-root user for security
-RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER rails:rails
+# Add non-root user and group with alpine first available uid, 1000
+RUN addgroup -g 1000 -S appgroup && \
+    adduser -u 1000 -S appuser -G appgroup
 
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# Create log and tmp
+RUN mkdir -p log tmp
+RUN chown -R appuser:appgroup db log tmp
 
-# Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD ["./bin/rails", "server"]
+# Set user
+USER 1000
+
+ARG APP_BUILD_DATE
+ENV APP_BUILD_DATE ${APP_BUILD_DATE}
+
+ARG APP_BUILD_TAG
+ENV APP_BUILD_TAG ${APP_BUILD_TAG}
+
+ARG APP_GIT_COMMIT
+ENV APP_GIT_COMMIT ${APP_GIT_COMMIT}
