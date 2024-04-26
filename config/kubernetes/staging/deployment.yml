@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: request-personal-information-staging
+  namespace: request-personal-information-staging
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 100%
+  selector:
+    matchLabels:
+      app: request-personal-information-web-staging
+  template:
+    metadata:
+      labels:
+        app: request-personal-information-web-staging
+        tier: frontend
+    spec:
+      containers:
+      - name: webapp
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:staging.latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3000
+        resources:
+          requests:
+            cpu: 125m
+            memory: 500Mi
+          limits:
+            cpu: 250m
+            memory: 1Gi
+        readinessProbe:
+          httpGet:
+            path: /up
+            port: 3000
+            httpHeaders:
+              - name: X-Forwarded-Proto
+                value: https
+              - name: X-Forwarded-Ssl
+                value: "on"
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /up
+            port: 3000
+            httpHeaders:
+              - name: X-Forwarded-Proto
+                value: https
+              - name: X-Forwarded-Ssl
+                value: "on"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        # non-secret env vars defined in `config_map.yaml`
+        envFrom:
+          - configMapRef:
+              name: request-personal-information-configmap-staging
+        env:
+          # external secrets defined in `secrets.yml`
+          - name: SECRET_KEY_BASE
+            valueFrom:
+              secretKeyRef:
+                name: request-personal-information-secrets-staging
+                key: secret_key_base
+          - name: SENTRY_DSN
+            valueFrom:
+              secretKeyRef:
+                name: request-personal-information-secrets-staging
+                key: sentry_dsn
+          #
+          # secrets created by `terraform`
+          #
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: rds-postgresql-instance-output
+                key: url
