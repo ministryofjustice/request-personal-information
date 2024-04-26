@@ -23,7 +23,7 @@ RUN apk add --no-cache \
 COPY .ruby-version Gemfile* ./
 
 # Install gems and remove gem cache
-RUN gem install bundler -v 2.4.19
+RUN gem install bundler -v 2.5.19
 RUN bundle config deployment true && \
     bundle config without development test && \
     bundle install --jobs 4 --retry 3
