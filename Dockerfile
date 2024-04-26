@@ -11,10 +11,7 @@ ENV RAILS_ENV="production"
 FROM base as build
 
 # Install packages needed to build gems
-RUN apt-get add \
-    build-base \
-    postgresql16-dev \
-    yarn
+RUN apt-get update && apt-get -y install build-base postgresql16-dev yarn
 
 # Copy required files
 COPY .ruby-version Gemfile* ./
@@ -43,7 +40,7 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 FROM base
 
 # libpq: required to run postgres, tzdata: required to set timezone
-RUN apt-get add libpq tzdata
+RUN apt-get -y install libpq tzdata
 
 # Copy built artifacts: gems, application
 COPY --from=build /app /app
