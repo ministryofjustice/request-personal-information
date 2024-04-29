@@ -11,7 +11,7 @@ ENV RAILS_ENV="production"
 FROM base as build
 
 # Install packages needed to build gems
-RUN apt-get update && apt-get install build-base postgresql16-dev yarn
+RUN apt-get update
 
 # Copy required files
 COPY .ruby-version Gemfile* ./
