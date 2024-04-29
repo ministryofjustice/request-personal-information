@@ -24,7 +24,7 @@ RUN bundle config deployment true && \
 
 # Install node packages defined in package.json
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --check-files
+RUN yarn install
 
 # Copy application code
 COPY . .
