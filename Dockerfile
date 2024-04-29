@@ -40,8 +40,8 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 # Final stage for app image
 FROM base
 
-# tzdata: required to set timezone
-RUN apt-get install tzdata
+# tzdata: required to set timezone, libpq-dev: required for postgres
+RUN apt-get install tzdata libpq-dev
 
 # Copy built artifacts: gems, application
 COPY --from=build /app /app
