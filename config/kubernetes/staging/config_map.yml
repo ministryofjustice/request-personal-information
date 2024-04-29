@@ -4,8 +4,6 @@ metadata:
   name: request-personal-information-configmap-staging
   namespace: request-personal-information-staging
 data:
-  DEV_TOOLS_ENABLED: "1"
-  EXTERNAL_URL: https://request-personal-information-staging.apps.live.cloud-platform.service.justice.gov.uk
   RACK_ENV: production
   RAILS_ENV: production
   RAILS_MAX_THREADS: "3"
