@@ -70,15 +70,15 @@ jobs:
       - name: Security audit application code
         run: bundle exec brakeman -q
 
-      # - name: Run tests
-      #   run: bundle exec rspec
+      - name: Run tests
+        run: bundle exec rspec
 
-      # - name: Code coverage
-      #   uses: joshmfrankel/simplecov-check-action@main
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     minimum_suite_coverage: 100
-      #     minimum_file_coverage: 100
+      - name: Code coverage
+        uses: joshmfrankel/simplecov-check-action@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          minimum_suite_coverage: 100
+          minimum_file_coverage: 100
 
   build-and-deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
