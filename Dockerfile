@@ -11,7 +11,7 @@ ENV RAILS_ENV="production"
 FROM base as build
 
 # Install packages needed to build gems
-RUN apt-get update && apt-get install -y build-essential libpq-dev yarn
+RUN apt-get update && apt-get install -y build-essential libpq-dev nodejs npm
 
 # Copy required files
 COPY .ruby-version Gemfile* ./
@@ -24,6 +24,7 @@ RUN bundle config deployment true && \
 
 # Install node packages defined in package.json
 COPY package.json yarn.lock ./
+RUN npm install --global yarn
 RUN yarn install
 
 # Copy application code
@@ -39,24 +40,23 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 # Final stage for app image
 FROM base
 
-# libpq: required to run postgres, tzdata: required to set timezone
+# tzdata: required to set timezone
 RUN apt-get install tzdata
 
 # Copy built artifacts: gems, application
 COPY --from=build /app /app
 COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /node_modules /nmode_modules
 
-# Add non-root user and group with alpine first available uid, 1000
-RUN addgroup -g 1000 -S appgroup && \
-    adduser -u 1000 -S appuser -G appgroup
+# Add non-root user and group with first available uid, 1000
+RUN addgroup --gid 2000 --system appgroup && \
+    adduser --uid 2000 --system appuser --gid 2000
 
 # Create log and tmp
 RUN mkdir -p log tmp
 RUN chown -R appuser:appgroup db log tmp
 
 # Set user
-USER 1000
+USER 2000
 
 ARG APP_BUILD_DATE
 ENV APP_BUILD_DATE ${APP_BUILD_DATE}
