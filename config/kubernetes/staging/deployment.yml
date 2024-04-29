@@ -64,12 +64,12 @@ spec:
           - name: SECRET_KEY_BASE
             valueFrom:
               secretKeyRef:
-                name: request-personal-information-secrets-staging
+                name: app-secrets
                 key: secret_key_base
           - name: SENTRY_DSN
             valueFrom:
               secretKeyRef:
-                name: request-personal-information-secrets-staging
+                name: app-secrets
                 key: sentry_dsn
           #
           # secrets created by `terraform`
