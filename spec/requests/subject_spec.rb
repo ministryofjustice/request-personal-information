@@ -5,6 +5,8 @@ def set_session(vars = {})
 end
 
 RSpec.describe "Subject", type: :request do
+  let(:information_request) { InformationRequest.new }
+
   describe "#new" do
     it "redirects to the subject form" do
       get new_request_path
@@ -23,7 +25,7 @@ RSpec.describe "Subject", type: :request do
 
     context "when session in progress" do
       before do
-        get new_request_path
+        set_session(information_request: information_request.to_hash, current_step: "subject", history: ["/"])
         get "/subject"
       end
 
@@ -47,6 +49,13 @@ RSpec.describe "Subject", type: :request do
           expect(response).to redirect_to("/subject-name")
         end
       end
+
+      context "when going back" do
+        it "goes to previous step" do
+          get("/request/back")
+          expect(response).to redirect_to("/")
+        end
+      end
     end
   end
 
@@ -64,13 +73,20 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { InformationRequest.new(subject: "self") }
 
         before do
-          set_session(information_request: information_request.to_hash, current_step: "subject-name", history: [])
+          set_session(information_request: information_request.to_hash, current_step: "subject-name", history: ["/", "/subject"])
           get "/subject-name"
         end
 
         it "renders the subject-name page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is your name?")
+        end
+
+        context "when going back" do
+          it "goes to previous step" do
+            get("/request/back")
+            expect(response).to redirect_to("/subject")
+          end
         end
 
         context "when submitting form without entry" do
