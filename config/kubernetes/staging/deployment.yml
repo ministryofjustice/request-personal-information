@@ -67,3 +67,21 @@ spec:
               secretKeyRef:
                 name: rds-postgresql-instance-output
                 key: url
+      initContainers:
+        - name: pending-migrations
+          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:staging.latest
+          command:
+            - /bin/sh
+            - -c
+            - 'bundle exec rake db:abort_if_pending_migrations'
+          envFrom:
+            - configMapRef:
+                name: request-personal-information-configmap-staging
+            - secretRef:
+                name: app-secrets
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: rds-postgresql-instance-output
+                  key: url
