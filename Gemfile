@@ -18,6 +18,7 @@ gem "sprockets-rails"
 
 group :test do
   gem "rails-controller-testing"
+  gem "shoulda-matchers"
   gem "simplecov", require: false
   gem "simplecov-json", require: false
 end
@@ -33,4 +34,5 @@ end
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem "i18n-debug"
 end

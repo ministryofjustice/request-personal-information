@@ -150,6 +150,8 @@ GEM
       activesupport (>= 6.1.4.4)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
+    i18n-debug (1.2.0)
+      i18n (< 2)
     io-console (0.7.2)
     irb (1.12.0)
       rdoc
@@ -543,6 +545,8 @@ GEM
     sentry-ruby (5.17.3)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+    shoulda-matchers (6.2.0)
+      activesupport (>= 5.2.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -597,6 +601,7 @@ DEPENDENCIES
   govuk-components
   govuk_app_config
   govuk_design_system_formbuilder
+  i18n-debug
   jsbundling-rails
   pg
   puma (>= 5.0)
@@ -606,6 +611,7 @@ DEPENDENCIES
   rubocop-govuk
   sentry-rails
   sentry-ruby
+  shoulda-matchers
   simplecov
   simplecov-json
   sprockets-rails

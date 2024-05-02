@@ -1,3 +1,27 @@
 en:
+  activemodel:
+    errors:
+      models:
+        request_form/subject:
+          attributes:
+            subject:
+              blank: "Choose if you're requesting information for yourself or for someone else"
+
+  helpers:
+    label:
+      request_form:
+        full_name: Full name
+        other_names:
+          other: Any other names that their information may be stored under? (optional)
+          self: Any other names that your information may be stored under? (optional)
+    hint:
+      request_form:
+        other_names: This includes last names, nicknames or aliases
+
+  request_form:
+    subject: Are you requesting your own information or on behalf of someone else?
+    subject_name:
+      self: What is your name?
+      other: What is their name?
   service:
     name: "Request personal information"

@@ -1,0 +1,13 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= govuk_back_link(href: back_request_path) %>
+    <%= form_with model: @form, scope: :request_form, url: request_path, method: :patch do |f| %>
+      <% content_for(:form_content) { render partial: @form.name, locals: { f: } } %>
+      <h1 class="govuk-heading-xl"><%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %></h1>
+
+      <%= f.govuk_error_summary %>
+      <%= yield :form_content %>
+      <%= f.govuk_submit %>
+    <% end %>
+  </div>
+</div>
