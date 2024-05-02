@@ -110,9 +110,9 @@ jobs:
       - name: Rollout restart deployment
         run: |
           # Apply migrations job config
-          kubectl set image -f config/kubernetes/${environment}/migrations.yml \
+          kubectl set image -f config/kubernetes/staging/migrations.yml \
           migrations="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
 
           # Apply image specific config
-          kubectl set image -f config/kubernetes/${environment}/deployment.yml \
+          kubectl set image -f config/kubernetes/staging/deployment.yml \
           pending-migrations="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
