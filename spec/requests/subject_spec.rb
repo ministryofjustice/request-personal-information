@@ -161,7 +161,7 @@ RSpec.describe "Subject", type: :request do
       let(:information_request) { InformationRequest.new(subject:) }
       let(:current_step) { "subject-date-of-birth" }
       let(:previous_step) { "/subject-name" }
-      let(:next_step) { "/" }
+      let(:next_step) { "/subject-relationship" }
       let(:valid_data) { Date.new(2000, 1, 1) }
       let(:invalid_data) { nil }
 

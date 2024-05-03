@@ -9,5 +9,9 @@ module RequestForm
     def name
       self.class.name.demodulize.underscore
     end
+
+    def required?
+      true
+    end
   end
 end

@@ -1,6 +1,10 @@
 class InformationRequest < ApplicationRecord
   attr_accessor :date_of_birth
 
+  def for_self?
+    subject == "self"
+  end
+
   def possessive_pronoun
     for_self? ? "your" : "their"
   end
@@ -14,9 +18,4 @@ class InformationRequest < ApplicationRecord
     }
   end
 
-private
-
-  def for_self?
-    subject == "self"
-  end
 end

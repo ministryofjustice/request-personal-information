@@ -3,6 +3,7 @@ class RequestsController < ApplicationController
     subject
     subject-name
     subject-date-of-birth
+    subject-relationship
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -12,7 +13,9 @@ class RequestsController < ApplicationController
     redirect_to "/#{STEPS.first}"
   end
 
-  def show; end
+  def show
+    next_step unless @form.required?
+  end
 
   def update
     @form.assign_attributes(request_params)
