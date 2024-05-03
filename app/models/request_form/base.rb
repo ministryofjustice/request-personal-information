@@ -30,9 +30,9 @@ module RequestForm
       instance_variable_get("@#{attr_name}".to_sym)
     end
 
-    def []=(attr_name, value)
-      instance_variable_set("@#{attr_name}".to_sym, value)
-    end
+    # def []=(attr_name, value)
+    #   instance_variable_set("@#{attr_name}".to_sym, value)
+    # end
 
     def new_record?
       true
