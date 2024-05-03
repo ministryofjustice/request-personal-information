@@ -1,5 +1,7 @@
 class InformationRequest < ApplicationRecord
-  attr_accessor :date_of_birth
+  acts_as_gov_uk_date :date_of_birth
+
+  attr_accessor :date_of_birth, :relationship
 
   def for_self?
     subject == "self"

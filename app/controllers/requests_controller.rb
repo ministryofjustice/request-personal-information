@@ -4,6 +4,7 @@ class RequestsController < ApplicationController
     subject-name
     subject-date-of-birth
     subject-relationship
+    solicitor-details
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -44,7 +45,15 @@ private
   end
 
   def request_params
-    params.require(:request_form).permit(:subject, :full_name, :other_names, :date_of_birth)
+    params.require(:request_form).permit(
+      :subject,
+      :full_name,
+      :other_names,
+      :date_of_birth_dd,
+      :date_of_birth_mm,
+      :date_of_birth_yyyy,
+      :relationship,
+    )
   end
 
   def reset_session
