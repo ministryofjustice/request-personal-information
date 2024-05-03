@@ -12,6 +12,7 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions: write-all
 
     env:
       RAILS_ENV: test
