@@ -17,7 +17,7 @@ class InformationRequest < ApplicationRecord
       full_name:,
       other_names:,
       date_of_birth:,
+      relationship:,
     }
   end
-
 end

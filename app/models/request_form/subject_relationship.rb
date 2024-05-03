@@ -5,7 +5,7 @@ module RequestForm
       "other": "Relative, friend or something else",
     }.freeze
 
-    attr_accessor :relationship
+    attr_accessor :relationship, :default
 
     validates :relationship, presence: true
 
