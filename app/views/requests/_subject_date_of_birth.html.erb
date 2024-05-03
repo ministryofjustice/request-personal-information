@@ -1,0 +1,5 @@
+<% content_for :title do %>
+  <%= t("request_form.#{@form.name}.#{@information_request.subject}") %>
+<% end %>
+
+<%= f.govuk_date_field :date_of_birth, label: { size: "m", text: "" }, legend: nil %>

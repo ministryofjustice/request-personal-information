@@ -17,11 +17,15 @@ en:
     hint:
       request_form:
         other_names: This includes last names, nicknames or aliases
+        date_of_birth: For example, 19 05 2007
 
   request_form:
     subject: Are you requesting your own information or on behalf of someone else?
     subject_name:
       self: What is your name?
       other: What is their name?
+    subject_date_of_birth:
+        other: What is their date of birth?
+        self: What is your date of birth?
   service:
     name: "Request personal information"

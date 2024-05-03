@@ -41,7 +41,7 @@ private
   end
 
   def request_params
-    params.require(:request_form).permit(:subject, :full_name, :other_names)
+    params.require(:request_form).permit(:subject, :full_name, :other_names, :date_of_birth)
   end
 
   def reset_session
