@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get "subject" => "requests#show"
   get "subject-name" => "requests#show"
+  get "subject-date-of-birth" => "requests#show"
 
   root to: "pages#homepage"
 

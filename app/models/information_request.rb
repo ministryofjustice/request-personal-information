@@ -1,4 +1,6 @@
 class InformationRequest < ApplicationRecord
+  attr_accessor :date_of_birth
+
   def possessive_pronoun
     for_self? ? "your" : "their"
   end
@@ -8,6 +10,7 @@ class InformationRequest < ApplicationRecord
       subject:,
       full_name:,
       other_names:,
+      date_of_birth:,
     }
   end
 

@@ -19,10 +19,11 @@ RSpec.describe InformationRequest, type: :model do
 
   describe "#to_hash" do
     it "contains all the attributes" do
-      request = described_class.new(subject: "other", full_name: "full name", other_names: "other names")
+      request = described_class.new(subject: "other", full_name: "full name", other_names: "other names", date_of_birth: Date.new(2000, 1, 1))
       expect(request.to_hash).to include({ "subject": "other" })
       expect(request.to_hash).to include({ "full_name": "full name" })
       expect(request.to_hash).to include({ "other_names": "other names" })
+      expect(request.to_hash).to include({ "date_of_birth": Date.new(2000, 1, 1) })
     end
   end
 end
