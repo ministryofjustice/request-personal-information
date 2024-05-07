@@ -13,17 +13,17 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject" do
+    let(:current_step) { "subject" }
+
     context "when session not in progress" do
       it "redirects to the homepage" do
-        get "/subject"
-
+        get "/#{current_step}"
         expect(response).to redirect_to("/")
       end
     end
 
     context "when session in progress" do
       let(:information_request) { InformationRequest.new }
-      let(:current_step) { "subject" }
       let(:previous_step) { "/" }
       let(:next_step) { "/subject-name" }
       let(:valid_data) { "self" }
@@ -70,17 +70,17 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-name" do
+    let(:current_step) { "subject-name" }
+
     context "when session not in progress" do
       it "redirects to the homepage" do
-        get "/subject-name"
-
+        get "/#{current_step}"
         expect(response).to redirect_to("/")
       end
     end
 
     context "when session in progress" do
       let(:information_request) { InformationRequest.new(subject:) }
-      let(:current_step) { "subject-name" }
       let(:previous_step) { "/subject" }
       let(:next_step) { "/subject-date-of-birth" }
       let(:valid_data) { "subject name" }
@@ -149,21 +149,21 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-date-of-birth" do
+    let(:current_step) { "subject-date-of-birth" }
+
     context "when session not in progress" do
       it "redirects to the homepage" do
-        get "/subject-name"
-
+        get "/#{current_step}"
         expect(response).to redirect_to("/")
       end
     end
 
     context "when session in progress" do
       let(:information_request) { InformationRequest.new(subject:) }
-      let(:current_step) { "subject-date-of-birth" }
       let(:previous_step) { "/subject-name" }
-      let(:next_step) { "/" }
-      let(:valid_data) { Date.new(2000, 1, 1) }
+      let(:next_step) { "/subject-relationship" }
       let(:invalid_data) { nil }
+      let(:valid_data) { { date_of_birth_dd: 19, date_of_birth_mm: 5, date_of_birth_yyyy: 2007 } }
 
       before do
         set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
@@ -173,7 +173,7 @@ RSpec.describe "Subject", type: :request do
       context "when requesting own data" do
         let(:subject) { "self" }
 
-        it "renders the subject-name page" do
+        it "renders the subject-date-of-birth page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is your date of birth?")
         end
@@ -196,13 +196,13 @@ RSpec.describe "Subject", type: :request do
 
         context "when submitting form with valid data" do
           it "goes to next step" do
-            patch "/request", params: { request_form: { date_of_birth: valid_data } }
+            patch "/request", params: { request_form: valid_data }
             expect(response).to redirect_to(next_step)
           end
 
           it "saves the value to the session" do
-            patch "/request", params: { request_form: { date_of_birth: valid_data } }
-            expect(request.session[:information_request][:date_of_birth]).to eq valid_data.to_s
+            patch "/request", params: { request_form: valid_data }
+            expect(request.session[:information_request][:date_of_birth]).to eq Date.new(2007, 5, 19)
           end
         end
       end
@@ -210,17 +210,86 @@ RSpec.describe "Subject", type: :request do
       context "when requesting someone else's data" do
         let(:subject) { "other" }
 
-        it "renders the subject-name page" do
+        it "renders the subject-date-of-birth page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is their date of birth?")
         end
 
-        context "when submitting form without entry" do
+        context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { date_of_birth: invalid_data } }
             expect(response).to render_template(:show)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter their date of birth")
+          end
+        end
+      end
+    end
+  end
+
+  describe "/subject-relationship" do
+    let(:current_step) { "subject-relationship" }
+
+    context "when session not in progress" do
+      it "redirects to the homepage" do
+        get "/#{current_step}"
+        expect(response).to redirect_to("/")
+      end
+    end
+
+    context "when session in progress" do
+      let(:information_request) { InformationRequest.new(subject:) }
+      let(:previous_step) { "/subject-date-of-birth" }
+      let(:next_step) { "/solicitor-details" }
+      let(:valid_data) { "other" }
+      let(:invalid_data) { "" }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      context "when requesting own data" do
+        let(:subject) { "self" }
+
+        it "skips this page" do
+          expect(response).to redirect_to(next_step)
+        end
+      end
+
+      context "when requesting someone else's data" do
+        let(:subject) { "other" }
+
+        it "renders the subject-relationship page" do
+          expect(response).to render_template(:show)
+          expect(response.body).to include("What is your relationship to them?")
+        end
+
+        context "when going back" do
+          it "goes to previous step" do
+            get("/request/back")
+            expect(response).to redirect_to(previous_step)
+          end
+        end
+
+        context "when submitting form with invalid data" do
+          it "renders page with error message" do
+            patch "/request", params: { request_form: { relationship: invalid_data } }
+            expect(response).to render_template(:show)
+            expect(response.body).to include("There is a problem")
+            expect(response.body).to include(CGI.escapeHTML("Choose if you're a legal representative or a relative, friend or something else"))
+          end
+        end
+
+        context "when submitting form with valid data" do
+          it "goes to next step" do
+            patch "/request", params: { request_form: { relationship: valid_data } }
+            expect(response).to redirect_to(next_step)
+          end
+
+          it "saves the value to the session" do
+            patch "/request", params: { request_form: { relationship: valid_data } }
+            expect(request.session[:information_request][:relationship]).to eq valid_data.to_s
           end
         end
       end

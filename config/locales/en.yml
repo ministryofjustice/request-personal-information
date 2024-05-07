@@ -6,6 +6,10 @@ en:
           attributes:
             subject:
               blank: "Choose if you're requesting information for yourself or for someone else"
+        request_form/subject_relationship:
+          attributes:
+            relationship:
+              blank: "Choose if you're a legal representative or a relative, friend or something else"
 
   helpers:
     label:
@@ -27,5 +31,6 @@ en:
     subject_date_of_birth:
         other: What is their date of birth?
         self: What is your date of birth?
+    subject_relationship: What is your relationship to them?
   service:
     name: "Request personal information"

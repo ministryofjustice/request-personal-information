@@ -1,6 +1,9 @@
 module RequestForm
   class SubjectDateOfBirth < Base
-    attr_accessor :date_of_birth
+    include GovUkDateFields::ActsAsGovUkDate
+
+    attribute :date_of_birth
+    acts_as_gov_uk_date :date_of_birth
 
     validates :date_of_birth, presence: {
       message: lambda do |object, data|
