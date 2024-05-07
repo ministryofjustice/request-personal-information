@@ -5,6 +5,7 @@ class RequestsController < ApplicationController
     subject-date-of-birth
     subject-relationship
     solicitor-details
+
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -53,6 +54,8 @@ private
       :date_of_birth_mm,
       :date_of_birth_yyyy,
       :relationship,
+      :organisation_name,
+      :requester_name,
     )
   end
 

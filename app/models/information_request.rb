@@ -1,10 +1,14 @@
 class InformationRequest < ApplicationRecord
   acts_as_gov_uk_date :date_of_birth
 
-  attr_accessor :date_of_birth, :relationship
+  attr_accessor :date_of_birth, :relationship, :organisation_name, :requester_name
 
   def for_self?
     subject == "self"
+  end
+
+  def solicitor_request?
+    relationship == "legal_representative"
   end
 
   def possessive_pronoun
@@ -18,6 +22,8 @@ class InformationRequest < ApplicationRecord
       other_names:,
       date_of_birth:,
       relationship:,
+      organisation_name:,
+      requester_name:,
     }
   end
 end
