@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "subject-date-of-birth" => "requests#show"
   get "subject-relationship" => "requests#show"
   get "solicitor-details" => "requests#show"
+  get "requester-details" => "requests#show"
 
   root to: "pages#homepage"
 

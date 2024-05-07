@@ -19,20 +19,10 @@ RSpec.describe RequestForm::SubjectRelationship, type: :model do
     end
 
     context "when subject is someone else" do
-      context "when requester is a legal representative" do
-        let(:information_request) { instance_double(InformationRequest, for_self?: false, solicitor_request?: true) }
+      let(:information_request) { instance_double(InformationRequest, for_self?: false) }
 
-        it "returns true" do
-          expect(form_object).to be_required
-        end
-      end
-
-      context "when requester is a relative" do
-        let(:information_request) { instance_double(InformationRequest, for_self?: false, solicitor_request?: false) }
-
-        it "returns true" do
-          expect(form_object).to be_required
-        end
+      it "returns false" do
+        expect(form_object).to be_required
       end
     end
   end

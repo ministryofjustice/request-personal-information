@@ -5,7 +5,7 @@ class RequestsController < ApplicationController
     subject-date-of-birth
     subject-relationship
     solicitor-details
-
+    requester-details
   ].freeze
 
   before_action :set_objects, only: %i[update show]

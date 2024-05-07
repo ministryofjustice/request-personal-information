@@ -2,6 +2,10 @@ en:
   activemodel:
     errors:
       models:
+        request_form/requester_details:
+          attributes:
+            requester_name:
+              blank: "Enter your full name"
         request_form/subject:
           attributes:
             subject:
@@ -30,6 +34,7 @@ en:
         date_of_birth: For example, 19 05 2007
 
   request_form:
+    requester_details: Your details
     subject: Are you requesting your own information or on behalf of someone else?
     subject_name:
       self: What is your name?

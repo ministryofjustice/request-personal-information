@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe RequestForm::SolicitorDetails, type: :model do
-  it { is_expected.to validate_presence_of(:organisation_name) }
+RSpec.describe RequestForm::RequesterDetails, type: :model do
+  it { is_expected.to validate_presence_of(:requester_name) }
 
   describe "#required?" do
     subject(:form_object) { described_class.new }
@@ -23,7 +23,7 @@ RSpec.describe RequestForm::SolicitorDetails, type: :model do
         let(:information_request) { instance_double(InformationRequest, for_self?: false, solicitor_request?: true) }
 
         it "returns true" do
-          expect(form_object).to be_required
+          expect(form_object).not_to be_required
         end
       end
 
@@ -31,7 +31,7 @@ RSpec.describe RequestForm::SolicitorDetails, type: :model do
         let(:information_request) { instance_double(InformationRequest, for_self?: false, solicitor_request?: false) }
 
         it "returns true" do
-          expect(form_object).not_to be_required
+          expect(form_object).to be_required
         end
       end
     end

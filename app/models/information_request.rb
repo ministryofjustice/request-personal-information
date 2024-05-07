@@ -8,7 +8,7 @@ class InformationRequest < ApplicationRecord
   end
 
   def solicitor_request?
-    relationship == "legal_representative"
+    !for_self? && relationship == "legal_representative"
   end
 
   def possessive_pronoun
