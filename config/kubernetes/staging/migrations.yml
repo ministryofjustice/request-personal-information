@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: request-personal-information-migrations
+spec:
+  ttlSecondsAfterFinished: 60
+  template:
+    spec:
+      serviceAccountName: request-personal-information
+      containers:
+      - name: migrations
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:staging.latest
+        command: ["./config/docker/entrypoint-migrations.sh"]
+        resources:
+          requests:
+            cpu: 125m
+            memory: 500Mi
+          limits:
+            cpu: 250m
+            memory: 1Gi
+        envFrom:
+          - configMapRef:
+              name: request-personal-information-configmap-staging
+          - secretRef:
+              name: app-secrets
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: rds-postgresql-instance-output
+                key: url
+      restartPolicy: OnFailure

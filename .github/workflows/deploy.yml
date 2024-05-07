@@ -109,6 +109,10 @@ jobs:
 
       - name: Rollout restart deployment
         run: |
-          kubectl set image -n ${KUBE_NAMESPACE} \
-          deployment/request-personal-information-staging \
-          webapp="${{ vars.ECR_URL }}:$SHA"
+          # Apply migrations job config
+          kubectl set image -f config/kubernetes/staging/migrations.yml \
+          migrations="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
+
+          # Apply image specific config
+          kubectl set image -f config/kubernetes/staging/deployment.yml \
+          pending-migrations="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
