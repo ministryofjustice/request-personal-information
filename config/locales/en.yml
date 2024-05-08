@@ -32,6 +32,9 @@ en:
           self: Any other names that your information may be stored under? (optional)
         organisation_name: Name of your organisation
         requester_name: Your full name (optional)
+    legend:
+      request_form:
+        check: Is this upload correct?
     hint:
       request_form:
         other_names: This includes last names, nicknames or aliases
@@ -40,6 +43,7 @@ en:
 
   request_form:
     letter_of_consent: Upload a letter of consent
+    letter_of_consent_check: Check your upload
     requester_details: Your details
     subject: Are you requesting your own information or on behalf of someone else?
     subject_name:

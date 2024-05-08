@@ -7,6 +7,7 @@ class RequestsController < ApplicationController
     solicitor-details
     requester-details
     letter-of-consent
+    letter-of-consent-check
   ].freeze
 
   before_action :set_objects, only: %i[update show]
