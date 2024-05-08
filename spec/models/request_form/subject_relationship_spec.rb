@@ -10,7 +10,7 @@ RSpec.describe RequestForm::SubjectRelationship, type: :model do
       form_object.request = information_request
     end
 
-    context "when subject is the requestor" do
+    context "when subject is the requester" do
       let(:information_request) { instance_double(InformationRequest, for_self?: true) }
 
       it "returns false" do
@@ -21,7 +21,7 @@ RSpec.describe RequestForm::SubjectRelationship, type: :model do
     context "when subject is someone else" do
       let(:information_request) { instance_double(InformationRequest, for_self?: false) }
 
-      it "returns true" do
+      it "returns false" do
         expect(form_object).to be_required
       end
     end

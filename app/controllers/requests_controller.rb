@@ -5,6 +5,7 @@ class RequestsController < ApplicationController
     subject-date-of-birth
     subject-relationship
     solicitor-details
+    requester-details
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -15,7 +16,7 @@ class RequestsController < ApplicationController
   end
 
   def show
-    next_step unless @form.required?
+    next_step(skipping: true) unless @form.required?
   end
 
   def update
@@ -53,6 +54,8 @@ private
       :date_of_birth_mm,
       :date_of_birth_yyyy,
       :relationship,
+      :organisation_name,
+      :requester_name,
     )
   end
 
@@ -62,15 +65,16 @@ private
     session[:history] = ["/"]
   end
 
-  def next_step
-    session[:history] << "/#{session[:current_step]}"
+  def next_step(skipping: false)
+    session[:history] << "/#{session[:current_step]}" unless skipping
     session[:current_step] = STEPS[current_index + 1]
     redirect_to "/#{session[:current_step]}"
   end
 
   def previous_step
-    session[:current_step] = STEPS[current_index - 1]
-    redirect_to session[:history].pop
+    previous = session[:history].pop
+    session[:current_step] = previous.tr("/", "")
+    redirect_to previous
   end
 
   def current_index

@@ -1,9 +1,5 @@
 require "rails_helper"
 
-def set_session(vars = {})
-  post test_session_path, params: { session_vars: vars }
-end
-
 RSpec.describe "Subject", type: :request do
   describe "#new" do
     it "redirects to the subject form" do

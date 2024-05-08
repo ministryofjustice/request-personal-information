@@ -2,6 +2,10 @@ en:
   activemodel:
     errors:
       models:
+        request_form/requester_details:
+          attributes:
+            requester_name:
+              blank: "Enter your full name"
         request_form/subject:
           attributes:
             subject:
@@ -10,6 +14,10 @@ en:
           attributes:
             relationship:
               blank: "Choose if you're a legal representative or a relative, friend or something else"
+        request_form/solicitor_details:
+          attributes:
+            organisation_name:
+              blank: "Enter the name of your organisation"
 
   helpers:
     label:
@@ -18,12 +26,15 @@ en:
         other_names:
           other: Any other names that their information may be stored under? (optional)
           self: Any other names that your information may be stored under? (optional)
+        organisation_name: Name of your organisation
+        requester_name: Your full name (optional)
     hint:
       request_form:
         other_names: This includes last names, nicknames or aliases
         date_of_birth: For example, 19 05 2007
 
   request_form:
+    requester_details: Your details
     subject: Are you requesting your own information or on behalf of someone else?
     subject_name:
       self: What is your name?
@@ -32,5 +43,6 @@ en:
         other: What is their date of birth?
         self: What is your date of birth?
     subject_relationship: What is your relationship to them?
+    solicitor_details: Your details
   service:
     name: "Request personal information"
