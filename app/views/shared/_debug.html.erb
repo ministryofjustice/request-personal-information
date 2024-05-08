@@ -1,0 +1,5 @@
+<%= govuk_details(summary_text: "Session Information") do %>
+  <p class="govuk-body">Request: <%= session[:information_request] %></p>
+  <p class="govuk-body">Current: <%= session[:current_step] %></p>
+  <p class="govuk-body">History: <%= session[:history] %></p>
+<% end %>
