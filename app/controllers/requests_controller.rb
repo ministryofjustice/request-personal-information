@@ -6,6 +6,7 @@ class RequestsController < ApplicationController
     subject-relationship
     solicitor-details
     requester-details
+    letter-of-consent
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -56,6 +57,7 @@ private
       :relationship,
       :organisation_name,
       :requester_name,
+      :letter_of_consent,
     )
   end
 

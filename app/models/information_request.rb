@@ -1,7 +1,7 @@
 class InformationRequest < ApplicationRecord
   acts_as_gov_uk_date :date_of_birth
 
-  attr_accessor :date_of_birth, :relationship, :organisation_name, :requester_name
+  attr_accessor :date_of_birth, :relationship, :organisation_name, :requester_name, :letter_of_consent
 
   def for_self?
     subject == "self"
@@ -24,6 +24,7 @@ class InformationRequest < ApplicationRecord
       relationship:,
       organisation_name:,
       requester_name:,
+      letter_of_consent:,
     }
   end
 end
