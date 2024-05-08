@@ -47,5 +47,7 @@
 
     <%= govuk_footer(meta_items_title: "Support links", meta_items: {
       t("footer.help") => "https://www.gov.uk/help", t("footer.cookie") => "https://www.gov.uk/help/cookies" }) %>
+
+    <%= render "shared/debug" if Rails.env.development? %>
   </body>
 </html>
