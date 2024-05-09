@@ -1,6 +1,7 @@
 module RequestForm
   class LetterOfConsent < Base
-    attr_accessor :letter_of_consent, :default
+    attribute :letter_of_consent
+    attr_accessor :default
 
     validates :letter_of_consent, presence: true
 

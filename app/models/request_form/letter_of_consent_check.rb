@@ -5,7 +5,7 @@ module RequestForm
       "no": "No, I want to choose a different upload",
     }.freeze
 
-    attr_accessor :check, :default
+    attr_accessor :default, :letter_of_consent_check
 
     validates :check, presence: true
 

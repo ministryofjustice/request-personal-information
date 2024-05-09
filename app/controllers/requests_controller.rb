@@ -25,7 +25,7 @@ class RequestsController < ApplicationController
     @form.assign_attributes(request_params)
 
     if @form.valid?
-      @information_request.assign_attributes(request_params)
+      @information_request.assign_attributes(@form.attributes)
       session[:information_request] = @information_request.to_hash
       next_step
     else
