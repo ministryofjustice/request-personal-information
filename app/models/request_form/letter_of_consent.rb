@@ -14,7 +14,7 @@ module RequestForm
       return if letter_of_consent.nil?
 
       if File.size(letter_of_consent) > 7.megabytes
-        errors.add(:letter_of_consent, "File is too large")
+        errors.add(:letter_of_consent, "The selected file must be smaller than 7MB")
       end
     end
   end

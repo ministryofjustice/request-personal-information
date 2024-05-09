@@ -130,7 +130,7 @@ RSpec.describe "Requester", type: :request do
       let(:previous_step) { "/requester-details" }
       let(:next_step) { "/letter-of-consent-check" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
-      let(:invalid_data) { "" }
+      let(:invalid_data) { nil }
 
       before do
         set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])

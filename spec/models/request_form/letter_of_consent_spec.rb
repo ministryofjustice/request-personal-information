@@ -9,11 +9,16 @@ RSpec.describe RequestForm::LetterOfConsent, type: :model do
 
       before do
         allow(File).to receive(:size).and_return(8.megabytes)
+        form_object.letter_of_consent = fixture_file_upload("file.jpg")
       end
 
       it "is not valid" do
-        form_object.letter_of_consent = fixture_file_upload("file.jpg")
         expect(form_object).not_to be_valid
+      end
+
+      it "is has the expected error message" do
+        form_object.valid?
+        expect(form_object.errors.first.message).to eq "The selected file must be smaller than 7MB"
       end
     end
   end
