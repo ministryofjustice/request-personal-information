@@ -20,6 +20,7 @@ spec:
         app: request-personal-information-web-staging
         tier: frontend
     spec:
+      serviceAccountName: request-personal-information
       containers:
       - name: webapp
         image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:staging.latest
