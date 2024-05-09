@@ -43,7 +43,7 @@ en:
       request_form:
         other_names: This includes last names, nicknames or aliases
         date_of_birth: For example, 19 05 2007
-        letter_of_consent: This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template.
+        letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
 
   request_form:
     letter_of_consent: Upload a letter of consent
