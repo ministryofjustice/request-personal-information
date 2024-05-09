@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby File.read(".ruby-version").strip
 
+gem "aws-sdk-s3", require: false
 gem "bootsnap", require: false
 gem "govuk_app_config"
 gem "govuk-components"
@@ -18,6 +19,7 @@ gem "jsbundling-rails"
 gem "sprockets-rails"
 
 group :test do
+  gem "factory_bot_rails"
   gem "rails-controller-testing"
   gem "shoulda-matchers"
   gem "simplecov", require: false

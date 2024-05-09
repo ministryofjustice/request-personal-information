@@ -5,7 +5,7 @@ module RequestForm
     include ActiveModel::Validations
     extend ActiveModel::Callbacks
 
-    attr_accessor :request
+    attr_accessor :request, :back
 
     # This will allow subclasses to define after_initialize callbacks
     # and is needed for some functionality to work, i.e. acts_as_gov_uk_date

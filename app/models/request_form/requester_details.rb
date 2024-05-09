@@ -1,6 +1,6 @@
 module RequestForm
   class RequesterDetails < Base
-    attr_accessor :requester_name
+    attribute :requester_name, :string
 
     validates :requester_name, presence: true
 

@@ -1,0 +1,4 @@
+<%= govuk_panel(text: Attachment.find(@information_request.letter_of_consent_id).to_s, html_attributes: { style: "background: #1d70b8; text-align: left" }) %>
+
+<%= f.govuk_collection_radio_buttons :letter_of_consent_check, @form.class::OPTIONS, :first, :second %>
+<%= f.hidden_field :default %>

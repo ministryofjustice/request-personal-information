@@ -5,7 +5,8 @@ module RequestForm
       "other": "Someone else's",
     }.freeze
 
-    attr_accessor :subject, :default
+    attribute :subject, :string
+    attr_accessor :default
 
     validates :subject, presence: true
   end

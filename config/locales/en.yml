@@ -2,6 +2,14 @@ en:
   activemodel:
     errors:
       models:
+        request_form/letter_of_consent:
+          attributes:
+            letter_of_consent:
+              blank: Choose a file to upload
+        request_form/letter_of_consent_check:
+          attributes:
+            letter_of_consent_check:
+              blank: Enter an answer for if this upload is correct
         request_form/requester_details:
           attributes:
             requester_name:
@@ -28,12 +36,18 @@ en:
           self: Any other names that your information may be stored under? (optional)
         organisation_name: Name of your organisation
         requester_name: Your full name (optional)
+    legend:
+      request_form:
+        letter_of_consent_check: Is this upload correct?
     hint:
       request_form:
         other_names: This includes last names, nicknames or aliases
         date_of_birth: For example, 19 05 2007
+        letter_of_consent: This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template.
 
   request_form:
+    letter_of_consent: Upload a letter of consent
+    letter_of_consent_check: Check your upload
     requester_details: Your details
     subject: Are you requesting your own information or on behalf of someone else?
     subject_name:

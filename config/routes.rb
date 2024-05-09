@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get "subject-relationship" => "requests#show"
   get "solicitor-details" => "requests#show"
   get "requester-details" => "requests#show"
+  get "letter-of-consent" => "requests#show"
+  get "letter-of-consent-check" => "requests#show"
 
   root to: "pages#homepage"
 

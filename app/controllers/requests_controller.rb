@@ -6,6 +6,8 @@ class RequestsController < ApplicationController
     subject-relationship
     solicitor-details
     requester-details
+    letter-of-consent
+    letter-of-consent-check
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -23,9 +25,9 @@ class RequestsController < ApplicationController
     @form.assign_attributes(request_params)
 
     if @form.valid?
-      @information_request.assign_attributes(request_params)
+      @information_request.assign_attributes(@form.attributes)
       session[:information_request] = @information_request.to_hash
-      next_step
+      @form.back.nil? ? next_step : previous_step
     else
       render :show
     end
@@ -56,6 +58,8 @@ private
       :relationship,
       :organisation_name,
       :requester_name,
+      :letter_of_consent,
+      :letter_of_consent_check,
     )
   end
 

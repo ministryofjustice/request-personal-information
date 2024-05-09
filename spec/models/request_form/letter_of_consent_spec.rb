@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe RequestForm::SubjectRelationship, type: :model do
-  it { is_expected.to validate_presence_of(:relationship) }
+RSpec.describe RequestForm::LetterOfConsent, type: :model do
+  it { is_expected.to validate_presence_of(:letter_of_consent) }
 
   describe "#required?" do
     subject(:form_object) { described_class.new }

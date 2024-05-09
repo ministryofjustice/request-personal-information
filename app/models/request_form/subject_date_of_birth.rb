@@ -2,7 +2,7 @@ module RequestForm
   class SubjectDateOfBirth < Base
     include GovUkDateFields::ActsAsGovUkDate
 
-    attribute :date_of_birth
+    attribute :date_of_birth, :date
     acts_as_gov_uk_date :date_of_birth
 
     validates :date_of_birth, presence: {

@@ -1,6 +1,7 @@
 module RequestForm
   class SolicitorDetails < Base
-    attr_accessor :organisation_name, :requester_name
+    attribute :organisation_name, :string
+    attribute :requester_name, :string
 
     validates :organisation_name, presence: true
 
