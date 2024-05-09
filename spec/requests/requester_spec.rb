@@ -12,7 +12,7 @@ RSpec.describe "Requester", type: :request do
     end
 
     context "when session in progress" do
-      let(:information_request) { InformationRequest.new(subject: "other", relationship: "legal_representative") }
+      let(:information_request) { build(:information_request_by_solicitor) }
       let(:previous_step) { "/subject-relationship" }
       let(:next_step) { "/requester-details" }
       let(:valid_data) { "organisation name" }
@@ -69,7 +69,7 @@ RSpec.describe "Requester", type: :request do
     end
 
     context "when session in progress" do
-      let(:information_request) { InformationRequest.new(subject: "other", relationship: "other") }
+      let(:information_request) { build(:information_request_for_other) }
       let(:previous_step) { "/subject-relationship" }
       let(:next_step) { "/letter-of-consent" }
       let(:valid_data) { "requester name" }
@@ -128,7 +128,7 @@ RSpec.describe "Requester", type: :request do
     context "when session in progress" do
       let(:information_request) { InformationRequest.new(subject: "other", relationship: "other") }
       let(:previous_step) { "/requester-details" }
-      let(:next_step) { "/" }
+      let(:next_step) { "/letter-of-consent-check" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { "" }
 
@@ -157,9 +157,68 @@ RSpec.describe "Requester", type: :request do
           expect(response).to redirect_to(next_step)
         end
 
-        it "saves the value to the session" do
+        it "saves the associated ID to the session" do
           patch "/request", params: { request_form: { letter_of_consent: valid_data } }
-          expect(request.session[:information_request][:letter_of_consent]).to be_a ActionDispatch::Http::UploadedFile
+          expect(request.session[:information_request][:letter_of_consent_id]).to be_an Integer
+        end
+      end
+
+      context "when going back" do
+        it "goes to previous step" do
+          get("/request/back")
+          expect(response).to redirect_to(previous_step)
+        end
+      end
+    end
+  end
+
+  describe "/letter-of-consent-check" do
+    let(:current_step) { "letter-of-consent-check" }
+
+    context "when session not in progress" do
+      it "redirects to the homepage" do
+        get "/#{current_step}"
+        expect(response).to redirect_to("/")
+      end
+    end
+
+    context "when session in progress" do
+      let(:information_request) { build(:information_request_with_consent) }
+      let(:previous_step) { "/letter-of-consent" }
+      let(:next_step) { "/" }
+      let(:valid_data) { "yes" }
+      let(:invalid_data) { "" }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the requester details page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("Check your upload")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { letter_of_consent_check: invalid_data } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter an answer for if this upload is correct")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { letter_of_consent_check: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+      end
+
+      context "when the user wants to change the upload" do
+        it "goes to previous step" do
+          patch "/request", params: { request_form: { letter_of_consent_check: "no" } }
+          expect(response).to redirect_to(previous_step)
         end
       end
 

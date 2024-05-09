@@ -18,9 +18,14 @@ FactoryBot.define do
       relationship { "other" }
     end
 
-    factory :information_request_for_self, traits: [:for_self]
-    factory :information_request_for_other, traits: [:for_other]
-    factory :information_request_by_solicitor, traits: [:for_other, :by_solicitor]
-    factory :information_request_by_friend, traits: [:for_other, :by_friend]
+    trait :with_consent do
+      letter_of_consent { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
+    end
+
+    factory :information_request_for_self, traits: %i[for_self]
+    factory :information_request_for_other, traits: %i[for_other]
+    factory :information_request_by_solicitor, traits: %i[for_other by_solicitor]
+    factory :information_request_by_friend, traits: %i[for_other by_friend]
+    factory :information_request_with_consent, traits: %i[for_other with_consent]
   end
 end

@@ -76,7 +76,6 @@ RSpec.describe "Subject", type: :request do
     end
 
     context "when session in progress" do
-      let(:information_request) { InformationRequest.new(subject:) }
       let(:previous_step) { "/subject" }
       let(:next_step) { "/subject-date-of-birth" }
       let(:valid_data) { "subject name" }
@@ -88,7 +87,7 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting own data" do
-        let(:subject) { "self" }
+        let(:information_request) { build(:information_request_for_self) }
 
         it "renders the subject-name page" do
           expect(response).to render_template(:show)
@@ -125,7 +124,7 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting someone else's data" do
-        let(:subject) { "other" }
+        let(:information_request) { build(:information_request_for_other) }
 
         it "renders the subject-name page" do
           expect(response).to render_template(:show)
@@ -155,7 +154,6 @@ RSpec.describe "Subject", type: :request do
     end
 
     context "when session in progress" do
-      let(:information_request) { InformationRequest.new(subject:) }
       let(:previous_step) { "/subject-name" }
       let(:next_step) { "/subject-relationship" }
       let(:invalid_data) { nil }
@@ -167,7 +165,7 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting own data" do
-        let(:subject) { "self" }
+        let(:information_request) { build(:information_request_for_self) }
 
         it "renders the subject-date-of-birth page" do
           expect(response).to render_template(:show)
@@ -204,7 +202,7 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting someone else's data" do
-        let(:subject) { "other" }
+        let(:information_request) { build(:information_request_for_other) }
 
         it "renders the subject-date-of-birth page" do
           expect(response).to render_template(:show)
@@ -234,7 +232,6 @@ RSpec.describe "Subject", type: :request do
     end
 
     context "when session in progress" do
-      let(:information_request) { InformationRequest.new(subject:) }
       let(:previous_step) { "/subject-date-of-birth" }
       let(:next_step) { "/solicitor-details" }
       let(:valid_data) { "other" }
@@ -246,7 +243,7 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting own data" do
-        let(:subject) { "self" }
+        let(:information_request) { build(:information_request_for_self) }
 
         it "skips this page" do
           expect(response).to redirect_to(next_step)
@@ -254,7 +251,7 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting someone else's data" do
-        let(:subject) { "other" }
+        let(:information_request) { build(:information_request_for_other) }
 
         it "renders the subject-relationship page" do
           expect(response).to render_template(:show)
