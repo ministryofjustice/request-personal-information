@@ -27,7 +27,7 @@ class RequestsController < ApplicationController
     if @form.valid?
       @information_request.assign_attributes(@form.attributes)
       session[:information_request] = @information_request.to_hash
-      next_step
+      @form.back.nil? ? next_step : previous_step
     else
       render :show
     end
@@ -59,6 +59,7 @@ private
       :organisation_name,
       :requester_name,
       :letter_of_consent,
+      :letter_of_consent_check,
     )
   end
 

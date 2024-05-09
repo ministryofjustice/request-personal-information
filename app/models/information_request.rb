@@ -18,7 +18,7 @@ class InformationRequest < ApplicationRecord
   end
 
   def letter_of_consent=(file)
-    file_object = Attachment.create(file:, key: "letter_of_consent")
+    file_object = Attachment.create!(file:, key: "letter_of_consent")
     self.letter_of_consent_id = file_object.id
   end
 

@@ -6,6 +6,10 @@ en:
           attributes:
             letter_of_consent:
               blank: Choose a file to upload
+        request_form/letter_of_consent_check:
+          attributes:
+            letter_of_consent_check:
+              blank: Enter an answer for if this upload is correct
         request_form/requester_details:
           attributes:
             requester_name:
@@ -34,7 +38,7 @@ en:
         requester_name: Your full name (optional)
     legend:
       request_form:
-        check: Is this upload correct?
+        letter_of_consent_check: Is this upload correct?
     hint:
       request_form:
         other_names: This includes last names, nicknames or aliases
