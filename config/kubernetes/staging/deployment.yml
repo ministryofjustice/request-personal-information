@@ -20,6 +20,7 @@ spec:
         app: request-personal-information-web-staging
         tier: frontend
     spec:
+      serviceAccountName: request-personal-information
       containers:
       - name: webapp
         image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:staging.latest
@@ -68,10 +69,10 @@ spec:
                 name: rds-postgresql-instance-output
                 key: url
           - name: S3_BUCKET
-          valueFrom:
-            secretKeyRef:
-              name: s3-bucket-output
-              key: bucket_name
+            valueFrom:
+              secretKeyRef:
+                name: s3-bucket-output
+                key: bucket_name
       initContainers:
         - name: pending-migrations
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:staging.latest

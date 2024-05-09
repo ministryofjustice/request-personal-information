@@ -3,6 +3,26 @@ require "rails_helper"
 RSpec.describe RequestForm::LetterOfConsent, type: :model do
   it { is_expected.to validate_presence_of(:letter_of_consent) }
 
+  describe "validation" do
+    context "when file is > 7MB" do
+      subject(:form_object) { described_class.new }
+
+      before do
+        allow(File).to receive(:size).and_return(8.megabytes)
+        form_object.letter_of_consent = fixture_file_upload("file.jpg")
+      end
+
+      it "is not valid" do
+        expect(form_object).not_to be_valid
+      end
+
+      it "is has the expected error message" do
+        form_object.valid?
+        expect(form_object.errors.first.message).to eq "The selected file must be smaller than 7MB"
+      end
+    end
+  end
+
   describe "#required?" do
     subject(:form_object) { described_class.new }
 
