@@ -18,7 +18,7 @@ RSpec.describe RequestForm::LetterOfConsent, type: :model do
 
       it "is has the expected error message" do
         form_object.valid?
-        expect(form_object.errors.first.message).to eq "The selected file must be smaller than 7MB"
+        expect(form_object.errors.first.message).to eq "The selected file must be smaller than 7 MB"
       end
     end
   end

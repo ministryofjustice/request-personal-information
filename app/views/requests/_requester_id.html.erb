@@ -1,0 +1,7 @@
+<p class="govuk-body-l">You must upload both proof of your ID and your address.
+
+<p class="govuk-body">These can be a photograph, scan or photocopy of the original document.
+
+<%= f.govuk_file_field :requester_photo, label: { size: "m" } %>
+<%= f.govuk_file_field :requester_proof_of_address, label: { size: "m" }  %>
+<%= f.hidden_field :default %>
