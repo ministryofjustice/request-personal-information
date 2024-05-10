@@ -20,6 +20,10 @@ en:
               blank: "Add a file for Photo ID"
             requester_proof_of_address:
               blank: "Add a file for Proof of address"
+        request_form/requester_id_check:
+          attributes:
+            requester_id_check:
+              blank: Enter an answer for if these upload is correct
         request_form/subject:
           attributes:
             subject:
@@ -47,6 +51,7 @@ en:
     legend:
       request_form:
         letter_of_consent_check: Is this upload correct?
+        requester_id_check: Are these uploads correct?
     hint:
       request_form:
         other_names: This includes last names, nicknames or aliases
@@ -60,6 +65,7 @@ en:
     letter_of_consent_check: Check your upload
     requester_details: Your details
     requester_id: Upload your ID
+    requester_id_check: Check your upload
     subject: Are you requesting your own information or on behalf of someone else?
     subject_name:
       self: What is your name?
