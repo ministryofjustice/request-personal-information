@@ -3,8 +3,6 @@ require "rails_helper"
 RSpec.describe RequestForm::RequesterIdCheck, type: :model do
   it_behaves_like "question for friend or family of subject"
 
-  it { is_expected.to validate_presence_of(:requester_id_check) }
-
   describe "validation" do
     subject(:form_object) { described_class.new(requester_id_check: check) }
 
@@ -15,6 +13,8 @@ RSpec.describe RequestForm::RequesterIdCheck, type: :model do
     before do
       form_object.request = information_request
     end
+
+    it { is_expected.to validate_presence_of(:requester_id_check) }
 
     context "when upload is correct" do
       let(:check) { "yes" }

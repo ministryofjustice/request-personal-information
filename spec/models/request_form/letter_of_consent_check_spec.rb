@@ -3,8 +3,6 @@ require "rails_helper"
 RSpec.describe RequestForm::LetterOfConsentCheck, type: :model do
   it_behaves_like "question when requester is not the subject"
 
-  it { is_expected.to validate_presence_of(:letter_of_consent_check) }
-
   describe "validation" do
     subject(:form_object) { described_class.new(letter_of_consent_check: check) }
 
@@ -14,6 +12,8 @@ RSpec.describe RequestForm::LetterOfConsentCheck, type: :model do
     before do
       form_object.request = information_request
     end
+
+    it { is_expected.to validate_presence_of(:letter_of_consent_check) }
 
     context "when upload is correct" do
       let(:check) { "yes" }
