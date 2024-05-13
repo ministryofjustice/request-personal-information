@@ -8,6 +8,8 @@ class RequestsController < ApplicationController
     requester-details
     letter-of-consent
     letter-of-consent-check
+    requester-id
+    requester-id-check
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -52,14 +54,15 @@ private
       :subject,
       :full_name,
       :other_names,
-      :date_of_birth_dd,
-      :date_of_birth_mm,
-      :date_of_birth_yyyy,
+      :date_of_birth,
       :relationship,
       :organisation_name,
       :requester_name,
       :letter_of_consent,
       :letter_of_consent_check,
+      :requester_photo,
+      :requester_proof_of_address,
+      :requester_id_check,
     )
   end
 

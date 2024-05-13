@@ -146,8 +146,6 @@ GEM
     google-protobuf (3.25.3-x86_64-linux)
     googleapis-common-protos-types (1.14.0)
       google-protobuf (~> 3.18)
-    gov_uk_date_fields (4.2.0)
-      rails (>= 5.2)
     govuk-components (5.3.2)
       html-attributes-utils (~> 1.0.0, >= 1.0.0)
       pagy (>= 6, < 8)
@@ -624,7 +622,6 @@ DEPENDENCIES
   dartsass-rails (~> 0.5.0)
   debug
   factory_bot_rails
-  gov_uk_date_fields
   govuk-components
   govuk_app_config
   govuk_design_system_formbuilder

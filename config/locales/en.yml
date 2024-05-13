@@ -14,6 +14,16 @@ en:
           attributes:
             requester_name:
               blank: "Enter your full name"
+        request_form/requester_id:
+          attributes:
+            requester_photo:
+              blank: "Add a file for Photo ID"
+            requester_proof_of_address:
+              blank: "Add a file for Proof of address"
+        request_form/requester_id_check:
+          attributes:
+            requester_id_check:
+              blank: Enter an answer for if these upload is correct
         request_form/subject:
           attributes:
             subject:
@@ -36,19 +46,26 @@ en:
           self: Any other names that your information may be stored under? (optional)
         organisation_name: Name of your organisation
         requester_name: Your full name (optional)
+        requester_photo: Photo ID
+        requester_proof_of_address: Proof of address
     legend:
       request_form:
         letter_of_consent_check: Is this upload correct?
+        requester_id_check: Are these uploads correct?
     hint:
       request_form:
         other_names: This includes last names, nicknames or aliases
         date_of_birth: For example, 19 05 2007
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
+        requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
+        requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
 
   request_form:
     letter_of_consent: Upload a letter of consent
     letter_of_consent_check: Check your upload
     requester_details: Your details
+    requester_id: Upload your ID
+    requester_id_check: Check your upload
     subject: Are you requesting your own information or on behalf of someone else?
     subject_name:
       self: What is your name?

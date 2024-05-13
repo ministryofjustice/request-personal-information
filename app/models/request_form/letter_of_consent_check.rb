@@ -10,16 +10,19 @@ module RequestForm
     validates :letter_of_consent_check, presence: true
     validate :check_value
 
+    def required?
+      !request.for_self?
+    end
+
+  private
+
     def check_value
       if letter_of_consent_check == "no"
         attachment = Attachment.find(request.letter_of_consent_id)
         attachment.destroy!
+        request.letter_of_consent_id = nil
         self.back = true
       end
-    end
-
-    def required?
-      !request.for_self?
     end
   end
 end
