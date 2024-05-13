@@ -1,6 +1,4 @@
 class InformationRequest < ApplicationRecord
-  acts_as_gov_uk_date :date_of_birth
-
   attr_accessor :date_of_birth, :relationship, :organisation_name, :requester_name,
                 :letter_of_consent_id, :requester_photo_id, :requester_proof_of_address_id
 

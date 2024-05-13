@@ -157,7 +157,7 @@ RSpec.describe "Subject", type: :request do
       let(:previous_step) { "/subject-name" }
       let(:next_step) { "/subject-relationship" }
       let(:invalid_data) { nil }
-      let(:valid_data) { { date_of_birth_dd: 19, date_of_birth_mm: 5, date_of_birth_yyyy: 2007 } }
+      let(:valid_data) { { "date_of_birth(3i)": "19", "date_of_birth(2i)": "5", "date_of_birth(1i)": "2007" } }
 
       before do
         set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
