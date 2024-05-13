@@ -303,7 +303,7 @@ RSpec.describe "Requester", type: :request do
     context "when session in progress" do
       let(:information_request) { build(:information_request_with_requester_id) }
       let(:previous_step) { "/requester-id" }
-      let(:next_step) { "/" }
+      let(:next_step) { "/subject-id" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 
@@ -322,7 +322,7 @@ RSpec.describe "Requester", type: :request do
           patch "/request", params: { request_form: { requester_id_check: invalid_data } }
           expect(response).to render_template(:show)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter an answer for if these upload is correct")
+          expect(response.body).to include("Enter an answer for if these uploads are correct")
         end
       end
 
