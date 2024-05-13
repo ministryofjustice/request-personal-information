@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe RequestForm::LetterOfConsentCheck, type: :model do
+  it_behaves_like "question when requester is not the subject"
+
   it { is_expected.to validate_presence_of(:letter_of_consent_check) }
 
   describe "validation" do
@@ -38,30 +40,6 @@ RSpec.describe RequestForm::LetterOfConsentCheck, type: :model do
       it "changes back value" do
         form_object.valid?
         expect(form_object.back).to eq true
-      end
-    end
-  end
-
-  describe "#required?" do
-    subject(:form_object) { described_class.new }
-
-    before do
-      form_object.request = information_request
-    end
-
-    context "when subject is the requester" do
-      let(:information_request) { instance_double(InformationRequest, for_self?: true) }
-
-      it "returns false" do
-        expect(form_object).not_to be_required
-      end
-    end
-
-    context "when subject is someone else" do
-      let(:information_request) { instance_double(InformationRequest, for_self?: false) }
-
-      it "returns false" do
-        expect(form_object).to be_required
       end
     end
   end

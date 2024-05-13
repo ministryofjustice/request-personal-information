@@ -1,10 +1,13 @@
 class InformationRequest < ApplicationRecord
   attr_accessor :date_of_birth, :relationship, :organisation_name, :requester_name,
-                :letter_of_consent_id, :requester_photo_id, :requester_proof_of_address_id
+                :letter_of_consent_id, :requester_photo_id, :requester_proof_of_address_id,
+                :subject_photo_id, :subject_proof_of_address_id
 
   belongs_to :letter_of_consent, class_name: "Attachment"
   belongs_to :requester_photo, class_name: "Attachment"
   belongs_to :requester_proof_of_address, class_name: "Attachment"
+  belongs_to :subject_photo, class_name: "Attachment"
+  belongs_to :subject_proof_of_address, class_name: "Attachment"
 
   def for_self?
     subject == "self"
@@ -33,6 +36,16 @@ class InformationRequest < ApplicationRecord
     self.requester_proof_of_address_id = file_object.id
   end
 
+  def subject_photo=(file)
+    file_object = Attachment.create!(file:, key: "subject_photo")
+    self.subject_photo_id = file_object.id
+  end
+
+  def subject_proof_of_address=(file)
+    file_object = Attachment.create!(file:, key: "subject_proof_of_address")
+    self.subject_proof_of_address_id = file_object.id
+  end
+
   def to_hash
     {
       subject:,
@@ -45,6 +58,8 @@ class InformationRequest < ApplicationRecord
       letter_of_consent_id:,
       requester_photo_id:,
       requester_proof_of_address_id:,
+      subject_photo_id:,
+      subject_proof_of_address_id:,
     }
   end
 end
