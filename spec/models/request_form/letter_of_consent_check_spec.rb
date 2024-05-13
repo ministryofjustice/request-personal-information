@@ -6,6 +6,7 @@ RSpec.describe RequestForm::LetterOfConsentCheck, type: :model do
   describe "validation" do
     subject(:form_object) { described_class.new(letter_of_consent_check: check) }
 
+    let(:check) { "yes" }
     let(:attachment) { create(:attachment) }
     let(:information_request) { build(:information_request, letter_of_consent_id: attachment.id) }
 

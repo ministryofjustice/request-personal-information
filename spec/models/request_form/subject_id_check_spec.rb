@@ -6,6 +6,7 @@ RSpec.describe RequestForm::SubjectIdCheck, type: :model do
   describe "validation" do
     subject(:form_object) { described_class.new(subject_id_check: check) }
 
+    let(:check) { "yes" }
     let(:attachment_photo) { create(:attachment, key: "subject_photo") }
     let(:attachment_address) { create(:attachment, key: "subject_proof_of_address") }
     let(:information_request) { build(:information_request, subject_photo_id: attachment_photo.id, subject_proof_of_address_id: attachment_address.id) }
