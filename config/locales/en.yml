@@ -36,7 +36,7 @@ en:
               blank: "Add a file for Proof of address"
         request_form/subject_id_check:
           attributes:
-            subjectid_check:
+            subject_id_check:
               blank: Enter an answer for if these uploads are correct
         request_form/subject_relationship:
           attributes:
