@@ -78,6 +78,7 @@ RSpec.shared_examples("file upload") do |attribute|
       context "when file is being uploaded" do
         it "includes file, but no ID" do
           form_object.send("#{attribute}=", "exists")
+          form_object.send("#{attribute}_id=", 1)
           expect(form_object.saveable_attributes.keys).to include attribute.to_s
           expect(form_object.saveable_attributes.keys).not_to include "#{attribute}_id"
         end
