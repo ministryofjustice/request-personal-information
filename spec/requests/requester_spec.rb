@@ -117,6 +117,7 @@ RSpec.describe "Requester", type: :request do
 
   describe "/letter-of-consent" do
     let(:current_step) { "letter-of-consent" }
+    let(:next_step) { "/letter-of-consent-check" }
 
     context "when session not in progress" do
       it "redirects to the homepage" do
@@ -128,7 +129,6 @@ RSpec.describe "Requester", type: :request do
     context "when session in progress" do
       let(:information_request) { InformationRequest.new(subject: "other", relationship: "other") }
       let(:previous_step) { "/requester-details" }
-      let(:next_step) { "/letter-of-consent-check" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
@@ -168,6 +168,21 @@ RSpec.describe "Requester", type: :request do
           get("/request/back")
           expect(response).to redirect_to(previous_step)
         end
+      end
+    end
+
+    context "when returning to page" do
+      let(:letter_of_consent) { create(:attachment) }
+      let(:information_request) { build(:information_request_for_other, letter_of_consent_id: letter_of_consent.id) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [])
+        get "/#{current_step}"
+      end
+
+      it "doesn't require repeat upload" do
+        patch "/request", params: { request_form: { letter_of_consent_id: letter_of_consent.id } }
+        expect(response).to redirect_to(next_step)
       end
     end
   end
@@ -233,6 +248,7 @@ RSpec.describe "Requester", type: :request do
 
   describe "/requester-id" do
     let(:current_step) { "requester-id" }
+    let(:next_step) { "/requester-id-check" }
 
     context "when session not in progress" do
       it "redirects to the homepage" do
@@ -244,7 +260,6 @@ RSpec.describe "Requester", type: :request do
     context "when session in progress" do
       let(:information_request) { InformationRequest.new(subject: "other", relationship: "other") }
       let(:previous_step) { "/letter-of-consent" }
-      let(:next_step) { "/requester-id-check" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
@@ -286,6 +301,22 @@ RSpec.describe "Requester", type: :request do
           get("/request/back")
           expect(response).to redirect_to(previous_step)
         end
+      end
+    end
+
+    context "when returning to page" do
+      let(:photo_upload) { create(:attachment) }
+      let(:address_upload) { create(:attachment) }
+      let(:information_request) { InformationRequest.new(subject: "other", relationship: "other", requester_photo_id: photo_upload.id, requester_proof_of_address_id: address_upload.id) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [])
+        get "/#{current_step}"
+      end
+
+      it "doesn't require repeat upload" do
+        patch "/request", params: { request_form: { requester_photo_id: photo_upload.id, requester_proof_of_address_id: address_upload.id } }
+        expect(response).to redirect_to(next_step)
       end
     end
   end
