@@ -80,6 +80,12 @@ RSpec.shared_examples("file upload") do |attribute|
   end
 end
 
+RSpec.shared_examples("question for everyone") do
+  describe "#required?" do
+    it { is_expected.to be_required }
+  end
+end
+
 RSpec.shared_examples("question when requester is not the subject") do
   describe "#required?" do
     subject(:form_object) { described_class.new }
@@ -210,6 +216,16 @@ RSpec.shared_examples("question when requester is not a solicitor") do
           expect(form_object).to be_required
         end
       end
+    end
+  end
+end
+
+RSpec.shared_examples("question with standard saveable attributes") do
+  subject(:form_object) { described_class.new }
+
+  describe "#saveable_attributes" do
+    it "matches attributes" do
+      expect(form_object.saveable_attributes).to eq form_object.attributes
     end
   end
 end
