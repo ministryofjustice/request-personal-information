@@ -1,7 +1,7 @@
 module RequestForm
   class SubjectRelationship < Base
     OPTIONS = {
-      "legal_representative": "Legal Representative",
+      "legal_representative": "Legal representative",
       "other": "Relative, friend or something else",
     }.freeze
 

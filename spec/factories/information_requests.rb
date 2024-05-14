@@ -27,11 +27,17 @@ FactoryBot.define do
       requester_proof_of_address { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
     end
 
+    trait :with_subject_id do
+      subject_photo { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
+      subject_proof_of_address { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
+    end
+
     factory :information_request_for_self, traits: %i[for_self]
     factory :information_request_for_other, traits: %i[for_other]
     factory :information_request_by_solicitor, traits: %i[for_other by_solicitor]
     factory :information_request_by_friend, traits: %i[for_other by_friend]
     factory :information_request_with_consent, traits: %i[for_other with_consent]
     factory :information_request_with_requester_id, traits: %i[for_other with_requester_id]
+    factory :information_request_with_subject_id, traits: %i[for_other with_subject_id]
   end
 end
