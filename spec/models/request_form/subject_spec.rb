@@ -1,9 +1,8 @@
 require "rails_helper"
 
 RSpec.describe RequestForm::Subject, type: :model do
-  it { is_expected.to validate_presence_of(:subject) }
+  it_behaves_like "question for everyone"
+  it_behaves_like "question with standard saveable attributes"
 
-  describe "#required?" do
-    it { is_expected.to be_required }
-  end
+  it { is_expected.to validate_presence_of(:subject) }
 end

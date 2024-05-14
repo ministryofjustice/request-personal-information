@@ -291,6 +291,7 @@ RSpec.describe "Subject", type: :request do
 
   describe "/subject-id" do
     let(:current_step) { "subject-id" }
+    let(:next_step) { "/subject-id-check" }
 
     context "when session not in progress" do
       it "redirects to the homepage" do
@@ -302,7 +303,6 @@ RSpec.describe "Subject", type: :request do
     context "when session in progress" do
       let(:information_request) { InformationRequest.new(subject: "other", relationship: "other") }
       let(:previous_step) { "/requester-id" }
-      let(:next_step) { "/subject-id-check" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
@@ -344,6 +344,22 @@ RSpec.describe "Subject", type: :request do
           get("/request/back")
           expect(response).to redirect_to(previous_step)
         end
+      end
+    end
+
+    context "when returning to page" do
+      let(:photo_upload) { create(:attachment) }
+      let(:address_upload) { create(:attachment) }
+      let(:information_request) { InformationRequest.new(subject: "other", relationship: "other", subject_photo_id: photo_upload.id, subject_proof_of_address_id: address_upload.id) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [])
+        get "/#{current_step}"
+      end
+
+      it "doesn't require repeat upload" do
+        patch "/request", params: { request_form: { subject_photo_id: photo_upload.id, subject_proof_of_address_id: address_upload.id } }
+        expect(response).to redirect_to(next_step)
       end
     end
   end

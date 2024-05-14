@@ -21,7 +21,7 @@ RSpec.shared_examples("validated attribute with custom message") do |attribute, 
   end
 end
 
-RSpec.shared_examples("file upload with max filesize validation") do |attribute|
+RSpec.shared_examples("file upload") do |attribute|
   describe "validation" do
     it { is_expected.to validate_presence_of(attribute) }
 
@@ -42,6 +42,54 @@ RSpec.shared_examples("file upload with max filesize validation") do |attribute|
         expect(form_object.errors.messages[attribute].first).to eq "The selected file must be smaller than 7 MB"
       end
     end
+
+    context "when file was previously uploaded" do
+      subject(:form_object) { described_class.new }
+
+      let(:upload) { create(:attachment) }
+
+      before do
+        form_object.send("#{attribute}_id=", upload.id)
+      end
+
+      it "is valid" do
+        expect(form_object.errors.messages[attribute]).to be_empty
+      end
+    end
+
+    describe "#saveable_attributes" do
+      subject(:form_object) { described_class.new }
+
+      context "when file was previously uploaded" do
+        it "includes the upload id only" do
+          form_object.send("#{attribute}_id=", 1)
+          expect(form_object.saveable_attributes.keys).to include "#{attribute}_id"
+          expect(form_object.saveable_attributes.keys).not_to include attribute.to_s
+        end
+      end
+
+      context "when there is no upload" do
+        it "does not include any upload attribute" do
+          expect(form_object.saveable_attributes.keys).not_to include attribute.to_s
+          expect(form_object.saveable_attributes.keys).not_to include "#{attribute}_id"
+        end
+      end
+
+      context "when file is being uploaded" do
+        it "includes file, but no ID" do
+          form_object.send("#{attribute}=", "exists")
+          form_object.send("#{attribute}_id=", 1)
+          expect(form_object.saveable_attributes.keys).to include attribute.to_s
+          expect(form_object.saveable_attributes.keys).not_to include "#{attribute}_id"
+        end
+      end
+    end
+  end
+end
+
+RSpec.shared_examples("question for everyone") do
+  describe "#required?" do
+    it { is_expected.to be_required }
   end
 end
 
@@ -175,6 +223,16 @@ RSpec.shared_examples("question when requester is not a solicitor") do
           expect(form_object).to be_required
         end
       end
+    end
+  end
+end
+
+RSpec.shared_examples("question with standard saveable attributes") do
+  subject(:form_object) { described_class.new }
+
+  describe "#saveable_attributes" do
+    it "matches attributes" do
+      expect(form_object.saveable_attributes).to eq form_object.attributes
     end
   end
 end
