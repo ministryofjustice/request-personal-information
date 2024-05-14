@@ -23,11 +23,21 @@ en:
         request_form/requester_id_check:
           attributes:
             requester_id_check:
-              blank: Enter an answer for if these upload is correct
+              blank: Enter an answer for if these uploads are correct
         request_form/subject:
           attributes:
             subject:
               blank: "Choose if you're requesting information for yourself or for someone else"
+        request_form/subject_id:
+          attributes:
+            subject_photo:
+              blank: "Add a file for Photo ID"
+            subject_proof_of_address:
+              blank: "Add a file for Proof of address"
+        request_form/subject_id_check:
+          attributes:
+            subject_id_check:
+              blank: Enter an answer for if these uploads are correct
         request_form/subject_relationship:
           attributes:
             relationship:
@@ -48,10 +58,13 @@ en:
         requester_name: Your full name (optional)
         requester_photo: Photo ID
         requester_proof_of_address: Proof of address
+        subject_photo: Photo ID
+        subject_proof_of_address: Proof of address
     legend:
       request_form:
         letter_of_consent_check: Is this upload correct?
         requester_id_check: Are these uploads correct?
+        subject_id_check: Are these uploads correct?
     hint:
       request_form:
         other_names: This includes last names, nicknames or aliases
@@ -59,6 +72,8 @@ en:
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
         requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
+        subject_photo: "For example, a copy of their driving licence or passport. Maximum size: 7MB per file"
+        subject_proof_of_address: "For example an electricity or council tax bill in their name and it must be dated within the last 6 months. Maximum file size 7MB"
 
   request_form:
     letter_of_consent: Upload a letter of consent
@@ -66,14 +81,16 @@ en:
     requester_details: Your details
     requester_id: Upload your ID
     requester_id_check: Check your upload
+    solicitor_details: Your details
     subject: Are you requesting your own information or on behalf of someone else?
-    subject_name:
-      self: What is your name?
-      other: What is their name?
     subject_date_of_birth:
         other: What is their date of birth?
         self: What is your date of birth?
+    subject_id: Upload their ID
+    subject_id_check: Check your upload
+    subject_name:
+      self: What is your name?
+      other: What is their name?
     subject_relationship: What is your relationship to them?
-    solicitor_details: Your details
   service:
     name: "Request personal information"

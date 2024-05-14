@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "requester-id" => "requests#show"
   get "requester-id-check" => "requests#show"
   get "subject-id" => "requests#show"
+  get "subject-id-check" => "requests#show"
 
   root to: "pages#homepage"
 

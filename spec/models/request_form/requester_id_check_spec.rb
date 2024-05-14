@@ -1,11 +1,12 @@
 require "rails_helper"
 
 RSpec.describe RequestForm::RequesterIdCheck, type: :model do
-  it { is_expected.to validate_presence_of(:requester_id_check) }
+  it_behaves_like "question for friend or family of subject"
 
   describe "validation" do
     subject(:form_object) { described_class.new(requester_id_check: check) }
 
+    let(:check) { "yes" }
     let(:attachment_photo) { create(:attachment, key: "requester_photo") }
     let(:attachment_address) { create(:attachment, key: "requester_proof_of_address") }
     let(:information_request) { build(:information_request, requester_photo_id: attachment_photo.id, requester_proof_of_address_id: attachment_address.id) }
@@ -13,6 +14,8 @@ RSpec.describe RequestForm::RequesterIdCheck, type: :model do
     before do
       form_object.request = information_request
     end
+
+    it { is_expected.to validate_presence_of(:requester_id_check) }
 
     context "when upload is correct" do
       let(:check) { "yes" }
@@ -41,40 +44,6 @@ RSpec.describe RequestForm::RequesterIdCheck, type: :model do
       it "changes back value" do
         form_object.valid?
         expect(form_object.back).to eq true
-      end
-    end
-  end
-
-  describe "#required?" do
-    subject(:form_object) { described_class.new }
-
-    before do
-      form_object.request = information_request
-    end
-
-    context "when subject is the requester" do
-      let(:information_request) { build(:information_request_for_self) }
-
-      it "returns false" do
-        expect(form_object).not_to be_required
-      end
-    end
-
-    context "when subject is someone else" do
-      context "when requester is a legal representative" do
-        let(:information_request) { build(:information_request_by_solicitor) }
-
-        it "returns true" do
-          expect(form_object).not_to be_required
-        end
-      end
-
-      context "when requester is a relative" do
-        let(:information_request) { build(:information_request_by_friend) }
-
-        it "returns true" do
-          expect(form_object).to be_required
-        end
       end
     end
   end
