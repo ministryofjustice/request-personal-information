@@ -21,6 +21,16 @@ RSpec.describe RequestForm::LetterOfConsent, type: :model do
         expect(form_object.errors.first.message).to eq "The selected file must be smaller than 7 MB"
       end
     end
+
+    context "when file was previously uploaded" do
+      subject(:form_object) { described_class.new(letter_of_consent_id: upload.id) }
+
+      let(:upload) { create(:attachment) }
+
+      it "is valid" do
+        expect(form_object).to be_valid
+      end
+    end
   end
 
   describe "#required?" do

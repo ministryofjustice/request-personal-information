@@ -27,7 +27,7 @@ class RequestsController < ApplicationController
     @form.assign_attributes(request_params)
 
     if @form.valid?
-      @information_request.assign_attributes(@form.attributes)
+      @information_request.assign_attributes(@form.saveable_attributes)
       session[:information_request] = @information_request.to_hash
       @form.back.nil? ? next_step : previous_step
     else
@@ -46,6 +46,9 @@ private
 
     @information_request = InformationRequest.new(session[:information_request])
     @form = "RequestForm::#{session[:current_step].underscore.camelize}".constantize.new
+    @form.attribute_names.each do |att|
+      @form.send("#{att}=", @information_request.send(att))
+    end
     @form.request = @information_request
   end
 

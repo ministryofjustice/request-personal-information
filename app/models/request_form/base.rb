@@ -13,5 +13,9 @@ module RequestForm
     def required?
       true
     end
+
+    def saveable_attributes
+      attributes
+    end
   end
 end
