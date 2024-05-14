@@ -27,9 +27,10 @@ class RequestsController < ApplicationController
 
   def update
     @form.assign_attributes(request_params)
+    @information_request.assign_attributes(@form.saveable_attributes)
+    set_form_attributes
 
     if @form.valid?
-      @information_request.assign_attributes(@form.saveable_attributes)
       session[:information_request] = @information_request.to_hash
       @form.back.nil? ? next_step : previous_step
     else
@@ -48,10 +49,14 @@ private
 
     @information_request = InformationRequest.new(session[:information_request])
     @form = "RequestForm::#{session[:current_step].underscore.camelize}".constantize.new
+    set_form_attributes
+    @form.request = @information_request
+  end
+
+  def set_form_attributes
     @form.attribute_names.each do |att|
       @form.send("#{att}=", @information_request.send(att))
     end
-    @form.request = @information_request
   end
 
   def request_params
@@ -66,7 +71,9 @@ private
       :letter_of_consent,
       :letter_of_consent_check,
       :requester_photo,
+      :requester_photo_id,
       :requester_proof_of_address,
+      :requester_proof_of_address_id,
       :requester_id_check,
       :subject_photo,
       :subject_proof_of_address,

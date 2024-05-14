@@ -60,20 +60,26 @@ RSpec.shared_examples("file upload") do |attribute|
     describe "#saveable_attributes" do
       subject(:form_object) { described_class.new }
 
-      it "does not include the upload id" do
-        expect(form_object.saveable_attributes.keys).not_to include "#{attribute}_id"
-      end
-
-      context "when file is not uploaded" do
-        it "does not include upload" do
+      context "when file was previously uploaded" do
+        it "includes the upload id only" do
+          form_object.send("#{attribute}_id=", 1)
+          expect(form_object.saveable_attributes.keys).to include "#{attribute}_id"
           expect(form_object.saveable_attributes.keys).not_to include attribute.to_s
         end
       end
 
-      context "when file is uploaded" do
-        it "includes upload" do
+      context "when there is no upload" do
+        it "does not include any upload attribute" do
+          expect(form_object.saveable_attributes.keys).not_to include attribute.to_s
+          expect(form_object.saveable_attributes.keys).not_to include "#{attribute}_id"
+        end
+      end
+
+      context "when file is being uploaded" do
+        it "includes file, but no ID" do
           form_object.send("#{attribute}=", "exists")
           expect(form_object.saveable_attributes.keys).to include attribute.to_s
+          expect(form_object.saveable_attributes.keys).not_to include "#{attribute}_id"
         end
       end
     end

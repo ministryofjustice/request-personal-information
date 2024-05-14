@@ -20,7 +20,9 @@ module RequestForm
     end
 
     def saveable_attributes
-      attrs = attributes.except("subject_photo_id", "subject_proof_of_address_id")
+      attrs = attributes.clone
+      attrs.delete("subject_photo_id") if subject_photo_id.nil? || subject_photo.present?
+      attrs.delete("subject_proof_of_address_id") if subject_proof_of_address_id.nil? || subject_proof_of_address.present?
       attrs.delete("subject_photo") if subject_photo.nil?
       attrs.delete("subject_proof_of_address") if subject_proof_of_address.nil?
       attrs
