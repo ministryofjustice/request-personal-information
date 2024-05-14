@@ -15,4 +15,25 @@ RSpec.describe RequestForm::LetterOfConsent, type: :model do
       end
     end
   end
+
+  describe "#saveable_attributes" do
+    subject(:form_object) { described_class.new }
+
+    it "does not include letter_of_consent_id" do
+      expect(form_object.saveable_attributes.keys).not_to include "letter_of_consent_id"
+    end
+
+    context "when letter_of_consent is nil" do
+      it "does not include letter_of_consent" do
+        expect(form_object.saveable_attributes.keys).not_to include "letter_of_consent"
+      end
+    end
+
+    context "when letter_of_consent is present" do
+      it "includes letter_of_consent" do
+        form_object.letter_of_consent = "exists"
+        expect(form_object.saveable_attributes.keys).to include "letter_of_consent"
+      end
+    end
+  end
 end
