@@ -69,6 +69,7 @@ private
       :organisation_name,
       :requester_name,
       :letter_of_consent,
+      :letter_of_consent_id,
       :letter_of_consent_check,
       :requester_photo,
       :requester_photo_id,
@@ -76,7 +77,9 @@ private
       :requester_proof_of_address_id,
       :requester_id_check,
       :subject_photo,
+      :subject_photo_id,
       :subject_proof_of_address,
+      :subject_proof_of_address_id,
       :subject_id_check,
     )
   end
