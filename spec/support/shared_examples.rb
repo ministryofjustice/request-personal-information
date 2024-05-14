@@ -21,7 +21,7 @@ RSpec.shared_examples("validated attribute with custom message") do |attribute, 
   end
 end
 
-RSpec.shared_examples("file upload with max filesize validation") do |attribute|
+RSpec.shared_examples("file upload") do |attribute|
   describe "validation" do
     it { is_expected.to validate_presence_of(attribute) }
 
@@ -40,6 +40,41 @@ RSpec.shared_examples("file upload with max filesize validation") do |attribute|
       it "is has the expected error message" do
         form_object.valid?
         expect(form_object.errors.messages[attribute].first).to eq "The selected file must be smaller than 7 MB"
+      end
+    end
+
+    context "when file was previously uploaded" do
+      subject(:form_object) { described_class.new }
+
+      let(:upload) { create(:attachment) }
+
+      before do
+        form_object.send("#{attribute}_id=", upload.id)
+      end
+
+      it "is valid" do
+        expect(form_object.errors.messages[attribute]).to be_empty
+      end
+    end
+
+    describe "#saveable_attributes" do
+      subject(:form_object) { described_class.new }
+
+      it "does not include the upload id" do
+        expect(form_object.saveable_attributes.keys).not_to include "#{attribute}_id"
+      end
+
+      context "when file is not uploaded" do
+        it "does not include upload" do
+          expect(form_object.saveable_attributes.keys).not_to include attribute.to_s
+        end
+      end
+
+      context "when file is uploaded" do
+        it "includes upload" do
+          form_object.send("#{attribute}=", "exists")
+          expect(form_object.saveable_attributes.keys).to include attribute.to_s
+        end
       end
     end
   end

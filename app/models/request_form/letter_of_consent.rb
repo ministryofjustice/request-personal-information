@@ -15,10 +15,7 @@ module RequestForm
 
     def saveable_attributes
       attrs = attributes.except("letter_of_consent_id")
-      if letter_of_consent.nil?
-        attrs.delete("letter_of_consent")
-      end
-
+      attrs.delete("letter_of_consent") if letter_of_consent.nil?
       attrs
     end
   end
