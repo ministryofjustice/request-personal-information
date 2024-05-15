@@ -6,10 +6,10 @@ class RequestsController < ApplicationController
     subject-relationship
     solicitor-details
     requester-details
-    letter-of-consent
-    letter-of-consent-check
     requester-id
     requester-id-check
+    letter-of-consent
+    letter-of-consent-check
     subject-id
     subject-id-check
   ].freeze

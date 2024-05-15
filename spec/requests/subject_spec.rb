@@ -301,7 +301,7 @@ RSpec.describe "Subject", type: :request do
     end
 
     context "when session in progress" do
-      let(:information_request) { InformationRequest.new(subject: "other", relationship: "other") }
+      let(:information_request) { build(:information_request_by_friend) }
       let(:previous_step) { "/requester-id" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
@@ -311,9 +311,24 @@ RSpec.describe "Subject", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the subject ID page" do
-        expect(response).to render_template(:show)
-        expect(response.body).to include("Upload their ID")
+      context "when requesting data for someone else" do
+        it "renders the subject ID page" do
+          expect(response).to render_template(:show)
+          expect(response.body).to include("Upload their ID")
+          expect(response.body).to include("For example, a copy of their driving licence or passport")
+          expect(response.body).to include("For example an electricity or council tax bill in their name")
+        end
+      end
+
+      context "when requesting data for self" do
+        let(:information_request) { build(:information_request_for_self) }
+
+        it "renders the subject ID page" do
+          expect(response).to render_template(:show)
+          expect(response.body).to include("Upload your ID")
+          expect(response.body).to include("For example, a copy of your driving licence or passport")
+          expect(response.body).to include("For example an electricity or council tax bill in your name")
+        end
       end
 
       context "when submitting form with invalid data" do
@@ -350,7 +365,7 @@ RSpec.describe "Subject", type: :request do
     context "when returning to page" do
       let(:photo_upload) { create(:attachment) }
       let(:address_upload) { create(:attachment) }
-      let(:information_request) { InformationRequest.new(subject: "other", relationship: "other", subject_photo_id: photo_upload.id, subject_proof_of_address_id: address_upload.id) }
+      let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id, subject_proof_of_address_id: address_upload.id) }
 
       before do
         set_session(information_request: information_request.to_hash, current_step:, history: [])

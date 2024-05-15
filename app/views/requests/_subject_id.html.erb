@@ -1,9 +1,13 @@
+<% content_for :title do %>
+  <%= t("request_form.#{@form.name}.#{@information_request.subject}") %>
+<% end %>
+
 <p class="govuk-body-l">You must upload both proof of ID and address.
 
 <p class="govuk-body">These can be a photograph, scan or photocopy of the original document.
 
-<%= f.govuk_file_field :subject_photo, label: { size: "m" } %>
+<%= f.govuk_file_field :subject_photo, label: { size: "m" }, hint: { text: t("helpers.hint.request_form.subject_photo.#{@information_request.subject}") } %>
 <%= f.hidden_field :subject_photo_id %>
-<%= f.govuk_file_field :subject_proof_of_address, label: { size: "m" }  %>
+<%= f.govuk_file_field :subject_proof_of_address, label: { size: "m" }, hint: { text: t("helpers.hint.request_form.subject_proof_of_address.#{@information_request.subject}") } %>
 <%= f.hidden_field :subject_proof_of_address_id %>
 <%= f.hidden_field :default %>

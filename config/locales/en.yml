@@ -72,8 +72,12 @@ en:
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
         requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
-        subject_photo: "For example, a copy of their driving licence or passport. Maximum size: 7MB per file"
-        subject_proof_of_address: "For example an electricity or council tax bill in their name and it must be dated within the last 6 months. Maximum file size 7MB"
+        subject_photo:
+          other: "For example, a copy of their driving licence or passport. Maximum size: 7MB per file"
+          self: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
+        subject_proof_of_address:
+          other: "For example an electricity or council tax bill in their name and it must be dated within the last 6 months. Maximum file size 7MB"
+          self: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
 
   request_form:
     letter_of_consent: Upload a letter of consent
@@ -86,11 +90,13 @@ en:
     subject_date_of_birth:
         other: What is their date of birth?
         self: What is your date of birth?
-    subject_id: Upload their ID
+    subject_id:
+      other: Upload their ID
+      self: Upload your ID
     subject_id_check: Check your upload
     subject_name:
-      self: What is your name?
       other: What is their name?
+      self: What is your name?
     subject_relationship: What is your relationship to them?
   service:
     name: "Request personal information"
