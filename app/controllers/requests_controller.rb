@@ -57,7 +57,7 @@ private
   end
 
   def set_form_attributes
-    @form.attribute_names.each do |att|
+    @form.updateable_attributes.each_key do |att|
       @form.send("#{att}=", @information_request.send(att))
     end
   end
