@@ -90,7 +90,7 @@ private
       :currently_in_prison,
       :current_prison_name,
       :recent_prison_name,
-      :prison_number
+      :prison_number,
     )
   end
 
