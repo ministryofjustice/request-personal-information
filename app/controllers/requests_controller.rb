@@ -14,6 +14,7 @@ class RequestsController < ApplicationController
     subject-id-check
     hmpps
     prison-location
+    prison-number
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -89,6 +90,7 @@ private
       :currently_in_prison,
       :current_prison_name,
       :recent_prison_name,
+      :prison_number
     )
   end
 

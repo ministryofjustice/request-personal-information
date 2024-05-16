@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe RequestForm::PrisonLocation, type: :model do
+  it_behaves_like "question when requesting prison data"
   it_behaves_like "question with standard saveable attributes"
 
   describe "validation" do
@@ -68,30 +69,6 @@ RSpec.describe RequestForm::PrisonLocation, type: :model do
           form_object.valid?
           expect(form_object.errors.messages[:recent_prison_name].first).to include("Enter which prison they were most recently in")
         end
-      end
-    end
-  end
-
-  describe "#required?" do
-    subject(:form_object) { described_class.new }
-
-    before do
-      form_object.request = information_request
-    end
-
-    context "when request is for prison service information" do
-      let(:information_request) { build(:information_request_for_prison_service) }
-
-      it "returns false" do
-        expect(form_object).to be_required
-      end
-    end
-
-    context "when request is not for prison service information" do
-      let(:information_request) { build(:information_request) }
-
-      it "returns false" do
-        expect(form_object).not_to be_required
       end
     end
   end

@@ -84,6 +84,9 @@ en:
         date_of_birth: For example, 19 05 2007
         hmpps: Select all that apply
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
+        prison_number:
+          other: Also sometimes called their NOMIS number. For example, A1234AA.
+          self: Also sometimes called your NOMIS number. For example, A1234AA.
         requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
         subject_photo:
@@ -100,6 +103,9 @@ en:
     prison_location:
       other: Are they currently in prison?
       self: Are you currently in prison?
+    prison_number:
+      other: What is their prison number?
+      self: What is your prison number?
     requester_details: Your details
     requester_id: Upload your ID
     requester_id_check: Check your upload
