@@ -28,8 +28,11 @@ RSpec.shared_examples("file upload") do |attribute|
     context "when file is > 7MB" do
       subject(:form_object) { described_class.new }
 
+      let(:upload) { create(:attachment) }
+
       before do
         allow(File).to receive(:size).and_return(8.megabytes)
+        form_object.send("#{attribute}_id=", upload.id)
         form_object.send("#{attribute}=", fixture_file_upload("file.jpg"))
       end
 
