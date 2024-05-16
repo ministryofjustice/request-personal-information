@@ -392,7 +392,7 @@ RSpec.describe "Subject", type: :request do
     context "when session in progress" do
       let(:information_request) { build(:information_request_with_subject_id) }
       let(:previous_step) { "/subject-id" }
-      let(:next_step) { "/" }
+      let(:next_step) { "/hmpps" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 

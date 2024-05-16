@@ -2,6 +2,12 @@ en:
   activemodel:
     errors:
       models:
+        request_form/hmpps:
+          attributes:
+            hmpps:
+              blank: Choose if you want information held by the Prison and Probation Service (HMPPS)
+            hmpps_information:
+              blank: Choose if you want information held by the Prison and Probation Service (HMPPS)
         request_form/letter_of_consent:
           attributes:
             letter_of_consent:
@@ -62,6 +68,7 @@ en:
         subject_proof_of_address: Proof of address
     legend:
       request_form:
+        hmpps: Which service do you want information from?
         letter_of_consent_check: Is this upload correct?
         requester_id_check: Are these uploads correct?
         subject_id_check: Are these uploads correct?
@@ -69,6 +76,7 @@ en:
       request_form:
         other_names: This includes last names, nicknames or aliases
         date_of_birth: For example, 19 05 2007
+        hmpps: Select all that apply
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
         requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
@@ -80,6 +88,7 @@ en:
           self: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
 
   request_form:
+    hmpps: Do you want personal information held by the Prison and Probation Service (HMPPS)?
     letter_of_consent: Upload a letter of consent
     letter_of_consent_check: Check your upload
     requester_details: Your details
