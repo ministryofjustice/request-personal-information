@@ -56,11 +56,17 @@ en:
   helpers:
     label:
       request_form:
+        current_prison_name:
+          other: Which prison are they in?
+          self: Which prison are you in?
         full_name: Full name
         other_names:
           other: Any other names that their information may be stored under? (optional)
           self: Any other names that your information may be stored under? (optional)
         organisation_name: Name of your organisation
+        recent_prison_name:
+          other: Which prison where they most recently in?
+          self: Which prison where you most recently in?
         requester_name: Your full name (optional)
         requester_photo: Photo ID
         requester_proof_of_address: Proof of address
@@ -91,6 +97,9 @@ en:
     hmpps: Do you want personal information held by the Prison and Probation Service (HMPPS)?
     letter_of_consent: Upload a letter of consent
     letter_of_consent_check: Check your upload
+    prison_location:
+      other: Are they currently in prison?
+      self: Are you currently in prison?
     requester_details: Your details
     requester_id: Upload your ID
     requester_id_check: Check your upload

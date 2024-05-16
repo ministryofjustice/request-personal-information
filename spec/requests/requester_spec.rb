@@ -4,12 +4,7 @@ RSpec.describe "Requester", type: :request do
   describe "/solicitor-details" do
     let(:current_step) { "solicitor-details" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_by_solicitor) }
@@ -37,36 +32,15 @@ RSpec.describe "Requester", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { organisation_name: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the value to the session" do
-          patch "/request", params: { request_form: { organisation_name: valid_data } }
-          expect(request.session[:information_request][:organisation_name]).to eq valid_data
-        end
-      end
-
-      context "when going back" do
-        it "goes to previous step" do
-          get("/request/back")
-          expect(response).to redirect_to(previous_step)
-        end
-      end
+      it_behaves_like "question that accepts valid data", :organisation_name
+      it_behaves_like "question with back link"
     end
   end
 
   describe "/requester-details" do
     let(:current_step) { "requester-details" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_for_other) }
@@ -106,12 +80,7 @@ RSpec.describe "Requester", type: :request do
         end
       end
 
-      context "when going back" do
-        it "goes to previous step" do
-          get("/request/back")
-          expect(response).to redirect_to(previous_step)
-        end
-      end
+      it_behaves_like "question with back link"
     end
   end
 
@@ -119,12 +88,7 @@ RSpec.describe "Requester", type: :request do
     let(:current_step) { "letter-of-consent" }
     let(:next_step) { "/letter-of-consent-check" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_by_friend) }
@@ -163,12 +127,7 @@ RSpec.describe "Requester", type: :request do
         end
       end
 
-      context "when going back" do
-        it "goes to previous step" do
-          get("/request/back")
-          expect(response).to redirect_to(previous_step)
-        end
-      end
+      it_behaves_like "question with back link"
     end
 
     context "when returning to page" do
@@ -190,12 +149,7 @@ RSpec.describe "Requester", type: :request do
   describe "/letter-of-consent-check" do
     let(:current_step) { "letter-of-consent-check" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_with_consent) }
@@ -237,12 +191,7 @@ RSpec.describe "Requester", type: :request do
         end
       end
 
-      context "when going back" do
-        it "goes to previous step" do
-          get("/request/back")
-          expect(response).to redirect_to(previous_step)
-        end
-      end
+      it_behaves_like "question with back link"
     end
   end
 
@@ -250,12 +199,7 @@ RSpec.describe "Requester", type: :request do
     let(:current_step) { "requester-id" }
     let(:next_step) { "/requester-id-check" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_by_friend) }
@@ -296,12 +240,7 @@ RSpec.describe "Requester", type: :request do
         end
       end
 
-      context "when going back" do
-        it "goes to previous step" do
-          get("/request/back")
-          expect(response).to redirect_to(previous_step)
-        end
-      end
+      it_behaves_like "question with back link"
     end
 
     context "when returning to page" do
@@ -324,12 +263,7 @@ RSpec.describe "Requester", type: :request do
   describe "/requester-id-check" do
     let(:current_step) { "requester-id-check" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_with_requester_id) }
@@ -371,12 +305,7 @@ RSpec.describe "Requester", type: :request do
         end
       end
 
-      context "when going back" do
-        it "goes to previous step" do
-          get("/request/back")
-          expect(response).to redirect_to(previous_step)
-        end
-      end
+      it_behaves_like "question with back link"
     end
   end
 end
