@@ -23,5 +23,9 @@ module RequestForm
       attrs.delete("subject_proof_of_address") if subject_proof_of_address.nil?
       attrs
     end
+
+    def updateable_attributes
+      attributes.except("subject_photo", "subject_proof_of_address")
+    end
   end
 end

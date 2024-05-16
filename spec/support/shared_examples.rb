@@ -87,6 +87,14 @@ RSpec.shared_examples("file upload") do |attribute|
         end
       end
     end
+
+    describe "#updateable_attributes" do
+      subject(:form_object) { described_class.new }
+
+      it "excludes file objects" do
+        expect(form_object.updateable_attributes.keys).not_to include attribute.to_s
+      end
+    end
   end
 end
 
