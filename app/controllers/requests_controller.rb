@@ -12,6 +12,7 @@ class RequestsController < ApplicationController
     letter-of-consent-check
     subject-id
     subject-id-check
+    hmpps
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -81,6 +82,9 @@ private
       :subject_proof_of_address,
       :subject_proof_of_address_id,
       :subject_id_check,
+      :hmpps_information,
+      :prison_service,
+      :probation_service,
     )
   end
 

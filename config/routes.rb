@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get "subject-id" => "requests#show"
   get "subject-id-check" => "requests#show"
 
+  get "hmpps" => "requests#show"
+
   root to: "pages#homepage"
 
   if Rails.env.test?

@@ -1,0 +1,18 @@
+<%= f.govuk_radio_buttons_fieldset :hmpps_information, legend: nil do %>
+  <%= f.govuk_radio_button :hmpps_information, "yes", label: { text: 'Yes' } do %>
+    <%= f.govuk_check_boxes_fieldset :hmpps do %>
+      <%= f.govuk_check_box :prison_service,
+            true,
+            label: { text: "Prison Service" },
+            multiple: false,
+            checked: f.object.prison_service.present? %>
+      <%= f.govuk_check_box :probation_service,
+            true,
+            label: { text: "Probation Service" },
+            multiple: false,
+            checked: f.object.probation_service.present? %>
+    <% end %>
+  <% end %>
+  <%= f.govuk_radio_button :hmpps_information, "no", label: { text: 'No' } %>
+<% end %>
+<%= f.hidden_field :default %>
