@@ -6,7 +6,7 @@ module RequestForm
     attr_accessor :default, :hmpps
 
     validates :hmpps_information, presence: true
-    validates :hmpps, presence: true, if: -> { hmpps_information == "yes" && prison_service.blank? && probation_service.blank?  }
+    validates :hmpps, presence: true, if: -> { hmpps_information == "yes" && prison_service.blank? && probation_service.blank? }
 
     def assign_attributes(values)
       # ensure boolean values
