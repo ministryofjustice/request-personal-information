@@ -17,5 +17,9 @@ module RequestForm
       attrs.delete("letter_of_consent") if letter_of_consent.nil?
       attrs
     end
+
+    def updateable_attributes
+      attributes.except("letter_of_consent")
+    end
   end
 end

@@ -17,5 +17,9 @@ module RequestForm
     def saveable_attributes
       attributes
     end
+
+    def updateable_attributes
+      attributes
+    end
   end
 end
