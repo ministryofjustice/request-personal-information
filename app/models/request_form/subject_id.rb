@@ -6,14 +6,10 @@ module RequestForm
     attribute :subject_proof_of_address_id
     attr_accessor :default
 
-    validates :subject_photo,
-              presence: true,
-              file_size: { max: 7.megabytes },
-              unless: -> { Attachment.exists?(subject_photo_id) }
-    validates :subject_proof_of_address,
-              presence: true,
-              file_size: { max: 7.megabytes },
-              unless: -> { Attachment.exists?(subject_proof_of_address_id) }
+    validates :subject_photo, presence: true, unless: -> { Attachment.exists?(subject_photo_id) }
+    validates :subject_photo, file_size: { max: 7.megabytes }
+    validates :subject_proof_of_address, presence: true, unless: -> { Attachment.exists?(subject_proof_of_address_id) }
+    validates :subject_proof_of_address, file_size: { max: 7.megabytes }
 
     def required?
       !request.solicitor_request?
