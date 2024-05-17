@@ -15,7 +15,13 @@ en:
         request_form/letter_of_consent_check:
           attributes:
             letter_of_consent_check:
-              blank: Enter an answer for if this upload is correct
+              blank: Enter an answer for is this upload is correct
+        request_form/prison_data:
+          attributes:
+            prison_data:
+              blank: Enter an answer for "What prison service information do you want?"
+            prison_other_data_text:
+              blank: Enter an answer for "What other prison service information do you want?"
         request_form/requester_details:
           attributes:
             requester_name:
@@ -56,11 +62,18 @@ en:
   helpers:
     label:
       request_form:
+        current_prison_name:
+          other: Which prison are they in?
+          self: Which prison are you in?
         full_name: Full name
         other_names:
           other: Any other names that their information may be stored under? (optional)
           self: Any other names that your information may be stored under? (optional)
         organisation_name: Name of your organisation
+        prison_other_data_text: Can you provide more detail?
+        recent_prison_name:
+          other: Which prison where they most recently in?
+          self: Which prison where you most recently in?
         requester_name: Your full name (optional)
         requester_photo: Photo ID
         requester_proof_of_address: Proof of address
@@ -78,6 +91,11 @@ en:
         date_of_birth: For example, 19 05 2007
         hmpps: Select all that apply
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
+        prison_other_data_text: We can respond faster if you are able to tell us specifically what you want.
+        prison_data: Select all that apply
+        prison_number:
+          other: Also sometimes called their NOMIS number. For example, A1234AA.
+          self: Also sometimes called your NOMIS number. For example, A1234AA.
         requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
         subject_photo:
@@ -91,6 +109,13 @@ en:
     hmpps: Do you want personal information held by the Prison and Probation Service (HMPPS)?
     letter_of_consent: Upload a letter of consent
     letter_of_consent_check: Check your upload
+    prison_data: What prison service information do you want?
+    prison_location:
+      other: Are they currently in prison?
+      self: Are you currently in prison?
+    prison_number:
+      other: What is their prison number?
+      self: What is your prison number?
     requester_details: Your details
     requester_id: Upload your ID
     requester_id_check: Check your upload
@@ -109,3 +134,5 @@ en:
     subject_relationship: What is your relationship to them?
   service:
     name: "Request personal information"
+    prison:
+      name: HM Prison Service

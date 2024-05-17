@@ -42,6 +42,22 @@ RSpec.describe InformationRequest, type: :model do
     end
   end
 
+  describe "#pronoun" do
+    context "when request subject is the requester" do
+      it "returns expected value" do
+        request = described_class.new(subject: "self")
+        expect(request.pronoun).to eq "you"
+      end
+    end
+
+    context "when request subject is someone else" do
+      it "returns expected value" do
+        request = described_class.new(subject: "other")
+        expect(request.pronoun).to eq "they"
+      end
+    end
+  end
+
   describe "#possessive_pronoun" do
     context "when request subject is the requester" do
       it "returns expected value" do

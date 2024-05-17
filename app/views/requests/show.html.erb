@@ -3,6 +3,7 @@
     <%= govuk_back_link(href: back_request_path) %>
     <%= form_with model: @form, scope: :request_form, url: request_path, method: :patch do |f| %>
       <% content_for(:form_content) { render partial: @form.name, locals: { f: } } %>
+      <span class="govuk-caption-l"><%= yield :caption %></span>
       <%= f.govuk_error_summary %>
       <h1 class="govuk-heading-xl"><%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %></h1>
       <%= yield :form_content %>

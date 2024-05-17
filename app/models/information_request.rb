@@ -1,7 +1,9 @@
 class InformationRequest < ApplicationRecord
   attr_accessor :date_of_birth, :relationship, :organisation_name, :requester_name,
                 :letter_of_consent_id, :requester_photo_id, :requester_proof_of_address_id,
-                :subject_photo_id, :subject_proof_of_address_id, :prison_service, :probation_service, :hmpps_information
+                :subject_photo_id, :subject_proof_of_address_id, :prison_service, :probation_service, :hmpps_information,
+                :currently_in_prison, :current_prison_name, :recent_prison_name, :prison_number,
+                :prison_nomis_records, :prison_security_data, :prison_other_data, :prison_other_data_text
 
   belongs_to :letter_of_consent, class_name: "Attachment"
   belongs_to :requester_photo, class_name: "Attachment"
@@ -15,6 +17,10 @@ class InformationRequest < ApplicationRecord
 
   def solicitor_request?
     !for_self? && relationship == "legal_representative"
+  end
+
+  def pronoun
+    for_self? ? "you" : "they"
   end
 
   def possessive_pronoun
@@ -63,6 +69,14 @@ class InformationRequest < ApplicationRecord
       hmpps_information:,
       prison_service:,
       probation_service:,
+      currently_in_prison:,
+      current_prison_name:,
+      recent_prison_name:,
+      prison_number:,
+      prison_nomis_records:,
+      prison_security_data:,
+      prison_other_data:,
+      prison_other_data_text:,
     }
   end
 end

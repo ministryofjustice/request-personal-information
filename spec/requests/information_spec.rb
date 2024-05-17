@@ -1,20 +1,15 @@
 require "rails_helper"
 
 RSpec.describe "Information required", type: :request do
-  describe "/hmpps" do
-    let(:current_step) { "hmpps" }
+  describe "/prison-location" do
+    let(:current_step) { "prison-location" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_self) }
-      let(:previous_step) { "/subject-id-check" }
-      let(:next_step) { "/" }
+      let(:information_request) { build(:information_request_for_prison_service) }
+      let(:previous_step) { "/hmpps" }
+      let(:next_step) { "/prison-number" }
       let(:valid_data) { "no" }
       let(:invalid_data) { "" }
 
@@ -23,61 +18,135 @@ RSpec.describe "Information required", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the hmpps page" do
+      it "renders the prison location page" do
         expect(response).to render_template(:show)
-        expect(response.body).to include("Do you want personal information held by the Prison and Probation Service (HMPPS)?")
+        expect(response.body).to include("Are you currently in prison?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
-          patch "/request", params: { request_form: { hmpps_information: invalid_data } }
+          patch "/request", params: { request_form: { currently_in_prison: invalid_data } }
           expect(response).to render_template(:show)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Choose if you want information held by the Prison and Probation Service (HMPPS)")
+          expect(response.body).to include("Are you currently in prison")
         end
       end
 
       context "when submitting form with valid data" do
         it "goes to next step" do
-          patch "/request", params: { request_form: { hmpps_information: valid_data } }
+          patch "/request", params: { request_form: { currently_in_prison: valid_data, recent_prison_name: "prison name" } }
           expect(response).to redirect_to(next_step)
         end
 
         it "saves the value to the session" do
-          patch "/request", params: { request_form: { hmpps_information: valid_data } }
-          expect(request.session[:information_request][:hmpps_information]).to eq valid_data
+          patch "/request", params: { request_form: { currently_in_prison: valid_data, recent_prison_name: "prison name" } }
+          expect(request.session[:information_request][:recent_prison_name]).to eq "prison name"
         end
       end
 
-      context "when requesting hmpps information" do
+      it_behaves_like "question with back link"
+    end
+  end
+
+  describe "/prison-number" do
+    let(:current_step) { "prison-number" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:previous_step) { "/prison-number" }
+      let(:next_step) { "/prison-data" }
+      let(:valid_data) { "AA1234" }
+      let(:invalid_data) { "" }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      context "when requesting own data" do
+        let(:information_request) { build(:information_request_for_prison_service) }
+
+        it "renders the prison number page" do
+          expect(response).to render_template(:show)
+          expect(response.body).to include("What is your prison number?")
+        end
+
         context "when submitting form with invalid data" do
           it "renders page with error message" do
-            patch "/request", params: { request_form: { hmpps_information: "yes", hmpps: nil } }
+            patch "/request", params: { request_form: { prison_number: invalid_data } }
             expect(response).to render_template(:show)
             expect(response.body).to include("There is a problem")
-            expect(response.body).to include("Choose if you want information held by the Prison and Probation Service (HMPPS)")
+            expect(response.body).to include("Enter your prison number")
           end
         end
 
-        context "when submitting form with valid data" do
-          it "goes to next step" do
-            patch "/request", params: { request_form: { hmpps_information: "yes", prison_service: true } }
-            expect(response).to redirect_to(next_step)
-          end
+        it_behaves_like "question that accepts valid data", :prison_number
+        it_behaves_like "question with back link"
+      end
 
-          it "saves the value to the session" do
-            patch "/request", params: { request_form: { hmpps_information: valid_data, prison_service: true } }
-            expect(request.session[:information_request][:prison_service]).to eq true
+      context "when requesting someone else's data" do
+        let(:information_request) { build(:information_request_for_prison_service, subject: "other") }
+
+        it "renders the prison number page" do
+          expect(response).to render_template(:show)
+          expect(response.body).to include("What is their prison number?")
+        end
+
+        context "when submitting form with invalid data" do
+          it "renders page with error message" do
+            patch "/request", params: { request_form: { prison_number: invalid_data } }
+            expect(response).to render_template(:show)
+            expect(response.body).to include("There is a problem")
+            expect(response.body).to include("Enter their prison number")
           end
         end
       end
+    end
+  end
 
-      context "when going back" do
-        it "goes to previous step" do
-          get("/request/back")
-          expect(response).to redirect_to(previous_step)
+  describe "/prison-data" do
+    let(:current_step) { "prison-data" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:previous_step) { "/prison-number" }
+      let(:next_step) { "/" }
+      let(:information_request) { build(:information_request_for_prison_service) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the prison data page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("What prison service information do you want?")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { default: 1 } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter an answer for")
         end
       end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { prison_nomis_records: "true" } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { prison_nomis_records: "true" } }
+          expect(request.session[:information_request][:prison_nomis_records]).to eq true
+        end
+      end
+
+      it_behaves_like "question with back link"
     end
   end
 end

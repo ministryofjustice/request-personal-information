@@ -11,12 +11,7 @@ RSpec.describe "Subject", type: :request do
   describe "/subject" do
     let(:current_step) { "subject" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { InformationRequest.new }
@@ -44,36 +39,15 @@ RSpec.describe "Subject", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { subject: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the value to the session" do
-          patch "/request", params: { request_form: { subject: valid_data } }
-          expect(request.session[:information_request][:subject]).to eq valid_data
-        end
-      end
-
-      context "when going back" do
-        it "goes to previous step" do
-          get("/request/back")
-          expect(response).to redirect_to(previous_step)
-        end
-      end
+      it_behaves_like "question that accepts valid data", :subject
+      it_behaves_like "question with back link"
     end
   end
 
   describe "/subject-name" do
     let(:current_step) { "subject-name" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:previous_step) { "/subject" }
@@ -94,13 +68,6 @@ RSpec.describe "Subject", type: :request do
           expect(response.body).to include("What is your name?")
         end
 
-        context "when going back" do
-          it "goes to previous step" do
-            get("/request/back")
-            expect(response).to redirect_to(previous_step)
-          end
-        end
-
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { full_name: invalid_data } }
@@ -110,17 +77,8 @@ RSpec.describe "Subject", type: :request do
           end
         end
 
-        context "when submitting form with valid data" do
-          it "goes to next step" do
-            patch "/request", params: { request_form: { full_name: valid_data } }
-            expect(response).to redirect_to(next_step)
-          end
-
-          it "saves the value to the session" do
-            patch "/request", params: { request_form: { full_name: valid_data } }
-            expect(request.session[:information_request][:full_name]).to eq valid_data
-          end
-        end
+        it_behaves_like "question that accepts valid data", :full_name
+        it_behaves_like "question with back link"
       end
 
       context "when requesting someone else's data" do
@@ -146,12 +104,7 @@ RSpec.describe "Subject", type: :request do
   describe "/subject-date-of-birth" do
     let(:current_step) { "subject-date-of-birth" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:previous_step) { "/subject-name" }
@@ -170,13 +123,6 @@ RSpec.describe "Subject", type: :request do
         it "renders the subject-date-of-birth page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is your date of birth?")
-        end
-
-        context "when going back" do
-          it "goes to previous step" do
-            get("/request/back")
-            expect(response).to redirect_to(previous_step)
-          end
         end
 
         context "when submitting form with invalid data" do
@@ -199,6 +145,8 @@ RSpec.describe "Subject", type: :request do
             expect(request.session[:information_request][:date_of_birth]).to eq Date.new(2007, 5, 19)
           end
         end
+
+        it_behaves_like "question with back link"
       end
 
       context "when requesting someone else's data" do
@@ -224,12 +172,7 @@ RSpec.describe "Subject", type: :request do
   describe "/subject-relationship" do
     let(:current_step) { "subject-relationship" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:previous_step) { "/subject-date-of-birth" }
@@ -258,13 +201,6 @@ RSpec.describe "Subject", type: :request do
           expect(response.body).to include("What is your relationship to them?")
         end
 
-        context "when going back" do
-          it "goes to previous step" do
-            get("/request/back")
-            expect(response).to redirect_to(previous_step)
-          end
-        end
-
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { relationship: invalid_data } }
@@ -274,17 +210,8 @@ RSpec.describe "Subject", type: :request do
           end
         end
 
-        context "when submitting form with valid data" do
-          it "goes to next step" do
-            patch "/request", params: { request_form: { relationship: valid_data } }
-            expect(response).to redirect_to(next_step)
-          end
-
-          it "saves the value to the session" do
-            patch "/request", params: { request_form: { relationship: valid_data } }
-            expect(request.session[:information_request][:relationship]).to eq valid_data.to_s
-          end
-        end
+        it_behaves_like "question that accepts valid data", :relationship
+        it_behaves_like "question with back link"
       end
     end
   end
@@ -293,12 +220,7 @@ RSpec.describe "Subject", type: :request do
     let(:current_step) { "subject-id" }
     let(:next_step) { "/subject-id-check" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_by_friend) }
@@ -354,12 +276,7 @@ RSpec.describe "Subject", type: :request do
         end
       end
 
-      context "when going back" do
-        it "goes to previous step" do
-          get("/request/back")
-          expect(response).to redirect_to(previous_step)
-        end
-      end
+      it_behaves_like "question with back link"
     end
 
     context "when returning to page" do
@@ -382,12 +299,7 @@ RSpec.describe "Subject", type: :request do
   describe "/subject-id-check" do
     let(:current_step) { "subject-id-check" }
 
-    context "when session not in progress" do
-      it "redirects to the homepage" do
-        get "/#{current_step}"
-        expect(response).to redirect_to("/")
-      end
-    end
+    it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_with_subject_id) }
@@ -429,12 +341,7 @@ RSpec.describe "Subject", type: :request do
         end
       end
 
-      context "when going back" do
-        it "goes to previous step" do
-          get("/request/back")
-          expect(response).to redirect_to(previous_step)
-        end
-      end
+      it_behaves_like "question with back link"
     end
   end
 end
