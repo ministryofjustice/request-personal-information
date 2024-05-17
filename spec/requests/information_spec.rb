@@ -18,7 +18,7 @@ RSpec.describe "Information required", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the hmpps page" do
+      it "renders the prison location page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Are you currently in prison?")
       end
@@ -67,7 +67,7 @@ RSpec.describe "Information required", type: :request do
       context "when requesting own data" do
         let(:information_request) { build(:information_request_for_prison_service) }
 
-        it "renders the subject-name page" do
+        it "renders the prison number page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is your prison number?")
         end
@@ -88,7 +88,7 @@ RSpec.describe "Information required", type: :request do
       context "when requesting someone else's data" do
         let(:information_request) { build(:information_request_for_prison_service, subject: "other") }
 
-        it "renders the subject-name page" do
+        it "renders the prison number page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is their prison number?")
         end
@@ -102,6 +102,51 @@ RSpec.describe "Information required", type: :request do
           end
         end
       end
+    end
+  end
+
+  describe "/prison-data" do
+    let(:current_step) { "prison-data" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:previous_step) { "/prison-number" }
+      let(:next_step) { "/" }
+      let(:information_request) { build(:information_request_for_prison_service) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the prison data page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("What prison service information do you want?")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { default: 1 } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter an answer for")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { prison_nomis_records: "true" } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { prison_nomis_records: "true" } }
+          expect(request.session[:information_request][:prison_nomis_records]).to eq true
+        end
+      end
+
+      it_behaves_like "question with back link"
     end
   end
 end

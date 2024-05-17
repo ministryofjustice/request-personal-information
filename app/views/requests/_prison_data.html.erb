@@ -15,12 +15,12 @@
         hint: { text: "A summary of key security-linked events"},
         multiple: false,
         checked: f.object.prison_security_data.present? %>
-  <%= f.govuk_check_box :other_prison_data,
+  <%= f.govuk_check_box :prison_other_data,
         true,
         label: { text: "Something else" },
         multiple: false,
-        checked: f.object.other_prison_data.present? do %>
-    <%= f.govuk_text_area :other_prison_data_text, label: { size: "m" } %>
+        checked: f.object.prison_other_data.present? do %>
+    <%= f.govuk_text_area :prison_other_data_text, label: { size: "m" } %>
   <% end %>
 <% end %>
 

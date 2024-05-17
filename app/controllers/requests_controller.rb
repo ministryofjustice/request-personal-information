@@ -92,6 +92,10 @@ private
       :current_prison_name,
       :recent_prison_name,
       :prison_number,
+      :prison_nomis_records,
+      :prison_security_data,
+      :prison_other_data,
+      :prison_other_data_text,
     )
   end
 

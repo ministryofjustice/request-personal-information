@@ -16,6 +16,12 @@ en:
           attributes:
             letter_of_consent_check:
               blank: Enter an answer for is this upload is correct
+        request_form/prison_data:
+          attributes:
+            prison_data:
+              blank: Enter an answer for "What prison service information do you want?"
+            prison_other_data_text:
+              blank: Enter an answer for "What other prison service information do you want?"
         request_form/requester_details:
           attributes:
             requester_name:
@@ -64,7 +70,7 @@ en:
           other: Any other names that their information may be stored under? (optional)
           self: Any other names that your information may be stored under? (optional)
         organisation_name: Name of your organisation
-        other_prison_data_text: Can you provide more detail?
+        prison_other_data_text: Can you provide more detail?
         recent_prison_name:
           other: Which prison where they most recently in?
           self: Which prison where you most recently in?
@@ -85,7 +91,7 @@ en:
         date_of_birth: For example, 19 05 2007
         hmpps: Select all that apply
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
-        other_prison_data_text: We can respond faster if you are able to tell us specifically what you want.
+        prison_other_data_text: We can respond faster if you are able to tell us specifically what you want.
         prison_data: Select all that apply
         prison_number:
           other: Also sometimes called their NOMIS number. For example, A1234AA.
