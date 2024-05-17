@@ -2,6 +2,10 @@
   <%= t("request_form.#{@form.name}.#{@information_request.subject}") %>
 <% end %>
 
+<% content_for :caption do %>
+  <%= t("service.prison.name") %>
+<% end %>
+
 <%= f.govuk_radio_buttons_fieldset :hmpps_information, legend: nil do %>
   <%= f.govuk_radio_button :currently_in_prison, "yes", label: { text: 'Yes' } do %>
     <%= f.govuk_text_field :current_prison_name, label: { size: "m", text: t("helpers.label.request_form.current_prison_name.#{@information_request.subject}") } %>

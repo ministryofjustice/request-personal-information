@@ -1,0 +1,27 @@
+<% content_for :caption do %>
+  <%= t("service.prison.name") %>
+<% end %>
+
+<%= f.govuk_check_boxes_fieldset :prison_data, legend: nil do %>
+  <%= f.govuk_check_box :prison_nomis_records,
+        true,
+        label: { text: "NOMIS Records" },
+        hint: { text: "Including case notes, incidents, visits and visitors"},
+        multiple: false,
+        checked: f.object.prison_nomis_records.present? %>
+  <%= f.govuk_check_box :prison_security_data,
+        true,
+        label: { text: "Security data" },
+        hint: { text: "A summary of key security-linked events"},
+        multiple: false,
+        checked: f.object.prison_security_data.present? %>
+  <%= f.govuk_check_box :other_prison_data,
+        true,
+        label: { text: "Something else" },
+        multiple: false,
+        checked: f.object.other_prison_data.present? do %>
+    <%= f.govuk_text_area :other_prison_data_text, label: { size: "m" } %>
+  <% end %>
+<% end %>
+
+<%= f.hidden_field :default %>

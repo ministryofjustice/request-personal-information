@@ -55,7 +55,7 @@ RSpec.describe "Information required", type: :request do
 
     context "when session in progress" do
       let(:previous_step) { "/prison-number" }
-      let(:next_step) { "/" }
+      let(:next_step) { "/prison-data" }
       let(:valid_data) { "AA1234" }
       let(:invalid_data) { "" }
 

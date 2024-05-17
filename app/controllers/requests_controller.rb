@@ -15,6 +15,7 @@ class RequestsController < ApplicationController
     hmpps
     prison-location
     prison-number
+    prison-data
   ].freeze
 
   before_action :set_objects, only: %i[update show]

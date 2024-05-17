@@ -173,7 +173,7 @@ RSpec.describe "Requester", type: :request do
           patch "/request", params: { request_form: { letter_of_consent_check: invalid_data } }
           expect(response).to render_template(:show)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter an answer for if this upload is correct")
+          expect(response.body).to include("Enter an answer for is this upload is correct")
         end
       end
 
