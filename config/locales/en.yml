@@ -16,6 +16,12 @@ en:
           attributes:
             letter_of_consent_check:
               blank: Enter an answer for is this upload is correct
+        request_form/prison_dates:
+          attributes:
+            prison_date_from:
+              invalid: Enter a valid date this information should start from
+            prison_date_to:
+              invalid: Enter a valid date this information should go to
         request_form/prison_information:
           attributes:
             prison_data:
@@ -83,6 +89,8 @@ en:
       request_form:
         hmpps: Which service do you want information from?
         letter_of_consent_check: Is this upload correct?
+        prison_date_from: Enter a date this information should start from (optional)
+        prison_date_to: Enter a date this information should go to (optional)
         requester_id_check: Are these uploads correct?
         subject_id_check: Are these uploads correct?
     hint:
@@ -91,6 +99,8 @@ en:
         date_of_birth: For example, 19 05 2007
         hmpps: Select all that apply
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
+        prison_date_from: For example 3 11 2000
+        prison_date_to: For example 12 5 2014
         prison_other_data_text: We can respond faster if you are able to tell us specifically what you want.
         prison_data: Select all that apply
         prison_number:
@@ -109,6 +119,7 @@ en:
     hmpps: Do you want personal information held by the Prison and Probation Service (HMPPS)?
     letter_of_consent: Upload a letter of consent
     letter_of_consent_check: Check your upload
+    prison_dates: What dates do you want this information from? (optional)
     prison_information: What prison service information do you want?
     prison_location:
       other: Are they currently in prison?
