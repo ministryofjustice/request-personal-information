@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe RequestForm::PrisonData, type: :model do
+RSpec.describe RequestForm::PrisonInformation, type: :model do
   it_behaves_like "question when requesting prison data"
   it_behaves_like "question with standard saveable attributes"
 

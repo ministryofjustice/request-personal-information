@@ -16,7 +16,7 @@ en:
           attributes:
             letter_of_consent_check:
               blank: Enter an answer for is this upload is correct
-        request_form/prison_data:
+        request_form/prison_information:
           attributes:
             prison_data:
               blank: Enter an answer for "What prison service information do you want?"
@@ -109,7 +109,7 @@ en:
     hmpps: Do you want personal information held by the Prison and Probation Service (HMPPS)?
     letter_of_consent: Upload a letter of consent
     letter_of_consent_check: Check your upload
-    prison_data: What prison service information do you want?
+    prison_information: What prison service information do you want?
     prison_location:
       other: Are they currently in prison?
       self: Are you currently in prison?
