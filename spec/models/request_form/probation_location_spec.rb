@@ -31,7 +31,6 @@ RSpec.describe RequestForm::ProbationLocation, type: :model do
           form_object.probation_office = "probation location"
           expect(form_object).to be_valid
         end
-
       end
     end
   end
