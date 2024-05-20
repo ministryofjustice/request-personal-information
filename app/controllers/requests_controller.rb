@@ -17,6 +17,9 @@ class RequestsController < ApplicationController
     prison-number
     prison-information
     prison-dates
+    probation-location
+    probation-information
+    probation-dates
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -99,6 +102,12 @@ private
       :prison_other_data_text,
       :prison_date_from,
       :prison_date_to,
+      :probation_office,
+      :probation_ndelius,
+      :probation_other_data,
+      :probation_other_data_text,
+      :probation_date_from,
+      :probation_date_to,
     )
   end
 

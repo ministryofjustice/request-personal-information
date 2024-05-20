@@ -157,7 +157,7 @@ RSpec.describe "Data required from prison service", type: :request do
 
     context "when session in progress" do
       let(:previous_step) { "/prison-information" }
-      let(:next_step) { "/" }
+      let(:next_step) { "/probation-location" }
       let(:information_request) { build(:information_request_for_prison_service) }
 
       before do

@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  <%= t("request_form.#{@form.name}.#{@information_request.subject}") %>
+<% end %>
+
+<% content_for :caption do %>
+  <%= t("service.probation.name") %>
+<% end %>
+
+<%= f.govuk_text_field :probation_office, label: nil %>
