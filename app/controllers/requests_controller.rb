@@ -20,6 +20,7 @@ class RequestsController < ApplicationController
     probation-location
     probation-information
     probation-dates
+    moj
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -108,6 +109,10 @@ private
       :probation_other_data_text,
       :probation_date_from,
       :probation_date_to,
+      :laa,
+      :opg,
+      :moj_other,
+      :moj_other_text,
     )
   end
 

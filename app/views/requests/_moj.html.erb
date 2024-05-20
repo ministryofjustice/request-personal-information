@@ -1,0 +1,23 @@
+<p class="govuk-body">For information or documents from the Courts (within HMCTS) contact the court or tribunal you dealt with directly.</p>
+
+<%= f.govuk_check_boxes_fieldset :moj, legend: nil do %>
+  <%= f.govuk_check_box :laa,
+        true,
+        label: { text: "Legal Aid Agency" },
+        hint: { text: "Including information from legal aid applications." },
+        multiple: false,
+        checked: f.object.laa.present? %>
+  <%= f.govuk_check_box :opg,
+        true,
+        label: { text: "Office of the Public Guardian (OPG)" },
+        hint: { text: "Including information about lasting power of attorney." },
+        multiple: false,
+        checked: f.object.opg.present? %>
+  <%= f.govuk_check_box :moj_other,
+        true,
+        label: { text: "Somewhere else in the Ministry of Justice" },
+        multiple: false,
+        checked: f.object.moj_other.present? do %>
+    <%= f.govuk_text_area :moj_other_text, label: { size: "m" } %>
+  <% end %>
+<% end %>

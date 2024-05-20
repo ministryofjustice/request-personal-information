@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   get "probation-information" => "requests#show"
   get "probation-dates" => "requests#show"
 
+  get "moj" => "requests#show"
+
   root to: "pages#homepage"
 
   if Rails.env.test?
