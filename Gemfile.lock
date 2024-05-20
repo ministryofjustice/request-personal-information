@@ -175,8 +175,6 @@ GEM
       activesupport (>= 6.1.4.4)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
-    i18n-debug (1.2.0)
-      i18n (< 2)
     io-console (0.7.2)
     irb (1.13.0)
       rdoc (>= 4.0.0)
@@ -632,7 +630,6 @@ DEPENDENCIES
   govuk-components
   govuk_app_config
   govuk_design_system_formbuilder
-  i18n-debug
   jsbundling-rails
   pg
   puma (>= 5.0)

@@ -1,5 +1,5 @@
 module RequestForm
-  class PrisonData < Base
+  class PrisonInformation < Base
     attribute :prison_nomis_records
     attribute :prison_security_data
     attribute :prison_other_data

@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   get "hmpps" => "requests#show"
   get "prison-location" => "requests#show"
   get "prison-number" => "requests#show"
-  get "prison-data" => "requests#show"
+  get "prison-information" => "requests#show"
+  get "prison-dates" => "requests#show"
 
   root to: "pages#homepage"
 
