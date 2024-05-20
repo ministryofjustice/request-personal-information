@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   get "prison-information" => "requests#show"
   get "prison-dates" => "requests#show"
 
+  get "probation-location" => "requests#show"
+  get "probation-information" => "requests#show"
+  get "probation-dates" => "requests#show"
+
   root to: "pages#homepage"
 
   if Rails.env.test?

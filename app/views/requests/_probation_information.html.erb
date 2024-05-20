@@ -1,0 +1,21 @@
+<% content_for :caption do %>
+  <%= t("service.probation.name") %>
+<% end %>
+
+<%= f.govuk_check_boxes_fieldset :probation_data, legend: nil do %>
+  <%= f.govuk_check_box :probation_ndelius,
+        true,
+        label: { text: "nDelius file" },
+        hint: { text: "Electronic case notes held on computer"},
+        multiple: false,
+        checked: f.object.probation_ndelius.present? %>
+  <%= f.govuk_check_box :probation_other_data,
+        true,
+        label: { text: "Something else" },
+        multiple: false,
+        checked: f.object.probation_other_data.present? do %>
+    <%= f.govuk_text_area :probation_other_data_text, label: { size: "m" } %>
+  <% end %>
+<% end %>
+
+<%= f.hidden_field :default %>

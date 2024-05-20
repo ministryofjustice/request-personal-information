@@ -36,6 +36,10 @@ FactoryBot.define do
       prison_service { true }
     end
 
+    trait :probation_service do
+      probation_service { true }
+    end
+
     factory :information_request_for_self, traits: %i[for_self]
     factory :information_request_for_other, traits: %i[for_other]
     factory :information_request_by_solicitor, traits: %i[for_other by_solicitor]
@@ -44,5 +48,6 @@ FactoryBot.define do
     factory :information_request_with_requester_id, traits: %i[for_other with_requester_id]
     factory :information_request_with_subject_id, traits: %i[for_other with_subject_id]
     factory :information_request_for_prison_service, traits: %i[for_self prison_service]
+    factory :information_request_for_probation_service, traits: %i[for_self probation_service]
   end
 end

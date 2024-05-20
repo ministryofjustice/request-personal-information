@@ -28,6 +28,18 @@ en:
               blank: Enter an answer for "What prison service information do you want?"
             prison_other_data_text:
               blank: Enter an answer for "What other prison service information do you want?"
+        request_form/probation_dates:
+          attributes:
+            probation_date_from:
+              invalid: Enter a valid date this information should start from
+            probation_date_to:
+              invalid: Enter a valid date this information should go to
+        request_form/probation_information:
+          attributes:
+            probation_data:
+              blank: Enter an answer for "What probation service information do you want?"
+            probation_other_data_text:
+              blank: Enter an answer for "What other probation service information do you want?"
         request_form/requester_details:
           attributes:
             requester_name:
@@ -77,6 +89,7 @@ en:
           self: Any other names that your information may be stored under? (optional)
         organisation_name: Name of your organisation
         prison_other_data_text: Can you provide more detail?
+        probation_other_data_text: Can you provide more detail?
         recent_prison_name:
           other: Which prison where they most recently in?
           self: Which prison where you most recently in?
@@ -91,6 +104,8 @@ en:
         letter_of_consent_check: Is this upload correct?
         prison_date_from: Enter a date this information should start from (optional)
         prison_date_to: Enter a date this information should go to (optional)
+        probation_date_from: Enter a date this information should start from (optional)
+        probation_date_to: Enter a date this information should go to (optional)
         requester_id_check: Are these uploads correct?
         subject_id_check: Are these uploads correct?
     hint:
@@ -106,6 +121,9 @@ en:
         prison_number:
           other: Also sometimes called their NOMIS number. For example, A1234AA.
           self: Also sometimes called your NOMIS number. For example, A1234AA.
+        probation_data: Select all that apply
+        probation_date_from: For example 3 11 2000
+        probation_date_to: For example 12 5 2014
         requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
         subject_photo:
@@ -127,6 +145,11 @@ en:
     prison_number:
       other: What is their prison number?
       self: What is your prison number?
+    probation_dates: What dates do you want this information from? (optional)
+    probation_information: What probation service information do you want?
+    probation_location:
+      other: Where is their probation office or approved premises?
+      self: Where is your probation office or approved premises?
     requester_details: Your details
     requester_id: Upload your ID
     requester_id_check: Check your upload
@@ -147,3 +170,5 @@ en:
     name: "Request personal information"
     prison:
       name: HM Prison Service
+    probation:
+      name: HM Probation Service
