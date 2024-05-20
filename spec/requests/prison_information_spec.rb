@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Information required", type: :request do
+RSpec.describe "Data required from prison service", type: :request do
   describe "/prison-location" do
     let(:current_step) { "prison-location" }
 
@@ -143,6 +143,51 @@ RSpec.describe "Information required", type: :request do
         it "saves the value to the session" do
           patch "/request", params: { request_form: { prison_nomis_records: "true" } }
           expect(request.session[:information_request][:prison_nomis_records]).to eq true
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+  end
+
+  describe "/prison-dates" do
+    let(:current_step) { "prison-dates" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:previous_step) { "/prison-information" }
+      let(:next_step) { "/" }
+      let(:information_request) { build(:information_request_for_prison_service) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the prison data page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("What dates do you want this information from? (optional)")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { "prison_date_from(3i)": "1", "prison_date_from(2i)": "1", "prison_date_from(1i)": "" } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter a valid date this information should start from")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { "prison_date_from(3i)": "1", "prison_date_from(2i)": "1", "prison_date_from(1i)": "2000" } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { "prison_date_from(3i)": "1", "prison_date_from(2i)": "1", "prison_date_from(1i)": "2000" } }
+          expect(request.session[:information_request][:prison_date_from]).to eq Date.new(2000, 1, 1)
         end
       end
 
