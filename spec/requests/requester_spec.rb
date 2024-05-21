@@ -18,7 +18,7 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the solicitor details page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Your details")
       end
@@ -54,7 +54,7 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the requester details page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Your details")
       end
@@ -101,7 +101,7 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the letter of consent upload page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Upload a letter of consent")
       end
@@ -163,7 +163,7 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the check upload page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Check your upload")
       end
@@ -212,7 +212,7 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the requester ID page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Upload your ID")
       end
@@ -277,7 +277,7 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the check upload page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Check your upload")
       end

@@ -18,7 +18,7 @@ RSpec.describe "Data required from prison service", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the prison location page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Are you currently in prison?")
       end
@@ -67,7 +67,7 @@ RSpec.describe "Data required from prison service", type: :request do
       context "when requesting own data" do
         let(:information_request) { build(:information_request_for_prison_service) }
 
-        it "renders the prison number page" do
+        it "renders the expected page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is your prison number?")
         end
@@ -88,7 +88,7 @@ RSpec.describe "Data required from prison service", type: :request do
       context "when requesting someone else's data" do
         let(:information_request) { build(:information_request_for_prison_service, subject: "other") }
 
-        it "renders the prison number page" do
+        it "renders the expected page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is their prison number?")
         end
@@ -120,7 +120,7 @@ RSpec.describe "Data required from prison service", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the prison data page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("What prison service information do you want?")
       end
@@ -165,7 +165,7 @@ RSpec.describe "Data required from prison service", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the prison data page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("What dates do you want this information from? (optional)")
       end
