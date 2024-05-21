@@ -30,6 +30,10 @@ Rails.application.routes.draw do
   get "probation-dates" => "requests#show"
 
   get "moj" => "requests#show"
+  get "laa" => "requests#show"
+  get "laa-dates" => "requests#show"
+  get "opg" => "requests#show"
+  get "opg-dates" => "requests#show"
 
   root to: "pages#homepage"
 

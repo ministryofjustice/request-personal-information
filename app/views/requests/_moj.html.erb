@@ -1,6 +1,16 @@
 <p class="govuk-body">For information or documents from the Courts (within HMCTS) contact the court or tribunal you dealt with directly.</p>
 
 <%= f.govuk_check_boxes_fieldset :moj, legend: nil do %>
+  <%= f.govuk_check_box :prison_service,
+        true,
+        label: { text: "Prison Service" },
+        multiple: false,
+        checked: f.object.prison_service.present? %>
+  <%= f.govuk_check_box :probation_service,
+        true,
+        label: { text: "Probation Service" },
+        multiple: false,
+        checked: f.object.probation_service.present? %>
   <%= f.govuk_check_box :laa,
         true,
         label: { text: "Legal Aid Agency" },
@@ -17,7 +27,5 @@
         true,
         label: { text: "Somewhere else in the Ministry of Justice" },
         multiple: false,
-        checked: f.object.moj_other.present? do %>
-    <%= f.govuk_text_area :moj_other_text, label: { size: "m" } %>
-  <% end %>
+        checked: f.object.moj_other.present? %>
 <% end %>

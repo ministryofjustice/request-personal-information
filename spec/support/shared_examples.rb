@@ -190,6 +190,58 @@ RSpec.shared_examples("question when requesting probation data") do
   end
 end
 
+RSpec.shared_examples("question when requesting laa data") do
+  describe "#required?" do
+    subject(:form_object) { described_class.new }
+
+    before do
+      form_object.request = information_request
+    end
+
+    context "when request is for probation service information" do
+      let(:information_request) { build(:information_request_for_laa) }
+
+      it "returns false" do
+        expect(form_object).to be_required
+      end
+    end
+
+    context "when request is not for probation service information" do
+      let(:information_request) { build(:information_request) }
+
+      it "returns false" do
+        expect(form_object).not_to be_required
+      end
+    end
+  end
+end
+
+RSpec.shared_examples("question when requesting opg data") do
+  describe "#required?" do
+    subject(:form_object) { described_class.new }
+
+    before do
+      form_object.request = information_request
+    end
+
+    context "when request is for probation service information" do
+      let(:information_request) { build(:information_request_for_opg) }
+
+      it "returns false" do
+        expect(form_object).to be_required
+      end
+    end
+
+    context "when request is not for probation service information" do
+      let(:information_request) { build(:information_request) }
+
+      it "returns false" do
+        expect(form_object).not_to be_required
+      end
+    end
+  end
+end
+
 RSpec.shared_examples("question with standard saveable attributes") do
   subject(:form_object) { described_class.new }
 

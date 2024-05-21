@@ -2,12 +2,16 @@ en:
   activemodel:
     errors:
       models:
-        request_form/hmpps:
+        request_form/laa:
           attributes:
-            hmpps:
-              blank: Choose if you want information held by the Prison and Probation Service (HMPPS)
-            hmpps_information:
-              blank: Choose if you want information held by the Prison and Probation Service (HMPPS)
+            laa_text:
+              blank: Enter what information you want
+        request_form/laa_dates:
+          attributes:
+            laa_date_from:
+              invalid: Enter a valid date this information should start from
+            laa_date_to:
+              invalid: Enter a valid date this information should go to
         request_form/letter_of_consent:
           attributes:
             letter_of_consent:
@@ -19,9 +23,17 @@ en:
         request_form/moj:
           attributes:
             moj:
-              blank: Choose where else you want information from
-            moj_other_text:
-              blank: Enter where in the Ministry of Justice you think this information is held
+              blank: Choose where you want information from
+        request_form/opg:
+          attributes:
+            opg_text:
+              blank: Enter what information you want
+        request_form/opg_dates:
+          attributes:
+            opg_date_from:
+              invalid: Enter a valid date this information should start from
+            opg_date_to:
+              invalid: Enter a valid date this information should go to
         request_form/prison_dates:
           attributes:
             prison_date_from:
@@ -94,7 +106,6 @@ en:
           other: Any other names that their information may be stored under? (optional)
           self: Any other names that your information may be stored under? (optional)
         organisation_name: Name of your organisation
-        moj_other_text: Where in the Ministry of Justice do you think this information is held?
         prison_other_data_text: Can you provide more detail?
         probation_other_data_text: Can you provide more detail?
         recent_prison_name:
@@ -107,8 +118,11 @@ en:
         subject_proof_of_address: Proof of address
     legend:
       request_form:
-        hmpps: Which service do you want information from?
+        laa_date_from: Enter a date this information should start from (optional)
+        laa_date_to: Enter a date this information should go to (optional)
         letter_of_consent_check: Is this upload correct?
+        opg_date_from: Enter a date this information should start from (optional)
+        opg_date_to: Enter a date this information should go to (optional)
         prison_date_from: Enter a date this information should start from (optional)
         prison_date_to: Enter a date this information should go to (optional)
         probation_date_from: Enter a date this information should start from (optional)
@@ -119,9 +133,12 @@ en:
       request_form:
         other_names: This includes last names, nicknames or aliases
         date_of_birth: For example, 19 05 2007
-        hmpps: Select all that apply
+        laa_date_from: For example 3 11 2000
+        laa_date_to: For example 12 5 2014
         moj: Select all that apply
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
+        opg_date_from: For example 3 11 2000
+        opg_date_to: For example 12 5 2014
         prison_date_from: For example 3 11 2000
         prison_date_to: For example 12 5 2014
         prison_other_data_text: We can respond faster if you are able to tell us specifically what you want.
@@ -142,10 +159,13 @@ en:
           self: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
 
   request_form:
-    hmpps: Do you want personal information held by the Prison and Probation Service (HMPPS)?
+    laa: What information do you want from the Legal Aid Agency (LAA)?
+    laa_dates: What dates do you want this information from? (optional)
     letter_of_consent: Upload a letter of consent
     letter_of_consent_check: Check your upload
-    moj: Where else do you want information from?
+    moj: Where do you want information from?
+    opg: What information do you want from the Office of the Public Guardian (OPG)?
+    opg_dates: What dates do you want this information from? (optional)
     prison_dates: What dates do you want this information from? (optional)
     prison_information: What prison service information do you want?
     prison_location:
@@ -181,3 +201,7 @@ en:
       name: HM Prison Service
     probation:
       name: HM Probation Service
+    laa:
+      name: Legal Aid Agency
+    opg:
+      name: Office of the Public Guardian

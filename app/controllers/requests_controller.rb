@@ -12,7 +12,7 @@ class RequestsController < ApplicationController
     letter-of-consent-check
     subject-id
     subject-id-check
-    hmpps
+    moj
     prison-location
     prison-number
     prison-information
@@ -20,7 +20,10 @@ class RequestsController < ApplicationController
     probation-location
     probation-information
     probation-dates
-    moj
+    laa
+    laa-dates
+    opg
+    opg-dates
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -112,7 +115,12 @@ private
       :laa,
       :opg,
       :moj_other,
-      :moj_other_text,
+      :laa_text,
+      :laa_date_from,
+      :laa_date_to,
+      :opg_text,
+      :opg_date_from,
+      :opg_date_to,
     )
   end
 

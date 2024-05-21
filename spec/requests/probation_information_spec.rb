@@ -100,7 +100,7 @@ RSpec.describe "Data required from probation service", type: :request do
 
     context "when session in progress" do
       let(:previous_step) { "/probation-information" }
-      let(:next_step) { "/moj" }
+      let(:next_step) { "/laa" }
       let(:information_request) { build(:information_request_for_probation_service) }
 
       before do
