@@ -24,6 +24,8 @@ en:
           attributes:
             moj:
               blank: Choose where you want information from
+            moj_other_where:
+              blank: Enter where you think this information is held
         request_form/opg:
           attributes:
             opg_text:
@@ -112,6 +114,7 @@ en:
           other: Which prison are they in?
           self: Which prison are you in?
         full_name: Full name
+        moj_other_where: Where in the Ministry of Justice do you think this information is held?
         other_names:
           other: Any other names that their information may be stored under? (optional)
           self: Any other names that your information may be stored under? (optional)

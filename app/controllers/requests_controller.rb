@@ -117,6 +117,7 @@ private
       :laa,
       :opg,
       :moj_other,
+      :moj_other_where,
       :laa_text,
       :laa_date_from,
       :laa_date_to,

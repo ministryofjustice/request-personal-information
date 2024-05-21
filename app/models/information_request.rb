@@ -5,7 +5,7 @@ class InformationRequest < ApplicationRecord
                 :currently_in_prison, :current_prison_name, :recent_prison_name, :prison_number,
                 :prison_nomis_records, :prison_security_data, :prison_other_data, :prison_other_data_text, :prison_date_from, :prison_date_to,
                 :probation_office, :probation_ndelius, :probation_other_data, :probation_other_data_text, :probation_date_from, :probation_date_to,
-                :laa, :opg, :moj_other, :laa_text, :laa_date_from, :laa_date_to, :opg_text, :opg_date_from, :opg_date_to, :moj_other_text, :moj_other_date_from, :moj_other_date_to
+                :laa, :opg, :moj_other, :moj_other_where, :laa_text, :laa_date_from, :laa_date_to, :opg_text, :opg_date_from, :opg_date_to, :moj_other_text, :moj_other_date_from, :moj_other_date_to
 
   belongs_to :letter_of_consent, class_name: "Attachment"
   belongs_to :requester_photo, class_name: "Attachment"
@@ -90,6 +90,7 @@ class InformationRequest < ApplicationRecord
       laa:,
       opg:,
       moj_other:,
+      moj_other_where:,
       laa_text:,
       laa_date_from:,
       laa_date_to:,

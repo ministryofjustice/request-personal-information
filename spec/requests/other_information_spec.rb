@@ -45,6 +45,17 @@ RSpec.describe "Which data is required", type: :request do
       end
 
       it_behaves_like "question with back link"
+
+      context "when other information is selected" do
+        context "when submitting form with invalid data" do
+          it "renders page with error message" do
+            patch "/request", params: { request_form: { moj_other: "true" } }
+            expect(response).to render_template(:show)
+            expect(response.body).to include("There is a problem")
+            expect(response.body).to include("Enter where you think this information is held")
+          end
+        end
+      end
     end
   end
 
