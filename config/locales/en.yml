@@ -34,6 +34,16 @@ en:
               invalid: Enter a valid date this information should start from
             opg_date_to:
               invalid: Enter a valid date this information should go to
+        request_form/other:
+          attributes:
+            moj_other_text:
+              blank: Enter what information you want
+        request_form/other_dates:
+          attributes:
+            moj_other_date_from:
+              invalid: Enter a valid date this information should start from
+            moj_other_date_to:
+              invalid: Enter a valid date this information should go to
         request_form/prison_dates:
           attributes:
             prison_date_from:
@@ -121,6 +131,8 @@ en:
         laa_date_from: Enter a date this information should start from (optional)
         laa_date_to: Enter a date this information should go to (optional)
         letter_of_consent_check: Is this upload correct?
+        moj_other_date_from: Enter a date this information should start from (optional)
+        moj_other_date_to: Enter a date this information should go to (optional)
         opg_date_from: Enter a date this information should start from (optional)
         opg_date_to: Enter a date this information should go to (optional)
         prison_date_from: Enter a date this information should start from (optional)
@@ -136,6 +148,8 @@ en:
         laa_date_from: For example 3 11 2000
         laa_date_to: For example 12 5 2014
         moj: Select all that apply
+        moj_other_date_from: For example 3 11 2000
+        moj_other_date_to: For example 12 5 2014
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
         opg_date_from: For example 3 11 2000
         opg_date_to: For example 12 5 2014
@@ -166,6 +180,8 @@ en:
     moj: Where do you want information from?
     opg: What information do you want from the Office of the Public Guardian (OPG)?
     opg_dates: What dates do you want this information from? (optional)
+    other: What information do you want from somewhere else in the Ministry of Justice?
+    other_dates: What dates do you want this information from? (optional)
     prison_dates: What dates do you want this information from? (optional)
     prison_information: What prison service information do you want?
     prison_location:
@@ -205,3 +221,5 @@ en:
       name: Legal Aid Agency
     opg:
       name: Office of the Public Guardian
+    other:
+      name: Somewhere else in the Ministry of Justice

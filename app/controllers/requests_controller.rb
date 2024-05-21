@@ -24,6 +24,8 @@ class RequestsController < ApplicationController
     laa-dates
     opg
     opg-dates
+    other
+    other-dates
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -121,6 +123,9 @@ private
       :opg_text,
       :opg_date_from,
       :opg_date_to,
+      :moj_other_text,
+      :moj_other_date_from,
+      :moj_other_date_to,
     )
   end
 

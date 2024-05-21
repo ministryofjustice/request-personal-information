@@ -48,6 +48,10 @@ FactoryBot.define do
       opg { true }
     end
 
+    trait :moj_other do
+      moj_other { true }
+    end
+
     factory :information_request_for_self, traits: %i[for_self]
     factory :information_request_for_other, traits: %i[for_other]
     factory :information_request_by_solicitor, traits: %i[for_other by_solicitor]
@@ -59,5 +63,6 @@ FactoryBot.define do
     factory :information_request_for_probation_service, traits: %i[for_self probation_service]
     factory :information_request_for_laa, traits: %i[for_self laa]
     factory :information_request_for_opg, traits: %i[for_self opg]
+    factory :information_request_for_moj_other, traits: %i[for_self moj_other]
   end
 end
