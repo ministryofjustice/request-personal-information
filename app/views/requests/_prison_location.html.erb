@@ -7,10 +7,10 @@
 <% end %>
 
 <%= f.govuk_radio_buttons_fieldset :hmpps_information, legend: nil do %>
-  <%= f.govuk_radio_button :currently_in_prison, "yes", label: { text: 'Yes' } do %>
+  <%= f.govuk_radio_button :currently_in_prison, "yes", label: { text: "Yes" } do %>
     <%= f.govuk_text_field :current_prison_name, label: { size: "m", text: t("helpers.label.request_form.current_prison_name.#{@information_request.subject}") } %>
   <% end %>
-  <%= f.govuk_radio_button :currently_in_prison, "no", label: { text: 'No' } do %>
+  <%= f.govuk_radio_button :currently_in_prison, "no", label: { text: "No" } do %>
     <%= f.govuk_text_field :recent_prison_name, label: { size: "m", text: t("helpers.label.request_form.recent_prison_name.#{@information_request.subject}") } %>
   <% end %>
 <% end %>

@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   get "contact-address" => "requests#show"
   get "contact-email" => "requests#show"
+  get "upcoming" => "requests#show"
 
   root to: "pages#homepage"
 

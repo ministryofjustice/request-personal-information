@@ -82,13 +82,13 @@ en:
         request_form/requester_details:
           attributes:
             requester_name:
-              blank: "Enter your full name"
+              blank: Enter your full name
         request_form/requester_id:
           attributes:
             requester_photo:
-              blank: "Add a file for Photo ID"
+              blank: Add a file for Photo ID
             requester_proof_of_address:
-              blank: "Add a file for Proof of address"
+              blank: Add a file for Proof of address
         request_form/requester_id_check:
           attributes:
             requester_id_check:
@@ -100,9 +100,9 @@ en:
         request_form/subject_id:
           attributes:
             subject_photo:
-              blank: "Add a file for Photo ID"
+              blank: Add a file for Photo ID
             subject_proof_of_address:
-              blank: "Add a file for Proof of address"
+              blank: Add a file for Proof of address
         request_form/subject_id_check:
           attributes:
             subject_id_check:
@@ -114,7 +114,13 @@ en:
         request_form/solicitor_details:
           attributes:
             organisation_name:
-              blank: "Enter the name of your organisation"
+              blank: Enter the name of your organisation
+        request_form/upcoming:
+          attributes:
+            upcoming_court_case:
+              blank: Choose if you need this information for an upcoming court date or hearing
+            upcoming_court_case_text:
+              blank: Provide more details
 
   helpers:
     label:
@@ -140,6 +146,7 @@ en:
         requester_proof_of_address: Proof of address
         subject_photo: Photo ID
         subject_proof_of_address: Proof of address
+        upcoming_court_case_text: Can you provide more details?
     legend:
       request_form:
         laa_date_from: Enter a date this information should start from (optional)
@@ -184,8 +191,9 @@ en:
           other: "For example, a copy of their driving licence or passport. Maximum size: 7MB per file"
           self: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         subject_proof_of_address:
-          other: "For example an electricity or council tax bill in their name and it must be dated within the last 6 months. Maximum file size 7MB"
-          self: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
+          other: For example an electricity or council tax bill in their name and it must be dated within the last 6 months. Maximum file size 7MB
+          self: For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB
+        upcoming_court_case_text: For example, when the trial or hearing is happening.
 
   request_form:
     contact_address: Where we'll send the information
@@ -228,8 +236,9 @@ en:
       other: What is their name?
       self: What is your name?
     subject_relationship: What is your relationship to them?
+    upcoming: Do you need this information for an upcoming court case or hearing?
   service:
-    name: "Request personal information"
+    name: Request personal information
     prison:
       name: HM Prison Service
     probation:
