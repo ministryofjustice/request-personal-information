@@ -18,7 +18,7 @@ RSpec.describe "Data required from probation service", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the probation location page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Where is your probation office or approved premises?")
       end
@@ -63,7 +63,7 @@ RSpec.describe "Data required from probation service", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the probation data page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("What probation service information do you want?")
       end
@@ -100,7 +100,7 @@ RSpec.describe "Data required from probation service", type: :request do
 
     context "when session in progress" do
       let(:previous_step) { "/probation-information" }
-      let(:next_step) { "/" }
+      let(:next_step) { "/laa" }
       let(:information_request) { build(:information_request_for_probation_service) }
 
       before do
@@ -108,7 +108,7 @@ RSpec.describe "Data required from probation service", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the probation data page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("What dates do you want this information from? (optional)")
       end

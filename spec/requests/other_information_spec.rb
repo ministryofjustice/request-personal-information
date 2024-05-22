@@ -1,0 +1,337 @@
+require "rails_helper"
+
+RSpec.describe "Which data is required", type: :request do
+  describe "/moj" do
+    let(:current_step) { "moj" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:information_request) { build(:information_request_for_self) }
+      let(:previous_step) { "/subject-id-check" }
+      let(:next_step) { "/prison-location" }
+      let(:valid_data) { "no" }
+      let(:invalid_data) { "" }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("Where do you want information from?")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { moj: [] } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Choose where you want information from")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { laa: "true" } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { laa: "true" } }
+          expect(request.session[:information_request][:laa]).to eq true
+        end
+      end
+
+      it_behaves_like "question with back link"
+
+      context "when other information is selected" do
+        context "when submitting form with invalid data" do
+          it "renders page with error message" do
+            patch "/request", params: { request_form: { moj_other: "true" } }
+            expect(response).to render_template(:show)
+            expect(response.body).to include("There is a problem")
+            expect(response.body).to include("Enter where you think this information is held")
+          end
+        end
+      end
+    end
+  end
+
+  describe "/laa" do
+    let(:current_step) { "laa" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:information_request) { build(:information_request_for_laa) }
+      let(:previous_step) { "/moj" }
+      let(:next_step) { "/laa-dates" }
+      let(:valid_data) { "information required" }
+      let(:invalid_data) { "" }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("What information do you want from the Legal Aid Agency (LAA)?")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { laa_text: invalid_data } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter what information you want")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { laa_text: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { laa_text: valid_data } }
+          expect(request.session[:information_request][:laa_text]).to eq valid_data
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+  end
+
+  describe "/laa-dates" do
+    let(:current_step) { "laa-dates" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:previous_step) { "/laa" }
+      let(:next_step) { "/opg" }
+      let(:information_request) { build(:information_request_for_laa) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("What dates do you want this information from? (optional)")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { "laa_date_from(3i)": "1", "laa_date_from(2i)": "1", "laa_date_from(1i)": "" } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter a valid date this information should start from")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { "laa_date_from(3i)": "1", "laa_date_from(2i)": "1", "laa_date_from(1i)": "2000" } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { "laa_date_from(3i)": "1", "laa_date_from(2i)": "1", "laa_date_from(1i)": "2000" } }
+          expect(request.session[:information_request][:laa_date_from]).to eq Date.new(2000, 1, 1)
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+  end
+
+  describe "/opg" do
+    let(:current_step) { "opg" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:information_request) { build(:information_request_for_opg) }
+      let(:previous_step) { "/moj" }
+      let(:next_step) { "/opg-dates" }
+      let(:valid_data) { "information required" }
+      let(:invalid_data) { "" }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("What information do you want from the Office of the Public Guardian (OPG)?")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { opg_text: invalid_data } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter what information you want")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { opg_text: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { opg_text: valid_data } }
+          expect(request.session[:information_request][:opg_text]).to eq valid_data
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+  end
+
+  describe "/opg-dates" do
+    let(:current_step) { "opg-dates" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:previous_step) { "/opg" }
+      let(:next_step) { "/other" }
+      let(:information_request) { build(:information_request_for_opg) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("What dates do you want this information from? (optional)")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { "opg_date_from(3i)": "1", "opg_date_from(2i)": "1", "opg_date_from(1i)": "" } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter a valid date this information should start from")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { "opg_date_from(3i)": "1", "opg_date_from(2i)": "1", "opg_date_from(1i)": "2000" } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { "opg_date_from(3i)": "1", "opg_date_from(2i)": "1", "opg_date_from(1i)": "2000" } }
+          expect(request.session[:information_request][:opg_date_from]).to eq Date.new(2000, 1, 1)
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+  end
+
+  describe "/other" do
+    let(:current_step) { "other" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:information_request) { build(:information_request_for_moj_other) }
+      let(:previous_step) { "/moj" }
+      let(:next_step) { "/other-dates" }
+      let(:valid_data) { "information required" }
+      let(:invalid_data) { "" }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("What information do you want from somewhere else in the Ministry of Justice?")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { moj_other_text: invalid_data } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter what information you want")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { moj_other_text: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { moj_other_text: valid_data } }
+          expect(request.session[:information_request][:moj_other_text]).to eq valid_data
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+  end
+
+  describe "/other-dates" do
+    let(:current_step) { "other-dates" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:previous_step) { "/other" }
+      let(:next_step) { "/" }
+      let(:information_request) { build(:information_request_for_moj_other) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("What dates do you want this information from? (optional)")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { "moj_other_date_from(3i)": "1", "moj_other_date_from(2i)": "1", "moj_other_date_from(1i)": "" } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter a valid date this information should start from")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { "moj_other_date_from(3i)": "1", "moj_other_date_from(2i)": "1", "moj_other_date_from(1i)": "2000" } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { "moj_other_date_from(3i)": "1", "moj_other_date_from(2i)": "1", "moj_other_date_from(1i)": "2000" } }
+          expect(request.session[:information_request][:moj_other_date_from]).to eq Date.new(2000, 1, 1)
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+  end
+end

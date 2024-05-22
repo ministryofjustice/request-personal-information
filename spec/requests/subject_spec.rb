@@ -25,7 +25,7 @@ RSpec.describe "Subject", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the subject page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Are you requesting your own information or on behalf of someone else?")
       end
@@ -63,7 +63,7 @@ RSpec.describe "Subject", type: :request do
       context "when requesting own data" do
         let(:information_request) { build(:information_request_for_self) }
 
-        it "renders the subject-name page" do
+        it "renders the expected page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is your name?")
         end
@@ -84,7 +84,7 @@ RSpec.describe "Subject", type: :request do
       context "when requesting someone else's data" do
         let(:information_request) { build(:information_request_for_other) }
 
-        it "renders the subject-name page" do
+        it "renders the expected page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is their name?")
         end
@@ -120,7 +120,7 @@ RSpec.describe "Subject", type: :request do
       context "when requesting own data" do
         let(:information_request) { build(:information_request_for_self) }
 
-        it "renders the subject-date-of-birth page" do
+        it "renders the expected page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is your date of birth?")
         end
@@ -152,7 +152,7 @@ RSpec.describe "Subject", type: :request do
       context "when requesting someone else's data" do
         let(:information_request) { build(:information_request_for_other) }
 
-        it "renders the subject-date-of-birth page" do
+        it "renders the expected page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is their date of birth?")
         end
@@ -196,7 +196,7 @@ RSpec.describe "Subject", type: :request do
       context "when requesting someone else's data" do
         let(:information_request) { build(:information_request_for_other) }
 
-        it "renders the subject-relationship page" do
+        it "renders the expected page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("What is your relationship to them?")
         end
@@ -234,7 +234,7 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting data for someone else" do
-        it "renders the subject ID page" do
+        it "renders the expected page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("Upload their ID")
           expect(response.body).to include("For example, a copy of their driving licence or passport")
@@ -245,7 +245,7 @@ RSpec.describe "Subject", type: :request do
       context "when requesting data for self" do
         let(:information_request) { build(:information_request_for_self) }
 
-        it "renders the subject ID page" do
+        it "renders the expected page" do
           expect(response).to render_template(:show)
           expect(response.body).to include("Upload your ID")
           expect(response.body).to include("For example, a copy of your driving licence or passport")
@@ -304,7 +304,7 @@ RSpec.describe "Subject", type: :request do
     context "when session in progress" do
       let(:information_request) { build(:information_request_with_subject_id) }
       let(:previous_step) { "/subject-id" }
-      let(:next_step) { "/hmpps" }
+      let(:next_step) { "/moj" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 
@@ -313,7 +313,7 @@ RSpec.describe "Subject", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the check upload page" do
+      it "renders the expected page" do
         expect(response).to render_template(:show)
         expect(response.body).to include("Check your upload")
       end

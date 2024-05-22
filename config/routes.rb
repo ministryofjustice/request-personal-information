@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get "subject-id" => "requests#show"
   get "subject-id-check" => "requests#show"
 
-  get "hmpps" => "requests#show"
+  get "moj" => "requests#show"
   get "prison-location" => "requests#show"
   get "prison-number" => "requests#show"
   get "prison-information" => "requests#show"
@@ -28,6 +28,13 @@ Rails.application.routes.draw do
   get "probation-location" => "requests#show"
   get "probation-information" => "requests#show"
   get "probation-dates" => "requests#show"
+
+  get "laa" => "requests#show"
+  get "laa-dates" => "requests#show"
+  get "opg" => "requests#show"
+  get "opg-dates" => "requests#show"
+  get "other" => "requests#show"
+  get "other-dates" => "requests#show"
 
   root to: "pages#homepage"
 
