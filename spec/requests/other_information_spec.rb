@@ -297,7 +297,7 @@ RSpec.describe "Which data is required", type: :request do
 
     context "when session in progress" do
       let(:previous_step) { "/other" }
-      let(:next_step) { "/" }
+      let(:next_step) { "/contact-address" }
       let(:information_request) { build(:information_request_for_moj_other) }
 
       before do
