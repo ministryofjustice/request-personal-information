@@ -6,6 +6,11 @@ en:
           attributes:
             contact_address:
               blank: Enter your address
+        request_form/contact_email:
+          attributes:
+            contact_email:
+              blank: Enter your email
+              invalid: Enter a valid email
         request_form/laa:
           attributes:
             laa_text:
@@ -115,6 +120,7 @@ en:
     label:
       request_form:
         contact_address: Your address
+        contact_email: Email address (optional)
         current_prison_name:
           other: Which prison are they in?
           self: Which prison are you in?
@@ -183,6 +189,7 @@ en:
 
   request_form:
     contact_address: Where we'll send the information
+    contact_email: Your email
     laa: What information do you want from the Legal Aid Agency (LAA)?
     laa_dates: What dates do you want this information from? (optional)
     letter_of_consent: Upload a letter of consent

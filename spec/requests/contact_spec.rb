@@ -9,7 +9,7 @@ RSpec.describe "contact information", type: :request do
     context "when session in progress" do
       let(:information_request) { build(:information_request_for_laa) }
       let(:previous_step) { "/other-dates" }
-      let(:next_step) { "/" }
+      let(:next_step) { "/contact-email" }
       let(:valid_data) { "address details" }
       let(:invalid_data) { "" }
 
@@ -41,6 +41,53 @@ RSpec.describe "contact information", type: :request do
         it "saves the value to the session" do
           patch "/request", params: { request_form: { contact_address: valid_data } }
           expect(request.session[:information_request][:contact_address]).to eq valid_data
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+  end
+
+  describe "/contact-email" do
+    let(:current_step) { "contact-email" }
+
+    it_behaves_like "question that requires a session"
+
+    context "when session in progress" do
+      let(:information_request) { build(:information_request_for_laa) }
+      let(:previous_step) { "/contact-address" }
+      let(:next_step) { "/" }
+      let(:valid_data) { "email@domain.com" }
+      let(:invalid_data) { "" }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:show)
+        expect(response.body).to include("Your email")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { contact_email: invalid_data } }
+          expect(response).to render_template(:show)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter your email")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { contact_email: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { contact_email: valid_data } }
+          expect(request.session[:information_request][:contact_email]).to eq valid_data
         end
       end
 

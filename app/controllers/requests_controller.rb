@@ -27,6 +27,7 @@ class RequestsController < ApplicationController
     other
     other-dates
     contact-address
+    contact-email
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -129,6 +130,7 @@ private
       :moj_other_date_from,
       :moj_other_date_to,
       :contact_address,
+      :contact_email,
     )
   end
 

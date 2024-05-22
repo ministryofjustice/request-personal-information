@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get "other-dates" => "requests#show"
 
   get "contact-address" => "requests#show"
+  get "contact-email" => "requests#show"
 
   root to: "pages#homepage"
 

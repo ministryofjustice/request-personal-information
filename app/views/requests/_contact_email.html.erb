@@ -1,0 +1,9 @@
+<p class="govuk-body">We will only use this email to:</p>
+
+<%= govuk_list type: :bullet do %>
+  <%= tag.li "contact you if we need more information" %>
+  <%= tag.li "send you a copy of this completed form for your records" %>
+  <%= tag.li "give you instructions how to contact us after you've submitted your request" %>
+<% end %>
+
+<%= f.govuk_text_field :contact_email, label: { size: "m" } %>
