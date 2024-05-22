@@ -2,6 +2,15 @@ en:
   activemodel:
     errors:
       models:
+        request_form/contact_address:
+          attributes:
+            contact_address:
+              blank: Enter your address
+        request_form/contact_email:
+          attributes:
+            contact_email:
+              blank: Enter your email
+              invalid: Enter a valid email
         request_form/laa:
           attributes:
             laa_text:
@@ -73,13 +82,13 @@ en:
         request_form/requester_details:
           attributes:
             requester_name:
-              blank: "Enter your full name"
+              blank: Enter your full name
         request_form/requester_id:
           attributes:
             requester_photo:
-              blank: "Add a file for Photo ID"
+              blank: Add a file for Photo ID
             requester_proof_of_address:
-              blank: "Add a file for Proof of address"
+              blank: Add a file for Proof of address
         request_form/requester_id_check:
           attributes:
             requester_id_check:
@@ -91,9 +100,9 @@ en:
         request_form/subject_id:
           attributes:
             subject_photo:
-              blank: "Add a file for Photo ID"
+              blank: Add a file for Photo ID
             subject_proof_of_address:
-              blank: "Add a file for Proof of address"
+              blank: Add a file for Proof of address
         request_form/subject_id_check:
           attributes:
             subject_id_check:
@@ -105,11 +114,19 @@ en:
         request_form/solicitor_details:
           attributes:
             organisation_name:
-              blank: "Enter the name of your organisation"
+              blank: Enter the name of your organisation
+        request_form/upcoming:
+          attributes:
+            upcoming_court_case:
+              blank: Choose if you need this information for an upcoming court date or hearing
+            upcoming_court_case_text:
+              blank: Provide more details
 
   helpers:
     label:
       request_form:
+        contact_address: Your address
+        contact_email: Email address (optional)
         current_prison_name:
           other: Which prison are they in?
           self: Which prison are you in?
@@ -129,6 +146,7 @@ en:
         requester_proof_of_address: Proof of address
         subject_photo: Photo ID
         subject_proof_of_address: Proof of address
+        upcoming_court_case_text: Can you provide more details?
     legend:
       request_form:
         laa_date_from: Enter a date this information should start from (optional)
@@ -146,7 +164,7 @@ en:
         subject_id_check: Are these uploads correct?
     hint:
       request_form:
-        other_names: This includes last names, nicknames or aliases
+        contact_address: You will receive paper copies of this information. If your request reveals details about another person, that information will not be shared.
         date_of_birth: For example, 19 05 2007
         laa_date_from: For example 3 11 2000
         laa_date_to: For example 12 5 2014
@@ -156,6 +174,7 @@ en:
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
         opg_date_from: For example 3 11 2000
         opg_date_to: For example 12 5 2014
+        other_names: This includes last names, nicknames or aliases
         prison_date_from: For example 3 11 2000
         prison_date_to: For example 12 5 2014
         prison_other_data_text: We can respond faster if you are able to tell us specifically what you want.
@@ -172,10 +191,13 @@ en:
           other: "For example, a copy of their driving licence or passport. Maximum size: 7MB per file"
           self: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         subject_proof_of_address:
-          other: "For example an electricity or council tax bill in their name and it must be dated within the last 6 months. Maximum file size 7MB"
-          self: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
+          other: For example an electricity or council tax bill in their name and it must be dated within the last 6 months. Maximum file size 7MB
+          self: For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB
+        upcoming_court_case_text: For example, when the trial or hearing is happening.
 
   request_form:
+    contact_address: Where we'll send the information
+    contact_email: Your email
     laa: What information do you want from the Legal Aid Agency (LAA)?
     laa_dates: What dates do you want this information from? (optional)
     letter_of_consent: Upload a letter of consent
@@ -214,8 +236,9 @@ en:
       other: What is their name?
       self: What is your name?
     subject_relationship: What is your relationship to them?
+    upcoming: Do you need this information for an upcoming court case or hearing?
   service:
-    name: "Request personal information"
+    name: Request personal information
     prison:
       name: HM Prison Service
     probation:

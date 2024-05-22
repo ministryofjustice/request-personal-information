@@ -36,6 +36,10 @@ Rails.application.routes.draw do
   get "other" => "requests#show"
   get "other-dates" => "requests#show"
 
+  get "contact-address" => "requests#show"
+  get "contact-email" => "requests#show"
+  get "upcoming" => "requests#show"
+
   root to: "pages#homepage"
 
   if Rails.env.test?

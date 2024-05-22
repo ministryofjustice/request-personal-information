@@ -26,6 +26,9 @@ class RequestsController < ApplicationController
     opg-dates
     other
     other-dates
+    contact-address
+    contact-email
+    upcoming
   ].freeze
 
   before_action :set_objects, only: %i[update show]
@@ -127,6 +130,10 @@ private
       :moj_other_text,
       :moj_other_date_from,
       :moj_other_date_to,
+      :contact_address,
+      :contact_email,
+      :upcoming_court_case,
+      :upcoming_court_case_text,
     )
   end
 
