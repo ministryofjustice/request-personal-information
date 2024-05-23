@@ -19,14 +19,14 @@ RSpec.describe "Requester", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Your details")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { organisation_name: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter the name of your organisation")
         end
@@ -55,14 +55,14 @@ RSpec.describe "Requester", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Your details")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { requester_name: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter your full name")
         end
@@ -102,14 +102,14 @@ RSpec.describe "Requester", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Upload a letter of consent")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { letter_of_consent: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Choose a file to upload")
         end
@@ -164,14 +164,14 @@ RSpec.describe "Requester", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Check your upload")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { letter_of_consent_check: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter an answer for is this upload is correct")
         end
@@ -213,14 +213,14 @@ RSpec.describe "Requester", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Upload your ID")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { requester_photo: invalid_data, requester_proof_of_address: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Add a file for Photo ID")
           expect(response.body).to include("Add a file for Proof of address")
@@ -278,14 +278,14 @@ RSpec.describe "Requester", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Check your upload")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { requester_id_check: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter an answer for if these uploads are correct")
         end

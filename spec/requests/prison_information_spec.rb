@@ -19,14 +19,14 @@ RSpec.describe "Data required from prison service", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Are you currently in prison?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { currently_in_prison: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Are you currently in prison")
         end
@@ -68,14 +68,14 @@ RSpec.describe "Data required from prison service", type: :request do
         let(:information_request) { build(:information_request_for_prison_service) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is your prison number?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { prison_number: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter your prison number")
           end
@@ -89,14 +89,14 @@ RSpec.describe "Data required from prison service", type: :request do
         let(:information_request) { build(:information_request_for_prison_service, subject: "other") }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is their prison number?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { prison_number: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter their prison number")
           end
@@ -121,14 +121,14 @@ RSpec.describe "Data required from prison service", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("What prison service information do you want?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { default: 1 } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter an answer for")
         end
@@ -166,14 +166,14 @@ RSpec.describe "Data required from prison service", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("What dates do you want this information from? (optional)")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { "prison_date_from(3i)": "1", "prison_date_from(2i)": "1", "prison_date_from(1i)": "" } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter a valid date this information should start from")
         end

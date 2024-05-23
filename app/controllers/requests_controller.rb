@@ -31,14 +31,16 @@ class RequestsController < ApplicationController
     upcoming
   ].freeze
 
-  before_action :set_objects, only: %i[update show]
+  before_action :set_objects, only: %i[show edit update]
 
   def new
     reset_session
     redirect_to "/#{STEPS.first}"
   end
 
-  def show
+  def show; end
+
+  def edit
     next_step(skipping: true) unless @form.required?
   end
 
@@ -51,7 +53,7 @@ class RequestsController < ApplicationController
       session[:information_request] = @information_request.to_hash
       @form.back.nil? ? next_step : previous_step
     else
-      render :show
+      render :edit
     end
   end
 

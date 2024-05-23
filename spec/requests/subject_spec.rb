@@ -26,14 +26,14 @@ RSpec.describe "Subject", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Are you requesting your own information or on behalf of someone else?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { subject: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include(CGI.escapeHTML("Choose if you're requesting information for yourself or for someone else"))
         end
@@ -64,14 +64,14 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { build(:information_request_for_self) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is your name?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { full_name: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter your full name")
           end
@@ -85,14 +85,14 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { build(:information_request_for_other) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is their name?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { full_name: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter their full name")
           end
@@ -121,14 +121,14 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { build(:information_request_for_self) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is your date of birth?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { date_of_birth: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter your date of birth")
           end
@@ -153,14 +153,14 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { build(:information_request_for_other) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is their date of birth?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { date_of_birth: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter their date of birth")
           end
@@ -197,14 +197,14 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { build(:information_request_for_other) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is your relationship to them?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { relationship: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include(CGI.escapeHTML("Choose if you're a legal representative or a relative, friend or something else"))
           end
@@ -235,7 +235,7 @@ RSpec.describe "Subject", type: :request do
 
       context "when requesting data for someone else" do
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("Upload their ID")
           expect(response.body).to include("For example, a copy of their driving licence or passport")
           expect(response.body).to include("For example an electricity or council tax bill in their name")
@@ -246,7 +246,7 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { build(:information_request_for_self) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("Upload your ID")
           expect(response.body).to include("For example, a copy of your driving licence or passport")
           expect(response.body).to include("For example an electricity or council tax bill in your name")
@@ -256,7 +256,7 @@ RSpec.describe "Subject", type: :request do
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { subject_photo: invalid_data, subject_proof_of_address: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Add a file for Photo ID")
           expect(response.body).to include("Add a file for Proof of address")
@@ -314,14 +314,14 @@ RSpec.describe "Subject", type: :request do
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Check your upload")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { subject_id_check: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter an answer for if these uploads are correct")
         end
