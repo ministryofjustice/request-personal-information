@@ -57,5 +57,8 @@
       <h3 class="govuk-heading-m"><%= t("service.other.name") %></h3>
       <%= govuk_summary_list rows: @moj_other_summary %>
     <% end %>
+
+    <h3 class="govuk-heading-m"><%= t("request_form.contact_address") %></h3>
+      <%= govuk_summary_list rows: @contact_summary %>
   </div>
 </div>

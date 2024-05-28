@@ -52,6 +52,7 @@ class RequestsController < ApplicationController
     @laa_summary = laa_summary
     @opg_summary = opg_summary
     @moj_other_summary = moj_other_summary
+    @contact_summary = contact_summary
   end
 
   def edit
@@ -160,8 +161,13 @@ private
 
   def next_step(skipping: false)
     session[:history] << "/#{session[:current_step]}" unless skipping
-    session[:current_step] = STEPS[current_index + 1]
-    redirect_to "/#{session[:current_step]}"
+
+    if current_index + 1 >= STEPS.size
+      redirect_to "/check-answers"
+    else
+      session[:current_step] = STEPS[current_index + 1]
+      redirect_to "/#{session[:current_step]}"
+    end
   end
 
   def previous_step(step_name)
@@ -478,5 +484,37 @@ private
         actions: { text: "Change", href: back_request_path("other-dates"), visually_hidden_text: t("helpers.legend.request_form.moj_other_date_to") },
       },
     ]
+  end
+
+  def contact_summary
+    summary = [
+      {
+        key: { text: t("helpers.label.request_form.contact_address") },
+        value: { text: @information_request.contact_address },
+        actions: { text: "Change", href: back_request_path("contact-address"), visually_hidden_text: t("helpers.label.request_form.contact_address") },
+      },
+      {
+        key: { text: t("helpers.label.request_form.contact_email") },
+        value: { text: @information_request.contact_email },
+        actions: { text: "Change", href: back_request_path("contact-email"), visually_hidden_text: t("helpers.label.request_form.contact_email") },
+      },
+      {
+        key: { text: t("request_form.upcoming") },
+        value: { text: @information_request.upcoming_court_case.capitalize },
+        actions: { text: "Change", href: back_request_path("upcoming"), visually_hidden_text: t("request_form.upcoming") },
+      },
+    ]
+
+    if @information_request.upcoming_court_case == "yes"
+      summary.push(
+        {
+          key: { text: t("helpers.label.request_form.upcoming_court_case_text") },
+          value: { text: @information_request.upcoming_court_case_text },
+          actions: { text: "Change", href: back_request_path("upcoming"), visually_hidden_text: t("helpers.label.request_form.upcoming_court_case_text") },
+        },
+      )
+    end
+
+    summary
   end
 end
