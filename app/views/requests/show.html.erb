@@ -31,10 +31,31 @@
     <% end %>
 
     <h3 class="govuk-heading-m"><%= t("request_form.moj") %></h3>
+    <%= govuk_summary_list rows: @information_summary %>
 
     <% if @prison_summary.present? %>
       <h3 class="govuk-heading-m"><%= t("service.prison.name") %></h3>
       <%= govuk_summary_list rows: @prison_summary %>
+    <% end %>
+
+    <% if @probation_summary.present? %>
+      <h3 class="govuk-heading-m"><%= t("service.probation.name") %></h3>
+      <%= govuk_summary_list rows: @probation_summary %>
+    <% end %>
+
+    <% if @laa_summary.present? %>
+      <h3 class="govuk-heading-m"><%= t("service.laa.name") %></h3>
+      <%= govuk_summary_list rows: @laa_summary %>
+    <% end %>
+
+    <% if @opg_summary.present? %>
+      <h3 class="govuk-heading-m"><%= t("service.opg.name") %></h3>
+      <%= govuk_summary_list rows: @opg_summary %>
+    <% end %>
+
+    <% if @moj_other_summary.present? %>
+      <h3 class="govuk-heading-m"><%= t("service.other.name") %></h3>
+      <%= govuk_summary_list rows: @moj_other_summary %>
     <% end %>
   </div>
 </div>

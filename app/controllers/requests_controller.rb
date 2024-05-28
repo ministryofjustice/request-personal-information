@@ -46,7 +46,12 @@ class RequestsController < ApplicationController
     @requester_summary = requester_summary
     @requester_id_summary = requester_id_summary
     @subject_id_summary = subject_id_summary
+    @information_summary = information_summary
     @prison_summary = prison_summary
+    @probation_summary = probation_summary
+    @laa_summary = laa_summary
+    @opg_summary = opg_summary
+    @moj_other_summary = moj_other_summary
   end
 
   def edit
@@ -280,6 +285,24 @@ private
     ]
   end
 
+  def information_summary
+    summary = [{
+      key: { text: t("helpers.hint.request_form.moj") },
+      value: { text: @information_request.information_required },
+      actions: { text: "Change", href: back_request_path("moj"), visually_hidden_text: t("helpers.hint.request_form.moj") },
+    }]
+
+    if @information_request.moj_other.present?
+      summary.push(
+        {
+          key: { text: t("helpers.label.request_form.moj_other_where") },
+          value: { text: @information_request.moj_other_where },
+          actions: { text: "Change", href: back_request_path("moj"), visually_hidden_text: t("helpers.label.request_form.moj_other_where") },
+        },
+      )
+    end
+  end
+
   def prison_summary
     return unless @information_request.prison_service
 
@@ -297,7 +320,7 @@ private
           key: { text: t("helpers.label.request_form.current_prison_name.#{@information_request.subject}") },
           value: { text: @information_request.current_prison_name },
           actions: { text: "Change", href: back_request_path("prison-location"), visually_hidden_text: t("helpers.label.request_form.current_prison_name.#{@information_request.subject}") },
-        }
+        },
       )
     else
       summary.push(
@@ -305,7 +328,7 @@ private
           key: { text: t("helpers.label.request_form.recent_prison_name.#{@information_request.subject}") },
           value: { text: @information_request.recent_prison_name },
           actions: { text: "Change", href: back_request_path("prison-location"), visually_hidden_text: t("helpers.label.request_form.recent_prison_name.#{@information_request.subject}") },
-        }
+        },
       )
     end
 
@@ -343,6 +366,48 @@ private
         key: { text: t("helpers.legend.request_form.prison_date_to") },
         value: { text: @information_request.prison_date_to },
         actions: { text: "Change", href: back_request_path("prison-dates"), visually_hidden_text: t("helpers.legend.request_form.prison_date_to") },
+      },
+    )
+
+    summary
+  end
+
+  def probation_summary
+    return unless @information_request.probation_service
+
+    summary = [
+      {
+        key: { text: t("request_form.probation_location.#{@information_request.subject}") },
+        value: { text: @information_request.probation_office },
+        actions: { text: "Change", href: back_request_path("probation-location"), visually_hidden_text: t("request_form.probation_location.#{@information_request.subject}") },
+      },
+      {
+        key: { text: t("request_form.probation_information") },
+        value: { text: @information_request.probation_information },
+        actions: { text: "Change", href: back_request_path("probation-information"), visually_hidden_text: t("request_form.probation_information") },
+      },
+    ]
+
+    if @information_request.probation_other_data.present?
+      summary.push(
+        {
+          key: { text: t("helpers.label.request_form.probation_other_data_text") },
+          value: { text: @information_request.probation_other_data_text },
+          actions: { text: "Change", href: back_request_path("probation-information"), visually_hidden_text: t("helpers.label.request_form.probation_other_data_text") },
+        }
+      )
+    end
+
+    summary.push(
+      {
+        key: { text: t("helpers.legend.request_form.probation_date_from") },
+        value: { text: @information_request.probation_date_from },
+        actions: { text: "Change", href: back_request_path("probation-dates"), visually_hidden_text: t("helpers.legend.request_form.probation_date_from") },
+      },
+      {
+        key: { text: t("helpers.legend.request_form.probation_date_to") },
+        value: { text: @information_request.probation_date_to },
+        actions: { text: "Change", href: back_request_path("probation-dates"), visually_hidden_text: t("helpers.legend.request_form.probation_date_to") },
       },
     )
 

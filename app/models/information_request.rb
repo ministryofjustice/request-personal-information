@@ -55,11 +55,28 @@ class InformationRequest < ApplicationRecord
     self.subject_proof_of_address_id = file_object.id
   end
 
+  def information_required
+    info = []
+    info << "Prison Service" if prison_service.present?
+    info << "Probation Service" if probation_service.present?
+    info << "Legal Aid Agency" if laa.present?
+    info << "Office of the Public Guardian (OPG)" if opg.present?
+    info << "Somewhere else in the Ministry of Justice" if moj_other.present?
+    info.join(", ")
+  end
+
   def prison_information
     info = []
     info << "NOMIS Records" if prison_nomis_records.present?
     info << "Security data" if prison_security_data.present?
     info << "Something else" if prison_other_data.present?
+    info.join(", ")
+  end
+
+  def probation_information
+    info = []
+    info << "nDelius file" if probation_ndelius.present?
+    info << "Something else" if probation_other_data.present?
     info.join(", ")
   end
 
