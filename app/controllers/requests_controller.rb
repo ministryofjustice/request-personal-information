@@ -42,17 +42,7 @@ class RequestsController < ApplicationController
     redirect_to root_path and return if session[:current_step].nil?
 
     @information_request = InformationRequest.new(session[:information_request])
-    @subject_summary = subject_summary
-    @requester_summary = requester_summary
-    @requester_id_summary = requester_id_summary
-    @subject_id_summary = subject_id_summary
-    @information_summary = information_summary
-    @prison_summary = prison_summary
-    @probation_summary = probation_summary
-    @laa_summary = laa_summary
-    @opg_summary = opg_summary
-    @moj_other_summary = moj_other_summary
-    @contact_summary = contact_summary
+    @summary = summary
   end
 
   def edit
@@ -184,12 +174,28 @@ private
     STEPS.find_index(session[:current_step].to_sym)
   end
 
+  def summary
+    {
+      subject_summary:,
+      requester_summary:,
+      requester_id_summary:,
+      subject_id_summary:,
+      information_summary:,
+      prison_summary:,
+      probation_summary:,
+      laa_summary:,
+      opg_summary:,
+      moj_other_summary:,
+      contact_summary:,
+    }
+  end
+
   def subject_summary
     summary = [
       {
         key: { text: t("helpers.label.request_form.full_name") },
         value: { text: @information_request.full_name },
-        actions: { text: "Change", href: back_request_path("subject-name"), visually_hidden_text: t("helpers.label.request_form.full_name")},
+        actions: { text: "Change", href: back_request_path("subject-name"), visually_hidden_text: t("helpers.label.request_form.full_name") },
       },
       {
         key: { text: t("helpers.label.request_form.other_names.#{@information_request.subject}") },
@@ -209,7 +215,7 @@ private
           key: { text: t("request_form.subject_relationship") },
           value: { text: RequestForm::SubjectRelationship::OPTIONS[@information_request.relationship.to_sym] },
           actions: { text: "Change", href: back_request_path("subject-relationship"), visually_hidden_text: t("request_form.subject_relationship") },
-        }
+        },
       )
     end
 
@@ -259,7 +265,7 @@ private
           key: { text: t("helpers.label.request_form.requester_proof_of_address") },
           value: { text: Attachment.find(@information_request.requester_proof_of_address_id).to_s },
           actions: { text: "Change", href: back_request_path("requester-id"), visually_hidden_text: t("helpers.label.request_form.requester_proof_of_address") },
-        }
+        },
       )
     end
 
@@ -268,7 +274,7 @@ private
         key: { text: t("request_form.letter_of_consent") },
         value: { text: Attachment.find(@information_request.letter_of_consent_id).to_s },
         actions: { text: "Change", href: back_request_path("letter-of-consent"), visually_hidden_text: t("request_form.letter_of_consent") },
-      }
+      },
     )
 
     summary
@@ -360,7 +366,6 @@ private
         },
       )
     end
-
 
     summary.push(
       {
