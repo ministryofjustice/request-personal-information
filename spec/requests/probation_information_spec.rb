@@ -8,13 +8,13 @@ RSpec.describe "Data required from probation service", type: :request do
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_for_probation_service) }
-      let(:previous_step) { "/hmpps" }
+      let(:previous_step) { "moj" }
       let(:next_step) { "/probation-information" }
       let(:valid_data) { "probation office" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -54,12 +54,12 @@ RSpec.describe "Data required from probation service", type: :request do
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
-      let(:previous_step) { "/probation-location" }
+      let(:previous_step) { "probation-location" }
       let(:next_step) { "/probation-dates" }
       let(:information_request) { build(:information_request_for_probation_service) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -99,12 +99,12 @@ RSpec.describe "Data required from probation service", type: :request do
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
-      let(:previous_step) { "/probation-information" }
-      let(:next_step) { "/laa" }
+      let(:previous_step) { "probation-information" }
+      let(:next_step) { "/contact-address" }
       let(:information_request) { build(:information_request_for_probation_service) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 

@@ -8,7 +8,7 @@
       summary_list.with_row do |row|
         row.with_key { t("request_form.subject") }
         row.with_value { RequestForm::Subject::OPTIONS[@information_request.subject.to_sym] }
-        row.with_action(text: "Change", href: back_request_path("subject"), visually_hidden_text: t("request_form.subject"))
+        row.with_action(text: "Change", href: "/subject", visually_hidden_text: t("request_form.subject"))
       end;
     end %>
 

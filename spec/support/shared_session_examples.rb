@@ -25,7 +25,7 @@ RSpec.shared_examples("question with back link") do
   context "when going back" do
     it "goes to previous step" do
       get("/request/back")
-      expect(response).to redirect_to(previous_step)
+      expect(response).to redirect_to("/#{previous_step}")
     end
   end
 end

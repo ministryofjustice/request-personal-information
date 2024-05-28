@@ -15,13 +15,13 @@ RSpec.describe "Subject", type: :request do
 
     context "when session in progress" do
       let(:information_request) { InformationRequest.new }
-      let(:previous_step) { "/" }
+      let(:previous_step) { "" }
       let(:next_step) { "/subject-name" }
       let(:valid_data) { "self" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -50,13 +50,13 @@ RSpec.describe "Subject", type: :request do
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
-      let(:previous_step) { "/subject" }
+      let(:previous_step) { "subject" }
       let(:next_step) { "/subject-date-of-birth" }
       let(:valid_data) { "subject name" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -107,13 +107,13 @@ RSpec.describe "Subject", type: :request do
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
-      let(:previous_step) { "/subject-name" }
-      let(:next_step) { "/subject-relationship" }
+      let(:previous_step) { "subject-name" }
+      let(:next_step) { "/subject-id" }
       let(:invalid_data) { nil }
       let(:valid_data) { { "date_of_birth(3i)": "19", "date_of_birth(2i)": "5", "date_of_birth(1i)": "2007" } }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -175,18 +175,19 @@ RSpec.describe "Subject", type: :request do
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
-      let(:previous_step) { "/subject-date-of-birth" }
-      let(:next_step) { "/solicitor-details" }
+      let(:previous_step) { "subject-date-of-birth" }
+      let(:next_step) { "/requester-details" }
       let(:valid_data) { "other" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       context "when requesting own data" do
         let(:information_request) { build(:information_request_for_self) }
+        let(:next_step) { "/subject-id" }
 
         it "skips this page" do
           expect(response).to redirect_to(next_step)
@@ -218,18 +219,18 @@ RSpec.describe "Subject", type: :request do
 
   describe "/subject-id" do
     let(:current_step) { "subject-id" }
+    let(:previous_step) { "requester-id" }
     let(:next_step) { "/subject-id-check" }
 
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_by_friend) }
-      let(:previous_step) { "/requester-id" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -285,7 +286,7 @@ RSpec.describe "Subject", type: :request do
       let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id, subject_proof_of_address_id: address_upload.id) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -303,13 +304,13 @@ RSpec.describe "Subject", type: :request do
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_with_subject_id) }
-      let(:previous_step) { "/subject-id" }
+      let(:previous_step) { "subject-id" }
       let(:next_step) { "/moj" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -337,7 +338,7 @@ RSpec.describe "Subject", type: :request do
       context "when the user wants to change the upload" do
         it "goes to previous step" do
           patch "/request", params: { request_form: { subject_id_check: "no" } }
-          expect(response).to redirect_to(previous_step)
+          expect(response).to redirect_to("/#{previous_step}")
         end
       end
 

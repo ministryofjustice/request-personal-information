@@ -8,13 +8,13 @@ RSpec.describe "Data required from prison service", type: :request do
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_for_prison_service) }
-      let(:previous_step) { "/hmpps" }
+      let(:previous_step) { "moj" }
       let(:next_step) { "/prison-number" }
       let(:valid_data) { "no" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -54,13 +54,13 @@ RSpec.describe "Data required from prison service", type: :request do
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
-      let(:previous_step) { "/prison-number" }
+      let(:previous_step) { "prison-number" }
       let(:next_step) { "/prison-information" }
       let(:valid_data) { "AA1234" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -111,12 +111,12 @@ RSpec.describe "Data required from prison service", type: :request do
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
-      let(:previous_step) { "/prison-number" }
+      let(:previous_step) { "prison-number" }
       let(:next_step) { "/prison-dates" }
       let(:information_request) { build(:information_request_for_prison_service) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -156,12 +156,12 @@ RSpec.describe "Data required from prison service", type: :request do
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
-      let(:previous_step) { "/prison-information" }
-      let(:next_step) { "/probation-location" }
+      let(:previous_step) { "prison-information" }
+      let(:next_step) { "/contact-address" }
       let(:information_request) { build(:information_request_for_prison_service) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 

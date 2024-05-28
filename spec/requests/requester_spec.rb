@@ -8,13 +8,13 @@ RSpec.describe "Requester", type: :request do
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_by_solicitor) }
-      let(:previous_step) { "/subject-relationship" }
-      let(:next_step) { "/requester-details" }
+      let(:previous_step) { "subject-relationship" }
+      let(:next_step) { "/letter-of-consent" }
       let(:valid_data) { "organisation name" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -44,13 +44,13 @@ RSpec.describe "Requester", type: :request do
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_for_other) }
-      let(:previous_step) { "/subject-relationship" }
+      let(:previous_step) { "subject-relationship" }
       let(:next_step) { "/requester-id" }
       let(:valid_data) { "requester name" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -86,18 +86,18 @@ RSpec.describe "Requester", type: :request do
 
   describe "/letter-of-consent" do
     let(:current_step) { "letter-of-consent" }
+    let(:previous_step) { "requester-details" }
     let(:next_step) { "/letter-of-consent-check" }
 
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_by_friend) }
-      let(:previous_step) { "/requester-details" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -135,7 +135,7 @@ RSpec.describe "Requester", type: :request do
       let(:information_request) { build(:information_request_for_other, letter_of_consent_id: letter_of_consent.id) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -153,13 +153,13 @@ RSpec.describe "Requester", type: :request do
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_with_consent) }
-      let(:previous_step) { "/letter-of-consent" }
+      let(:previous_step) { "letter-of-consent" }
       let(:next_step) { "/subject-id" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -187,7 +187,7 @@ RSpec.describe "Requester", type: :request do
       context "when the user wants to change the upload" do
         it "goes to previous step" do
           patch "/request", params: { request_form: { letter_of_consent_check: "no" } }
-          expect(response).to redirect_to(previous_step)
+          expect(response).to redirect_to("/#{previous_step}")
         end
       end
 
@@ -197,18 +197,18 @@ RSpec.describe "Requester", type: :request do
 
   describe "/requester-id" do
     let(:current_step) { "requester-id" }
+    let(:previous_step) { "letter-of-consent" }
     let(:next_step) { "/requester-id-check" }
 
     it_behaves_like "question that requires a session"
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_by_friend) }
-      let(:previous_step) { "/letter-of-consent" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -249,7 +249,7 @@ RSpec.describe "Requester", type: :request do
       let(:information_request) { build(:information_request_by_friend, requester_photo_id: photo_upload.id, requester_proof_of_address_id: address_upload.id) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -267,13 +267,13 @@ RSpec.describe "Requester", type: :request do
 
     context "when session in progress" do
       let(:information_request) { build(:information_request_with_requester_id) }
-      let(:previous_step) { "/requester-id" }
+      let(:previous_step) { "requester-id" }
       let(:next_step) { "/letter-of-consent" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -301,7 +301,7 @@ RSpec.describe "Requester", type: :request do
       context "when the user wants to change the upload" do
         it "goes to previous step" do
           patch "/request", params: { request_form: { requester_id_check: "no" } }
-          expect(response).to redirect_to(previous_step)
+          expect(response).to redirect_to("/#{previous_step}")
         end
       end
 
