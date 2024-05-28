@@ -80,6 +80,23 @@ class InformationRequest < ApplicationRecord
     info.join(", ")
   end
 
+  def summary
+    summary = InformationRequestSummary.new(self)
+    {
+      subject_summary: summary.subject,
+      requester_summary: summary.requester,
+      requester_id_summary: summary.requester_id,
+      subject_id_summary: summary.subject_id,
+      information_summary: summary.information,
+      prison_summary: summary.prison,
+      probation_summary: summary.probation,
+      laa_summary: summary.laa,
+      opg_summary: summary.opg,
+      moj_other_summary: summary.moj_other,
+      contact_summary: summary.contact,
+    }
+  end
+
   def to_hash
     {
       subject:,
