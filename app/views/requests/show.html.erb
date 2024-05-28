@@ -59,6 +59,12 @@
     <% end %>
 
     <h3 class="govuk-heading-m"><%= t("request_form.contact_address") %></h3>
-      <%= govuk_summary_list rows: @contact_summary %>
+    <%= govuk_summary_list rows: @contact_summary %>
+
+    <h3 class="govuk-heading-m">Now send your request</h3>
+    <p class="govuk-body">By sending this request you confirm that, to the best of your knowledge, the details you are providing are correct.<p>
+    <p class="govuk-body">You might want to save or print this page for your own records.</p>
+
+    <%= govuk_button_to "Accept and send request", '#' %>
   </div>
 </div>
