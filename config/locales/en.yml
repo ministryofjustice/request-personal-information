@@ -9,7 +9,6 @@ en:
         request_form/contact_email:
           attributes:
             contact_email:
-              blank: Enter your email
               invalid: Enter a valid email
         request_form/laa:
           attributes:
