@@ -17,11 +17,11 @@ RSpec.describe InformationRequest, type: :model do
     end
   end
 
-  describe "#solicitor_request?" do
+  describe "#by_solicitor?" do
     context "when request subject is the requester" do
       it "returns expected value" do
         request = described_class.new(subject: "self")
-        expect(request).not_to be_solicitor_request
+        expect(request).not_to be_by_solicitor
       end
     end
 
@@ -29,14 +29,14 @@ RSpec.describe InformationRequest, type: :model do
       context "when requester is a solicitor" do
         it "returns expected value" do
           request = described_class.new(subject: "other", relationship: "legal_representative")
-          expect(request).to be_solicitor_request
+          expect(request).to be_by_solicitor
         end
       end
 
       context "when request subject is someone else" do
         it "returns expected value" do
           request = described_class.new(subject: "other", relationship: "other")
-          expect(request).not_to be_solicitor_request
+          expect(request).not_to be_by_solicitor
         end
       end
     end

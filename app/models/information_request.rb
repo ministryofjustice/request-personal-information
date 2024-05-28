@@ -18,7 +18,7 @@ class InformationRequest < ApplicationRecord
     subject == "self"
   end
 
-  def solicitor_request?
+  def by_solicitor?
     !for_self? && relationship == "legal_representative"
   end
 
@@ -53,6 +53,14 @@ class InformationRequest < ApplicationRecord
   def subject_proof_of_address=(file)
     file_object = Attachment.create!(file:, key: "subject_proof_of_address")
     self.subject_proof_of_address_id = file_object.id
+  end
+
+  def prison_information
+    info = []
+    info << "NOMIS Records" if prison_nomis_records.present?
+    info << "Security data" if prison_security_data.present?
+    info << "Something else" if prison_other_data.present?
+    info.join(", ")
   end
 
   def to_hash

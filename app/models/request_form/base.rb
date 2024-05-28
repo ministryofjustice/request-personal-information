@@ -6,6 +6,11 @@ module RequestForm
 
     attr_accessor :request, :back
 
+    def initialize(**args)
+      super
+      @request = args[:request]
+    end
+
     def name
       self.class.name.demodulize.underscore
     end

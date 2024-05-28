@@ -31,14 +31,23 @@ class RequestsController < ApplicationController
     upcoming
   ].freeze
 
-  before_action :set_objects, only: %i[show edit update]
+  before_action :set_objects, only: %i[edit update]
 
   def new
     reset_session
     redirect_to "/#{STEPS.first}"
   end
 
-  def show; end
+  def show
+    redirect_to root_path and return if session[:current_step].nil?
+
+    @information_request = InformationRequest.new(session[:information_request])
+    @subject_summary = subject_summary
+    @requester_summary = requester_summary
+    @requester_id_summary = requester_id_summary
+    @subject_id_summary = subject_id_summary
+    @prison_summary = prison_summary
+  end
 
   def edit
     next_step(skipping: true) unless @form.required?
@@ -58,7 +67,7 @@ class RequestsController < ApplicationController
   end
 
   def back
-    previous_step
+    previous_step(params[:step])
   end
 
 private
@@ -67,9 +76,8 @@ private
     redirect_to root_path and return if session[:current_step].nil?
 
     @information_request = InformationRequest.new(session[:information_request])
-    @form = "RequestForm::#{session[:current_step].underscore.camelize}".constantize.new
+    @form = "RequestForm::#{session[:current_step].underscore.camelize}".constantize.new(request: @information_request)
     set_form_attributes
-    @form.request = @information_request
   end
 
   def set_form_attributes
@@ -151,13 +159,193 @@ private
     redirect_to "/#{session[:current_step]}"
   end
 
-  def previous_step
-    previous = session[:history].pop
-    session[:current_step] = previous.tr("/", "")
-    redirect_to previous
+  def previous_step(step_name)
+    previous = nil
+    loop do
+      previous = session[:history].pop.tr("/", "")
+      break if step_name.nil? || previous == step_name || session[:history].empty?
+    end
+    session[:current_step] = previous
+    redirect_to "/#{session[:current_step]}"
   end
 
   def current_index
     STEPS.find_index(session[:current_step].to_sym)
+  end
+
+  def subject_summary
+    summary = [
+      {
+        key: { text: t("helpers.label.request_form.full_name") },
+        value: { text: @information_request.full_name },
+        actions: { text: "Change", href: back_request_path("subject-name"), visually_hidden_text: t("helpers.label.request_form.full_name")},
+      },
+      {
+        key: { text: t("helpers.label.request_form.other_names.#{@information_request.subject}") },
+        value: { text: @information_request.other_names },
+        actions: { text: "Change", href: back_request_path("subject-name"), visually_hidden_text: t("helpers.label.request_form.other_names.#{@information_request.subject}") },
+      },
+      {
+        key: { text: t("request_form.subject_date_of_birth.#{@information_request.subject}") },
+        value: { text: @information_request.date_of_birth },
+        actions: { text: "Change", href: back_request_path("subject-date-of-birth"), visually_hidden_text: t("helpers.label.request_form.date_of_birth") },
+      },
+    ]
+
+    unless @information_request.for_self?
+      summary.push(
+        {
+          key: { text: t("request_form.subject_relationship") },
+          value: { text: RequestForm::SubjectRelationship::OPTIONS[@information_request.relationship.to_sym] },
+          actions: { text: "Change", href: back_request_path("subject-relationship"), visually_hidden_text: t("request_form.subject_relationship") },
+        }
+      )
+    end
+
+    summary
+  end
+
+  def requester_summary
+    return if @information_request.for_self?
+
+    if @information_request.by_solicitor?
+      [
+        {
+          key: { text: t("helpers.label.request_form.organisation_name") },
+          value: { text: @information_request.organisation_name },
+          actions: { text: "Change", href: back_request_path("solicitor-details"), visually_hidden_text: t("helpers.label.request_form.organisation_name") },
+        },
+        {
+          key: { text: t("helpers.label.request_form.requester_name") },
+          value: { text: @information_request.requester_name },
+          actions: { text: "Change", href: back_request_path("requester-name"), visually_hidden_text: t("helpers.label.request_form.requester_name") },
+        },
+      ]
+    else
+      [
+        {
+          key: { text: "Your full name" },
+          value: { text: @information_request.requester_name },
+          actions: { text: "Change", href: back_request_path("requester-name"), visually_hidden_text: t("helpers.label.request_form.requester_name") },
+        },
+      ]
+    end
+  end
+
+  def requester_id_summary
+    return if @information_request.for_self?
+
+    summary = []
+
+    unless @information_request.by_solicitor?
+      summary.push(
+        {
+          key: { text: t("helpers.label.request_form.requester_photo") },
+          value: { text: Attachment.find(@information_request.requester_photo_id).to_s },
+          actions: { text: "Change", href: back_request_path("requester-id"), visually_hidden_text: t("helpers.label.request_form.requester_photo") },
+        },
+        {
+          key: { text: t("helpers.label.request_form.requester_proof_of_address") },
+          value: { text: Attachment.find(@information_request.requester_proof_of_address_id).to_s },
+          actions: { text: "Change", href: back_request_path("requester-id"), visually_hidden_text: t("helpers.label.request_form.requester_proof_of_address") },
+        }
+      )
+    end
+
+    summary.push(
+      {
+        key: { text: t("request_form.letter_of_consent") },
+        value: { text: Attachment.find(@information_request.letter_of_consent_id).to_s },
+        actions: { text: "Change", href: back_request_path("letter-of-consent"), visually_hidden_text: t("request_form.letter_of_consent") },
+      }
+    )
+
+    summary
+  end
+
+  def subject_id_summary
+    return if @information_request.by_solicitor?
+
+    [
+      {
+        key: { text: t("helpers.label.request_form.subject_photo") },
+        value: { text: Attachment.find(@information_request.subject_photo_id).to_s },
+        actions: { text: "Change", href: back_request_path("subject-id"), visually_hidden_text: t("helpers.label.request_form.subject_photo") },
+      },
+      {
+        key: { text: t("helpers.label.request_form.subject_proof_of_address") },
+        value: { text: Attachment.find(@information_request.subject_proof_of_address_id).to_s },
+        actions: { text: "Change", href: back_request_path("subject-id"), visually_hidden_text: t("helpers.label.request_form.subject_proof_of_address") },
+      },
+    ]
+  end
+
+  def prison_summary
+    return unless @information_request.prison_service
+
+    summary = [
+      {
+        key: { text: t("request_form.prison_location.#{@information_request.subject}") },
+        value: { text: @information_request.currently_in_prison.capitalize },
+        actions: { text: "Change", href: back_request_path("prison-location"), visually_hidden_text: t("helpers.label.request_form.current_prison_name.#{@information_request.subject}") },
+      },
+    ]
+
+    if @information_request.currently_in_prison == "yes"
+      summary.push(
+        {
+          key: { text: t("helpers.label.request_form.current_prison_name.#{@information_request.subject}") },
+          value: { text: @information_request.current_prison_name },
+          actions: { text: "Change", href: back_request_path("prison-location"), visually_hidden_text: t("helpers.label.request_form.current_prison_name.#{@information_request.subject}") },
+        }
+      )
+    else
+      summary.push(
+        {
+          key: { text: t("helpers.label.request_form.recent_prison_name.#{@information_request.subject}") },
+          value: { text: @information_request.recent_prison_name },
+          actions: { text: "Change", href: back_request_path("prison-location"), visually_hidden_text: t("helpers.label.request_form.recent_prison_name.#{@information_request.subject}") },
+        }
+      )
+    end
+
+    summary.push(
+      {
+        key: { text: t("request_form.prison_number.#{@information_request.subject}") },
+        value: { text: @information_request.prison_number },
+        actions: { text: "Change", href: back_request_path("prison-number"), visually_hidden_text: t("request_form.prison_number.#{@information_request.subject}") },
+      },
+      {
+        key: { text: t("request_form.prison_information") },
+        value: { text: @information_request.prison_information },
+        actions: { text: "Change", href: back_request_path("prison-information"), visually_hidden_text: t("request_form.prison_information") },
+      },
+    )
+
+    if @information_request.prison_other_data.present?
+      summary.push(
+        {
+          key: { text: t("helpers.label.request_form.prison_other_data_text") },
+          value: { text: @information_request.prison_other_data_text },
+          actions: { text: "Change", href: back_request_path("prison-information"), visually_hidden_text: t("helpers.label.request_form.prison_other_data_text") },
+        }
+      )
+    end
+
+
+    summary.push(
+      {
+        key: { text: t("helpers.legend.request_form.prison_date_from") },
+        value: { text: @information_request.prison_date_from },
+        actions: { text: "Change", href: back_request_path("prison-dates"), visually_hidden_text: t("helpers.legend.request_form.prison_date_from") },
+      },
+      {
+        key: { text: t("helpers.legend.request_form.prison_date_to") },
+        value: { text: @information_request.prison_date_to },
+        actions: { text: "Change", href: back_request_path("prison-dates"), visually_hidden_text: t("helpers.legend.request_form.prison_date_to") },
+      },
+    )
+
+    summary
   end
 end
