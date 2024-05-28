@@ -351,7 +351,7 @@ private
           key: { text: t("helpers.label.request_form.prison_other_data_text") },
           value: { text: @information_request.prison_other_data_text },
           actions: { text: "Change", href: back_request_path("prison-information"), visually_hidden_text: t("helpers.label.request_form.prison_other_data_text") },
-        }
+        },
       )
     end
 
@@ -394,7 +394,7 @@ private
           key: { text: t("helpers.label.request_form.probation_other_data_text") },
           value: { text: @information_request.probation_other_data_text },
           actions: { text: "Change", href: back_request_path("probation-information"), visually_hidden_text: t("helpers.label.request_form.probation_other_data_text") },
-        }
+        },
       )
     end
 
@@ -412,5 +412,71 @@ private
     )
 
     summary
+  end
+
+  def laa_summary
+    return unless @information_request.laa
+
+    [
+      {
+        key: { text: t("request_form.laa") },
+        value: { text: @information_request.laa_text },
+        actions: { text: "Change", href: back_request_path("laa"), visually_hidden_text: t("request_form.laa") },
+      },
+      {
+        key: { text: t("helpers.legend.request_form.laa_date_from") },
+        value: { text: @information_request.laa_date_from },
+        actions: { text: "Change", href: back_request_path("laa-dates"), visually_hidden_text: t("helpers.legend.request_form.laa_date_from") },
+      },
+      {
+        key: { text: t("helpers.legend.request_form.laa_date_to") },
+        value: { text: @information_request.laa_date_to },
+        actions: { text: "Change", href: back_request_path("laa-dates"), visually_hidden_text: t("helpers.legend.request_form.laa_date_to") },
+      },
+    ]
+  end
+
+  def opg_summary
+    return unless @information_request.opg
+
+    [
+      {
+        key: { text: t("request_form.opg") },
+        value: { text: @information_request.opg_text },
+        actions: { text: "Change", href: back_request_path("opg"), visually_hidden_text: t("request_form.opg") },
+      },
+      {
+        key: { text: t("helpers.legend.request_form.opg_date_from") },
+        value: { text: @information_request.opg_date_from },
+        actions: { text: "Change", href: back_request_path("opg-dates"), visually_hidden_text: t("helpers.legend.request_form.opg_date_from") },
+      },
+      {
+        key: { text: t("helpers.legend.request_form.opg_date_to") },
+        value: { text: @information_request.opg_date_to },
+        actions: { text: "Change", href: back_request_path("opg-dates"), visually_hidden_text: t("helpers.legend.request_form.opg_date_to") },
+      },
+    ]
+  end
+
+  def moj_other_summary
+    return unless @information_request.moj_other
+
+    [
+      {
+        key: { text: t("request_form.other") },
+        value: { text: @information_request.moj_other_text },
+        actions: { text: "Change", href: back_request_path("other"), visually_hidden_text: t("request_form.other") },
+      },
+      {
+        key: { text: t("helpers.legend.request_form.moj_other_date_from") },
+        value: { text: @information_request.opg_date_from },
+        actions: { text: "Change", href: back_request_path("other-dates"), visually_hidden_text: t("helpers.legend.request_form.moj_other_date_from") },
+      },
+      {
+        key: { text: t("helpers.legend.request_form.moj_other_date_to") },
+        value: { text: @information_request.moj_other_date_to },
+        actions: { text: "Change", href: back_request_path("other-dates"), visually_hidden_text: t("helpers.legend.request_form.moj_other_date_to") },
+      },
+    ]
   end
 end
