@@ -2,12 +2,13 @@ require "rails_helper"
 
 RSpec.describe "contact information", type: :request do
   describe "/contact-address" do
+    let(:information_request) { build(:information_request_for_laa) }
     let(:current_step) { "contact-address" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_laa) }
       let(:previous_step) { "laa-dates" }
       let(:next_step) { "/contact-email" }
       let(:valid_data) { "address details" }
@@ -49,12 +50,13 @@ RSpec.describe "contact information", type: :request do
   end
 
   describe "/contact-email" do
+    let(:information_request) { build(:information_request_for_laa) }
     let(:current_step) { "contact-email" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_laa) }
       let(:previous_step) { "contact-address" }
       let(:next_step) { "/upcoming" }
       let(:valid_data) { "email@domain.com" }
@@ -96,12 +98,13 @@ RSpec.describe "contact information", type: :request do
   end
 
   describe "/upcoming" do
+    let(:information_request) { build(:information_request_for_laa) }
     let(:current_step) { "upcoming" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_laa) }
       let(:previous_step) { "contact-email" }
       let(:next_step) { "/check-answers" }
       let(:valid_data) { "no" }

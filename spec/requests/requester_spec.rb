@@ -2,12 +2,13 @@ require "rails_helper"
 
 RSpec.describe "Requester", type: :request do
   describe "/solicitor-details" do
+    let(:information_request) { build(:information_request_by_solicitor) }
     let(:current_step) { "solicitor-details" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_by_solicitor) }
       let(:previous_step) { "subject-relationship" }
       let(:next_step) { "/letter-of-consent" }
       let(:valid_data) { "organisation name" }
@@ -38,12 +39,13 @@ RSpec.describe "Requester", type: :request do
   end
 
   describe "/requester-details" do
+    let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "requester-details" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_other) }
       let(:previous_step) { "subject-relationship" }
       let(:next_step) { "/requester-id" }
       let(:valid_data) { "requester name" }
@@ -85,14 +87,15 @@ RSpec.describe "Requester", type: :request do
   end
 
   describe "/letter-of-consent" do
+    let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "letter-of-consent" }
     let(:previous_step) { "requester-details" }
     let(:next_step) { "/letter-of-consent-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_by_friend) }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
@@ -147,12 +150,13 @@ RSpec.describe "Requester", type: :request do
   end
 
   describe "/letter-of-consent-check" do
+    let(:information_request) { build(:information_request_with_consent) }
     let(:current_step) { "letter-of-consent-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_with_consent) }
       let(:previous_step) { "letter-of-consent" }
       let(:next_step) { "/subject-id" }
       let(:valid_data) { "yes" }
@@ -196,14 +200,15 @@ RSpec.describe "Requester", type: :request do
   end
 
   describe "/requester-id" do
+    let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "requester-id" }
     let(:previous_step) { "letter-of-consent" }
     let(:next_step) { "/requester-id-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_by_friend) }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
@@ -261,12 +266,13 @@ RSpec.describe "Requester", type: :request do
   end
 
   describe "/requester-id-check" do
+    let(:information_request) { build(:information_request_with_requester_id) }
     let(:current_step) { "requester-id-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_with_requester_id) }
       let(:previous_step) { "requester-id" }
       let(:next_step) { "/letter-of-consent" }
       let(:valid_data) { "yes" }

@@ -2,12 +2,13 @@ require "rails_helper"
 
 RSpec.describe "Data required from prison service", type: :request do
   describe "/prison-location" do
+    let(:information_request) { build(:information_request_for_prison_service) }
     let(:current_step) { "prison-location" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_prison_service) }
       let(:previous_step) { "moj" }
       let(:next_step) { "/prison-number" }
       let(:valid_data) { "no" }
@@ -49,9 +50,11 @@ RSpec.describe "Data required from prison service", type: :request do
   end
 
   describe "/prison-number" do
+    let(:information_request) { build(:information_request_for_prison_service) }
     let(:current_step) { "prison-number" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
       let(:previous_step) { "prison-number" }
@@ -106,14 +109,15 @@ RSpec.describe "Data required from prison service", type: :request do
   end
 
   describe "/prison-information" do
+    let(:information_request) { build(:information_request_for_prison_service) }
     let(:current_step) { "prison-information" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
       let(:previous_step) { "prison-number" }
       let(:next_step) { "/prison-dates" }
-      let(:information_request) { build(:information_request_for_prison_service) }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
@@ -151,14 +155,15 @@ RSpec.describe "Data required from prison service", type: :request do
   end
 
   describe "/prison-dates" do
+    let(:information_request) { build(:information_request_for_prison_service) }
     let(:current_step) { "prison-dates" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
       let(:previous_step) { "prison-information" }
       let(:next_step) { "/contact-address" }
-      let(:information_request) { build(:information_request_for_prison_service) }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])

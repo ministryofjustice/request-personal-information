@@ -140,7 +140,7 @@ RSpec.describe InformationRequest, type: :model do
   describe "#prison_information" do
     context "when none are chosen" do
       it "returns empty string" do
-        info = build(:information_request_for_prison_service)
+        info = build(:information_request)
         expect(info.prison_information).to eq ""
       end
     end
@@ -166,7 +166,7 @@ RSpec.describe InformationRequest, type: :model do
   describe "#probation_information" do
     context "when none are chosen" do
       it "returns empty string" do
-        info = build(:information_request_for_probation_service)
+        info = build(:information_request)
         expect(info.probation_information).to eq ""
       end
     end

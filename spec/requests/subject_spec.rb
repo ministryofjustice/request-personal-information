@@ -9,12 +9,13 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject" do
+    let(:information_request) { InformationRequest.new }
     let(:current_step) { "subject" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { InformationRequest.new }
       let(:previous_step) { "" }
       let(:next_step) { "/subject-name" }
       let(:valid_data) { "self" }
@@ -45,9 +46,11 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-name" do
+    let(:information_request) { build(:information_request_for_self) }
     let(:current_step) { "subject-name" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
       let(:previous_step) { "subject" }
@@ -61,8 +64,6 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting own data" do
-        let(:information_request) { build(:information_request_for_self) }
-
         it "renders the expected page" do
           expect(response).to render_template(:edit)
           expect(response.body).to include("What is your name?")
@@ -102,9 +103,11 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-date-of-birth" do
+    let(:information_request) { build(:information_request_for_self) }
     let(:current_step) { "subject-date-of-birth" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
       let(:previous_step) { "subject-name" }
@@ -118,8 +121,6 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting own data" do
-        let(:information_request) { build(:information_request_for_self) }
-
         it "renders the expected page" do
           expect(response).to render_template(:edit)
           expect(response.body).to include("What is your date of birth?")
@@ -170,9 +171,11 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-relationship" do
+    let(:information_request) { build(:information_request_for_self) }
     let(:current_step) { "subject-relationship" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
       let(:previous_step) { "subject-date-of-birth" }
@@ -186,7 +189,6 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting own data" do
-        let(:information_request) { build(:information_request_for_self) }
         let(:next_step) { "/subject-id" }
 
         it "skips this page" do
@@ -218,14 +220,15 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-id" do
+    let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "subject-id" }
     let(:previous_step) { "requester-id" }
     let(:next_step) { "/subject-id-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_by_friend) }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
@@ -298,12 +301,13 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-id-check" do
+    let(:information_request) { build(:information_request_with_subject_id) }
     let(:current_step) { "subject-id-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_with_subject_id) }
       let(:previous_step) { "subject-id" }
       let(:next_step) { "/moj" }
       let(:valid_data) { "yes" }

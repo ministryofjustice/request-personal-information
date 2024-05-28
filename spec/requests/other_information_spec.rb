@@ -2,12 +2,13 @@ require "rails_helper"
 
 RSpec.describe "Which data is required", type: :request do
   describe "/moj" do
+    let(:information_request) { build(:information_request_for_self) }
     let(:current_step) { "moj" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_self) }
       let(:previous_step) { "subject-id-check" }
       let(:next_step) { "/laa" }
       let(:valid_data) { "no" }
@@ -60,12 +61,13 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/laa" do
+    let(:information_request) { build(:information_request_for_laa) }
     let(:current_step) { "laa" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_laa) }
       let(:previous_step) { "moj" }
       let(:next_step) { "/laa-dates" }
       let(:valid_data) { "information required" }
@@ -107,14 +109,15 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/laa-dates" do
+    let(:information_request) { build(:information_request_for_laa) }
     let(:current_step) { "laa-dates" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
       let(:previous_step) { "laa" }
       let(:next_step) { "/contact-address" }
-      let(:information_request) { build(:information_request_for_laa) }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
@@ -152,12 +155,13 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/opg" do
+    let(:information_request) { build(:information_request_for_opg) }
     let(:current_step) { "opg" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_opg) }
       let(:previous_step) { "moj" }
       let(:next_step) { "/opg-dates" }
       let(:valid_data) { "information required" }
@@ -199,14 +203,15 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/opg-dates" do
+    let(:information_request) { build(:information_request_for_opg) }
     let(:current_step) { "opg-dates" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
       let(:previous_step) { "opg" }
       let(:next_step) { "/contact-address" }
-      let(:information_request) { build(:information_request_for_opg) }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
@@ -244,12 +249,13 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/other" do
+    let(:information_request) { build(:information_request_for_moj_other) }
     let(:current_step) { "other" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_moj_other) }
       let(:previous_step) { "moj" }
       let(:next_step) { "/other-dates" }
       let(:valid_data) { "information required" }
@@ -291,14 +297,15 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/other-dates" do
+    let(:information_request) { build(:information_request_for_moj_other) }
     let(:current_step) { "other-dates" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
       let(:previous_step) { "other" }
       let(:next_step) { "/contact-address" }
-      let(:information_request) { build(:information_request_for_moj_other) }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
