@@ -96,6 +96,11 @@ en:
           attributes:
             subject:
               blank: "Choose if you're requesting information for yourself or for someone else"
+        request_form/subject_date_of_birth:
+          attributes:
+            form_date_of_birth:
+              invalid: Enter a valid date of birth
+              blank: Enter a date of birth
         request_form/subject_id:
           attributes:
             subject_photo:
@@ -164,7 +169,7 @@ en:
     hint:
       request_form:
         contact_address: You will receive paper copies of this information. If your request reveals details about another person, that information will not be shared.
-        date_of_birth: For example, 19 05 2007
+        form_date_of_birth: For example, 19 05 2007
         laa_date_from: For example 3 11 2000
         laa_date_to: For example 12 5 2014
         moj: Select all that apply
