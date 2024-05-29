@@ -10,8 +10,8 @@ module Dateable
 
         return if value.nil?
 
+        # assign actual value to form
         date = attributes[name.to_s]
-
         instance_variable_set("@form_#{name}", { 3 => date.day, 2 => date.month, 1 => date.year })
       end
 
@@ -22,16 +22,13 @@ module Dateable
       define_method "form_#{name}=" do |values|
         instance_variable_set("@form_#{name}", values)
 
-        if values.nil?
+        # set actual value to nil if form value is incomplete
+        if values.nil? || send("form_#{name}").values.any?(nil)
           send("#{name}=", nil)
           return
         end
 
-        if send("form_#{name}").values.any?(nil)
-          send("#{name}=", nil)
-          return
-        end
-
+        # set actual value to nil if form value is invalid
         begin
           send("#{name}=", Date.new(values[1], values[2], values[3]))
         rescue Date::Error
@@ -50,6 +47,7 @@ module Dateable
       define_method "check_#{name}" do
         return if send("form_#{name}").nil?
 
+        # Check the actual value, it is only nil here if the form value is invalid
         if send(name).nil?
           errors.add("form_#{name}", :invalid)
         end
