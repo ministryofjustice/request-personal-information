@@ -45,6 +45,7 @@ module Dateable
       end
 
       define_method "check_#{name}" do
+        # shortcut if the form value is empty because presence is validated elsewhere
         return if send("form_#{name}").nil?
 
         # Check the actual value, it is only nil here if the form value is invalid
