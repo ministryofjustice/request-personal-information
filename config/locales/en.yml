@@ -16,9 +16,9 @@ en:
               blank: Enter what information you want
         request_form/laa_dates:
           attributes:
-            laa_date_from:
+            form_laa_date_from:
               invalid: Enter a valid date this information should start from
-            laa_date_to:
+            form_laa_date_to:
               invalid: Enter a valid date this information should go to
         request_form/letter_of_consent:
           attributes:
@@ -40,9 +40,9 @@ en:
               blank: Enter what information you want
         request_form/opg_dates:
           attributes:
-            opg_date_from:
+            form_opg_date_from:
               invalid: Enter a valid date this information should start from
-            opg_date_to:
+            form_opg_date_to:
               invalid: Enter a valid date this information should go to
         request_form/other:
           attributes:
@@ -50,15 +50,15 @@ en:
               blank: Enter what information you want
         request_form/other_dates:
           attributes:
-            moj_other_date_from:
+            form_moj_other_date_from:
               invalid: Enter a valid date this information should start from
-            moj_other_date_to:
+            form_moj_other_date_to:
               invalid: Enter a valid date this information should go to
         request_form/prison_dates:
           attributes:
-            prison_date_from:
+            form_prison_date_from:
               invalid: Enter a valid date this information should start from
-            prison_date_to:
+            form_prison_date_to:
               invalid: Enter a valid date this information should go to
         request_form/prison_information:
           attributes:
@@ -68,9 +68,9 @@ en:
               blank: Enter an answer for "What other prison service information do you want?"
         request_form/probation_dates:
           attributes:
-            probation_date_from:
+            form_probation_date_from:
               invalid: Enter a valid date this information should start from
-            probation_date_to:
+            form_probation_date_to:
               invalid: Enter a valid date this information should go to
         request_form/probation_information:
           attributes:
@@ -153,42 +153,42 @@ en:
         upcoming_court_case_text: Can you provide more details?
     legend:
       request_form:
-        laa_date_from: Enter a date this information should start from (optional)
-        laa_date_to: Enter a date this information should go to (optional)
+        form_laa_date_from: Enter a date this information should start from (optional)
+        form_laa_date_to: Enter a date this information should go to (optional)
         letter_of_consent_check: Is this upload correct?
-        moj_other_date_from: Enter a date this information should start from (optional)
-        moj_other_date_to: Enter a date this information should go to (optional)
-        opg_date_from: Enter a date this information should start from (optional)
-        opg_date_to: Enter a date this information should go to (optional)
-        prison_date_from: Enter a date this information should start from (optional)
-        prison_date_to: Enter a date this information should go to (optional)
-        probation_date_from: Enter a date this information should start from (optional)
-        probation_date_to: Enter a date this information should go to (optional)
+        form_moj_other_date_from: Enter a date this information should start from (optional)
+        form_moj_other_date_to: Enter a date this information should go to (optional)
+        form_opg_date_from: Enter a date this information should start from (optional)
+        form_opg_date_to: Enter a date this information should go to (optional)
+        form_prison_date_from: Enter a date this information should start from (optional)
+        form_prison_date_to: Enter a date this information should go to (optional)
+        form_probation_date_from: Enter a date this information should start from (optional)
+        form_probation_date_to: Enter a date this information should go to (optional)
         requester_id_check: Are these uploads correct?
         subject_id_check: Are these uploads correct?
     hint:
       request_form:
         contact_address: You will receive paper copies of this information. If your request reveals details about another person, that information will not be shared.
         form_date_of_birth: For example, 19 05 2007
-        laa_date_from: For example 3 11 2000
-        laa_date_to: For example 12 5 2014
+        form_laa_date_from: For example 3 11 2000
+        form_laa_date_to: For example 12 5 2014
         moj: Select all that apply
-        moj_other_date_from: For example 3 11 2000
-        moj_other_date_to: For example 12 5 2014
+        form_moj_other_date_from: For example 3 11 2000
+        form_moj_other_date_to: For example 12 5 2014
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
-        opg_date_from: For example 3 11 2000
-        opg_date_to: For example 12 5 2014
+        form_opg_date_from: For example 3 11 2000
+        form_opg_date_to: For example 12 5 2014
         other_names: This includes last names, nicknames or aliases
-        prison_date_from: For example 3 11 2000
-        prison_date_to: For example 12 5 2014
+        form_prison_date_from: For example 3 11 2000
+        form_prison_date_to: For example 12 5 2014
         prison_other_data_text: We can respond faster if you are able to tell us specifically what you want.
         prison_data: Select all that apply
         prison_number:
           other: Also sometimes called their NOMIS number. For example, A1234AA.
           self: Also sometimes called your NOMIS number. For example, A1234AA.
         probation_data: Select all that apply
-        probation_date_from: For example 3 11 2000
-        probation_date_to: For example 12 5 2014
+        form_probation_date_from: For example 3 11 2000
+        form_probation_date_to: For example 12 5 2014
         requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
         subject_photo:

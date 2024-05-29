@@ -3,10 +3,6 @@ require "active_support/concern"
 module Dateable
   extend ActiveSupport::Concern
 
-  included do
-    validate :check_form_date
-  end
-
   class_methods do
     def date_for_form(name)
       define_method "#{name}=" do |value|
@@ -26,8 +22,14 @@ module Dateable
       define_method "form_#{name}=" do |values|
         instance_variable_set("@form_#{name}", values)
 
-        if values.nil? || send("form_#{name}").values.any?(nil)
+        if values.nil?
           send("#{name}=", nil)
+          return
+        end
+
+        if send("form_#{name}").values.any?(nil)
+          send("#{name}=", nil)
+          errors.add("form_#{name}", :invalid)
           return
         end
 
@@ -39,22 +41,18 @@ module Dateable
         end
       end
 
-      define_method "check_form_date" do
+      define_method "check_#{name}_presence" do
         if send("form_#{name}").nil?
           errors.add("form_#{name}", :blank)
-          return
         end
+      end
 
-        if send("form_#{name}").values.any?(nil)
+      define_method "check_#{name}" do
+        return if send("form_#{name}").nil?
+
+        if send(name).nil?
           errors.add("form_#{name}", :invalid)
           return
-        end
-
-        begin
-          values = send("form_#{name}")
-          send("#{name}=", Date.new(values[1], values[2], values[3]))
-        rescue Date::Error
-          errors.add("form_#{name}", :invalid)
         end
       end
     end

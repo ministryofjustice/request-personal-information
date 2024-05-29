@@ -118,7 +118,7 @@ RSpec.describe "Data required from probation service", type: :request do
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
-          patch "/request", params: { request_form: { "probation_date_from(3i)": "1", "probation_date_from(2i)": "1", "probation_date_from(1i)": "" } }
+          patch "/request", params: { request_form: { "form_probation_date_from(3i)": "1", "form_probation_date_from(2i)": "1", "form_probation_date_from(1i)": "" } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter a valid date this information should start from")
@@ -127,12 +127,12 @@ RSpec.describe "Data required from probation service", type: :request do
 
       context "when submitting form with valid data" do
         it "goes to next step" do
-          patch "/request", params: { request_form: { "probation_date_from(3i)": "1", "probation_date_from(2i)": "1", "probation_date_from(1i)": "2000" } }
+          patch "/request", params: { request_form: { "form_probation_date_from(3i)": "1", "form_probation_date_from(2i)": "1", "form_probation_date_from(1i)": "2000" } }
           expect(response).to redirect_to(next_step)
         end
 
         it "saves the value to the session" do
-          patch "/request", params: { request_form: { "probation_date_from(3i)": "1", "probation_date_from(2i)": "1", "probation_date_from(1i)": "2000" } }
+          patch "/request", params: { request_form: { "form_probation_date_from(3i)": "1", "form_probation_date_from(2i)": "1", "form_probation_date_from(1i)": "2000" } }
           expect(request.session[:information_request][:probation_date_from]).to eq Date.new(2000, 1, 1)
         end
       end
