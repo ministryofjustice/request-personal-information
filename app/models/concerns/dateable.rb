@@ -29,7 +29,6 @@ module Dateable
 
         if send("form_#{name}").values.any?(nil)
           send("#{name}=", nil)
-          errors.add("form_#{name}", :invalid)
           return
         end
 
@@ -37,9 +36,10 @@ module Dateable
           send("#{name}=", Date.new(values[1], values[2], values[3]))
         rescue Date::Error
           send("#{name}=", nil)
-          errors.add("form_#{name}", :invalid)
         end
       end
+
+      # Validation methods
 
       define_method "check_#{name}_presence" do
         if send("form_#{name}").nil?
@@ -52,7 +52,6 @@ module Dateable
 
         if send(name).nil?
           errors.add("form_#{name}", :invalid)
-          return
         end
       end
     end
