@@ -2,31 +2,32 @@ require "rails_helper"
 
 RSpec.describe "Data required from prison service", type: :request do
   describe "/prison-location" do
+    let(:information_request) { build(:information_request_for_prison_service) }
     let(:current_step) { "prison-location" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_prison_service) }
-      let(:previous_step) { "/hmpps" }
+      let(:previous_step) { "moj" }
       let(:next_step) { "/prison-number" }
       let(:valid_data) { "no" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Are you currently in prison?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { currently_in_prison: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Are you currently in prison")
         end
@@ -49,18 +50,20 @@ RSpec.describe "Data required from prison service", type: :request do
   end
 
   describe "/prison-number" do
+    let(:information_request) { build(:information_request_for_prison_service) }
     let(:current_step) { "prison-number" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "/prison-number" }
+      let(:previous_step) { "prison-number" }
       let(:next_step) { "/prison-information" }
       let(:valid_data) { "AA1234" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -68,14 +71,14 @@ RSpec.describe "Data required from prison service", type: :request do
         let(:information_request) { build(:information_request_for_prison_service) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is your prison number?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { prison_number: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter your prison number")
           end
@@ -89,14 +92,14 @@ RSpec.describe "Data required from prison service", type: :request do
         let(:information_request) { build(:information_request_for_prison_service, subject: "other") }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is their prison number?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { prison_number: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter their prison number")
           end
@@ -106,29 +109,30 @@ RSpec.describe "Data required from prison service", type: :request do
   end
 
   describe "/prison-information" do
+    let(:information_request) { build(:information_request_for_prison_service) }
     let(:current_step) { "prison-information" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "/prison-number" }
+      let(:previous_step) { "prison-number" }
       let(:next_step) { "/prison-dates" }
-      let(:information_request) { build(:information_request_for_prison_service) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("What prison service information do you want?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { default: 1 } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter an answer for")
         end
@@ -151,29 +155,30 @@ RSpec.describe "Data required from prison service", type: :request do
   end
 
   describe "/prison-dates" do
+    let(:information_request) { build(:information_request_for_prison_service) }
     let(:current_step) { "prison-dates" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "/prison-information" }
-      let(:next_step) { "/probation-location" }
-      let(:information_request) { build(:information_request_for_prison_service) }
+      let(:previous_step) { "prison-information" }
+      let(:next_step) { "/contact-address" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("What dates do you want this information from? (optional)")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { "prison_date_from(3i)": "1", "prison_date_from(2i)": "1", "prison_date_from(1i)": "" } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter a valid date this information should start from")
         end

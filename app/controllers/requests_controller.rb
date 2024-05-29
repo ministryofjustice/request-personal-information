@@ -31,18 +31,38 @@ class RequestsController < ApplicationController
     upcoming
   ].freeze
 
-  before_action :set_objects, only: %i[update show]
-
   def new
     reset_session
     redirect_to "/#{STEPS.first}"
   end
 
   def show
-    next_step(skipping: true) unless @form.required?
+    redirect_to root_path and return if session[:current_step].nil?
+
+    unless session[:history].include?(requested_step)
+      redirect_to "/#{session[:current_step]}" and return
+    end
+
+    @information_request = InformationRequest.new(session[:information_request])
+    @summary = summary
+  end
+
+  def edit
+    redirect_to root_path and return if session[:current_step].nil?
+
+    unless session[:history].include?(requested_step)
+      redirect_to "/#{session[:current_step]}" and return
+    end
+
+    session[:current_step] = requested_step
+    set_objects
+    next_step unless @form.required?
   end
 
   def update
+    redirect_to root_path and return if session[:current_step].nil?
+
+    set_objects
     @form.assign_attributes(request_params)
     @information_request.assign_attributes(@form.saveable_attributes)
     set_form_attributes
@@ -51,7 +71,7 @@ class RequestsController < ApplicationController
       session[:information_request] = @information_request.to_hash
       @form.back.nil? ? next_step : previous_step
     else
-      render :show
+      render :edit
     end
   end
 
@@ -61,13 +81,14 @@ class RequestsController < ApplicationController
 
 private
 
-  def set_objects
-    redirect_to root_path and return if session[:current_step].nil?
+  def requested_step
+    request.env["PATH_INFO"][1..]
+  end
 
+  def set_objects
     @information_request = InformationRequest.new(session[:information_request])
-    @form = "RequestForm::#{session[:current_step].underscore.camelize}".constantize.new
+    @form = "RequestForm::#{session[:current_step].underscore.camelize}".constantize.new(request: @information_request)
     set_form_attributes
-    @form.request = @information_request
   end
 
   def set_form_attributes
@@ -139,23 +160,54 @@ private
 
   def reset_session
     session[:information_request] = nil
-    session[:current_step] = STEPS.first
-    session[:history] = ["/"]
+    session[:history] = [STEPS.first]
   end
 
-  def next_step(skipping: false)
-    session[:history] << "/#{session[:current_step]}" unless skipping
-    session[:current_step] = STEPS[current_index + 1]
-    redirect_to "/#{session[:current_step]}"
+  def next_step
+    index = current_index + 1
+    if index >= STEPS.size
+      session[:history] << "check-answers"
+      redirect_to "/check-answers" and return
+    else
+      redirect = nil
+      while redirect.nil?
+        next_to_try = STEPS[index].to_s
+        form = "RequestForm::#{next_to_try.underscore.camelize}".constantize.new(request: @information_request)
+        if form.required?
+          session[:history] << next_to_try unless session[:history].include?(next_to_try)
+          redirect = "/#{next_to_try}"
+        end
+        index += 1
+      end
+
+      redirect_to redirect and return
+    end
   end
 
   def previous_step
-    previous = session[:history].pop
-    session[:current_step] = previous.tr("/", "")
-    redirect_to previous
+    index = current_index
+
+    if index.zero?
+      redirect_to "/"
+    else
+      redirect = nil
+      while redirect.nil?
+        next_to_try = STEPS[index - 1]
+        if session[:history].include?(next_to_try.to_s)
+          redirect = "/#{next_to_try}"
+        end
+        index -= 1
+      end
+
+      redirect_to redirect and return
+    end
   end
 
   def current_index
     STEPS.find_index(session[:current_step].to_sym)
+  end
+
+  def summary
+    @information_request.summary
   end
 end

@@ -2,31 +2,32 @@ require "rails_helper"
 
 RSpec.describe "Requester", type: :request do
   describe "/solicitor-details" do
+    let(:information_request) { build(:information_request_by_solicitor) }
     let(:current_step) { "solicitor-details" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_by_solicitor) }
-      let(:previous_step) { "/subject-relationship" }
-      let(:next_step) { "/requester-details" }
+      let(:previous_step) { "subject-relationship" }
+      let(:next_step) { "/letter-of-consent" }
       let(:valid_data) { "organisation name" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Your details")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { organisation_name: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter the name of your organisation")
         end
@@ -38,31 +39,32 @@ RSpec.describe "Requester", type: :request do
   end
 
   describe "/requester-details" do
+    let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "requester-details" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_other) }
-      let(:previous_step) { "/subject-relationship" }
+      let(:previous_step) { "subject-relationship" }
       let(:next_step) { "/requester-id" }
       let(:valid_data) { "requester name" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Your details")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { requester_name: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter your full name")
         end
@@ -85,31 +87,32 @@ RSpec.describe "Requester", type: :request do
   end
 
   describe "/letter-of-consent" do
+    let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "letter-of-consent" }
+    let(:previous_step) { "requester-details" }
     let(:next_step) { "/letter-of-consent-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_by_friend) }
-      let(:previous_step) { "/requester-details" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Upload a letter of consent")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { letter_of_consent: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Choose a file to upload")
         end
@@ -135,7 +138,7 @@ RSpec.describe "Requester", type: :request do
       let(:information_request) { build(:information_request_for_other, letter_of_consent_id: letter_of_consent.id) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -147,31 +150,32 @@ RSpec.describe "Requester", type: :request do
   end
 
   describe "/letter-of-consent-check" do
+    let(:information_request) { build(:information_request_with_consent) }
     let(:current_step) { "letter-of-consent-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_with_consent) }
-      let(:previous_step) { "/letter-of-consent" }
+      let(:previous_step) { "letter-of-consent" }
       let(:next_step) { "/subject-id" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Check your upload")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { letter_of_consent_check: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter an answer for is this upload is correct")
         end
@@ -187,7 +191,7 @@ RSpec.describe "Requester", type: :request do
       context "when the user wants to change the upload" do
         it "goes to previous step" do
           patch "/request", params: { request_form: { letter_of_consent_check: "no" } }
-          expect(response).to redirect_to(previous_step)
+          expect(response).to redirect_to("/#{previous_step}")
         end
       end
 
@@ -196,31 +200,32 @@ RSpec.describe "Requester", type: :request do
   end
 
   describe "/requester-id" do
+    let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "requester-id" }
+    let(:previous_step) { "letter-of-consent" }
     let(:next_step) { "/requester-id-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_by_friend) }
-      let(:previous_step) { "/letter-of-consent" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Upload your ID")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { requester_photo: invalid_data, requester_proof_of_address: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Add a file for Photo ID")
           expect(response.body).to include("Add a file for Proof of address")
@@ -249,7 +254,7 @@ RSpec.describe "Requester", type: :request do
       let(:information_request) { build(:information_request_by_friend, requester_photo_id: photo_upload.id, requester_proof_of_address_id: address_upload.id) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -261,31 +266,32 @@ RSpec.describe "Requester", type: :request do
   end
 
   describe "/requester-id-check" do
+    let(:information_request) { build(:information_request_with_requester_id) }
     let(:current_step) { "requester-id-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_with_requester_id) }
-      let(:previous_step) { "/requester-id" }
+      let(:previous_step) { "requester-id" }
       let(:next_step) { "/letter-of-consent" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Check your upload")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { requester_id_check: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter an answer for if these uploads are correct")
         end
@@ -301,7 +307,7 @@ RSpec.describe "Requester", type: :request do
       context "when the user wants to change the upload" do
         it "goes to previous step" do
           patch "/request", params: { request_form: { requester_id_check: "no" } }
-          expect(response).to redirect_to(previous_step)
+          expect(response).to redirect_to("/#{previous_step}")
         end
       end
 

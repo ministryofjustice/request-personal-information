@@ -1,13 +1,70 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= govuk_back_link(href: back_request_path) %>
-    <%= form_with model: @form, scope: :request_form, url: request_path, method: :patch do |f| %>
-      <% content_for(:form_content) { render partial: @form.name, locals: { f: } } %>
-      <span class="govuk-caption-l"><%= yield :caption %></span>
-      <%= f.govuk_error_summary %>
-      <h1 class="govuk-heading-xl"><%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %></h1>
-      <%= yield :form_content %>
-      <%= f.govuk_submit %>
+
+    <h1 class="govuk-heading-xl">Check your answers</h1>
+
+    <%= govuk_summary_list do |summary_list|
+      summary_list.with_row do |row|
+        row.with_key { t("request_form.subject") }
+        row.with_value { RequestForm::Subject::OPTIONS[@information_request.subject.to_sym] }
+        row.with_action(text: "Change", href: "/subject", visually_hidden_text: t("request_form.subject"))
+      end;
+    end %>
+
+    <h3 class="govuk-heading-m"><%= "#{@information_request.possessive_pronoun.capitalize} details" %></h3>
+    <%= govuk_summary_list rows: @summary[:subject_summary] %>
+
+    <% if @summary[:requester_summary].present? %>
+      <h3 class="govuk-heading-m">Your details</h3>
+      <%= govuk_summary_list rows: @summary[:requester_summary] %>
     <% end %>
+
+    <% if @summary[:requester_id_summary].present? %>
+      <h3 class="govuk-heading-m">Upload your ID</h3>
+      <%= govuk_summary_list rows: @summary[:requester_id_summary] %>
+    <% end %>
+
+    <% if @summary[:subject_id_summary].present? %>
+      <h3 class="govuk-heading-m"><%= "Upload #{@information_request.possessive_pronoun} ID" %></h3>
+      <%= govuk_summary_list rows: @summary[:subject_id_summary] %>
+    <% end %>
+
+    <h3 class="govuk-heading-m"><%= t("request_form.moj") %></h3>
+    <%= govuk_summary_list rows: @summary[:information_summary] %>
+
+    <% if @summary[:prison_summary].present? %>
+      <h3 class="govuk-heading-m"><%= t("service.prison.name") %></h3>
+      <%= govuk_summary_list rows: @summary[:prison_summary] %>
+    <% end %>
+
+    <% if @summary[:probation_summary].present? %>
+      <h3 class="govuk-heading-m"><%= t("service.probation.name") %></h3>
+      <%= govuk_summary_list rows: @summary[:probation_summary] %>
+    <% end %>
+
+    <% if @summary[:laa_summary].present? %>
+      <h3 class="govuk-heading-m"><%= t("service.laa.name") %></h3>
+      <%= govuk_summary_list rows: @summary[:laa_summary] %>
+    <% end %>
+
+    <% if @summary[:opg_summary].present? %>
+      <h3 class="govuk-heading-m"><%= t("service.opg.name") %></h3>
+      <%= govuk_summary_list rows: @summary[:opg_summary] %>
+    <% end %>
+
+    <% if @summary[:moj_other_summary].present? %>
+      <h3 class="govuk-heading-m"><%= t("service.other.name") %></h3>
+      <%= govuk_summary_list rows: @summary[:moj_other_summary] %>
+    <% end %>
+
+    <h3 class="govuk-heading-m"><%= t("request_form.contact_address") %></h3>
+    <%= govuk_summary_list rows: @summary[:contact_summary] %>
+
+    <h3 class="govuk-heading-m">Now send your request</h3>
+    <p class="govuk-body">By sending this request you confirm that, to the best of your knowledge, the details you are providing are correct.<p>
+    <p class="govuk-body">You might want to save or print this page for your own records.</p>
+
+    <%= govuk_button_to "Accept and send request", '#' %>
   </div>
 </div>

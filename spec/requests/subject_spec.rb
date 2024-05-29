@@ -9,31 +9,32 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject" do
+    let(:information_request) { InformationRequest.new }
     let(:current_step) { "subject" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { InformationRequest.new }
-      let(:previous_step) { "/" }
+      let(:previous_step) { "" }
       let(:next_step) { "/subject-name" }
       let(:valid_data) { "self" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Are you requesting your own information or on behalf of someone else?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { subject: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include(CGI.escapeHTML("Choose if you're requesting information for yourself or for someone else"))
         end
@@ -45,33 +46,33 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-name" do
+    let(:information_request) { build(:information_request_for_self) }
     let(:current_step) { "subject-name" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "/subject" }
+      let(:previous_step) { "subject" }
       let(:next_step) { "/subject-date-of-birth" }
       let(:valid_data) { "subject name" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       context "when requesting own data" do
-        let(:information_request) { build(:information_request_for_self) }
-
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is your name?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { full_name: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter your full name")
           end
@@ -85,14 +86,14 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { build(:information_request_for_other) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is their name?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { full_name: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter their full name")
           end
@@ -102,33 +103,33 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-date-of-birth" do
+    let(:information_request) { build(:information_request_for_self) }
     let(:current_step) { "subject-date-of-birth" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "/subject-name" }
-      let(:next_step) { "/subject-relationship" }
+      let(:previous_step) { "subject-name" }
+      let(:next_step) { "/subject-id" }
       let(:invalid_data) { nil }
       let(:valid_data) { { "date_of_birth(3i)": "19", "date_of_birth(2i)": "5", "date_of_birth(1i)": "2007" } }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       context "when requesting own data" do
-        let(:information_request) { build(:information_request_for_self) }
-
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is your date of birth?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { date_of_birth: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter your date of birth")
           end
@@ -153,14 +154,14 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { build(:information_request_for_other) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is their date of birth?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { date_of_birth: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter their date of birth")
           end
@@ -170,23 +171,25 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-relationship" do
+    let(:information_request) { build(:information_request_for_self) }
     let(:current_step) { "subject-relationship" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "/subject-date-of-birth" }
-      let(:next_step) { "/solicitor-details" }
+      let(:previous_step) { "subject-date-of-birth" }
+      let(:next_step) { "/requester-details" }
       let(:valid_data) { "other" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       context "when requesting own data" do
-        let(:information_request) { build(:information_request_for_self) }
+        let(:next_step) { "/subject-id" }
 
         it "skips this page" do
           expect(response).to redirect_to(next_step)
@@ -197,14 +200,14 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { build(:information_request_for_other) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("What is your relationship to them?")
         end
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { relationship: invalid_data } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include(CGI.escapeHTML("Choose if you're a legal representative or a relative, friend or something else"))
           end
@@ -217,25 +220,26 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-id" do
+    let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "subject-id" }
+    let(:previous_step) { "requester-id" }
     let(:next_step) { "/subject-id-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_by_friend) }
-      let(:previous_step) { "/requester-id" }
       let(:valid_data) { fixture_file_upload("file.jpg") }
       let(:invalid_data) { nil }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       context "when requesting data for someone else" do
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("Upload their ID")
           expect(response.body).to include("For example, a copy of their driving licence or passport")
           expect(response.body).to include("For example an electricity or council tax bill in their name")
@@ -246,7 +250,7 @@ RSpec.describe "Subject", type: :request do
         let(:information_request) { build(:information_request_for_self) }
 
         it "renders the expected page" do
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("Upload your ID")
           expect(response.body).to include("For example, a copy of your driving licence or passport")
           expect(response.body).to include("For example an electricity or council tax bill in your name")
@@ -256,7 +260,7 @@ RSpec.describe "Subject", type: :request do
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { subject_photo: invalid_data, subject_proof_of_address: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Add a file for Photo ID")
           expect(response.body).to include("Add a file for Proof of address")
@@ -285,7 +289,7 @@ RSpec.describe "Subject", type: :request do
       let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id, subject_proof_of_address_id: address_upload.id) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
@@ -297,31 +301,32 @@ RSpec.describe "Subject", type: :request do
   end
 
   describe "/subject-id-check" do
+    let(:information_request) { build(:information_request_with_subject_id) }
     let(:current_step) { "subject-id-check" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_with_subject_id) }
-      let(:previous_step) { "/subject-id" }
+      let(:previous_step) { "subject-id" }
       let(:next_step) { "/moj" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Check your upload")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { subject_id_check: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter an answer for if these uploads are correct")
         end
@@ -337,7 +342,7 @@ RSpec.describe "Subject", type: :request do
       context "when the user wants to change the upload" do
         it "goes to previous step" do
           patch "/request", params: { request_form: { subject_id_check: "no" } }
-          expect(response).to redirect_to(previous_step)
+          expect(response).to redirect_to("/#{previous_step}")
         end
       end
 

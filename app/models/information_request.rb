@@ -18,7 +18,7 @@ class InformationRequest < ApplicationRecord
     subject == "self"
   end
 
-  def solicitor_request?
+  def by_solicitor?
     !for_self? && relationship == "legal_representative"
   end
 
@@ -53,6 +53,48 @@ class InformationRequest < ApplicationRecord
   def subject_proof_of_address=(file)
     file_object = Attachment.create!(file:, key: "subject_proof_of_address")
     self.subject_proof_of_address_id = file_object.id
+  end
+
+  def information_required
+    info = []
+    info << "Prison Service" if prison_service.present?
+    info << "Probation Service" if probation_service.present?
+    info << "Legal Aid Agency" if laa.present?
+    info << "Office of the Public Guardian (OPG)" if opg.present?
+    info << "Somewhere else in the Ministry of Justice" if moj_other.present?
+    info.join(", ")
+  end
+
+  def prison_information
+    info = []
+    info << "NOMIS Records" if prison_nomis_records.present?
+    info << "Security data" if prison_security_data.present?
+    info << "Something else" if prison_other_data.present?
+    info.join(", ")
+  end
+
+  def probation_information
+    info = []
+    info << "nDelius file" if probation_ndelius.present?
+    info << "Something else" if probation_other_data.present?
+    info.join(", ")
+  end
+
+  def summary
+    summary = InformationRequestSummary.new(self)
+    {
+      subject_summary: summary.subject,
+      requester_summary: summary.requester,
+      requester_id_summary: summary.requester_id,
+      subject_id_summary: summary.subject_id,
+      information_summary: summary.information,
+      prison_summary: summary.prison,
+      probation_summary: summary.probation,
+      laa_summary: summary.laa,
+      opg_summary: summary.opg,
+      moj_other_summary: summary.moj_other,
+      contact_summary: summary.contact,
+    }
   end
 
   def to_hash

@@ -2,31 +2,32 @@ require "rails_helper"
 
 RSpec.describe "Which data is required", type: :request do
   describe "/moj" do
+    let(:information_request) { build(:information_request_for_self) }
     let(:current_step) { "moj" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_self) }
-      let(:previous_step) { "/subject-id-check" }
-      let(:next_step) { "/prison-location" }
+      let(:previous_step) { "subject-id-check" }
+      let(:next_step) { "/laa" }
       let(:valid_data) { "no" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("Where do you want information from?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { moj: [] } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Choose where you want information from")
         end
@@ -50,7 +51,7 @@ RSpec.describe "Which data is required", type: :request do
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { moj_other: "true" } }
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Enter where you think this information is held")
           end
@@ -60,31 +61,32 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/laa" do
+    let(:information_request) { build(:information_request_for_laa) }
     let(:current_step) { "laa" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_laa) }
-      let(:previous_step) { "/moj" }
+      let(:previous_step) { "moj" }
       let(:next_step) { "/laa-dates" }
       let(:valid_data) { "information required" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("What information do you want from the Legal Aid Agency (LAA)?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { laa_text: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter what information you want")
         end
@@ -107,29 +109,30 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/laa-dates" do
+    let(:information_request) { build(:information_request_for_laa) }
     let(:current_step) { "laa-dates" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "/laa" }
-      let(:next_step) { "/opg" }
-      let(:information_request) { build(:information_request_for_laa) }
+      let(:previous_step) { "laa" }
+      let(:next_step) { "/contact-address" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("What dates do you want this information from? (optional)")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { "laa_date_from(3i)": "1", "laa_date_from(2i)": "1", "laa_date_from(1i)": "" } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter a valid date this information should start from")
         end
@@ -152,31 +155,32 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/opg" do
+    let(:information_request) { build(:information_request_for_opg) }
     let(:current_step) { "opg" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_opg) }
-      let(:previous_step) { "/moj" }
+      let(:previous_step) { "moj" }
       let(:next_step) { "/opg-dates" }
       let(:valid_data) { "information required" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("What information do you want from the Office of the Public Guardian (OPG)?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { opg_text: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter what information you want")
         end
@@ -199,29 +203,30 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/opg-dates" do
+    let(:information_request) { build(:information_request_for_opg) }
     let(:current_step) { "opg-dates" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "/opg" }
-      let(:next_step) { "/other" }
-      let(:information_request) { build(:information_request_for_opg) }
+      let(:previous_step) { "opg" }
+      let(:next_step) { "/contact-address" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("What dates do you want this information from? (optional)")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { "opg_date_from(3i)": "1", "opg_date_from(2i)": "1", "opg_date_from(1i)": "" } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter a valid date this information should start from")
         end
@@ -244,31 +249,32 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/other" do
+    let(:information_request) { build(:information_request_for_moj_other) }
     let(:current_step) { "other" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:information_request) { build(:information_request_for_moj_other) }
-      let(:previous_step) { "/moj" }
+      let(:previous_step) { "moj" }
       let(:next_step) { "/other-dates" }
       let(:valid_data) { "information required" }
       let(:invalid_data) { "" }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("What information do you want from somewhere else in the Ministry of Justice?")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { moj_other_text: invalid_data } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter what information you want")
         end
@@ -291,29 +297,30 @@ RSpec.describe "Which data is required", type: :request do
   end
 
   describe "/other-dates" do
+    let(:information_request) { build(:information_request_for_moj_other) }
     let(:current_step) { "other-dates" }
 
     it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "/other" }
+      let(:previous_step) { "other" }
       let(:next_step) { "/contact-address" }
-      let(:information_request) { build(:information_request_for_moj_other) }
 
       before do
-        set_session(information_request: information_request.to_hash, current_step:, history: [previous_step])
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
       it "renders the expected page" do
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:edit)
         expect(response.body).to include("What dates do you want this information from? (optional)")
       end
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
           patch "/request", params: { request_form: { "moj_other_date_from(3i)": "1", "moj_other_date_from(2i)": "1", "moj_other_date_from(1i)": "" } }
-          expect(response).to render_template(:show)
+          expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter a valid date this information should start from")
         end

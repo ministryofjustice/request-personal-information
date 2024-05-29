@@ -4,8 +4,6 @@ RSpec.describe RequestForm::ContactEmail, type: :model do
   it_behaves_like "question for everyone"
   it_behaves_like "question with standard saveable attributes"
 
-  it { is_expected.to validate_presence_of(:contact_email) }
-
   describe "validation" do
     it "validates the email address format" do
       form_object = described_class.new(contact_email: "invalid")

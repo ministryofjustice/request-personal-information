@@ -7,6 +7,16 @@ RSpec.shared_examples("question that requires a session") do
   end
 end
 
+RSpec.shared_examples("question that must be accessed in order") do
+  context "when accessed directly without a previous visit" do
+    it "redirects to the previous closest step" do
+      set_session(information_request: information_request.to_hash, current_step: "example", history: [])
+      get "/#{current_step}"
+      expect(response).to redirect_to("/example")
+    end
+  end
+end
+
 RSpec.shared_examples("question that accepts valid data") do |attribute|
   context "when submitting form with valid data" do
     it "goes to next step" do
@@ -25,7 +35,7 @@ RSpec.shared_examples("question with back link") do
   context "when going back" do
     it "goes to previous step" do
       get("/request/back")
-      expect(response).to redirect_to(previous_step)
+      expect(response).to redirect_to("/#{previous_step}")
     end
   end
 end
