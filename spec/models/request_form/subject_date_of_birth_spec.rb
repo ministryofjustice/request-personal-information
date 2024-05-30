@@ -20,7 +20,7 @@ RSpec.describe RequestForm::SubjectDateOfBirth, type: :model do
       end
     end
 
-    context "when date is has impossible data" do
+    context "when date has impossible data" do
       it "is invalid" do
         form_object.form_date_of_birth = { 3 => 943, 2 => 456, 1 => 2000 }
         expect(form_object).to be_invalid
