@@ -113,7 +113,7 @@ RSpec.describe "Subject", type: :request do
       let(:previous_step) { "subject-name" }
       let(:next_step) { "/subject-id" }
       let(:invalid_data) { nil }
-      let(:valid_data) { { "date_of_birth(3i)": "19", "date_of_birth(2i)": "5", "date_of_birth(1i)": "2007" } }
+      let(:valid_data) { { "form_date_of_birth(3i)": "19", "form_date_of_birth(2i)": "5", "form_date_of_birth(1i)": "2007" } }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
@@ -128,10 +128,10 @@ RSpec.describe "Subject", type: :request do
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
-            patch "/request", params: { request_form: { date_of_birth: invalid_data } }
+            patch "/request", params: { request_form: { form_date_of_birth: invalid_data } }
             expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
-            expect(response.body).to include("Enter your date of birth")
+            expect(response.body).to include("Enter a date of birth")
           end
         end
 
@@ -156,15 +156,6 @@ RSpec.describe "Subject", type: :request do
         it "renders the expected page" do
           expect(response).to render_template(:edit)
           expect(response.body).to include("What is their date of birth?")
-        end
-
-        context "when submitting form with invalid data" do
-          it "renders page with error message" do
-            patch "/request", params: { request_form: { date_of_birth: invalid_data } }
-            expect(response).to render_template(:edit)
-            expect(response.body).to include("There is a problem")
-            expect(response.body).to include("Enter their date of birth")
-          end
         end
       end
     end

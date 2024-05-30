@@ -131,7 +131,7 @@ RSpec.describe "Which data is required", type: :request do
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
-          patch "/request", params: { request_form: { "laa_date_from(3i)": "1", "laa_date_from(2i)": "1", "laa_date_from(1i)": "" } }
+          patch "/request", params: { request_form: { "form_laa_date_from(3i)": "123", "form_laa_date_from(2i)": "1", "form_laa_date_from(1i)": "2000" } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter a valid date this information should start from")
@@ -140,12 +140,12 @@ RSpec.describe "Which data is required", type: :request do
 
       context "when submitting form with valid data" do
         it "goes to next step" do
-          patch "/request", params: { request_form: { "laa_date_from(3i)": "1", "laa_date_from(2i)": "1", "laa_date_from(1i)": "2000" } }
+          patch "/request", params: { request_form: { "form_laa_date_from(3i)": "1", "form_laa_date_from(2i)": "1", "form_laa_date_from(1i)": "2000" } }
           expect(response).to redirect_to(next_step)
         end
 
         it "saves the value to the session" do
-          patch "/request", params: { request_form: { "laa_date_from(3i)": "1", "laa_date_from(2i)": "1", "laa_date_from(1i)": "2000" } }
+          patch "/request", params: { request_form: { "form_laa_date_from(3i)": "1", "form_laa_date_from(2i)": "1", "form_laa_date_from(1i)": "2000" } }
           expect(request.session[:information_request][:laa_date_from]).to eq Date.new(2000, 1, 1)
         end
       end
@@ -225,7 +225,7 @@ RSpec.describe "Which data is required", type: :request do
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
-          patch "/request", params: { request_form: { "opg_date_from(3i)": "1", "opg_date_from(2i)": "1", "opg_date_from(1i)": "" } }
+          patch "/request", params: { request_form: { "form_opg_date_from(3i)": "1", "form_opg_date_from(2i)": "1", "form_opg_date_from(1i)": "" } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter a valid date this information should start from")
@@ -234,12 +234,12 @@ RSpec.describe "Which data is required", type: :request do
 
       context "when submitting form with valid data" do
         it "goes to next step" do
-          patch "/request", params: { request_form: { "opg_date_from(3i)": "1", "opg_date_from(2i)": "1", "opg_date_from(1i)": "2000" } }
+          patch "/request", params: { request_form: { "form_opg_date_from(3i)": "1", "form_opg_date_from(2i)": "1", "form_opg_date_from(1i)": "2000" } }
           expect(response).to redirect_to(next_step)
         end
 
         it "saves the value to the session" do
-          patch "/request", params: { request_form: { "opg_date_from(3i)": "1", "opg_date_from(2i)": "1", "opg_date_from(1i)": "2000" } }
+          patch "/request", params: { request_form: { "form_opg_date_from(3i)": "1", "form_opg_date_from(2i)": "1", "form_opg_date_from(1i)": "2000" } }
           expect(request.session[:information_request][:opg_date_from]).to eq Date.new(2000, 1, 1)
         end
       end
@@ -319,7 +319,7 @@ RSpec.describe "Which data is required", type: :request do
 
       context "when submitting form with invalid data" do
         it "renders page with error message" do
-          patch "/request", params: { request_form: { "moj_other_date_from(3i)": "1", "moj_other_date_from(2i)": "1", "moj_other_date_from(1i)": "" } }
+          patch "/request", params: { request_form: { "form_moj_other_date_from(3i)": "1", "form_moj_other_date_from(2i)": "1", "form_moj_other_date_from(1i)": "" } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Enter a valid date this information should start from")
@@ -328,12 +328,12 @@ RSpec.describe "Which data is required", type: :request do
 
       context "when submitting form with valid data" do
         it "goes to next step" do
-          patch "/request", params: { request_form: { "moj_other_date_from(3i)": "1", "moj_other_date_from(2i)": "1", "moj_other_date_from(1i)": "2000" } }
+          patch "/request", params: { request_form: { "form_moj_other_date_from(3i)": "1", "form_moj_other_date_from(2i)": "1", "form_moj_other_date_from(1i)": "2000" } }
           expect(response).to redirect_to(next_step)
         end
 
         it "saves the value to the session" do
-          patch "/request", params: { request_form: { "moj_other_date_from(3i)": "1", "moj_other_date_from(2i)": "1", "moj_other_date_from(1i)": "2000" } }
+          patch "/request", params: { request_form: { "form_moj_other_date_from(3i)": "1", "form_moj_other_date_from(2i)": "1", "form_moj_other_date_from(1i)": "2000" } }
           expect(request.session[:information_request][:moj_other_date_from]).to eq Date.new(2000, 1, 1)
         end
       end

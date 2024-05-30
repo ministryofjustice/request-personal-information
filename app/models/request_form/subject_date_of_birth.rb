@@ -1,13 +1,12 @@
 module RequestForm
   class SubjectDateOfBirth < Base
     include ActiveRecord::AttributeAssignment
+    include Dateable
 
     attribute :date_of_birth, :date
+    date_for_form :date_of_birth
 
-    validates :date_of_birth, presence: {
-      message: lambda do |object, data|
-        "Enter #{object.request.possessive_pronoun} #{data[:attribute].downcase}"
-      end,
-    }
+    validate :check_date_of_birth_presence
+    validate :check_date_of_birth
   end
 end
