@@ -66,6 +66,16 @@ en:
               blank: Enter an answer for "What prison service information do you want?"
             prison_other_data_text:
               blank: Enter an answer for "What other prison service information do you want?"
+        request_form/prison_location:
+          attributes:
+            currently_in_prison:
+              blank: Choose if they are currently in prison
+            current_prison_name:
+              blank: Enter which prison they are currently in
+        request_form/prison_number:
+          attributes:
+            prison_number:
+              blank: "Enter their prison number"
         request_form/probation_dates:
           attributes:
             form_probation_date_from:
@@ -131,9 +141,7 @@ en:
       request_form:
         contact_address: Your address
         contact_email: Email address (optional)
-        current_prison_name:
-          other: Which prison are they in?
-          self: Which prison are you in?
+        current_prison_name: Which prison are they in?
         full_name: Full name
         moj_other_where: Where in the Ministry of Justice do you think this information is held?
         other_names:
@@ -142,9 +150,7 @@ en:
         organisation_name: Name of your organisation
         prison_other_data_text: Can you provide more detail?
         probation_other_data_text: Can you provide more detail?
-        recent_prison_name:
-          other: Which prison where they most recently in?
-          self: Which prison where you most recently in?
+        recent_prison_name: Which prison where they most recently in?
         requester_name: Your full name (optional)
         requester_photo: Photo ID
         requester_proof_of_address: Proof of address
@@ -215,10 +221,10 @@ en:
     prison_information: What prison service information do you want?
     prison_location:
       other: Are they currently in prison?
-      self: Are you currently in prison?
+      self: Which prison were you most recently in?
     prison_number:
       other: What is their prison number?
-      self: What is your prison number?
+      self: What was your prison number (optional)?
     probation_dates: What dates do you want this information from? (optional)
     probation_information: What probation service information do you want?
     probation_location:

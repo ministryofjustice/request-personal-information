@@ -135,30 +135,44 @@ class InformationRequestSummary
   def prison
     return unless @information_request.prison_service
 
-    summary = [
-      {
-        key: { text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
-        value: { text: @information_request.currently_in_prison.capitalize },
-        actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("helpers.label.request_form.current_prison_name.#{@information_request.subject}") },
-      },
-    ]
+    summary = []
 
-    if @information_request.currently_in_prison == "yes"
+    if @information_request.for_self?
       summary.push(
         {
-          key: { text: I18n.t("helpers.label.request_form.current_prison_name.#{@information_request.subject}") },
-          value: { text: @information_request.current_prison_name },
-          actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("helpers.label.request_form.current_prison_name.#{@information_request.subject}") },
-        },
-      )
-    else
-      summary.push(
-        {
-          key: { text: I18n.t("helpers.label.request_form.recent_prison_name.#{@information_request.subject}") },
+          key: { text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
           value: { text: @information_request.recent_prison_name },
-          actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("helpers.label.request_form.recent_prison_name.#{@information_request.subject}") },
+          actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
         },
       )
+    end
+
+    unless @information_request.for_self?
+      summary.push(
+        {
+          key: { text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
+          value: { text: @information_request.currently_in_prison.capitalize },
+          actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
+        },
+      )
+
+      if @information_request.currently_in_prison == "yes"
+        summary.push(
+          {
+            key: { text: I18n.t("helpers.label.request_form.current_prison_name") },
+            value: { text: @information_request.current_prison_name },
+            actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("helpers.label.request_form.current_prison_name") },
+          },
+        )
+      else
+        summary.push(
+          {
+            key: { text: I18n.t("helpers.label.request_form.recent_prison_name") },
+            value: { text: @information_request.recent_prison_name },
+            actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("helpers.label.request_form.recent_prison_name") },
+          },
+        )
+      end
     end
 
     summary.push(

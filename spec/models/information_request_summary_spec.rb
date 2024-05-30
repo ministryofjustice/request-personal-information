@@ -182,21 +182,37 @@ RSpec.describe InformationRequestSummary, type: :model do
 
   describe "#prison" do
     context "when requesting prison service information" do
-      let(:information_request) { build(:information_request_for_prison_service) }
+      let(:information_request) { build(:information_request_for_prison_service, subject: "other") }
 
-      it "returns if the subject is currently in prison" do
-        expect(summary.prison[0]).to include({ key: { text: "Are you currently in prison?" } })
-        expect(summary.prison[0]).to include({ value: { text: "Yes" } })
+      context "when for someone else" do
+        it "returns if the subject is currently in prison" do
+          expect(summary.prison[0]).to include({ key: { text: "Are they currently in prison?" } })
+          expect(summary.prison[0]).to include({ value: { text: "No" } })
+        end
+
+        it "returns where the subject is in prison" do
+          expect(summary.prison[1]).to include({ key: { text: "Which prison where they most recently in?" } })
+          expect(summary.prison[1]).to include({ value: { text: "HMP Fosse Way" } })
+        end
+
+        it "returns where the subject's prison number" do
+          expect(summary.prison[2]).to include({ key: { text: "What is their prison number?" } })
+          expect(summary.prison[2]).to include({ value: { text: "ABC123" } })
+        end
       end
 
-      it "returns where the subject is in prison" do
-        expect(summary.prison[1]).to include({ key: { text: "Which prison are you in?" } })
-        expect(summary.prison[1]).to include({ value: { text: "HMP Fosse Way" } })
-      end
+      context "when for yourself" do
+        let(:information_request) { build(:information_request_for_prison_service) }
 
-      it "returns where the subject's prison number" do
-        expect(summary.prison[2]).to include({ key: { text: "What is your prison number?" } })
-        expect(summary.prison[2]).to include({ value: { text: "ABC123" } })
+        it "returns where the subject is in prison" do
+          expect(summary.prison[0]).to include({ key: { text: "Which prison were you most recently in?" } })
+          expect(summary.prison[0]).to include({ value: { text: "HMP Fosse Way" } })
+        end
+
+        it "returns where the subject's prison number" do
+          expect(summary.prison[1]).to include({ key: { text: "What was your prison number (optional)?" } })
+          expect(summary.prison[1]).to include({ value: { text: "ABC123" } })
+        end
       end
 
       it "returns what information is required" do
@@ -211,12 +227,12 @@ RSpec.describe InformationRequestSummary, type: :model do
         expect(summary.prison[5]).to include({ value: { text: "2012-05-20" } })
       end
 
-      context "when not currently in prison" do
-        it "returns which prison the subject was most recently in" do
-          information_request.currently_in_prison = "no"
-          information_request.recent_prison_name = "HMP Hollesley Bay"
+      context "when currently in prison" do
+        it "returns which prison the subject is currently in" do
+          information_request.currently_in_prison = "yes"
+          information_request.current_prison_name = "HMP Hollesley Bay"
 
-          expect(summary.prison[1]).to include({ key: { text: "Which prison where you most recently in?" } })
+          expect(summary.prison[1]).to include({ key: { text: "Which prison are they in?" } })
           expect(summary.prison[1]).to include({ value: { text: "HMP Hollesley Bay" } })
         end
       end

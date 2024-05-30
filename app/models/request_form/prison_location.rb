@@ -6,23 +6,14 @@ module RequestForm
 
     attr_accessor :default
 
-    validates :currently_in_prison, presence: {
-      message: lambda do |object, _|
-        "Choose if #{object.request.pronoun} are currently in prison"
-      end,
-    }
-
-    validates :current_prison_name, presence: {
-      message: lambda do |object, _|
-        "Enter which prison #{object.request.pronoun} are currently in"
-      end,
-    }, if: -> { currently_in_prison == "yes" }
+    validates :currently_in_prison, presence: true, unless: -> { @request.for_self? }
+    validates :current_prison_name, presence: true, if: -> { currently_in_prison == "yes" }
 
     validates :recent_prison_name, presence: {
       message: lambda do |object, _|
         "Enter which prison #{object.request.pronoun} were most recently in"
       end,
-    }, if: -> { currently_in_prison == "no" }
+    }, if: -> { currently_in_prison == "no" || @request.for_self? }
 
     def required?
       request.prison_service
