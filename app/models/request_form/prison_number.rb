@@ -2,11 +2,7 @@ module RequestForm
   class PrisonNumber < Base
     attribute :prison_number, :string
 
-    validates :prison_number, presence: {
-      message: lambda do |object, data|
-        "Enter #{object.request.possessive_pronoun} #{data[:attribute].downcase}"
-      end,
-    }
+    validates :prison_number, presence: true, unless: -> { @request.for_self? }
 
     def required?
       request.prison_service

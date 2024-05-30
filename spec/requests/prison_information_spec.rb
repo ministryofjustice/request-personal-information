@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Data required from prison service", type: :request do
   describe "/prison-location" do
-    let(:information_request) { build(:information_request_for_prison_service) }
+    let(:information_request) { build(:information_request_for_prison_service, subject: "other") }
     let(:current_step) { "prison-location" }
 
     it_behaves_like "question that requires a session"
@@ -19,17 +19,37 @@ RSpec.describe "Data required from prison service", type: :request do
         get "/#{current_step}"
       end
 
-      it "renders the expected page" do
-        expect(response).to render_template(:edit)
-        expect(response.body).to include("Are you currently in prison?")
+      context "when request for yourself" do
+        let(:information_request) { build(:information_request_for_prison_service) }
+
+        it "renders the expected page" do
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("Which prison were you most recently in?")
+        end
+
+        context "when submitting form with invalid data" do
+          it "renders page with error message" do
+            patch "/request", params: { request_form: { recent_prison_name: invalid_data } }
+            expect(response).to render_template(:edit)
+            expect(response.body).to include("There is a problem")
+            expect(response.body).to include("Enter which prison you were most recently in")
+          end
+        end
       end
 
-      context "when submitting form with invalid data" do
-        it "renders page with error message" do
-          patch "/request", params: { request_form: { currently_in_prison: invalid_data } }
+      context "when request for someone else" do
+        it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Are you currently in prison")
+          expect(response.body).to include("Are they currently in prison?")
+        end
+
+        context "when submitting form with invalid data" do
+          it "renders page with error message" do
+            patch "/request", params: { request_form: { currently_in_prison: invalid_data } }
+            expect(response).to render_template(:edit)
+            expect(response.body).to include("There is a problem")
+            expect(response.body).to include("Are they currently in prison")
+          end
         end
       end
 
@@ -72,16 +92,7 @@ RSpec.describe "Data required from prison service", type: :request do
 
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("What is your prison number?")
-        end
-
-        context "when submitting form with invalid data" do
-          it "renders page with error message" do
-            patch "/request", params: { request_form: { prison_number: invalid_data } }
-            expect(response).to render_template(:edit)
-            expect(response.body).to include("There is a problem")
-            expect(response.body).to include("Enter your prison number")
-          end
+          expect(response.body).to include("What was your prison number (optional)?")
         end
 
         it_behaves_like "question that accepts valid data", :prison_number

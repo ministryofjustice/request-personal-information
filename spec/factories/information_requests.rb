@@ -41,8 +41,8 @@ FactoryBot.define do
 
     trait :prison_service do
       prison_service { true }
-      currently_in_prison { "yes" }
-      current_prison_name { "HMP Fosse Way" }
+      currently_in_prison { "no" }
+      recent_prison_name { "HMP Fosse Way" }
       prison_number { "ABC123" }
       prison_nomis_records { true }
       prison_date_from { Date.new(2010, 3, 10) }
