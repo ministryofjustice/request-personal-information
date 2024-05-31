@@ -79,6 +79,8 @@ class RequestsController < ApplicationController
     previous_step
   end
 
+  def complete; end
+
 private
 
   def requested_step

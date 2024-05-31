@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get "upcoming" => "requests#edit"
 
   get "check-answers" => "requests#show"
+  get "form-sent" => "requests#complete"
 
   root to: "pages#homepage"
 
