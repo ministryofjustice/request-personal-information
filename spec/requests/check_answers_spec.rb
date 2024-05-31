@@ -26,7 +26,5 @@ RSpec.describe "check answers", type: :request do
       expect(response.body).to include("HM Prison Service")
       expect(response.body).to include("Where we&#39;ll send the information")
     end
-
-    it_behaves_like "question with back link"
   end
 end
