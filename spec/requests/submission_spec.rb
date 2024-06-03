@@ -14,7 +14,12 @@ RSpec.describe "submissions", type: :request do
       }.to(change(InformationRequest, :count).by(1))
     end
 
-    context "when reuest is not valid" do
+    it "redirects to the form sent page" do
+      post "/request"
+      expect(response).to redirect_to("/form-sent")
+    end
+
+    context "when request is not valid" do
       let(:information_request) { build(:information_request_for_self) }
 
       it "redirects to the first question" do
