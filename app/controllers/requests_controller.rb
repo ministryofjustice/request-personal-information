@@ -44,6 +44,13 @@ class RequestsController < ApplicationController
     end
 
     @information_request = InformationRequest.new(session[:information_request])
+
+    unless @information_request.valid?
+      # Force the user to complete the form again if it's not valid
+      session[:history] = [STEPS.first]
+      redirect_to "/#{STEPS.first}" and return
+    end
+
     @summary = summary
   end
 
@@ -85,7 +92,9 @@ class RequestsController < ApplicationController
       redirect_to "/form-sent" and return
     rescue StandardError => e
       Sentry.capture_message(e.message)
-      redirect_to "/check-answers" and return
+      # Force the user to complete the form again if it's not valid
+      session[:history] = [STEPS.first]
+      redirect_to "/#{STEPS.first}" and return
     end
   end
 
@@ -180,12 +189,14 @@ private
   end
 
   def next_step
+    redirect = nil
     index = current_index + 1
+
     if index >= STEPS.size
-      session[:history] << "check-answers"
-      redirect_to "/check-answers" and return
+      step = "check-answers"
+      session[:history] << step unless session[:history].include?(step)
+      redirect = "/#{step}"
     else
-      redirect = nil
       while redirect.nil?
         next_to_try = STEPS[index].to_s
         form = "RequestForm::#{next_to_try.underscore.camelize}".constantize.new(request: @information_request)
@@ -196,27 +207,28 @@ private
         index += 1
       end
 
-      redirect_to redirect and return
     end
+
+    redirect_to redirect and return
   end
 
   def previous_step
+    redirect = nil
     index = current_index
 
     if index.zero?
-      redirect_to "/"
+      redirect = "/"
     else
-      redirect = nil
       while redirect.nil?
-        next_to_try = STEPS[index - 1]
-        if session[:history].include?(next_to_try.to_s)
+        next_to_try = STEPS[index - 1].to_s
+        if session[:history].include?(next_to_try)
           redirect = "/#{next_to_try}"
         end
         index -= 1
       end
-
-      redirect_to redirect and return
     end
+
+    redirect_to redirect and return
   end
 
   def current_index

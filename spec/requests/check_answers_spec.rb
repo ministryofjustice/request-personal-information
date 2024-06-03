@@ -26,5 +26,13 @@ RSpec.describe "check answers", type: :request do
       expect(response.body).to include("HM Prison Service")
       expect(response.body).to include("Where we&#39;ll send the information")
     end
+
+    context "when questions are outstanding" do
+      let(:information_request) { build(:information_request_for_self) }
+
+      it "redirects to the first question" do
+        expect(response).to redirect_to("/subject")
+      end
+    end
   end
 end
