@@ -1,7 +1,7 @@
 <%= govuk_panel(html_attributes: { style: "background: #1d70b8; text-align: left; line-height: 1.5em; padding: 25px;" }) do %>
-   <%= Attachment.find(@information_request.subject_photo_id).to_s %>
+   <%= @information_request.subject_photo.to_s %>
    <br>
-   <%= Attachment.find(@information_request.subject_proof_of_address_id).to_s %>
+   <%= @information_request.subject_proof_of_address.to_s %>
 <% end %>
 
 <%= f.govuk_collection_radio_buttons :subject_id_check, @form.class::OPTIONS, :first, :second %>

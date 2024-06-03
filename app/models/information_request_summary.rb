@@ -73,12 +73,12 @@ class InformationRequestSummary
       summary.push(
         {
           key: { text: I18n.t("helpers.label.request_form.requester_photo") },
-          value: { text: Attachment.find(@information_request.requester_photo_id).to_s },
+          value: { text: @information_request.requester_photo.to_s },
           actions: { text: "Change", href: "/requester-id", visually_hidden_text: I18n.t("helpers.label.request_form.requester_photo") },
         },
         {
           key: { text: I18n.t("helpers.label.request_form.requester_proof_of_address") },
-          value: { text: Attachment.find(@information_request.requester_proof_of_address_id).to_s },
+          value: { text: @information_request.requester_proof_of_address.to_s },
           actions: { text: "Change", href: "/requester-id", visually_hidden_text: I18n.t("helpers.label.request_form.requester_proof_of_address") },
         },
       )
@@ -87,7 +87,7 @@ class InformationRequestSummary
     summary.push(
       {
         key: { text: I18n.t("request_form.letter_of_consent") },
-        value: { text: Attachment.find(@information_request.letter_of_consent_id).to_s },
+        value: { text: @information_request.letter_of_consent.to_s },
         actions: { text: "Change", href: "/letter-of-consent", visually_hidden_text: I18n.t("request_form.letter_of_consent") },
       },
     )
@@ -101,12 +101,12 @@ class InformationRequestSummary
     [
       {
         key: { text: I18n.t("helpers.label.request_form.subject_photo") },
-        value: { text: Attachment.find(@information_request.subject_photo_id).to_s },
+        value: { text: @information_request.subject_photo.to_s },
         actions: { text: "Change", href: "/subject-id", visually_hidden_text: I18n.t("helpers.label.request_form.subject_photo") },
       },
       {
         key: { text: I18n.t("helpers.label.request_form.subject_proof_of_address") },
-        value: { text: Attachment.find(@information_request.subject_proof_of_address_id).to_s },
+        value: { text: @information_request.subject_proof_of_address.to_s },
         actions: { text: "Change", href: "/subject-id", visually_hidden_text: I18n.t("helpers.label.request_form.subject_proof_of_address") },
       },
     ]
