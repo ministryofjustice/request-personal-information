@@ -37,7 +37,7 @@ class RequestsController < ApplicationController
   end
 
   def show
-    redirect_to root_path and return if session[:current_step].nil?
+    redirect_to root_path and return if session[:history].nil?
 
     unless session[:history].include?(requested_step)
       redirect_to "/#{session[:current_step]}" and return
@@ -48,7 +48,7 @@ class RequestsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path and return if session[:current_step].nil?
+    redirect_to root_path and return if session[:history].nil?
 
     unless session[:history].include?(requested_step)
       redirect_to "/#{session[:current_step]}" and return
