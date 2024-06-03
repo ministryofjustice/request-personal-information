@@ -79,26 +79,26 @@ class InformationRequest < ApplicationRecord
 
   def information_required
     info = []
-    info << "Prison Service" if prison_service.present?
-    info << "Probation Service" if probation_service.present?
-    info << "Legal Aid Agency" if laa.present?
-    info << "Office of the Public Guardian (OPG)" if opg.present?
-    info << "Somewhere else in the Ministry of Justice" if moj_other.present?
+    info << "Prison Service" if prison_service?
+    info << "Probation Service" if probation_service?
+    info << "Legal Aid Agency" if laa?
+    info << "Office of the Public Guardian (OPG)" if opg?
+    info << "Somewhere else in the Ministry of Justice" if moj_other?
     info.join(", ")
   end
 
   def prison_information
     info = []
-    info << "NOMIS Records" if prison_nomis_records.present?
-    info << "Security data" if prison_security_data.present?
-    info << "Something else" if prison_other_data.present?
+    info << "NOMIS Records" if prison_nomis_records?
+    info << "Security data" if prison_security_data?
+    info << "Something else" if prison_other_data?
     info.join(", ")
   end
 
   def probation_information
     info = []
-    info << "nDelius file" if probation_ndelius.present?
-    info << "Something else" if probation_other_data.present?
+    info << "nDelius file" if probation_ndelius?
+    info << "Something else" if probation_other_data?
     info.join(", ")
   end
 
