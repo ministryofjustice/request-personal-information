@@ -184,6 +184,7 @@ private
   end
 
   def reset_session
+    session[:current_step] = nil
     session[:information_request] = nil
     session[:history] = [STEPS.first]
   end
