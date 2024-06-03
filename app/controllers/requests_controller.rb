@@ -75,6 +75,20 @@ class RequestsController < ApplicationController
     end
   end
 
+  def create
+    redirect_to root_path and return if session[:current_step].nil?
+
+    information_request = InformationRequest.new(session[:information_request])
+    begin
+      information_request.save!
+      reset_session
+      redirect_to "/form-sent" and return
+    rescue StandardError => e
+      Sentry.capture_message(e.message)
+      redirect_to "/check-answers" and return
+    end
+  end
+
   def back
     previous_step
   end
