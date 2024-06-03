@@ -176,25 +176,25 @@ en:
       request_form:
         contact_address: You will receive paper copies of this information. If your request reveals details about another person, that information will not be shared.
         form_date_of_birth: For example, 19 05 2007
-        form_laa_date_from: For example 3 11 2000
-        form_laa_date_to: For example 12 5 2014
+        form_laa_date_from: For example, 3 11 2000
+        form_laa_date_to: For example, 12 5 2014
         moj: Select all that apply
-        form_moj_other_date_from: For example 3 11 2000
-        form_moj_other_date_to: For example 12 5 2014
+        form_moj_other_date_from: For example, 3 11 2000
+        form_moj_other_date_to: For example, 12 5 2014
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
-        form_opg_date_from: For example 3 11 2000
-        form_opg_date_to: For example 12 5 2014
+        form_opg_date_from: For example, 3 11 2000
+        form_opg_date_to: For example, 12 5 2014
         other_names: This includes last names, nicknames or aliases
-        form_prison_date_from: For example 3 11 2000
-        form_prison_date_to: For example 12 5 2014
+        form_prison_date_from: For example, 3 11 2000
+        form_prison_date_to: For example, 12 5 2014
         prison_other_data_text: We can respond faster if you are able to tell us specifically what you want.
         prison_data: Select all that apply
         prison_number:
           other: Also sometimes called their NOMIS number. For example, A1234AA.
           self: Also sometimes called your NOMIS number. For example, A1234AA.
         probation_data: Select all that apply
-        form_probation_date_from: For example 3 11 2000
-        form_probation_date_to: For example 12 5 2014
+        form_probation_date_from: For example, 3 11 2000
+        form_probation_date_to: For example, 12 5 2014
         requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
         subject_photo:
