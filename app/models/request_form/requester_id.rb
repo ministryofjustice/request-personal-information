@@ -12,7 +12,7 @@ module RequestForm
     validates :requester_proof_of_address, file_size: { max: 7.megabytes }
 
     def required?
-      !request.for_self? && !request.by_solicitor?
+      request.by_family_or_friend?
     end
 
     def saveable_attributes

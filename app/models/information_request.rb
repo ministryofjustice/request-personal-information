@@ -22,6 +22,10 @@ class InformationRequest < ApplicationRecord
     !for_self? && relationship == "legal_representative"
   end
 
+  def by_family_or_friend?
+    !for_self? && relationship == "other"
+  end
+
   def pronoun
     for_self? ? "you" : "they"
   end
