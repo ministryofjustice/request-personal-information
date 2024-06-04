@@ -75,7 +75,7 @@ en:
         request_form/prison_number:
           attributes:
             prison_number:
-              blank: "Enter their prison number"
+              blank: Enter their prison number
         request_form/probation_dates:
           attributes:
             form_probation_date_from:
@@ -193,6 +193,7 @@ en:
           other: Also sometimes called their NOMIS number. For example, A1234AA.
           self: Also sometimes called your NOMIS number. For example, A1234AA.
         probation_data: Select all that apply
+        probation_office: Enter the town, city or area. For example, Macclesfield.
         form_probation_date_from: For example, 3 11 2000
         form_probation_date_to: For example, 12 5 2014
         requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
