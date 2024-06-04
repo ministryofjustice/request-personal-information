@@ -42,6 +42,31 @@ RSpec.describe InformationRequest, type: :model do
     end
   end
 
+  describe "#by_family_or_friend?" do
+    context "when request subject is the requester" do
+      it "returns expected value" do
+        request = described_class.new(subject: "self")
+        expect(request).not_to be_by_family_or_friend
+      end
+    end
+
+    context "when request subject is someone else" do
+      context "when requester is a solicitor" do
+        it "returns expected value" do
+          request = described_class.new(subject: "other", relationship: "legal_representative")
+          expect(request).not_to be_by_family_or_friend
+        end
+      end
+
+      context "when request subject is someone else" do
+        it "returns expected value" do
+          request = described_class.new(subject: "other", relationship: "other")
+          expect(request).to be_by_family_or_friend
+        end
+      end
+    end
+  end
+
   describe "#pronoun" do
     context "when request subject is the requester" do
       it "returns expected value" do

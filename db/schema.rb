@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_08_153138) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_03_133735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,51 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_153138) do
     t.string "other_names"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "date_of_birth"
+    t.string "relationship"
+    t.string "organisation_name"
+    t.string "requester_name"
+    t.integer "letter_of_consent_id"
+    t.integer "requester_photo_id"
+    t.integer "requester_proof_of_address_id"
+    t.integer "subject_photo_id"
+    t.integer "subject_proof_of_address_id"
+    t.boolean "prison_service"
+    t.boolean "probation_service"
+    t.boolean "hmpps_information"
+    t.string "currently_in_prison"
+    t.string "current_prison_name"
+    t.string "recent_prison_name"
+    t.string "prison_number"
+    t.boolean "prison_nomis_records"
+    t.boolean "prison_security_data"
+    t.boolean "prison_other_data"
+    t.string "prison_other_data_text"
+    t.date "prison_date_from"
+    t.date "prison_date_to"
+    t.string "probation_office"
+    t.boolean "probation_ndelius"
+    t.boolean "probation_other_data"
+    t.string "probation_other_data_text"
+    t.date "probation_date_from"
+    t.date "probation_date_to"
+    t.boolean "laa"
+    t.boolean "opg"
+    t.boolean "moj_other"
+    t.string "moj_other_where"
+    t.string "laa_text"
+    t.date "laa_date_from"
+    t.date "laa_date_to"
+    t.string "opg_text"
+    t.date "opg_date_from"
+    t.date "opg_date_to"
+    t.string "moj_other_text"
+    t.date "moj_other_date_from"
+    t.date "moj_other_date_to"
+    t.string "contact_address"
+    t.string "contact_email"
+    t.string "upcoming_court_case"
+    t.string "upcoming_court_case_text"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

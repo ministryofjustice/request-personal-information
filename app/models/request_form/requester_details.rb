@@ -5,7 +5,7 @@ module RequestForm
     validates :requester_name, presence: true
 
     def required?
-      !request.for_self? && !request.by_solicitor?
+      request.by_family_or_friend?
     end
   end
 end
