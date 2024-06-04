@@ -32,6 +32,8 @@ class InformationRequest < ApplicationRecord
   validates :upcoming_court_case, presence: true
   validates :upcoming_court_case_text, presence: true, if: -> { upcoming_court_case == "yes" }
 
+  before_create :set_submission_id
+
   def for_self?
     subject == "self"
   end
@@ -170,5 +172,15 @@ class InformationRequest < ApplicationRecord
       upcoming_court_case:,
       upcoming_court_case_text:,
     }
+  end
+
+  def payload
+    InformationRequestPayload.new(self).call
+  end
+
+private
+
+  def set_submission_id
+    @submission_id = SecureRandom.uuid
   end
 end

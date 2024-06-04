@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_03_133735) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_124348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -99,6 +99,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_133735) do
     t.string "contact_email"
     t.string "upcoming_court_case"
     t.string "upcoming_court_case_text"
+    t.string "submission_id"
+    t.datetime "submitted_at", precision: nil
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

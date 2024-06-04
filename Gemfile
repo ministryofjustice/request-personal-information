@@ -4,6 +4,7 @@ ruby File.read(".ruby-version").strip
 
 gem "aws-sdk-s3", require: false
 gem "bootsnap", require: false
+gem "faraday"
 gem "govuk_app_config"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
