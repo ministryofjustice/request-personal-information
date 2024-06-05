@@ -4,10 +4,11 @@ ruby File.read(".ruby-version").strip
 
 gem "aws-sdk-s3", require: false
 gem "bootsnap", require: false
-gem "faraday"
+gem "delayed_job_active_record"
 gem "govuk_app_config"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
+gem "httparty"
 gem "pg"
 gem "puma", ">= 5.0"
 gem "rails", "~> 7.1.3"
