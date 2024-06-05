@@ -5,7 +5,7 @@ class Attachment < ApplicationRecord
 
   before_destroy :purge_file
 
-  delegate :filename, to: file
+  delegate :filename, to: :file
 
   def to_s
     "#{file.filename}, #{number_to_human_size(file.byte_size)}"
