@@ -1,6 +1,15 @@
 require "rails_helper"
 
 RSpec.describe InformationRequest, type: :model do
+  describe "validation" do
+    it "sets the submission_id" do
+      request = build(:complete_request)
+      expect {
+        request.valid?
+      }.to change(request, :submission_id)
+    end
+  end
+
   describe "#for_self?" do
     context "when request subject is the requester" do
       it "returns expected value" do
@@ -248,6 +257,15 @@ RSpec.describe InformationRequest, type: :model do
       expect(request.to_hash).to include({ "full_name": "full name" })
       expect(request.to_hash).to include({ "other_names": "other names" })
       expect(request.to_hash).to include({ "date_of_birth": Date.new(2000, 1, 1) })
+    end
+  end
+
+  describe "#payload" do
+    it "gets the payload from payload service" do
+      request = build(:complete_request)
+      expect(InformationRequestPayload).to receive(:new).with(request).and_call_original
+
+      request.payload
     end
   end
 end

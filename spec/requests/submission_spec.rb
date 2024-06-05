@@ -14,6 +14,11 @@ RSpec.describe "submissions", type: :request do
       }.to(change(InformationRequest, :count).by(1))
     end
 
+    it "createa a job" do
+      post "/request"
+      expect(NewRequestJob).to have_been_enqueued
+    end
+
     it "redirects to the form sent page" do
       post "/request"
       expect(response).to redirect_to("/form-sent")
