@@ -20,6 +20,7 @@ private
   def answers
     hash = @request.to_hash.except(:subject, :relationship, :currently_in_prison, :upcoming_court_case,
                                    :letter_of_consent_id, :requester_photo_id, :requester_proof_of_address_id, :subject_photo_id, :subject_proof_of_address_id,
+                                   :prison_service, :probation_service, :laa, :opg, :moj_other,
                                    :prison_nomis_records, :prison_security_data, :prison_other_data,
                                    :probation_ndelius, :probation_other_data)
     hash[:subject] = RequestForm::Subject::OPTIONS[@request.subject.to_sym]
@@ -33,7 +34,11 @@ private
     hash[:requester_proof_of_address_file_name] = @request.requester_proof_of_address&.filename
     hash[:subject_photo_file_name] = @request.subject_photo&.filename
     hash[:subject_proof_of_address_file_name] = @request.subject_proof_of_address&.filename
-    hash
+    hash[:prison_service] = boolean_to_text(@request.prison_service)
+    hash[:probation_service] = boolean_to_text(@request.probation_service)
+    hash[:laa] = boolean_to_text(@request.laa)
+    hash[:opg] = boolean_to_text(@request.opg)
+    hash[:moj_other] = boolean_to_text(@request.moj_other)
   end
 
   def attachments
@@ -43,5 +48,9 @@ private
 
       attachment.payload
     end
+  end
+
+  def boolean_to_text(bool)
+    bool ? "Yes" : "No"
   end
 end
