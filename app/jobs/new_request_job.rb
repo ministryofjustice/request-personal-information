@@ -10,6 +10,6 @@ class NewRequestJob < ApplicationJob
 private
 
   def api_url
-    ENV["API_URL"] || "https://qa.track-a-query.service.justice.gov.uk/api/rpi/v2"
+    ENV["API_URL"] || "https://localhost"
   end
 end

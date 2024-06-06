@@ -7,10 +7,12 @@ RSpec.describe NewRequestJob, type: :job do
 
   let(:expected_payload) { { submission_id: "12345" } }
   let(:expected_headers) { { "Content-Type" => "application/json" } }
+  let(:response) { instance_double(HTTParty::Response) }
   let(:information_request) { create(:complete_request) }
 
   before do
     allow_any_instance_of(InformationRequest).to receive(:payload) { expected_payload } # rubocop:disable RSpec/AnyInstance
+    allow(HTTParty).to receive(:post).and_return(response)
   end
 
   after do
@@ -19,7 +21,7 @@ RSpec.describe NewRequestJob, type: :job do
   end
 
   it "sends payload to RPI API" do
-    expect(HTTParty).to receive(:post).with("https://qa.track-a-query.service.justice.gov.uk/api/rpi/v2", body: expected_payload.to_json, headers: expected_headers)
+    expect(HTTParty).to receive(:post).with("https://localhost", body: expected_payload.to_json, headers: expected_headers)
     perform_enqueued_jobs { job }
   end
 
