@@ -74,27 +74,27 @@ spec:
                 name: s3-bucket-output
                 key: bucket_name
       - name: jobs
-          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:staging.latest
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 3000
-          command: ["./config/docker/entrypoint-jobs.sh"]
-          envFrom:
-            - configMapRef:
-                name: request-personal-information-configmap-staging
-            - secretRef:
-                name: app-secrets
-          env:
-            - name: DATABASE_URL
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:staging.latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3000
+        command: ["./config/docker/entrypoint-jobs.sh"]
+        envFrom:
+          - configMapRef:
+              name: request-personal-information-configmap-staging
+          - secretRef:
+              name: app-secrets
+        env:
+          - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: rds-postgresql-instance-output
+              key: url
+          - name: S3_BUCKET
             valueFrom:
               secretKeyRef:
-                name: rds-postgresql-instance-output
-                key: url
-            - name: S3_BUCKET
-              valueFrom:
-                secretKeyRef:
-                  name: s3-bucket-output
-                  key: bucket_name
+                name: s3-bucket-output
+                key: bucket_name
       initContainers:
         - name: pending-migrations
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:staging.latest
