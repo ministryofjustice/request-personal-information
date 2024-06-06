@@ -45,3 +45,9 @@ The following command will build js/css, watch for any changes and make the site
 ```bash
 $ bin/dev
 ```
+
+### Jobs
+
+After a request is completed, a Job will be created that will send the request to the track-a-query API using DelayedJob.
+
+When running in development, no jobs are run.

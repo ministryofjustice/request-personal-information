@@ -119,6 +119,7 @@ GEM
     concurrent-ruby (1.3.1)
     connection_pool (2.4.1)
     crass (1.0.6)
+    csv (3.3.0)
     dartsass-rails (0.5.0)
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
@@ -131,6 +132,11 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     debug_inspector (1.2.0)
+    delayed_job (4.1.11)
+      activesupport (>= 3.0, < 8.0)
+    delayed_job_active_record (4.1.8)
+      activerecord (>= 3.0, < 8.0)
+      delayed_job (>= 3.0, < 5)
     diff-lcs (1.5.1)
     docile (1.4.0)
     drb (2.2.1)
@@ -173,6 +179,10 @@ GEM
       html-attributes-utils (~> 1)
     html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
+    httparty (0.22.0)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
@@ -201,6 +211,8 @@ GEM
     mini_mime (1.1.5)
     minitest (5.23.1)
     msgpack (1.7.2)
+    multi_xml (0.7.1)
+      bigdecimal (~> 3.1)
     mutex_m (0.2.0)
     net-imap (0.4.11)
       date
@@ -626,10 +638,12 @@ DEPENDENCIES
   dartsass-rails (~> 0.5.0)
   database_cleaner-active_record
   debug
+  delayed_job_active_record
   factory_bot_rails
   govuk-components
   govuk_app_config
   govuk_design_system_formbuilder
+  httparty
   jsbundling-rails
   pg
   puma (>= 5.0)

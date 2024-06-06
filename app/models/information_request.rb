@@ -31,6 +31,9 @@ class InformationRequest < ApplicationRecord
   validates :contact_email, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :upcoming_court_case, presence: true
   validates :upcoming_court_case_text, presence: true, if: -> { upcoming_court_case == "yes" }
+  validates :submission_id, presence: true
+
+  before_validation :set_submission_id
 
   def for_self?
     subject == "self"
@@ -170,5 +173,15 @@ class InformationRequest < ApplicationRecord
       upcoming_court_case:,
       upcoming_court_case_text:,
     }
+  end
+
+  def payload
+    InformationRequestPayload.new(self).call
+  end
+
+private
+
+  def set_submission_id
+    self.submission_id ||= SecureRandom.uuid
   end
 end

@@ -28,6 +28,8 @@ RSpec.configure do |config|
   end
 end
 
+ActiveStorage::Current.url_options = { host: "https://www.example.com" }
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec

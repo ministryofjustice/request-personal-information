@@ -88,6 +88,7 @@ class RequestsController < ApplicationController
     information_request = InformationRequest.new(session[:information_request])
     begin
       information_request.save!
+      NewRequestJob.perform_later(information_request)
       reset_session
       redirect_to "/form-sent" and return
     rescue StandardError => e
