@@ -86,10 +86,10 @@ spec:
               name: app-secrets
         env:
           - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: rds-postgresql-instance-output
-              key: url
+            valueFrom:
+              secretKeyRef:
+                name: rds-postgresql-instance-output
+                key: url
           - name: S3_BUCKET
             valueFrom:
               secretKeyRef:
