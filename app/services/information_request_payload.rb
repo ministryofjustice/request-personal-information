@@ -18,7 +18,6 @@ private
   end
 
   def answers
-    ActiveStorage::Current.url_options = { host: "https://www.example.com" }
     hash = @request.to_hash.except(:subject, :relationship, :currently_in_prison, :upcoming_court_case,
                                    :letter_of_consent_id, :requester_photo_id, :requester_proof_of_address_id, :subject_photo_id, :subject_proof_of_address_id,
                                    :prison_service, :probation_service, :laa, :opg, :moj_other,
