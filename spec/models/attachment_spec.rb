@@ -28,10 +28,14 @@ RSpec.describe Attachment, type: :model do
   end
 
   describe "#payload" do
+    let(:expected_url) { "https://www.example.com" }
+
     it "returns file details to send to API" do
+      allow(attachment.file).to receive(:url).and_return(expected_url)
+
       expect(attachment.payload).to eq(
         {
-          url: attachment.file.url,
+          url: expected_url,
           filename: "file.jpg",
         },
       )
