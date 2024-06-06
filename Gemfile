@@ -4,6 +4,7 @@ ruby File.read(".ruby-version").strip
 
 gem "aws-sdk-s3", require: false
 gem "bootsnap", require: false
+gem "daemons"
 gem "delayed_job_active_record"
 gem "govuk_app_config"
 gem "govuk-components"

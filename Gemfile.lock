@@ -120,6 +120,7 @@ GEM
     connection_pool (2.4.1)
     crass (1.0.6)
     csv (3.3.0)
+    daemons (1.4.1)
     dartsass-rails (0.5.0)
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
@@ -635,6 +636,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
+  daemons
   dartsass-rails (~> 0.5.0)
   database_cleaner-active_record
   debug
