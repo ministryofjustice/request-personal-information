@@ -11,7 +11,7 @@ RSpec.describe InformationRequestPayload, type: :service do
     end
 
     it "returns a hash including the answers" do
-      expect(payload[:answers]).to eq (
+      expect(payload[:answers]).to eq(
         {
           full_name: "Cristian Romero",
           other_names: "Cuti",
@@ -58,7 +58,7 @@ RSpec.describe InformationRequestPayload, type: :service do
           laa: "No",
           opg: "No",
           moj_other: "No",
-        }
+        },
       )
     end
 
