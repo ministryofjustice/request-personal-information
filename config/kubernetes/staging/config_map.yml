@@ -4,8 +4,7 @@ metadata:
   name: request-personal-information-configmap-staging
   namespace: request-personal-information-staging
 data:
-  RACK_ENV: production
   RAILS_ENV: production
-  RAILS_MAX_THREADS: "3"
+  SENTRY_ENVIRONMENT: staging
   RAILS_SERVE_STATIC_FILES: enabled
   API_URL: "https://qa.track-a-query.service.justice.gov.uk/api/rpi/v2"
