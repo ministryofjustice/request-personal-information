@@ -43,7 +43,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :notify
   config.action_mailer.notify_settings = {
-    api_key: "staging-953609bb-a52e-422a-bc9e-0b33a243c1de-10fa6069-267a-4e0a-aa61-65c2ae6862d3"
+    api_key: "generated from Notify.gov",
   }
 
   # Print deprecation notices to the Rails logger.
