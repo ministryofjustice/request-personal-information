@@ -9,3 +9,4 @@ data:
   RAILS_MAX_THREADS: "3"
   RAILS_SERVE_STATIC_FILES: enabled
   API_URL: "https://qa.track-a-query.service.justice.gov.uk/api/rpi/v2"
+  GOVUK_NOTIFY_API_KEY: staging-953609bb-a52e-422a-bc9e-0b33a243c1de-10fa6069-267a-4e0a-aa61-65c2ae6862d3
