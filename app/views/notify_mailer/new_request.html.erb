@@ -1,0 +1,112 @@
+Thank you for your submission to 'Request personal information'.
+
+The information you provided is shown below.
+
+# Your answers
+
+<%= t("request_form.subject") %>
+<%= RequestForm::Subject::OPTIONS[@information_request.subject.to_sym] %>
+
+## <%= "#{@information_request.possessive_pronoun.capitalize} details" %>
+<% @summary[:subject_summary].each do |item| %>
+  <%= item[:key][:text] %>:
+  <%= item[:value][:text] %>
+
+  ---
+<% end %>
+
+<% if @summary[:requester_summary].present? %>
+  ## Your details
+  <% @summary[:requester_summary].each do |item| %>
+    <%= item[:key][:text] %>:
+    <%= item[:value][:text] %>
+
+  ---
+  <% end %>
+<% end %>
+
+<% if @summary[:requester_id_summary].present? %>
+  ## Upload your ID
+  <% @summary[:requester_id_summary].each do |item| %>
+    <%= item[:key][:text] %>:
+    <%= item[:value][:text] %>
+
+  ---
+  <% end %>
+<% end %>
+
+<% if @summary[:subject_id_summary].present? %>
+  ## <%= "Upload #{@information_request.possessive_pronoun} ID" %>
+  <% @summary[:subject_id_summary].each do |item| %>
+    <%= item[:key][:text] %>:
+    <%= item[:value][:text] %>
+
+  ---
+  <% end %>
+<% end %>
+
+## <%= t("request_form.moj") %>
+<% @summary[:information_summary].each do |item| %>
+  <%= item[:key][:text] %>:
+  <%= item[:value][:text] %>
+
+  ---
+<% end %>
+
+<% if @summary[:prison_summary].present? %>
+  ## <%= t("service.prison.name") %>
+  <% @summary[:prison_summary].each do |item| %>
+    <%= item[:key][:text] %>:
+    <%= item[:value][:text] %>
+
+  ---
+  <% end %>
+<% end %>
+
+<% if @summary[:probation_summary].present? %>
+  ## <%= t("service.probation.name") %>
+  <% @summary[:probation_summary].each do |item| %>
+    <%= item[:key][:text] %>:
+    <%= item[:value][:text] %>
+
+  ---
+  <% end %>
+<% end %>
+
+<% if @summary[:laa_summary].present? %>
+  ## <%= t("service.laa.name") %>
+  <% @summary[:laa_summary].each do |item| %>
+    <%= item[:key][:text] %>:
+    <%= item[:value][:text] %>
+
+  ---
+  <% end %>
+<% end %>
+
+<% if @summary[:opg_summary].present? %>
+  ## <%= t("service.opg.name") %>
+  <% @summary[:opg_summary].each do |item| %>
+    <%= item[:key][:text] %>:
+    <%= item[:value][:text] %>
+
+  ---
+  <% end %>
+<% end %>
+
+<% if @summary[:moj_other_summary].present? %>
+  ## <%= t("service.other.name") %>
+  <% @summary[:moj_other_summary].each do |item| %>
+    <%= item[:key][:text] %>:
+    <%= item[:value][:text] %>
+
+  ---
+  <% end %>
+<% end %>
+
+## <%= t("request_form.contact_address") %>
+<% @summary[:contact_summary].each do |item| %>
+  <%= item[:key][:text] %>:
+  <%= item[:value][:text] %>
+
+  ---
+<% end %>

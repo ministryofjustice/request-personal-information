@@ -29,4 +29,9 @@ RSpec.describe NewRequestJob, type: :job do
     perform_enqueued_jobs { job }
     expect(information_request.reload.submitted_at).to be_within(5.seconds).of(Time.current)
   end
+
+  it "sends an email if email is provided" do
+    expect(NotifyMailer).to receive(:new_request).with(information_request).and_call_original
+    perform_enqueued_jobs { job }
+  end
 end
