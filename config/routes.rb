@@ -43,6 +43,9 @@ Rails.application.routes.draw do
   get "check-answers" => "requests#show"
   get "form-sent" => "requests#complete"
 
+  get "/404", to: "errors#not_found"
+  get "/500", to: "errors#internal_error"
+
   root to: "pages#homepage"
 
   if Rails.env.test?
