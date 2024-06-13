@@ -24,4 +24,16 @@ RSpec.describe ErrorsController, type: :controller do
       expect(response.status).to eq 500
     end
   end
+
+  context "when error with date received" do
+    it "renders the expected template" do
+      get :unprocessable_entity
+      expect(response).to render_template(:unprocessable_entity)
+    end
+
+    it "is successful" do
+      get :unprocessable_entity
+      expect(response.status).to eq 422
+    end
+  end
 end
