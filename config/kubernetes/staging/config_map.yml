@@ -5,6 +5,6 @@ metadata:
   namespace: request-personal-information-staging
 data:
   RAILS_ENV: production
-  SENTRY_ENVIRONMENT: staging
+  SENTRY_CURRENT_ENV: staging
   RAILS_SERVE_STATIC_FILES: enabled
   API_URL: "https://qa.track-a-query.service.justice.gov.uk/api/rpi/v2"
