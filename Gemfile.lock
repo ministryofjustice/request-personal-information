@@ -475,7 +475,7 @@ GEM
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.8.0)
-    rack (3.1.4)
+    rack (3.1.6)
     rack-proxy (0.7.7)
       rack
     rack-session (2.0.0)
@@ -597,10 +597,10 @@ GEM
       google-protobuf (>= 3.25, < 5.0)
     sass-embedded (1.75.0-x86_64-linux-gnu)
       google-protobuf (>= 3.25, < 5.0)
-    sentry-rails (5.18.0)
+    sentry-rails (5.18.1)
       railties (>= 5.0)
-      sentry-ruby (~> 5.18.0)
-    sentry-ruby (5.18.0)
+      sentry-ruby (~> 5.18.1)
+    sentry-ruby (5.18.1)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-matchers (6.2.0)
