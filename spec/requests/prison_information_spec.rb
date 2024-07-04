@@ -92,7 +92,7 @@ RSpec.describe "Data required from prison service", type: :request do
 
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("What was your prison number (optional)?")
+          expect(response.body).to include("What was your prison number? (optional)")
         end
 
         it_behaves_like "question that accepts valid data", :prison_number
