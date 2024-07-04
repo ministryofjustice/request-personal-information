@@ -159,17 +159,17 @@ en:
         upcoming_court_case_text: Can you provide more details?
     legend:
       request_form:
-        form_laa_date_from: Enter a date this information should start from (optional)
-        form_laa_date_to: Enter a date this information should go to (optional)
+        form_laa_date_from: Enter a date this information should start from
+        form_laa_date_to: Enter a date this information should go to
         letter_of_consent_check: Is this upload correct?
-        form_moj_other_date_from: Enter a date this information should start from (optional)
-        form_moj_other_date_to: Enter a date this information should go to (optional)
-        form_opg_date_from: Enter a date this information should start from (optional)
-        form_opg_date_to: Enter a date this information should go to (optional)
-        form_prison_date_from: Enter a date this information should start from (optional)
-        form_prison_date_to: Enter a date this information should go to (optional)
-        form_probation_date_from: Enter a date this information should start from (optional)
-        form_probation_date_to: Enter a date this information should go to (optional)
+        form_moj_other_date_from: Enter a date this information should start from
+        form_moj_other_date_to: Enter a date this information should go to
+        form_opg_date_from: Enter a date this information should start from
+        form_opg_date_to: Enter a date this information should go to
+        form_prison_date_from: Enter a date this information should start from
+        form_prison_date_to: Enter a date this information should go to
+        form_probation_date_from: Enter a date this information should start from
+        form_probation_date_to: Enter a date this information should go to
         requester_id_check: Are these uploads correct?
         subject_id_check: Are these uploads correct?
     hint:
