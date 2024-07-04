@@ -17,7 +17,7 @@ RSpec.describe NotifyMailer, type: :mailer do
 
     it "renders personal information" do
       expect(mail.body.encoded).to match(/Full name:\s+Cristian Romero/)
-      expect(mail.body.encoded).to match(/What is your date of birth\?:\s+1998-04-27/)
+      expect(mail.body.encoded).to match(/What is your date of birth\?:\s+27 April 1998/)
     end
 
     it "renders upload information" do
@@ -35,8 +35,8 @@ RSpec.describe NotifyMailer, type: :mailer do
       expect(mail.body.encoded).to match(/Which prison were you most recently in\?:\s+HMP Fosse Way/)
       expect(mail.body.encoded).to match(/What was your prison number\? \(optional\):\s+ABC123/)
       expect(mail.body.encoded).to match(/What prison service information do you want\?:\s+NOMIS Records/)
-      expect(mail.body.encoded).to match(/Enter a date this information should start from:\s+2010-03-10/)
-      expect(mail.body.encoded).to match(/Enter a date this information should go to:\s+2012-05-20/)
+      expect(mail.body.encoded).to match(/Enter a date this information should start from:\s+10 March 2010/)
+      expect(mail.body.encoded).to match(/Enter a date this information should go to:\s+20 May 2012/)
     end
 
     it "renders contact details" do
