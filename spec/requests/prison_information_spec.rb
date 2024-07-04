@@ -157,7 +157,7 @@ RSpec.describe "Data required from prison service", type: :request do
 
         it "saves the value to the session" do
           patch "/request", params: { request_form: { prison_nomis_records: "true" } }
-          expect(request.session[:information_request][:prison_nomis_records]).to eq true
+          expect(request.session[:information_request][:prison_nomis_records]).to be true
         end
       end
 

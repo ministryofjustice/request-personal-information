@@ -87,7 +87,7 @@ RSpec.describe "Data required from probation service", type: :request do
 
         it "saves the value to the session" do
           patch "/request", params: { request_form: { probation_ndelius: "true" } }
-          expect(request.session[:information_request][:probation_ndelius]).to eq true
+          expect(request.session[:information_request][:probation_ndelius]).to be true
         end
       end
 
