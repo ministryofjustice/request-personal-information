@@ -225,7 +225,7 @@ en:
       self: Which prison were you most recently in?
     prison_number:
       other: What is their prison number?
-      self: What was your prison number (optional)?
+      self: What was your prison number? (optional)
     probation_dates: What dates do you want this information from? (optional)
     probation_information: What probation service information do you want?
     probation_location:
