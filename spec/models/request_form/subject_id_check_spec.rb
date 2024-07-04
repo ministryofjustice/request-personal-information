@@ -44,7 +44,7 @@ RSpec.describe RequestForm::SubjectIdCheck, type: :model do
 
       it "changes back value" do
         form_object.valid?
-        expect(form_object.back).to eq true
+        expect(form_object.back).to be true
       end
     end
   end

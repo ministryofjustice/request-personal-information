@@ -41,7 +41,7 @@ RSpec.describe "Which data is required", type: :request do
 
         it "saves the value to the session" do
           patch "/request", params: { request_form: { laa: "true" } }
-          expect(request.session[:information_request][:laa]).to eq true
+          expect(request.session[:information_request][:laa]).to be true
         end
       end
 
