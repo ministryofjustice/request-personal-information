@@ -19,7 +19,7 @@ RSpec.describe InformationRequestSummary, type: :model do
 
       it "returns details about the subject's date of birth" do
         expect(summary.subject[2]).to include({ key: { text: "What is your date of birth?" } })
-        expect(summary.subject[2]).to include({ value: { text: "1998-04-27" } })
+        expect(summary.subject[2]).to include({ value: { text: "27 April 1998" } })
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe InformationRequestSummary, type: :model do
 
       it "returns details about the subject's date of birth" do
         expect(summary.subject[2]).to include({ key: { text: "What is their date of birth?" } })
-        expect(summary.subject[2]).to include({ value: { text: "1998-04-27" } })
+        expect(summary.subject[2]).to include({ value: { text: "27 April 1998" } })
       end
 
       it "returns relationship of requester to the subject" do
@@ -222,9 +222,9 @@ RSpec.describe InformationRequestSummary, type: :model do
 
       it "returns dates information is required for" do
         expect(summary.prison[4]).to include({ key: { text: "Enter a date this information should start from (optional)" } })
-        expect(summary.prison[4]).to include({ value: { text: "2010-03-10" } })
+        expect(summary.prison[4]).to include({ value: { text: "10 March 2010" } })
         expect(summary.prison[5]).to include({ key: { text: "Enter a date this information should go to (optional)" } })
-        expect(summary.prison[5]).to include({ value: { text: "2012-05-20" } })
+        expect(summary.prison[5]).to include({ value: { text: "20 May 2012" } })
       end
 
       context "when currently in prison" do
@@ -274,9 +274,9 @@ RSpec.describe InformationRequestSummary, type: :model do
 
       it "returns dates information is required for" do
         expect(summary.probation[2]).to include({ key: { text: "Enter a date this information should start from (optional)" } })
-        expect(summary.probation[2]).to include({ value: { text: "2014-01-12" } })
+        expect(summary.probation[2]).to include({ value: { text: "12 January 2014" } })
         expect(summary.probation[3]).to include({ key: { text: "Enter a date this information should go to (optional)" } })
-        expect(summary.probation[3]).to include({ value: { text: "2020-11-02" } })
+        expect(summary.probation[3]).to include({ value: { text: "2 November 2020" } })
       end
 
       context "when requesting other prison data" do
@@ -311,9 +311,9 @@ RSpec.describe InformationRequestSummary, type: :model do
 
       it "returns dates information is required for" do
         expect(summary.laa[1]).to include({ key: { text: "Enter a date this information should start from (optional)" } })
-        expect(summary.laa[1]).to include({ value: { text: "2015-01-20" } })
+        expect(summary.laa[1]).to include({ value: { text: "20 January 2015" } })
         expect(summary.laa[2]).to include({ key: { text: "Enter a date this information should go to (optional)" } })
-        expect(summary.laa[2]).to include({ value: { text: "2016-03-01" } })
+        expect(summary.laa[2]).to include({ value: { text: "1 March 2016" } })
       end
     end
 
@@ -337,9 +337,9 @@ RSpec.describe InformationRequestSummary, type: :model do
 
       it "returns dates information is required for" do
         expect(summary.opg[1]).to include({ key: { text: "Enter a date this information should start from (optional)" } })
-        expect(summary.opg[1]).to include({ value: { text: "2017-07-19" } })
+        expect(summary.opg[1]).to include({ value: { text: "19 July 2017" } })
         expect(summary.opg[2]).to include({ key: { text: "Enter a date this information should go to (optional)" } })
-        expect(summary.opg[2]).to include({ value: { text: "2019-03-02" } })
+        expect(summary.opg[2]).to include({ value: { text: "2 March 2019" } })
       end
     end
 
@@ -363,7 +363,7 @@ RSpec.describe InformationRequestSummary, type: :model do
 
       it "returns dates information is required for" do
         expect(summary.moj_other[2]).to include({ key: { text: "Enter a date this information should go to (optional)" } })
-        expect(summary.moj_other[2]).to include({ value: { text: "1990-12-31" } })
+        expect(summary.moj_other[2]).to include({ value: { text: "31 December 1990" } })
       end
     end
 

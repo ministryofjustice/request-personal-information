@@ -19,7 +19,7 @@ class InformationRequestSummary
       },
       {
         key: { text: I18n.t("request_form.subject_date_of_birth.#{@information_request.subject}") },
-        value: { text: @information_request.date_of_birth.to_s },
+        value: { text: @information_request.date_of_birth.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/subject-date-of-birth", visually_hidden_text: I18n.t("helpers.label.request_form.date_of_birth") },
       },
     ]
@@ -201,12 +201,12 @@ class InformationRequestSummary
     summary.push(
       {
         key: { text: I18n.t("helpers.legend.request_form.form_prison_date_from") },
-        value: { text: @information_request.prison_date_from.to_s },
+        value: { text: @information_request.prison_date_from&.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/prison-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_prison_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_prison_date_to") },
-        value: { text: @information_request.prison_date_to.to_s },
+        value: { text: @information_request.prison_date_to&.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/prison-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_prison_date_to") },
       },
     )
@@ -243,12 +243,12 @@ class InformationRequestSummary
     summary.push(
       {
         key: { text: I18n.t("helpers.legend.request_form.form_probation_date_from") },
-        value: { text: @information_request.probation_date_from.to_s },
+        value: { text: @information_request.probation_date_from&.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/probation-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_probation_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_probation_date_to") },
-        value: { text: @information_request.probation_date_to.to_s },
+        value: { text: @information_request.probation_date_to&.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/probation-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_probation_date_to") },
       },
     )
@@ -267,12 +267,12 @@ class InformationRequestSummary
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_laa_date_from") },
-        value: { text: @information_request.laa_date_from.to_s },
+        value: { text: @information_request.laa_date_from&.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/laa-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_laa_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_laa_date_to") },
-        value: { text: @information_request.laa_date_to.to_s },
+        value: { text: @information_request.laa_date_to&.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/laa-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_laa_date_to") },
       },
     ]
@@ -289,12 +289,12 @@ class InformationRequestSummary
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_opg_date_from") },
-        value: { text: @information_request.opg_date_from.to_s },
+        value: { text: @information_request.opg_date_from&.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/opg-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_opg_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_opg_date_to") },
-        value: { text: @information_request.opg_date_to.to_s },
+        value: { text: @information_request.opg_date_to&.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/opg-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_opg_date_to") },
       },
     ]
@@ -311,12 +311,12 @@ class InformationRequestSummary
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_moj_other_date_from") },
-        value: { text: @information_request.moj_other_date_from.to_s },
+        value: { text: @information_request.moj_other_date_from&.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/other-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_moj_other_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_moj_other_date_to") },
-        value: { text: @information_request.moj_other_date_to.to_s },
+        value: { text: @information_request.moj_other_date_to&.to_fs(:day_month_and_year) },
         actions: { text: "Change", href: "/other-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_moj_other_date_to") },
       },
     ]
