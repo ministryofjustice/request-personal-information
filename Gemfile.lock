@@ -102,8 +102,6 @@ GEM
     bigdecimal (3.1.8)
     binding_of_caller (1.0.1)
       debug_inspector (>= 1.2.0)
-    bootsnap (1.18.3)
-      msgpack (~> 1.2)
     brakeman (6.1.2)
       racc
     builder (3.3.0)
@@ -153,9 +151,6 @@ GEM
       bigdecimal
       rake (>= 13)
     google-protobuf (4.27.2-arm64-darwin)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.27.2-x86_64-darwin)
       bigdecimal
       rake (>= 13)
     google-protobuf (4.27.2-x86_64-linux)
@@ -225,9 +220,7 @@ GEM
     matrix (0.4.2)
     method_source (1.1.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.7)
     minitest (5.24.1)
-    msgpack (1.7.2)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
     mutex_m (0.2.0)
@@ -241,15 +234,7 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
-    nokogiri (1.16.7-aarch64-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.7-arm-linux)
-      racc (~> 1.4)
     nokogiri (1.16.7-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
@@ -579,8 +564,6 @@ GEM
       rake (>= 13)
     sass-embedded (1.77.8-arm64-darwin)
       google-protobuf (~> 4.26)
-    sass-embedded (1.77.8-x86_64-darwin)
-      google-protobuf (~> 4.26)
     sass-embedded (1.77.8-x86_64-linux-gnu)
       google-protobuf (~> 4.26)
     sentry-rails (5.18.1)
@@ -636,7 +619,6 @@ DEPENDENCIES
   aws-sdk-s3
   better_errors
   binding_of_caller
-  bootsnap
   brakeman
   capybara
   daemons

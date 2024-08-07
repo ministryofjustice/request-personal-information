@@ -3,7 +3,6 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 gem "aws-sdk-s3", require: false
-gem "bootsnap", require: false
 gem "daemons"
 gem "delayed_job_active_record"
 gem "govuk_app_config"
