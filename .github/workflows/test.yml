@@ -28,6 +28,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
+        options: --health-cmd pg_isready
 
     steps:
       - name: Checkout code
