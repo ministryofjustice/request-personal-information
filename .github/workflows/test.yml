@@ -39,14 +39,9 @@ jobs:
         with:
           bundler-cache: true
 
-      # - name: Setup Node
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     cache: 'yarn'
-
-      - name: Install packages
+      - name: Install node packages
         run: |
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --production
 
       - name: Precompile assets
         run: bin/rails assets:precompile
