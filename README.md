@@ -89,8 +89,23 @@ $ bin/dev
 
 The site will be accessible at http://localhost:3000.
 
+### Run tests:
+
+```
+$ bundle exec rspec
+```
+
+### Run rubocop:
+
+```
+$ bundle exec rubocop
+```
+
 ## Jobs
 
 After a request is completed, a Job will be created that will send the request to the track-a-query API using DelayedJob.
 
 When running in development, no jobs are run.
+
+## Exceptions
+Any exceptions raised in any deployed environment will be sent to [Sentry](https://ministryofjustice.sentry.io/projects/request-personal-information).
