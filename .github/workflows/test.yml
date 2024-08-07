@@ -41,12 +41,6 @@ jobs:
 
       - name: Setup Node and install packages
         uses: actions/setup-node@v4
-        with:
-          cache: 'yarn'
-
-      - name: Install packages
-        run: |
-          yarn install --frozen-lockfile
 
       - name: Precompile assets
         run: bin/rails assets:precompile
