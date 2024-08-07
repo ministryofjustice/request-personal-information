@@ -39,10 +39,10 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          cache: 'yarn'
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     cache: 'yarn'
 
       - name: Install packages
         run: |
