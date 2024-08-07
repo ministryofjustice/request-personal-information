@@ -14,39 +14,82 @@
 
 A public site to allow Subject Access Requests to be made for details of personal information held by the MoJ
 
-## Local development
+## Development
 
-### Clone this repository change to the new directory
+### Working on the Code
 
-```bash
+Work should be based off of, and PRed to, the main branch. We use the GitHub
+PR approval process so once your PR is ready you'll need to have one person
+approve it, and the CI tests passing, before it can be merged.
+
+
+### Basic Setup
+
+#### Cloning This Repository
+
+Clone this repository then `cd` into the new directory
+
+```
 $ git clone git@github.com:ministryofjustice/request-personal-information.git
 $ cd request-personal-information
 ```
 
-### Setup application
+### Installing the app for development
 
-Ths application has the following dependencies which need to be installed
-- node
-- yarn
-- postgres
-- ruby (see .ruby-version for required version)
+#### Latest Version of Ruby
 
-Once these dependencies are available, the following commands should work to complete the initial setup:
-
-```bash
-$ bin/setup
-$ yarn
+If you don't have `rbenv` already installed, install it as follows:
+```
+$ brew install rbenv ruby-build
+$ rbenv init
 ```
 
-### Run application
+Follow the instructions printed out from the `rbenv init` command and update your `~/.bash_profile` or equivalent file accordingly, then start a new terminal and navigate to the repo directory.
 
-The following command will build js/css, watch for any changes and make the site available at http://localhost:3000
+Use `rbenv` to install the latest version of ruby as defined in `.ruby-version` (make sure you are in the repo path):
 
-```bash
+```
+$ rbenv install
+```
+
+#### Dependencies
+
+Node.js:
+
+```
+$ brew install node
+```
+
+Yarn
+
+```
+$ brew install yarn
+```
+
+Postgresql
+
+```
+$ brew install postgresql
+```
+
+#### Setup
+
+Use the following commands to install gems and javascript packages then create the database
+
+```
+$ bin/setup
+$ bin/yarn install
+```
+
+#### Running locally:
+
+```
 $ bin/dev
 ```
 
-### Jobs
+The site will be accessible at http://localhost:3000.
+
+## Jobs
 
 After a request is completed, a Job will be created that will send the request to the track-a-query API using DelayedJob.
 
