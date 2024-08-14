@@ -16,7 +16,7 @@ gem "rails", "~> 7.1.3"
 gem "sentry-rails"
 gem "sentry-ruby"
 
-gem "dartsass-rails", "~> 0.5.0"
+gem "dartsass-rails", "~> 0.5.1"
 gem "jsbundling-rails"
 gem "sprockets-rails"
 
