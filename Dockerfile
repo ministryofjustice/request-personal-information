@@ -36,7 +36,7 @@ COPY . .
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 \
-    bundle exec assets:precompile
+    bundle exec rails assets:precompile
 
 # Cleanup to save space in the production image
 RUN rm -rf node_modules log/* tmp/* /tmp && \
