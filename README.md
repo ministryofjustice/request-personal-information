@@ -78,7 +78,7 @@ Use the following commands to install gems and javascript packages then create t
 
 ```
 $ bin/setup
-$ bin/yarn install
+$ yarn install
 ```
 
 #### Running locally:
@@ -88,6 +88,20 @@ $ bin/dev
 ```
 
 The site will be accessible at http://localhost:3000.
+
+---
+
+Note: If you get an error that looks like
+
+"objc[5100]: +[__NSCFConstantString initialize] may have been in progress in another thread when fork() was called."
+
+Add the following to your shell dotfile
+
+```
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+```
+
+then restart the server in a new terminal window.
 
 ### Run tests:
 
