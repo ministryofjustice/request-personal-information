@@ -3,12 +3,16 @@ FROM ruby:3.3.4-alpine as base
 # Rails app lives here
 WORKDIR /app
 
-# Set production environment
-ENV RAILS_ENV="production"
+# tzdata: required to set timezone
+RUN apk add --no-cache \
+    tzdata \
+    postgresql-client
 
+# Ensure latest rubygems is installed
+RUN gem update --system
 
 # Throw-away build stage to reduce size of final image
-FROM base as build
+FROM base as builder
 
 # Install packages needed to build gems
 RUN apk --no-cache add \
@@ -31,7 +35,8 @@ RUN bundle config deployment true && \
 COPY . .
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 \
+    bundle exec assets:precompile
 
 # Cleanup to save space in the production image
 RUN rm -rf node_modules log/* tmp/* /tmp && \
@@ -40,14 +45,9 @@ RUN rm -rf node_modules log/* tmp/* /tmp && \
 # Final stage for app image
 FROM base
 
-# postgresql-client: required for postgres, tzdata: required to set timezone
-RUN apk --no-cache add \
-    tzdata \
-    postgresql-client
-
 # Copy built artifacts: gems, application
-COPY --from=build /app /app
-COPY --from=build /usr/local/bundle /usr/local/bundle
+COPY --from=builder /app /app
+COPY --from=builder /usr/local/bundle /usr/local/bundle
 
 # Add non-root user and group with alpine first available uid, 1000
 RUN addgroup -g 1000 -S appgroup && \
@@ -55,7 +55,7 @@ RUN addgroup -g 1000 -S appgroup && \
 
 # Create log and tmp
 RUN mkdir -p log tmp
-RUN chown -R appuser:appgroup db log tmp
+RUN chown -R appuser:appgroup ./*
 
 # Set user
 USER 1000
