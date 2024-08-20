@@ -54,7 +54,7 @@ RSpec.describe InformationRequestPayload, type: :service do
           subject_photo_file_name: "file.jpg",
           subject_proof_of_address_file_name: "file.jpg",
           prison_service: "Yes",
-          probation_service: "No",
+          probation_service: "Yes",
           laa: "No",
           opg: "No",
           moj_other: "No",
