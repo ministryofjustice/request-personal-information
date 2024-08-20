@@ -147,10 +147,10 @@ GEM
       railties (>= 5.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (4.27.2)
+    google-protobuf (4.27.2-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.27.2-arm64-darwin)
+    google-protobuf (4.27.2-x86_64-darwin)
       bigdecimal
       rake (>= 13)
     google-protobuf (4.27.2-x86_64-linux)
@@ -235,6 +235,8 @@ GEM
       net-protocol
     nio4r (2.7.3)
     nokogiri (1.16.7-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.16.7-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
@@ -559,10 +561,9 @@ GEM
     rubocop-rspec (3.0.1)
       rubocop (~> 1.61)
     ruby-progressbar (1.13.0)
-    sass-embedded (1.77.8)
-      google-protobuf (~> 4.26)
-      rake (>= 13)
     sass-embedded (1.77.8-arm64-darwin)
+      google-protobuf (~> 4.26)
+    sass-embedded (1.77.8-x86_64-darwin)
       google-protobuf (~> 4.26)
     sass-embedded (1.77.8-x86_64-linux-gnu)
       google-protobuf (~> 4.26)
@@ -612,7 +613,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-23
-  ruby
+  x86_64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
