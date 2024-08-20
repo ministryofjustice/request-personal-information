@@ -27,7 +27,7 @@ RSpec.describe NotifyMailer, type: :mailer do
 
     it "renders where information is required from" do
       expect(mail.body.encoded).to match("## Where do you want information from?")
-      expect(mail.body.encoded).to match(/Select all that apply:\s+Prison Service/)
+      expect(mail.body.encoded).to match(/Select all that apply:\s+Prison Service\s+Probation Service\s/)
     end
 
     it "renders details of information required" do
