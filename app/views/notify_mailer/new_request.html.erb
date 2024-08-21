@@ -59,7 +59,9 @@ The information you provided is shown below.
   ## <%= t("service.prison.name") %>
   <% @summary[:prison_summary].each do |item| %>
     <%= item[:key][:text] %>:
-    <%= item[:value][:text] %>
+    <% format_information(item[:value][:text]).each do |item| %>
+      <%= item %>
+    <% end %>
 
   ---
   <% end %>
@@ -69,7 +71,9 @@ The information you provided is shown below.
   ## <%= t("service.probation.name") %>
   <% @summary[:probation_summary].each do |item| %>
     <%= item[:key][:text] %>:
-    <%= item[:value][:text] %>
+    <% format_information(item[:value][:text]).each do |item| %>
+      <%= item %>
+    <% end %>
 
   ---
   <% end %>
