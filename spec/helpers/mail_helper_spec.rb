@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe InformationRequiredHelper, type: :helper do
+RSpec.describe MailHelper, type: :helper do
   describe "#format_information" do
     let(:information) { "Prison Service<br>Probation Service" }
 

@@ -1,5 +1,5 @@
 class NotifyMailer < ApplicationMailer
-  helper :information_required
+  helper :mail
 
   def new_request(request)
     @information_request = request
