@@ -16,9 +16,9 @@ RSpec.describe MailHelper, type: :helper do
       expect(result).to eq(["Prison Service"])
     end
 
-    it "returns an empty string when nothing selected" do
+    it "returns an empty array when nothing selected" do
       result = helper.format_information(information)
-      expect(result).to eq("")
+      expect(result).to be_nil
     end
   end
 end
