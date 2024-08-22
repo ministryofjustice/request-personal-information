@@ -1,7 +1,5 @@
 module MailHelper
   def format_information(information)
-    if information.present?
-      information.split("<br>")
-    end
+    information&.split("<br>")
   end
 end

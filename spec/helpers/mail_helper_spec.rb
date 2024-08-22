@@ -18,7 +18,7 @@ RSpec.describe MailHelper, type: :helper do
 
     it "returns an empty array when nothing selected" do
       result = helper.format_information(information)
-      expect(result).to be_nil
+      expect(result).to be_empty
     end
   end
 end
