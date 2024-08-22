@@ -511,7 +511,7 @@ GEM
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
-    rexml (3.3.3)
+    rexml (3.3.6)
       strscan
     rouge (4.2.1)
     rspec-core (3.13.0)
