@@ -1,6 +1,5 @@
 class NotifyMailer < ApplicationMailer
   helper :mail
-
   def new_request(request)
     @information_request = request
     @summary = request.summary

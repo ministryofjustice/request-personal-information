@@ -4,7 +4,7 @@ RSpec.describe MailHelper, type: :helper do
   describe "#format_information" do
     let(:information_prison_probation) { "Prison Service<br>Probation Service" }
     let(:information_prison) { "Prison Service" }
-    let(:information_prison_number) { "" }
+    let(:information_prison_number) { nil }
 
     it "returns an array of values when given a string" do
       result = helper.format_information(information_prison_probation)
@@ -16,9 +16,9 @@ RSpec.describe MailHelper, type: :helper do
       expect(result).to eq(["Prison Service"])
     end
 
-    it "returns an array when no prison number" do
-      result = helper.format_information(information_prison_number)
-      expect(result).to be_empty
+    it "returns an empty array when prison number is an empty string" do
+      result = helper.format_information("")
+      expect(result).to eq([])
     end
   end
 end
