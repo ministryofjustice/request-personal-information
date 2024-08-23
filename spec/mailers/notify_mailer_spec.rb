@@ -51,8 +51,8 @@ RSpec.describe NotifyMailer, type: :mailer do
     let(:mail) { described_class.new_request(request) }
     let(:request) { create(:complete_request, prison_number: "") }
 
-     it "renders details of information required from HM Prison Service when prison number blank" do
-       expect(mail.body.encoded).to match(/What was your prison number\? \(optional\):\s*\r?\n\r\n/)
-     end
+    it "renders details of information required from HM Prison Service when prison number blank" do
+      expect(mail.body.encoded).to match(/What was your prison number\? \(optional\):\s*\r?\n\r\n/)
+    end
   end
 end

@@ -16,7 +16,7 @@ RSpec.describe MailHelper, type: :helper do
       expect(result).to eq(["Prison Service"])
     end
 
-    it "returns an array when no prison number"  do
+    it "returns an array when no prison number" do
       result = helper.format_information(information_prison_number)
       expect(result).to be_empty
     end
