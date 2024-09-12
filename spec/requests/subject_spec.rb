@@ -28,7 +28,7 @@ RSpec.describe "Subject", type: :request do
 
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Are you requesting your own information or someone else's?")
+        expect(response.body).to include(CGI.escapeHTML("Are you requesting your own information or someone else's?"))
       end
 
       context "when submitting form with invalid data" do
