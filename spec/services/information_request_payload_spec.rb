@@ -42,7 +42,7 @@ RSpec.describe InformationRequestPayload, type: :service do
           contact_address: "1 High Street, Paignton, Devon",
           contact_email: "my@email.com",
           upcoming_court_case_text: nil,
-          subject: "My own",
+          subject: "your own",
           relationship: "",
           currently_in_prison: "No",
           upcoming_court_case: "No",
