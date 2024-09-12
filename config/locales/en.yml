@@ -235,7 +235,7 @@ en:
     requester_id: Upload your ID
     requester_id_check: Check your upload
     solicitor_details: Your details
-    subject: Are you requesting your own information or on behalf of someone else?
+    subject: "Are you requesting your own information or someone else's?"
     subject_date_of_birth:
         other: What is their date of birth?
         self: What is your date of birth?

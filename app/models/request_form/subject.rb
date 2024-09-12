@@ -1,7 +1,7 @@
 module RequestForm
   class Subject < Base
     OPTIONS = {
-      "self": "Your own",
+      "self": "My own",
       "other": "Someone else's",
     }.freeze
 
