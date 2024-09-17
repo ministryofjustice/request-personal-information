@@ -1,4 +1,17 @@
 class InformationRequestPayload
+  # Values for SUBJECT[:self], SUBJECT_RELATIONSHIP[:legal_representative] and "yes" for booleans
+  # are required by the API this payload is sent to.
+  # Therefore they shouldn't be changed.
+  SUBJECT = {
+    self: "your own",
+    other: "someone else's",
+  }.freeze
+
+  SUBJECT_RELATIONSHIP = {
+    legal_representative: "legal representative",
+    other: "relative, friend or something else",
+  }.freeze
+
   def initialize(request)
     @request = request
   end
@@ -23,8 +36,8 @@ private
                                    :prison_service, :probation_service, :laa, :opg, :moj_other,
                                    :prison_nomis_records, :prison_security_data, :prison_other_data,
                                    :probation_ndelius, :probation_other_data)
-    hash[:subject] = RequestForm::Subject::OPTIONS[@request.subject.to_sym]
-    hash[:relationship] = @request.relationship.present? ? RequestForm::SubjectRelationship::OPTIONS[@request.relationship.to_sym] : ""
+    hash[:subject] = SUBJECT[@request.subject.to_sym]
+    hash[:relationship] = @request.relationship.present? ? SUBJECT_RELATIONSHIP[@request.relationship.to_sym] : ""
     hash[:currently_in_prison] = @request.currently_in_prison&.capitalize
     hash[:upcoming_court_case] = @request.upcoming_court_case&.capitalize
     hash[:prison_information] = @request.prison_information

@@ -8,7 +8,7 @@ RSpec.feature "Request for self", type: :feature do
     click_link "Start now"
 
     # Subject
-    choose "Your own"
+    choose "My own"
     click_button "Continue"
 
     # Your details

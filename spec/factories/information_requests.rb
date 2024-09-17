@@ -97,6 +97,6 @@ FactoryBot.define do
     factory :information_request_for_laa, traits: %i[for_self laa]
     factory :information_request_for_opg, traits: %i[for_self opg]
     factory :information_request_for_moj_other, traits: %i[for_self moj_other]
-    factory :complete_request, traits: %i[for_self with_subject_id prison_service with_contact]
+    factory :complete_request, traits: %i[for_self with_subject_id prison_service probation_service with_contact]
   end
 end

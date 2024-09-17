@@ -242,8 +242,8 @@ RSpec.describe InformationRequestSummary, type: :model do
           information_request.prison_other_data = true
           information_request.prison_other_data_text = "this is details of information required"
 
-          expect(summary.prison[3]).to include({ value: { text: "NOMIS Records, Something else" } })
-          expect(summary.prison[4]).to include({ key: { text: "Can you provide more detail?" } })
+          expect(summary.prison[3]).to include({ value: { text: "NOMIS Records<br>Something else" } })
+          expect(summary.prison[4]).to include({ key: { text: "What other information do you want?" } })
           expect(summary.prison[4]).to include({ value: { text: "this is details of information required" } })
         end
       end
@@ -284,8 +284,8 @@ RSpec.describe InformationRequestSummary, type: :model do
           information_request.probation_other_data = true
           information_request.probation_other_data_text = "this is details of information required"
 
-          expect(summary.probation[1]).to include({ value: { text: "nDelius file, Something else" } })
-          expect(summary.probation[2]).to include({ key: { text: "Can you provide more detail?" } })
+          expect(summary.probation[1]).to include({ value: { text: "nDelius file<br>Something else" } })
+          expect(summary.probation[2]).to include({ key: { text: "What other information do you want?" } })
           expect(summary.probation[2]).to include({ value: { text: "this is details of information required" } })
         end
       end

@@ -27,7 +27,7 @@ RSpec.describe NotifyMailer, type: :mailer do
 
     it "renders where information is required from" do
       expect(mail.body.encoded).to match("## Where do you want information from?")
-      expect(mail.body.encoded).to match(/Select all that apply:\s+Prison Service/)
+      expect(mail.body.encoded).to match(/Select all that apply:\s+Prison Service\s+Probation Service\s/)
     end
 
     it "renders details of information required" do
@@ -44,6 +44,15 @@ RSpec.describe NotifyMailer, type: :mailer do
       expect(mail.body.encoded).to match(/Your address:\s+1 High Street, Paignton, Devon/)
       expect(mail.body.encoded).to match(/Email address \(optional\):\s+my@email.com/)
       expect(mail.body.encoded).to match(/Do you need this information for an upcoming court case or hearing\?:\s+No/)
+    end
+  end
+
+  describe "new_request_with_prison_number_blank" do
+    let(:mail) { described_class.new_request(request) }
+    let(:request) { create(:complete_request, prison_number: nil) }
+
+    it "renders details of information required from HM Prison Service when prison number blank" do
+      expect(mail.body.encoded).to match(/What was your prison number\? \(optional\):\s*\r?\n\r\n/)
     end
   end
 end

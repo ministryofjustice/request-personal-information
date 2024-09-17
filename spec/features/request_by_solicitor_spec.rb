@@ -47,7 +47,7 @@ RSpec.feature "Request by solicitor", type: :feature do
 
     # Types of information
     check "Something else"
-    fill_in("Can you provide more detail?", with: "more info")
+    fill_in("What other information do you want?", with: "more info")
     click_button "Continue"
 
     # Date range
