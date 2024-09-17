@@ -166,7 +166,7 @@ RSpec.describe InformationRequest, type: :model do
         info = build(:information_request_for_prison_service)
         info.laa = true
         info.moj_other = true
-        expect(info.information_required).to eq "Prison Service<br>Legal Aid Agency<br>Somewhere else in the Ministry of Justice"
+        expect(info.information_required).to eq "Prison Service, Legal Aid Agency, Somewhere else in the Ministry of Justice"
       end
     end
   end
@@ -192,7 +192,7 @@ RSpec.describe InformationRequest, type: :model do
         info = build(:information_request_for_prison_service)
         info.prison_nomis_records = true
         info.prison_other_data = true
-        expect(info.prison_information).to eq "NOMIS Records<br>Something else"
+        expect(info.prison_information).to eq "NOMIS Records, Something else"
       end
     end
   end
@@ -218,7 +218,7 @@ RSpec.describe InformationRequest, type: :model do
         info = build(:information_request_for_probation_service)
         info.probation_ndelius = true
         info.probation_other_data = true
-        expect(info.probation_information).to eq "nDelius file<br>Something else"
+        expect(info.probation_information).to eq "nDelius file, Something else"
       end
     end
   end

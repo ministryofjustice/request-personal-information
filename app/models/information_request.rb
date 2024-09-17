@@ -87,7 +87,7 @@ class InformationRequest < ApplicationRecord
     info << "Legal Aid Agency" if laa?
     info << "Office of the Public Guardian (OPG)" if opg?
     info << "Somewhere else in the Ministry of Justice" if moj_other?
-    info.join("<br>").html_safe
+    info.join(", ")
   end
 
   def prison_information
@@ -95,14 +95,14 @@ class InformationRequest < ApplicationRecord
     info << "NOMIS Records" if prison_nomis_records?
     info << "Security data" if prison_security_data?
     info << "Something else" if prison_other_data?
-    info.join("<br>").html_safe
+    info.join(", ")
   end
 
   def probation_information
     info = []
     info << "nDelius file" if probation_ndelius?
     info << "Something else" if probation_other_data?
-    info.join("<br>").html_safe
+    info.join(", ")
   end
 
   def summary
