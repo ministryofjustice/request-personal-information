@@ -1,7 +1,7 @@
 module MailHelper
-  def format_information(information)
-    return [] if information.blank?
+  def split_list(list)
+    return [] if list.blank?
 
-    information&.split("<br>")
+    list&.split("<br>")
   end
 end
