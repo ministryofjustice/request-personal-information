@@ -148,8 +148,8 @@ en:
           other: Any other names that their information may be stored under? (optional)
           self: Any other names that your information may be stored under? (optional)
         organisation_name: Name of your organisation
-        prison_other_data_text: Can you provide more detail?
-        probation_other_data_text: Can you provide more detail?
+        prison_other_data_text: What other information do you want?
+        probation_other_data_text: What other information do you want?
         recent_prison_name: Which prison where they most recently in?
         requester_name: Your full name (optional)
         requester_photo: Photo ID
@@ -235,7 +235,7 @@ en:
     requester_id: Upload your ID
     requester_id_check: Check your upload
     solicitor_details: Your details
-    subject: Are you requesting your own information or on behalf of someone else?
+    subject: "Are you requesting your own information or someone else's?"
     subject_date_of_birth:
         other: What is their date of birth?
         self: What is your date of birth?
