@@ -115,7 +115,7 @@ class InformationRequestSummary
   def information
     summary = [{
       key: { text: I18n.t("helpers.hint.request_form.moj") },
-      value: { text: @information_request.information_required },
+      value: { text: format_list(@information_request.information_required) },
       actions: { text: "Change", href: "/moj", visually_hidden_text: I18n.t("helpers.hint.request_form.moj") },
     }]
 
@@ -183,7 +183,7 @@ class InformationRequestSummary
       },
       {
         key: { text: I18n.t("request_form.prison_information") },
-        value: { text: @information_request.prison_information },
+        value: { text: format_list(@information_request.prison_information) },
         actions: { text: "Change", href: "/prison-information", visually_hidden_text: I18n.t("request_form.prison_information") },
       },
     )
@@ -225,7 +225,7 @@ class InformationRequestSummary
       },
       {
         key: { text: I18n.t("request_form.probation_information") },
-        value: { text: @information_request.probation_information },
+        value: { text: format_list(@information_request.probation_information) },
         actions: { text: "Change", href: "/probation-information", visually_hidden_text: I18n.t("request_form.probation_information") },
       },
     ]
@@ -352,5 +352,11 @@ class InformationRequestSummary
     end
 
     summary
+  end
+
+private
+
+  def format_list(list)
+    list.sub(", ", "<br>").html_safe
   end
 end
