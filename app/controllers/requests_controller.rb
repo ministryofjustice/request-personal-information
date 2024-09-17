@@ -51,7 +51,7 @@ class RequestsController < ApplicationController
       redirect_to "/#{STEPS.first}" and return
     end
 
-    @summary = summary
+    @summary = @information_request.summary
   end
 
   def edit
@@ -235,9 +235,5 @@ private
 
   def current_index
     STEPS.find_index(session[:current_step].to_sym)
-  end
-
-  def summary
-    @information_request.summary
   end
 end
