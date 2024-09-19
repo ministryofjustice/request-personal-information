@@ -2,5 +2,5 @@
   <%= t("request_form.#{@form.name}.#{@information_request.subject}") %>
 <% end %>
 
-<%= f.govuk_text_field :full_name, label: { size: "m" } %>
-<%= f.govuk_text_field :other_names, label: { size: "m", text: t("helpers.label.request_form.other_names.#{@information_request.subject}") } %>
+<%= f.govuk_text_field :full_name, label: { size: "s" } %>
+<%= f.govuk_text_field :other_names, label: { size: "s", text: t("helpers.label.request_form.other_names.#{@information_request.subject}") } %>
