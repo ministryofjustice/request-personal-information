@@ -184,7 +184,7 @@ en:
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
         form_opg_date_from: For example, 3 11 2000
         form_opg_date_to: For example, 12 5 2014
-        other_names: This includes last names, nicknames or aliases
+        other_names: For example, a maiden name, other last names, nicknames or aliases
         form_prison_date_from: For example, 3 11 2000
         form_prison_date_to: For example, 12 5 2014
         prison_other_data_text: We can respond faster if you are able to tell us specifically what you want.
