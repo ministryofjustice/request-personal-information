@@ -1,0 +1,11 @@
+<p class="govuk-body">Somewhere else in the Ministry of Justice</p>
+
+<%= f.govuk_check_boxes_fieldset :moj, legend: nil do %>
+  <%= f.govuk_check_box :moj_other,
+                        true,
+                        label: { text: "Where in the Ministry of Justice do you think this information is held?" },
+                        multiple: false,
+                        checked: f.object.moj_other.present? do %>
+    <%= f.govuk_text_area :moj_other_where, label: { size: "m" } %>
+  <% end %>
+<% end %>
