@@ -11,10 +11,10 @@
 <% else %>
   <%= f.govuk_radio_buttons_fieldset :hmpps_information, legend: nil do %>
     <%= f.govuk_radio_button :currently_in_prison, "yes", label: { text: "Yes" } do %>
-      <%= f.govuk_text_field :current_prison_name, label: { size: "m", text: t("helpers.label.request_form.current_prison_name") } %>
+      <%= f.govuk_text_field :current_prison_name, label: { size: "s", text: t("helpers.label.request_form.current_prison_name") } %>
     <% end %>
     <%= f.govuk_radio_button :currently_in_prison, "no", label: { text: "No" } do %>
-      <%= f.govuk_text_field :recent_prison_name, label: { size: "m", text: t("helpers.label.request_form.recent_prison_name") } %>
+      <%= f.govuk_text_field :recent_prison_name, label: { size: "s", text: t("helpers.label.request_form.recent_prison_name") } %>
     <% end %>
   <% end %>
   <%= f.hidden_field :default %>
