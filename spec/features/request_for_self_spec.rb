@@ -31,7 +31,7 @@ RSpec.feature "Request for self", type: :feature do
     click_button "Continue"
 
     # Information from where
-    check "Prison Service"
+    check "Prison service"
     click_button "Continue"
 
     # Prison name

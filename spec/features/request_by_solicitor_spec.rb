@@ -38,7 +38,7 @@ RSpec.feature "Request by solicitor", type: :feature do
     click_button "Continue"
 
     # Information from where
-    check "Probation Service"
+    check "Probation service"
     click_button "Continue"
 
     # Probation office
