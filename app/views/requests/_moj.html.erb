@@ -3,12 +3,12 @@
 <%= f.govuk_check_boxes_fieldset :moj, legend: nil do %>
   <%= f.govuk_check_box :prison_service,
         true,
-        label: { text: "Prison Service" },
+        label: { text: "Prison service" },
         multiple: false,
         checked: f.object.prison_service.present? %>
   <%= f.govuk_check_box :probation_service,
         true,
-        label: { text: "Probation Service" },
+        label: { text: "Probation service" },
         multiple: false,
         checked: f.object.probation_service.present? %>
   <%= f.govuk_check_box :laa,

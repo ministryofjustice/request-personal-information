@@ -82,8 +82,8 @@ class InformationRequest < ApplicationRecord
 
   def information_required
     info = []
-    info << "Prison Service" if prison_service?
-    info << "Probation Service" if probation_service?
+    info << "Prison service" if prison_service?
+    info << "Probation service" if probation_service?
     info << "Legal Aid Agency" if laa?
     info << "Office of the Public Guardian (OPG)" if opg?
     info << "Somewhere else in the Ministry of Justice" if moj_other?

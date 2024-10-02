@@ -162,7 +162,7 @@ RSpec.describe InformationRequestSummary, type: :model do
 
     it "returns list of information required" do
       expect(summary.information[0]).to include({ key: { text: "Select all that apply" } })
-      expect(summary.information[0]).to include({ value: { text: "Prison Service" } })
+      expect(summary.information[0]).to include({ value: { text: "Prison service" } })
     end
 
     context "when requesting other information" do

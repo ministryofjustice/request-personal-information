@@ -157,7 +157,7 @@ RSpec.describe InformationRequest, type: :model do
     context "when one type is chosen" do
       it "returns list with one item" do
         info = build(:information_request_for_prison_service)
-        expect(info.information_required).to eq "Prison Service"
+        expect(info.information_required).to eq "Prison service"
       end
     end
 
@@ -166,7 +166,7 @@ RSpec.describe InformationRequest, type: :model do
         info = build(:information_request_for_prison_service)
         info.laa = true
         info.moj_other = true
-        expect(info.information_required).to eq "Prison Service, Legal Aid Agency, Somewhere else in the Ministry of Justice"
+        expect(info.information_required).to eq "Prison service, Legal Aid Agency, Somewhere else in the Ministry of Justice"
       end
     end
   end
