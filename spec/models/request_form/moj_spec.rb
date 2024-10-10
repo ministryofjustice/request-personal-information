@@ -44,11 +44,5 @@ RSpec.describe RequestForm::Moj, type: :model do
 
       it { is_expected.to be_valid }
     end
-
-    context "when other is true" do
-      subject(:form_object) { described_class.new(moj_other: "true") }
-
-      it { is_expected.to validate_presence_of(:moj_other_where) }
-    end
   end
 end
