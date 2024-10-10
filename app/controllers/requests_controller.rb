@@ -25,8 +25,7 @@ class RequestsController < ApplicationController
     laa-dates
     opg
     opg-dates
-    other
-    other-dates
+    other-where-dates
     contact-address
     contact-email
     upcoming
@@ -175,9 +174,8 @@ private
       :opg_text,
       :form_opg_date_from,
       :form_opg_date_to,
-      :moj_other_text,
-      :form_moj_other_date_from,
-      :form_moj_other_date_to,
+      :form_moj_other_where_date_from,
+      :form_moj_other_where_date_to,
       :contact_address,
       :contact_email,
       :upcoming_court_case,

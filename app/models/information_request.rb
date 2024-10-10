@@ -26,7 +26,6 @@ class InformationRequest < ApplicationRecord
   validates :probation_other_data_text, presence: true, if: -> { probation_service? && probation_other_data.present? }
   validates :laa_text, presence: true, if: -> { laa? }
   validates :opg_text, presence: true, if: -> { opg? }
-  validates :moj_other_text, presence: true, if: -> { moj_other? }
   validates :contact_address, presence: true
   validates :contact_email, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :upcoming_court_case, presence: true
@@ -166,8 +165,8 @@ class InformationRequest < ApplicationRecord
       opg_date_from:,
       opg_date_to:,
       moj_other_text:,
-      moj_other_date_from:,
-      moj_other_date_to:,
+      moj_other_where_date_from:,
+      moj_other_where_date_to:,
       contact_address:,
       contact_email:,
       upcoming_court_case:,

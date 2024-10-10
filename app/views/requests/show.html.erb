@@ -53,11 +53,6 @@
       <%= govuk_summary_list rows: @summary[:opg_summary] %>
     <% end %>
 
-    <% if @summary[:moj_other_summary].present? %>
-      <h3 class="govuk-heading-m"><%= t("service.other.name") %></h3>
-      <%= govuk_summary_list rows: @summary[:moj_other_summary] %>
-    <% end %>
-
     <h3 class="govuk-heading-m"><%= t("request_form.contact_address") %></h3>
     <%= govuk_summary_list rows: @summary[:contact_summary] %>
 

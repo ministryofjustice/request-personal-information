@@ -50,9 +50,9 @@ en:
               blank: Enter what information you want
         request_form/other_dates:
           attributes:
-            form_moj_other_date_from:
+            form_moj_other_where_date_from:
               invalid: Enter a valid date this information should start from
-            form_moj_other_date_to:
+            form_moj_other_where_date_to:
               invalid: Enter a valid date this information should go to
         request_form/prison_dates:
           attributes:
@@ -162,8 +162,8 @@ en:
         form_laa_date_from: Enter a date this information should start from
         form_laa_date_to: Enter a date this information should go to
         letter_of_consent_check: Is this upload correct?
-        form_moj_other_date_from: Enter a date this information should start from
-        form_moj_other_date_to: Enter a date this information should go to
+        form_moj_other_where_date_from: Enter a date this information should start from
+        form_moj_other_where_date_to: Enter a date this information should go to
         form_opg_date_from: Enter a date this information should start from
         form_opg_date_to: Enter a date this information should go to
         form_prison_date_from: Enter a date this information should start from
@@ -179,8 +179,8 @@ en:
         form_laa_date_from: For example, 3 11 2000
         form_laa_date_to: For example, 12 5 2014
         moj: Select all that apply
-        form_moj_other_date_from: For example, 3 11 2000
-        form_moj_other_date_to: For example, 12 5 2014
+        form_moj_other_where_date_from: For example, 3 11 2000
+        form_moj_other_where_date_to: For example, 12 5 2014
         letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
         form_opg_date_from: For example, 3 11 2000
         form_opg_date_to: For example, 12 5 2014

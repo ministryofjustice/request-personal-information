@@ -310,14 +310,14 @@ class InformationRequestSummary
         actions: { text: "Change", href: "/other", visually_hidden_text: I18n.t("request_form.other") },
       },
       {
-        key: { text: I18n.t("helpers.legend.request_form.form_moj_other_date_from") },
-        value: { text: format_date(@information_request.moj_other_date_from) },
-        actions: { text: "Change", href: "/other-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_moj_other_date_from") },
+        key: { text: I18n.t("helpers.legend.request_form.form_moj_other_where_date_from") },
+        value: { text: format_date(@information_request.moj_other_where_date_from) },
+        actions: { text: "Change", href: "/other-where-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_moj_other_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_moj_other_date_to") },
         value: { text: format_date(@information_request.moj_other_date_to) },
-        actions: { text: "Change", href: "/other-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_moj_other_date_to") },
+        actions: { text: "Change", href: "/other-where-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_moj_other_date_to") },
       },
     ]
   end
