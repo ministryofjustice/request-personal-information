@@ -5,7 +5,7 @@ module RequestForm
     attribute :laa
     attribute :opg
     attribute :moj_other
-    attribute :moj_other_where
+    # attribute :moj_other_where
     attr_accessor :moj
 
     validates :moj, presence: true, if: -> { prison_service.blank? && probation_service.blank? && laa.blank? && opg.blank? && moj_other.blank? }

@@ -1,5 +1,5 @@
 module RequestForm
-  class Other < Base
+  class OtherWhere < Base
     attribute :moj_other_text
 
     validates :moj_other_text, presence: true
