@@ -13,6 +13,7 @@ class RequestsController < ApplicationController
     subject-id
     subject-id-check
     moj
+    other-where
     prison-location
     prison-number
     prison-information
