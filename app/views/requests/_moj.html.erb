@@ -27,7 +27,5 @@
         true,
         label: { text: "Somewhere else in the Ministry of Justice" },
         multiple: false,
-        checked: f.object.moj_other.present? do %>
-    <%= f.govuk_text_area :moj_other_where, label: { size: "s" } %>
-  <% end %>
+        checked: f.object.moj_other.present? %>
 <% end %>
