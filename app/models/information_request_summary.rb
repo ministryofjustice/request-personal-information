@@ -113,13 +113,11 @@ class InformationRequestSummary
   end
 
   def information
-    summary = [{
+    [{
       key: { text: I18n.t("helpers.hint.request_form.moj") },
       value: { text: format_list(@information_request.information_required) },
       actions: { text: "Change", href: "/moj", visually_hidden_text: I18n.t("helpers.hint.request_form.moj") },
     }]
-
-    summary
   end
 
   def prison
