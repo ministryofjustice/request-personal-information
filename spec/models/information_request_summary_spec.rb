@@ -172,11 +172,6 @@ RSpec.describe InformationRequestSummary, type: :model do
         expect(summary.information[0]).to include({ key: { text: "Select all that apply" } })
         expect(summary.information[0]).to include({ value: { text: "Somewhere else in the Ministry of Justice" } })
       end
-
-      it "returns where other information is held" do
-        expect(summary.information[1]).to include({ key: { text: "Where in the Ministry of Justice do you think this information is held?" } })
-        expect(summary.information[1]).to include({ value: { text: "other location" } })
-      end
     end
   end
 
@@ -356,14 +351,19 @@ RSpec.describe InformationRequestSummary, type: :model do
     context "when requesting other MOJ information" do
       let(:information_request) { build(:information_request_for_moj_other) }
 
+      it "returns where other information is held" do
+        expect(summary.moj_other[0]).to include({ key: { text: "Where in the Ministry of Justice do you think this information is held?" } })
+        expect(summary.moj_other[0]).to include({ value: { text: "other location" } })
+      end
+
       it "returns which information is required" do
-        expect(summary.moj_other[0]).to include({ key: { text: "What information do you want from somewhere else in the Ministry of Justice?" } })
-        expect(summary.moj_other[0]).to include({ value: { text: "other details" } })
+        expect(summary.moj_other[1]).to include({ key: { text: "What information do you want from somewhere else in the Ministry of Justice?" } })
+        expect(summary.moj_other[1]).to include({ value: { text: "other details" } })
       end
 
       it "returns dates information is required for" do
-        expect(summary.moj_other[2]).to include({ key: { text: "Enter a date this information should go to" } })
-        expect(summary.moj_other[2]).to include({ value: { text: "31 December 1990" } })
+        expect(summary.moj_other[3]).to include({ key: { text: "Enter a date this information should go to" } })
+        expect(summary.moj_other[3]).to include({ value: { text: "31 December 1990" } })
       end
     end
 

@@ -250,7 +250,7 @@ RSpec.shared_examples("question when requesting other data") do
       form_object.request = information_request
     end
 
-    context "when request is for probation service information" do
+    context "when request is for moj other information" do
       let(:information_request) { build(:information_request_for_moj_other) }
 
       it "returns false" do
@@ -258,7 +258,7 @@ RSpec.shared_examples("question when requesting other data") do
       end
     end
 
-    context "when request is not for probation service information" do
+    context "when request is not for moj other information" do
       let(:information_request) { build(:information_request) }
 
       it "returns false" do
