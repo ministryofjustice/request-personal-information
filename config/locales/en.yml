@@ -32,8 +32,6 @@ en:
           attributes:
             moj:
               blank: Choose where you want information from
-            moj_other_where:
-              blank: Enter where you think this information is held
         request_form/opg:
           attributes:
             opg_text:
@@ -44,6 +42,10 @@ en:
               invalid: Enter a valid date this information should start from
             form_opg_date_to:
               invalid: Enter a valid date this information should go to
+        request_form/other_where:
+          attributes:
+            moj_other_where:
+              blank: Enter where in the Ministry of Justice do you think this information is held
         request_form/other:
           attributes:
             moj_other_text:
@@ -143,7 +145,6 @@ en:
         contact_email: Email address (optional)
         current_prison_name: Which prison are they in?
         full_name: Full name
-        moj_other_where: Where in the Ministry of Justice do you think this information is held?
         other_names:
           other: Any other names that their information may be stored under? (optional)
           self: Any other names that your information may be stored under? (optional)
@@ -216,6 +217,7 @@ en:
     moj: Where do you want information from?
     opg: What information do you want from the Office of the Public Guardian (OPG)?
     opg_dates: What dates do you want this information from? (optional)
+    other_where: Where in the Ministry of Justice do you think this information is held?
     other: What information do you want from somewhere else in the Ministry of Justice?
     other_dates: What dates do you want this information from? (optional)
     prison_dates: What dates do you want this information from? (optional)

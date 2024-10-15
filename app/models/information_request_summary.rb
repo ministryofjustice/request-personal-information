@@ -119,16 +119,6 @@ class InformationRequestSummary
       actions: { text: "Change", href: "/moj", visually_hidden_text: I18n.t("helpers.hint.request_form.moj") },
     }]
 
-    if @information_request.moj_other.present?
-      summary.push(
-        {
-          key: { text: I18n.t("helpers.label.request_form.moj_other_where") },
-          value: { text: @information_request.moj_other_where },
-          actions: { text: "Change", href: "/moj", visually_hidden_text: I18n.t("helpers.label.request_form.moj_other_where") },
-        },
-      )
-    end
-
     summary
   end
 
@@ -304,6 +294,12 @@ class InformationRequestSummary
     return unless @information_request.moj_other
 
     [
+
+      {
+        key: { text: I18n.t("request_form.other_where") },
+        value: { text: @information_request.moj_other_where },
+        actions: { text: "Change", href: "/other-where", visually_hidden_text: I18n.t("request_form.other_where") },
+      },
       {
         key: { text: I18n.t("request_form.other") },
         value: { text: @information_request.moj_other_text },

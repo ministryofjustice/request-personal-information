@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get "laa-dates" => "requests#edit"
   get "opg" => "requests#edit"
   get "opg-dates" => "requests#edit"
+  get "other-where" => "requests#edit"
   get "other" => "requests#edit"
   get "other-dates" => "requests#edit"
 

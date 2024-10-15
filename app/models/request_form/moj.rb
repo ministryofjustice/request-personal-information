@@ -5,11 +5,9 @@ module RequestForm
     attribute :laa
     attribute :opg
     attribute :moj_other
-    attribute :moj_other_where
     attr_accessor :moj
 
     validates :moj, presence: true, if: -> { prison_service.blank? && probation_service.blank? && laa.blank? && opg.blank? && moj_other.blank? }
-    validates :moj_other_where, presence: true, if: -> { moj_other.present? }
 
     def assign_attributes(values)
       # ensure boolean values
