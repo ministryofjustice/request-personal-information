@@ -31,6 +31,8 @@ class RequestsController < ApplicationController
     upcoming
   ].freeze
 
+  before_action :enable_back_button
+
   def new
     reset_session
     redirect_to "/#{STEPS.first}"
@@ -106,6 +108,10 @@ class RequestsController < ApplicationController
   def complete; end
 
 private
+
+  def enable_back_button
+    response.headers["Cache-Control"] = "no-store"
+  end
 
   def requested_step
     request.env["PATH_INFO"][1..]
