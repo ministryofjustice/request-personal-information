@@ -110,7 +110,7 @@ class RequestsController < ApplicationController
 private
 
   def enable_back_button
-    response.headers["Cache-Control"] = "no-store"
+    response.headers["Cache-Control"] = "no-store, no-cache"
   end
 
   def requested_step
