@@ -567,10 +567,10 @@ GEM
       google-protobuf (~> 4.26)
     sass-embedded (1.77.8-x86_64-linux-gnu)
       google-protobuf (~> 4.26)
-    sentry-rails (5.19.0)
+    sentry-rails (5.21.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.19.0)
-    sentry-ruby (5.19.0)
+      sentry-ruby (~> 5.21.0)
+    sentry-ruby (5.21.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-matchers (6.4.0)
@@ -612,7 +612,6 @@ GEM
     zeitwerk (2.6.18)
 
 PLATFORMS
-  ruby
   arm64-darwin-23
   x86_64-darwin-23
   x86_64-linux
