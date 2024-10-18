@@ -152,9 +152,7 @@ en:
         probation_other_data_text: What other information do you want?
         recent_prison_name: Which prison where they most recently in?
         requester_name: Your full name (optional)
-        requester_photo: Photo ID
         requester_proof_of_address: Proof of address
-        subject_photo: Photo ID
         subject_proof_of_address: Proof of address
         upcoming_court_case_text: Can you provide more details?
     legend:
@@ -196,11 +194,11 @@ en:
         probation_office: Enter the town, city or area. For example, Macclesfield.
         form_probation_date_from: For example, 3 11 2000
         form_probation_date_to: For example, 12 5 2014
-        requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
+        requester_photo: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB."
         requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
         subject_photo:
-          other: "For example, a copy of their driving licence or passport. Maximum size: 7MB per file"
-          self: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
+          other: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB."
+          self: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB."
         subject_proof_of_address:
           other: For example an electricity or council tax bill in their name and it must be dated within the last 6 months. Maximum file size 7MB
           self: For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB
@@ -232,7 +230,7 @@ en:
       other: Where is their probation office or approved premises?
       self: Where is your probation office or approved premises?
     requester_details: Your details
-    requester_id: Upload your ID
+    requester_id: Upload your photo ID
     requester_id_check: Check your upload
     solicitor_details: Your details
     subject: "Are you requesting your own information or someone else's?"
@@ -240,8 +238,9 @@ en:
         other: What is their date of birth?
         self: What is your date of birth?
     subject_id:
-      other: Upload their ID
-      self: Upload your ID
+      other: Upload their photo ID
+      self: Upload your photo ID
+      details: If you are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
     subject_id_check: Check your upload
     subject_name:
       other: What is their name?

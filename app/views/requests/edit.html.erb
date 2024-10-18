@@ -8,6 +8,16 @@
       <h1 class="govuk-heading-xl"><%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %></h1>
       <%= yield :form_content %>
       <%= f.govuk_submit %>
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            <%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name.hint}") %></h1>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+            <%= content_for?(:text) ? yield(:text) : t("request_form.#{@form.name}.details") %>
+        </div>
+      </details>
     <% end %>
   </div>
 </div>
