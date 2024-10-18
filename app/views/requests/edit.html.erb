@@ -11,11 +11,11 @@
       <details class="govuk-details">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
-            <%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name.hint}") %></h1>
+            <%= content_for?(:text) ? yield(:text) : t("request_form.#{@form.name}.self_title") %>
           </span>
         </summary>
         <div class="govuk-details__text">
-            <%= content_for?(:text) ? yield(:text) : t("request_form.#{@form.name}.details") %>
+            <%= content_for?(:text) ? yield(:text) : t("request_form.#{@form.name}.self_details") %>
         </div>
       </details>
     <% end %>
