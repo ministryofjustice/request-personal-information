@@ -45,7 +45,7 @@ en:
         request_form/other_where:
           attributes:
             moj_other_where:
-              blank: Enter where in the Ministry of Justice do you think this information is held
+              blank: Enter where in the Ministry of Justice you think this information is held
         request_form/other:
           attributes:
             moj_other_text:
