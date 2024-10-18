@@ -265,7 +265,7 @@ RSpec.describe "Which data is required", type: :request do
           patch "/request", params: { request_form: { moj_other_where: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter where in the Ministry of Justice do you think this information is held")
+          expect(response.body).to include("Enter where in the Ministry of Justice you think this information is held")
         end
       end
 
