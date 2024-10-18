@@ -46,17 +46,6 @@ RSpec.describe "Which data is required", type: :request do
       end
 
       it_behaves_like "question with back link"
-
-      context "when other information is selected" do
-        context "when submitting form with invalid data" do
-          it "renders page with error message" do
-            patch "/request", params: { request_form: { moj_other: "true" } }
-            expect(response).to render_template(:edit)
-            expect(response.body).to include("There is a problem")
-            expect(response.body).to include("Enter where you think this information is held")
-          end
-        end
-      end
     end
   end
 
@@ -248,6 +237,54 @@ RSpec.describe "Which data is required", type: :request do
     end
   end
 
+  describe "/other-where" do
+    let(:information_request) { build(:information_request_for_moj_other) }
+    let(:current_step) { "other-where" }
+
+    it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
+
+    context "when session in progress" do
+      let(:previous_step) { "moj" }
+      let(:next_step) { "/other" }
+      let(:valid_data) { "information required" }
+      let(:invalid_data) { "" }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:edit)
+        expect(response.body).to include("Where in the Ministry of Justice do you think this information is held?")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { moj_other_where: invalid_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter where in the Ministry of Justice you think this information is held")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { moj_other_where: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the value to the session" do
+          patch "/request", params: { request_form: { moj_other_where: valid_data } }
+          expect(request.session[:information_request][:moj_other_where]).to eq valid_data
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+  end
+
   describe "/other" do
     let(:information_request) { build(:information_request_for_moj_other) }
     let(:current_step) { "other" }
@@ -256,7 +293,7 @@ RSpec.describe "Which data is required", type: :request do
     it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "moj" }
+      let(:previous_step) { "other-where" }
       let(:next_step) { "/other-dates" }
       let(:valid_data) { "information required" }
       let(:invalid_data) { "" }

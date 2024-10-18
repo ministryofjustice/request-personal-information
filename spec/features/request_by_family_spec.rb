@@ -57,7 +57,10 @@ RSpec.feature "Request by solicitor", type: :feature do
 
     # Information from where
     check "Somewhere else in the Ministry of Justice"
-    fill_in("Where in the Ministry of Justice do you think this information is held?", with: "location where")
+    click_button "Continue"
+
+    # Other where
+    fill_in("request-form-moj-other-where-field", with: "location of information")
     click_button "Continue"
 
     # Other information
