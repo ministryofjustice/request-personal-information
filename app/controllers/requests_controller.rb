@@ -11,6 +11,7 @@ class RequestsController < ApplicationController
     letter-of-consent
     letter-of-consent-check
     subject-id
+    subject-address
     subject-id-check
     moj
     prison-location

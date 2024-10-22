@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "requester-id-check" => "requests#edit"
   get "subject-id" => "requests#edit"
   get "subject-id-check" => "requests#edit"
+  get "subject-address" => "requests#edit"
 
   get "moj" => "requests#edit"
   get "prison-location" => "requests#edit"
