@@ -155,6 +155,7 @@ en:
         requester_name: Your full name (optional)
         requester_proof_of_address: Proof of address
         subject_proof_of_address: Proof of address
+        subject_photo: Proof of ID
         upcoming_court_case_text: Can you provide more details?
     legend:
       request_form:
