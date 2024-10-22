@@ -31,7 +31,6 @@ RSpec.feature "Request by solicitor", type: :feature do
 
     # Upload your ID
     attach_file("request-form-requester-photo-field", "spec/fixtures/files/file.jpg")
-    attach_file("request-form-requester-proof-of-address-field", "spec/fixtures/files/file.jpg")
     click_button "Continue"
 
     # Confirm upload
@@ -48,7 +47,6 @@ RSpec.feature "Request by solicitor", type: :feature do
 
     # Upload their ID
     attach_file("request-form-subject-photo-field", "spec/fixtures/files/file.jpg")
-    attach_file("request-form-subject-proof-of-address-field", "spec/fixtures/files/file.jpg")
     click_button "Continue"
 
     # Confirm upload
