@@ -250,7 +250,7 @@ en:
       self: Upload your proof of address
       self_title: If you don’t have proof of address
       self_details: "If you are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
-    subject_id_check: Check your upload
+    subject_id_check: Check your uploads
     subject_name:
       other: What is their name?
       self: What is your name?
