@@ -1,8 +1,18 @@
-<%= govuk_panel(html_attributes: { style: "background: #1d70b8; text-align: left; line-height: 1.5em; padding: 25px;" }) do %>
-   <%= @information_request.subject_photo.to_s %>
-   <br>
-   <%= @information_request.subject_proof_of_address.to_s %>
-<% end %>
+ <table class="govuk-table">
+<tbody class="govuk-table__body">
+  <tr class="govuk-table__row">
+    <th scope="row" class="govuk-table__header">Photo ID</th>
+    <td class="govuk-table__cell"><%=@information_request.subject_photo.to_s %></td>
+    <td class="govuk-table__cell"><a href="/subject-id" class="govuk-link">Change</a></td>
+  </tr>
+
+  <tr class="govuk-table__row">
+    <th scope="row" class="govuk-table__header">Proof of address</th>
+    <td class="govuk-table__cell"><%=@information_request.subject_proof_of_address.to_s %></td>
+    <td class="govuk-table__cell"><a href="/subject-address" class="govuk-link">Change</a></td>
+  </tr>
+  </tbody>
+ </table>
 
 <%= f.govuk_collection_radio_buttons :subject_id_check, @form.class::OPTIONS, :first, :second %>
 <%= f.hidden_field :default %>

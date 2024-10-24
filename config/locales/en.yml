@@ -123,6 +123,7 @@ en:
           attributes:
             subject_id_check:
               blank: Enter an answer for if these uploads are correct
+              invalid_file_type: The selected file must be a PDF, image (jpg, .jpeg, .png) or Microsoft Word document (.doc, .docx)
         request_form/subject_relationship:
           attributes:
             relationship:
