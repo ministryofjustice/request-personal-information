@@ -32,11 +32,11 @@ module RequestForm
         allowed_types = %w[.jpg .jpeg .png .pdf .doc .docx]
         attachment_id = Attachment.find(request.subject_photo_id)
         unless allowed_types.any? { |ext| attachment_id.filename.end_with?(ext) }
-          errors.add(:subject_id_check, :invalid_file_type )
+          errors.add(:subject_id_check, :invalid_file_type)
         end
         attachment_proof = Attachment.find(request.subject_proof_of_address_id)
         unless allowed_types.any? { |ext| attachment_proof.filename.end_with?(ext) }
-          errors.add(:subject_id_check, :invalid_file_type )
+          errors.add(:subject_id_check, :invalid_file_type)
         end
       end
     end
