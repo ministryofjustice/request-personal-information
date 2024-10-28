@@ -8,7 +8,7 @@ module RequestForm
     attr_accessor :default, :subject_id_check
 
     validates :subject_id_check, presence: true
-    validate  :check_value, :valid_file_type
+    validate  :valid_file_type, :check_value
 
     def required?
       !request.by_solicitor?
@@ -24,6 +24,8 @@ module RequestForm
         attachment_proof = Attachment.find(request.subject_proof_of_address_id)
         attachment_proof.destroy!
         request.subject_proof_of_address_id = nil
+
+
       end
     end
 

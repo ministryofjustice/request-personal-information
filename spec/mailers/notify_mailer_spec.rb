@@ -21,7 +21,7 @@ RSpec.describe NotifyMailer, type: :mailer do
     end
 
     it "renders upload information" do
-      expect(mail.body.encoded).to match("## Upload your ID")
+      expect(mail.body.encoded).to match("## Upload your photo ID")
       expect(mail.body.encoded).to match(/Photo ID:\s+file.jpg, 12.2 KB/)
     end
 
