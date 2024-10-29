@@ -235,7 +235,7 @@ en:
       other: Where is their probation office or approved premises?
       self: Where is your probation office or approved premises?
     requester_id: Upload your ID
-    requester_id: Upload your photo ID
+    requester_details: Requester Details
     requester_id_check: Check your upload
     solicitor_details: Your details
     subject: "Are you requesting your own information or someone else's?"
