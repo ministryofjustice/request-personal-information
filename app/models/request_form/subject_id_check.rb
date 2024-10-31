@@ -8,7 +8,7 @@ module RequestForm
     attr_accessor :default, :subject_id_check
 
     validates :subject_id_check, presence: true
-    validate  :valid_file_type, :check_value
+    validate :valid_file_type, :check_value
 
     def required?
       !request.by_solicitor?
@@ -29,8 +29,8 @@ module RequestForm
     end
 
     def valid_file_type
+      allowed_types = %w[.jpg .jpeg .png .pdf .doc .docx]
       if subject_id_check.present?
-        allowed_types = %w[.jpg .jpeg .png .pdf .doc .docx]
         attachment_id = Attachment.find(request.subject_photo_id)
         unless allowed_types.any? { |ext| attachment_id.filename.end_with?(ext) }
           errors.add(:subject_id_check, :invalid_file_type)

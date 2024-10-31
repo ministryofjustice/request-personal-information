@@ -1,4 +1,5 @@
 require "rails_helper"
+include ActionDispatch::TestProcess
 
 RSpec.describe RequestForm::SubjectIdCheck, type: :model do
   it_behaves_like "question when requester is not a solicitor"
@@ -20,11 +21,59 @@ RSpec.describe RequestForm::SubjectIdCheck, type: :model do
 
     context "when upload is correct" do
       let(:check) { "yes" }
+      let(:attachment_photo) { create(:attachment, key: "subject_photo") }
 
       it "does not remove the attachment" do
-        form_object.valid?
         expect(information_request.subject_photo).to eq Attachment.find(attachment_photo.id)
         expect(information_request.subject_proof_of_address).to eq Attachment.find(attachment_address.id)
+        form_object.valid?
+      end
+
+      it "does not change back value" do
+        form_object.valid?
+        expect(form_object.back).not_to be true
+      end
+    end
+
+    describe "#valid_file_type" do
+      context "when file types are valid" do
+        let!(:valid_photo_attachment) do
+          Attachment.create(file: fixture_file_upload(Rails.root.join('spec/fixtures/files/valid_image.jpg'), 'image/jpeg'), key: "subject_photo")
+        end
+
+        let!(:valid_proof_attachment) do
+          Attachment.create(file: fixture_file_upload(Rails.root.join('spec/fixtures/files/valid_image.jpg'), 'image/jpeg'), key: "subject_proof_of_address")
+        end
+
+        before do
+          information_request.subject_photo_id = valid_photo_attachment.id
+          information_request.subject_proof_of_address_id = valid_proof_attachment.id
+        end
+
+        it "does not add an error for valid file types" do
+          expect(information_request.errors[:subject_id_check]).to be_empty
+        end
+      end
+
+      context "when file types are invalid" do
+        let!(:invalid_photo_attachment) do
+          Attachment.create(file: fixture_file_upload(Rails.root.join('spec/fixtures/files/invalid_image.txt'), 'text/plain'), key: "subject_photo")
+        end
+
+        let!(:invalid_proof_attachment) do
+          Attachment.create(
+            file: fixture_file_upload(Rails.root.join('spec/fixtures/files/invalid_image.txt'), 'plain/text'), key: "subject_proof_of_address")
+        end
+
+        before do
+          information_request.subject_photo_id = invalid_photo_attachment.id
+          information_request.subject_proof_of_address_id = invalid_proof_attachment.id
+        end
+
+        it "adds an error for invalid file types" do
+          form_object.valid?
+          expect(form_object.errors[:subject_id_check]).to include("The selected file must be a PDF, image (jpg, .jpeg, .png) or Microsoft Word document (.doc, .docx)")
+        end
       end
     end
 
