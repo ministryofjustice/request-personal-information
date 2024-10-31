@@ -1,5 +1,4 @@
 require "rails_helper"
-include ActionDispatch::TestProcess
 
 RSpec.describe RequestForm::SubjectIdCheck, type: :model do
   it_behaves_like "question when requester is not a solicitor"
@@ -36,13 +35,15 @@ RSpec.describe RequestForm::SubjectIdCheck, type: :model do
     end
 
     describe "#valid_file_type" do
+      include ActionDispatch::TestProcess
+
       context "when file types are valid" do
         let!(:valid_photo_attachment) do
-          Attachment.create(file: fixture_file_upload(Rails.root.join('spec/fixtures/files/valid_image.jpg'), 'image/jpeg'), key: "subject_photo")
+          Attachment.create(file: fixture_file_upload(Rails.root.join("spec/fixtures/files/valid_image.jpg"), "image/jpeg"), key: "subject_photo")
         end
 
         let!(:valid_proof_attachment) do
-          Attachment.create(file: fixture_file_upload(Rails.root.join('spec/fixtures/files/valid_image.jpg'), 'image/jpeg'), key: "subject_proof_of_address")
+          Attachment.create(file: fixture_file_upload(Rails.root.join("spec/fixtures/files/valid_image.jpg"), "image/jpeg"), key: "subject_proof_of_address")
         end
 
         before do
@@ -57,12 +58,13 @@ RSpec.describe RequestForm::SubjectIdCheck, type: :model do
 
       context "when file types are invalid" do
         let!(:invalid_photo_attachment) do
-          Attachment.create(file: fixture_file_upload(Rails.root.join('spec/fixtures/files/invalid_image.txt'), 'text/plain'), key: "subject_photo")
+          Attachment.create(file: fixture_file_upload(Rails.root.join("spec/fixtures/files/invalid_image.txt"), "text/plain"), key: "subject_photo")
         end
 
         let!(:invalid_proof_attachment) do
           Attachment.create(
-            file: fixture_file_upload(Rails.root.join('spec/fixtures/files/invalid_image.txt'), 'plain/text'), key: "subject_proof_of_address")
+            file: fixture_file_upload(Rails.root.join("spec/fixtures/files/invalid_image.txt"), "plain/text"), key: "subject_proof_of_address",
+          )
         end
 
         before do
