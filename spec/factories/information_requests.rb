@@ -39,6 +39,11 @@ FactoryBot.define do
       subject_proof_of_address { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
     end
 
+    trait :with_invalid_file_type do
+      subject_photo { Rack::Test::UploadedFile.new("spec/fixtures/files/file.txt", "doc/txt") }
+      subject_proof_of_address { Rack::Test::UploadedFile.new("spec/fixtures/files/file.zip", "image/zip") }
+    end
+
     trait :prison_service do
       prison_service { true }
       currently_in_prison { "no" }
