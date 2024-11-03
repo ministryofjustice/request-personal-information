@@ -308,7 +308,7 @@ RSpec.describe "Subject", type: :request do
           patch "/request", params: { request_form: { subject_id_check: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter an answer for if these uploads are correct")
+          expect(response.body).to include("Enter an answer if these uploads are correct")
         end
       end
 
