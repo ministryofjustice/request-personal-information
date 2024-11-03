@@ -98,7 +98,7 @@ en:
           attributes:
             requester_photo:
               blank: Add a file for Photo ID
-            requester_proof_of_address:
+            requester_address:
               blank: Add a file for Proof of address
         request_form/requester_id_check:
           attributes:
@@ -117,12 +117,14 @@ en:
           attributes:
             subject_photo:
               blank: Add a file for Photo ID
+        request_form/subject_address:
+          attributes:
             subject_proof_of_address:
               blank: Add a file for Proof of address
         request_form/subject_id_check:
           attributes:
             subject_id_check:
-              blank: Enter an answer for if these uploads are correct
+              blank: Enter an answer if these uploads are correct
               invalid_file_type: The selected file must be a PDF, image (jpg, .jpeg, .png) or Microsoft Word document (.doc, .docx)
         request_form/subject_relationship:
           attributes:
