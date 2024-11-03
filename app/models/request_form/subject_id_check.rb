@@ -25,6 +25,8 @@ module RequestForm
         attachment_proof.destroy!
         request.subject_proof_of_address_id = nil
 
+        self.back = true
+
       end
     end
 

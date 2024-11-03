@@ -250,7 +250,7 @@ RSpec.describe "Subject", type: :request do
           patch "/request", params: { request_form: { subject_photo: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Add a file for Photo ID")
+          expect(response.body).to include("Select a photo ID")
         end
       end
 
@@ -322,7 +322,7 @@ RSpec.describe "Subject", type: :request do
       context "when the user wants to change the photo upload" do
         it "goes to the relevant page" do
           patch "/request", params: { request_form: { subject_id_check: "no" } }
-          expect(response).to redirect_to("/moj")
+          expect(response).to redirect_to("/subject-id")
         end
       end
 

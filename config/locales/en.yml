@@ -116,11 +116,11 @@ en:
         request_form/subject_id:
           attributes:
             subject_photo:
-              blank: Add a file for Photo ID
+              blank: Select a photo ID
         request_form/subject_address:
           attributes:
             subject_proof_of_address:
-              blank: Add a file for Proof of address
+              blank: Select a proof of address
         request_form/subject_id_check:
           attributes:
             subject_id_check:
