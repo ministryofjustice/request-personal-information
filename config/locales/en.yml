@@ -98,7 +98,7 @@ en:
           attributes:
             requester_photo:
               blank: Add a file for Photo ID
-            requester_address:
+            requester_proof_of_address:
               blank: Add a file for Proof of address
         request_form/requester_id_check:
           attributes:
