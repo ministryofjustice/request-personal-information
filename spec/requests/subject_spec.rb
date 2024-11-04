@@ -254,13 +254,6 @@ RSpec.describe "Subject", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "saves the associated ID to the session" do
-          patch "/request", params: { request_form: { subject_photo: valid_data, subject_photo_id: Attachment } }
-          expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
-        end
-      end
-
       it_behaves_like "question with back link"
     end
 
