@@ -15,6 +15,7 @@ module RequestForm
     end
 
   private
+
     def check_value
       if subject_id_check == "no"
         attachment_id = Attachment.find(request.subject_photo_id)
