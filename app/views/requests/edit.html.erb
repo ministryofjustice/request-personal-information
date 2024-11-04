@@ -5,22 +5,27 @@
       <% content_for(:form_content) { render partial: @form.name, locals: { f: } } %>
       <%= f.govuk_error_summary %>
       <span class="govuk-caption-l"><%= yield :caption %></span>
-      <h1 class="govuk-heading-xl"><%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %></h1>
+      <h1 class="govuk-heading-xl">
+        <%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %>
+      </h1>
       <%= yield :form_content %>
       <%= f.govuk_submit %>
-      <% if content_for?(:text) || t("request_form.#{@form.name}.self_details", default: '').present? %>
+
+      <%# Render details section if self_details translation exists %>
+      <% if t("request_form.#{@form.name}.self_title") %>
         <details class="govuk-details">
           <summary class="govuk-details__summary">
-      <span class="govuk-details__summary-text">
-        <%= content_for?(:text) ? yield(:text) : t("request_form.#{@form.name}.self_title") %>
-      </span>
+            <span class="govuk-details__summary-text">
+              <%= t("request_form.#{@form.name}.self_title") %>
+            </span>
           </summary>
           <div class="govuk-details__text">
-            <%= content_for?(:text) ? yield(:text) : t("request_form.#{@form.name}.self_details") %>
+            <p>
+              <%= t("request_form.#{@form.name}.self_details") %>
+            </p>
           </div>
         </details>
       <% end %>
-
-  <% end %>
+    <% end %>
   </div>
 </div>
