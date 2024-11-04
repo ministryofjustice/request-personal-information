@@ -6,7 +6,7 @@ module RequestForm
 
     validates :subject_proof_of_address, presence: true, unless: -> { Attachment.exists?(subject_proof_of_address_id) }
     validates :subject_proof_of_address, file_size: { max: 7.megabytes }
-
+    validates :subject_proof_of_address, file_type: { allowed: %w[image/jpg image/jpeg image/png application/pdf application/doc application/docx] }
     def required?
       !request.by_solicitor?
     end
