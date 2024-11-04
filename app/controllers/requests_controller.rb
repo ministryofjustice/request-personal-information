@@ -42,7 +42,7 @@ class RequestsController < ApplicationController
 
   def show
     redirect_to root_path and return if session[:history].nil?
-
+    # debugger
     unless session[:history].include?(requested_step)
       redirect_to "/#{session[:current_step]}" and return
     end
@@ -60,7 +60,6 @@ class RequestsController < ApplicationController
 
   def edit
     redirect_to root_path and return if session[:history].nil?
-
     unless session[:history].include?(requested_step)
       redirect_to "/#{session[:current_step]}" and return
     end
@@ -116,6 +115,7 @@ private
   end
 
   def requested_step
+    # debugger
     request.env["PATH_INFO"][1..]
   end
 
@@ -199,9 +199,9 @@ private
   end
 
   def next_step
+    # debugger
     redirect = nil
     index = current_index + 1
-
     if index >= STEPS.size
       step = "check-answers"
       session[:history] << step unless session[:history].include?(step)
@@ -230,6 +230,7 @@ private
       redirect = "/"
     else
       while redirect.nil?
+        # debugger
         next_to_try = STEPS[index - 1].to_s
         if session[:history].include?(next_to_try)
           redirect = "/#{next_to_try}"
