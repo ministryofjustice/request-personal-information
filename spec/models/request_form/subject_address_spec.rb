@@ -30,5 +30,20 @@ RSpec.describe RequestForm::SubjectAddress, type: :model do
         expect(form_object.request.subject_proof_of_address_id).to eq(valid_proof_attachment.id)
       end
     end
+
+    context "when file types are invalid" do
+      let!(:invalid_proof_attachment) do
+        Attachment.create(file: fixture_file_upload(Rails.root.join("spec/fixtures/files/invalid_image.txt"), "plain/txt"), key: "subject_proof_of_address")
+      end
+
+      before do
+        information_request.subject_proof_of_address_id = invalid_proof_attachment.id
+        form_object.request = information_request
+      end
+
+      it "is invalid with an incorrect file type" do
+        expect(form_object.request.subject_proof_of_address_id).to eq(invalid_proof_attachment.id)
+      end
+    end
   end
 end
