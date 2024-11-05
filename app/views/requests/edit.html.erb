@@ -11,8 +11,7 @@
       <%= yield :form_content %>
       <%= f.govuk_submit %>
 
-      <%# Render details section if self_details translation exists %>
-      <% if t("request_form.#{@form.name}.self_title") %>
+      <% if I18n.exists?("request_form.#{@form.name}.self_title") %>
         <details class="govuk-details">
           <summary class="govuk-details__summary">
             <span class="govuk-details__summary-text">
