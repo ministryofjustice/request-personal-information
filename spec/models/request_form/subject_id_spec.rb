@@ -45,17 +45,17 @@ RSpec.describe RequestForm::SubjectId, type: :model do
     end
 
     context "when file types are invalid" do
-      let!(:valid_photo_attachment) do
+      let!(:invalid_photo_attachment) do
         Attachment.create(file: fixture_file_upload(Rails.root.join("spec/fixtures/files/invalid_image.txt"), "plain/txt"), key: "subject_photo")
       end
 
       before do
-        information_request.subject_photo_id = valid_photo_attachment.id
+        information_request.subject_photo_id = invalid_photo_attachment.id
         form_object.request = information_request
       end
 
       it "is invalid with a incorrect file type" do
-        expect(form_object.request.subject_photo_id).to eq(valid_photo_attachment.id)
+        expect(form_object.request.subject_photo_id).to eq(invalid_photo_attachment.id)
       end
     end
   end
