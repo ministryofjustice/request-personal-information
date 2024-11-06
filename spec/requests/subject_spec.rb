@@ -242,22 +242,63 @@ RSpec.describe "Subject", type: :request do
         it "renders the upload your photo ID page" do
           expect(response).to render_template(:edit)
           expect(response.body).to include("Upload your photo ID")
+          expect(response.body).to include("For example, a driving licence or passport")
+        end
+
+        it "renders the upload your proof of address page" do
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("Upload your proof of address")
+          expect(response.body).to include("For example, an electricity or council tax bill")
+        end
+      end
+
+      context "when submitting form with valid photo id data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { subject_photo: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the associated ID to the session" do
+          patch "/request", params: { request_form: { subject_photo: valid_data } }
+          expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
+        end
+      end
+
+      context "when submitting form with valid proof of address data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { subject_proof_of_address: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the associated ID to the session" do
+          patch "/request", params: { request_form: { subject_photo: valid_data, subject_proof_of_address: valid_data } }
+          expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
+          expect(request.session[:information_request][:subject_proof_of_address_id]).to be_an Integer
         end
       end
 
       context "when submitting form with invalid data" do
-        it "renders page with error message" do
+        it "renders photo id page with error message" do
           patch "/request", params: { request_form: { subject_photo: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Select a photo ID")
         end
+
+
+        it "renders proof of address page with error message" do
+          patch "/request", params: { request_form: { subject_proof_of_address: invalid_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Select a proof of address")
+        end
+
       end
 
       it_behaves_like "question with back link"
     end
 
-    context "when returning to page" do
+    context "when returning to photo id page" do
       let(:photo_upload) { create(:attachment) }
       let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id) }
 
@@ -266,8 +307,24 @@ RSpec.describe "Subject", type: :request do
         get "/#{current_step}"
       end
 
-      it "doesn't require repeat upload" do
+      it "doesn't require repeat photo id upload" do
         patch "/request", params: { request_form: { subject_photo_id: photo_upload.id } }
+        expect(response).to redirect_to(next_step)
+      end
+    end
+
+    context "when returning to proof of address page" do
+      let(:photo_upload) { create(:attachment) }
+      let(:address_upload) { create(:attachment) }
+      let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id, subject_proof_of_address_id: address_upload.id) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+        get "/#{current_step}"
+      end
+
+      it "doesn't require repeat proof of address upload" do
+        patch "/request", params: { request_form: { subject_proof_of_address_id: address_upload.id } }
         expect(response).to redirect_to(next_step)
       end
     end
@@ -281,8 +338,8 @@ RSpec.describe "Subject", type: :request do
     it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:previous_step) { "subject-id" }
-      let(:next_step) { "/moj" }
+      let(:previous_step) { "subject-address" }
+      let(:next_step) { "/subject-id-check" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 

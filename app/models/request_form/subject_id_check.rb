@@ -24,8 +24,6 @@ module RequestForm
         attachment_proof = Attachment.find(request.subject_proof_of_address_id)
         attachment_proof.destroy!
         request.subject_proof_of_address_id = nil
-
-        # self.back = true
       end
     end
   end

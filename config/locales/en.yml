@@ -117,17 +117,14 @@ en:
           attributes:
             subject_photo:
               blank: Select a photo ID
-              invalid_file_type: The selected file must be a PDF, image (jpg, .jpeg, .png) or Microsoft Word document (.doc, .docx)
         request_form/subject_address:
           attributes:
             subject_proof_of_address:
               blank: Select a proof of address
-              invalid_file_type: The selected file must be a PDF, image (jpg, .jpeg, .png) or Microsoft Word document (.doc, .docx)
         request_form/subject_id_check:
           attributes:
             subject_id_check:
               blank: Enter an answer if these uploads are correct
-              invalid_file_type: The selected file must be a PDF, image (jpg, .jpeg, .png) or Microsoft Word document (.doc, .docx)
         request_form/subject_relationship:
           attributes:
             relationship:

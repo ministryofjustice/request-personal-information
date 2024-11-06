@@ -42,6 +42,7 @@ class RequestsController < ApplicationController
 
   def show
     redirect_to root_path and return if session[:history].nil?
+
     unless session[:history].include?(requested_step)
       redirect_to "/#{session[:current_step]}" and return
     end
@@ -49,6 +50,7 @@ class RequestsController < ApplicationController
     @information_request = InformationRequest.new(session[:information_request])
 
     unless @information_request.valid?
+      # Force the user to complete the form again if it's not valid
       session[:history] = [STEPS.first]
       redirect_to "/#{STEPS.first}" and return
     end
@@ -212,6 +214,7 @@ private
   def next_step
     redirect = nil
     index = current_index + 1
+
     if index >= STEPS.size
       step = "check-answers"
       session[:history] << step unless session[:history].include?(step)
