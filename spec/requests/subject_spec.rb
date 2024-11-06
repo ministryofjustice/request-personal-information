@@ -285,14 +285,12 @@ RSpec.describe "Subject", type: :request do
           expect(response.body).to include("Select a photo ID")
         end
 
-
         it "renders proof of address page with error message" do
           patch "/request", params: { request_form: { subject_proof_of_address: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Select a proof of address")
         end
-
       end
 
       it_behaves_like "question with back link"
