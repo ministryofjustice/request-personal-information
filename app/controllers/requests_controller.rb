@@ -41,6 +41,8 @@ class RequestsController < ApplicationController
   end
 
   def show
+    # debugger
+
     redirect_to root_path and return if session[:history].nil?
     unless session[:history].include?(requested_step)
       redirect_to "/#{session[:current_step]}" and return
@@ -58,6 +60,7 @@ class RequestsController < ApplicationController
 
   def edit
     redirect_to root_path and return if session[:history].nil?
+
     unless session[:history].include?(requested_step)
       redirect_to "/#{session[:current_step]}" and return
     end
@@ -72,6 +75,10 @@ class RequestsController < ApplicationController
 
     set_objects
     @form.assign_attributes(request_params)
+    if request_params[:subject_id_check] == "no"
+      redirect_to "/subject-id" and return
+    end
+    # debugger
     @information_request.assign_attributes(@form.saveable_attributes)
     set_form_attributes
 
@@ -107,6 +114,17 @@ class RequestsController < ApplicationController
   def complete; end
 
 private
+  def check_subject_id_submission
+    # debugger
+    # request_params = params.require(:request_form).permit(:subject_id_check, :default)
+
+    if request_params[:subject_id_check].present?
+      request_params = params.require(:request_form).permit(:subject_id_check, :default)
+      if request_params[:subject_id_check] == "no"
+        redirect_to "/subject-id" and return
+      end
+    end
+  end
 
   def enable_back_button
     response.headers["Cache-Control"] = "no-store, no-cache"
