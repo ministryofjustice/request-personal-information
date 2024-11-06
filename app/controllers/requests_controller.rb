@@ -41,8 +41,6 @@ class RequestsController < ApplicationController
   end
 
   def show
-    # debugger
-
     redirect_to root_path and return if session[:history].nil?
     unless session[:history].include?(requested_step)
       redirect_to "/#{session[:current_step]}" and return
@@ -78,7 +76,7 @@ class RequestsController < ApplicationController
     if request_params[:subject_id_check] == "no"
       redirect_to "/subject-id" and return
     end
-    # debugger
+
     @information_request.assign_attributes(@form.saveable_attributes)
     set_form_attributes
 
@@ -114,10 +112,8 @@ class RequestsController < ApplicationController
   def complete; end
 
 private
-  def check_subject_id_submission
-    # debugger
-    # request_params = params.require(:request_form).permit(:subject_id_check, :default)
 
+  def check_subject_id_submission
     if request_params[:subject_id_check].present?
       request_params = params.require(:request_form).permit(:subject_id_check, :default)
       if request_params[:subject_id_check] == "no"
