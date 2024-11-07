@@ -107,7 +107,7 @@ en:
         request_form/subject:
           attributes:
             subject:
-              blank: "Select if you are requesting your own information or someone else's"
+              blank: Select if you are requesting your own information or someone else's
         request_form/subject_date_of_birth:
           attributes:
             form_date_of_birth:
@@ -237,7 +237,7 @@ en:
     requester_id: Upload your ID
     requester_id_check: Check your upload
     solicitor_details: Your details
-    subject: "Are you requesting your own information or someone else's?"
+    subject: Are you requesting your own information or someone else's?
     subject_date_of_birth:
         other: What is their date of birth?
         self: What is your date of birth?
