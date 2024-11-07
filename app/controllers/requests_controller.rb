@@ -75,9 +75,6 @@ class RequestsController < ApplicationController
 
     set_objects
     @form.assign_attributes(request_params)
-    if request_params[:subject_id_check] == "no"
-      redirect_to "/subject-id" and return
-    end
 
     @information_request.assign_attributes(@form.saveable_attributes)
     set_form_attributes
@@ -114,15 +111,6 @@ class RequestsController < ApplicationController
   def complete; end
 
 private
-
-  def check_subject_id_submission
-    if request_params[:subject_id_check].present?
-      request_params = params.require(:request_form).permit(:subject_id_check, :default)
-      if request_params[:subject_id_check] == "no"
-        redirect_to "/subject-id" and return
-      end
-    end
-  end
 
   def enable_back_button
     response.headers["Cache-Control"] = "no-store, no-cache"
@@ -243,7 +231,8 @@ private
       redirect = "/"
     else
       while redirect.nil?
-        next_to_try = STEPS[index - 1].to_s
+        steps_back = form_object.back || 1
+        next_to_try = STEPS[index - steps_back].to_s if (index - steps_back) >= 0
         if session[:history].include?(next_to_try)
           redirect = "/#{next_to_try}"
         end
