@@ -75,7 +75,7 @@ RSpec.describe "Data required from probation service", type: :request do
           patch "/request", params: { request_form: { default: 1 } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter an answer for")
+          expect(response.body).to include("Select the probation service information you want")
         end
       end
 
