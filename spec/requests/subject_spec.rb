@@ -36,7 +36,7 @@ RSpec.describe "Subject", type: :request do
           patch "/request", params: { request_form: { subject: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include(CGI.escapeHTML("Choose if you're requesting information for yourself or for someone else"))
+          expect(response.body).to include(CGI.escapeHTML("Select if you are requesting your own information or someone else's"))
         end
       end
 
@@ -200,7 +200,7 @@ RSpec.describe "Subject", type: :request do
             patch "/request", params: { request_form: { relationship: invalid_data } }
             expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
-            expect(response.body).to include(CGI.escapeHTML("Choose if you're a legal representative or a relative, friend or something else"))
+            expect(response.body).to include(CGI.escapeHTML("Select your relationship to the person whose information you are requesting"))
           end
         end
 

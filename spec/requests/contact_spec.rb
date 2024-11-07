@@ -77,7 +77,7 @@ RSpec.describe "contact information", type: :request do
           patch "/request", params: { request_form: { contact_email: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter a valid email")
+          expect(response.body).to include("Enter an email address in the correct format, like name@example.com")
         end
       end
 
@@ -125,7 +125,7 @@ RSpec.describe "contact information", type: :request do
           patch "/request", params: { request_form: { upcoming_court_case: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Choose if you need this information for an upcoming court date or hearing")
+          expect(response.body).to include("Select if you need this information for an upcoming court case or hearing")
         end
       end
 
@@ -149,7 +149,7 @@ RSpec.describe "contact information", type: :request do
             patch "/request", params: { request_form: { upcoming_court_case: "yes" } }
             expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
-            expect(response.body).to include("Provide more details")
+            expect(response.body).to include(CGI.escapeHTML("Provide more details of the court case or hearing, such as when it's happening"))
           end
         end
       end

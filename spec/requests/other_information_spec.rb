@@ -29,7 +29,7 @@ RSpec.describe "Which data is required", type: :request do
           patch "/request", params: { request_form: { moj: [] } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Choose where you want information from")
+          expect(response.body).to include("Select where you want information from")
         end
       end
 
@@ -77,7 +77,7 @@ RSpec.describe "Which data is required", type: :request do
           patch "/request", params: { request_form: { laa_text: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter what information you want")
+          expect(response.body).to include("Describe the information you want from the Legal Aid Agency")
         end
       end
 
@@ -171,7 +171,7 @@ RSpec.describe "Which data is required", type: :request do
           patch "/request", params: { request_form: { opg_text: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter what information you want")
+          expect(response.body).to include("Describe the information you want from the Office of the Public Guardian")
         end
       end
 
@@ -313,7 +313,7 @@ RSpec.describe "Which data is required", type: :request do
           patch "/request", params: { request_form: { moj_other_text: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter what information you want")
+          expect(response.body).to include("Describe the information you want from somewhere else in the Ministry of Justice")
         end
       end
 
