@@ -225,8 +225,8 @@ private
 
   def previous_step
     redirect = nil
-    p steps_back = form_object.back ? 1 : 2
-    p steps: steps_back
+    steps_back = ( @form&.back.present? || @form&.back ) ? 2 : 1
+
     index = current_index - steps_back
 
     if index <= 0
