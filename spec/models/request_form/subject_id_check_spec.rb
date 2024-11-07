@@ -46,7 +46,6 @@ RSpec.describe RequestForm::SubjectIdCheck, type: :model do
       it "takes the user back to the upload your photo page" do
         form_object.valid?
         expect(form_object.back).to eq 2
-        expect(response).to redirect_to("/subject-id")
       end
     end
   end

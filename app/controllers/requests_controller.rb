@@ -225,7 +225,9 @@ private
 
   def previous_step
     redirect = nil
-    index = current_index - form_object.back
+    p steps_back = form_object.back ? 1 : 2
+    p steps: steps_back
+    index = current_index - steps_back
 
     if index <= 0
       redirect = "/"
