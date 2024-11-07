@@ -4,7 +4,7 @@ module RequestForm
     attribute :other_names, :string
 
     validates :full_name, presence: {
-      message: lambda do
+      message: lambda do |object, _|
         if object.request.for_self?
           "Enter your full name"
         else
