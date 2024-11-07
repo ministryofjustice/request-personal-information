@@ -225,14 +225,13 @@ private
 
   def previous_step
     redirect = nil
-    index = current_index
+    index = current_index - form_object.back
 
-    if index.zero?
+    if index <= 0
       redirect = "/"
     else
       while redirect.nil?
-        steps_back = form_object.back || 1
-        next_to_try = STEPS[index - steps_back].to_s if (index - steps_back) >= 0
+        next_to_try = STEPS[index].to_s
         if session[:history].include?(next_to_try)
           redirect = "/#{next_to_try}"
         end
