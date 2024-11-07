@@ -242,23 +242,17 @@ RSpec.describe "Subject", type: :request do
 
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("Upload your ID")
-          expect(response.body).to include("For example, a copy of your driving licence or passport")
-          expect(response.body).to include("For example an electricity or council tax bill in your name")
-
-          before do
-            set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
-            get "/#{current_step}"
-          end
+          expect(response.body).to include("Upload their photo ID")
+          expect(response.body).to include("For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB.")
         end
+
 
         context "when submitting form with invalid data" do
           it "renders page with error message" do
-            patch "/request", params: { request_form: { subject_photo: invalid_data, subject_proof_of_address: invalid_data } }
+            patch "/request", params: { request_form: { subject_photo: invalid_data } }
             expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
             expect(response.body).to include("Add a file for Photo ID")
-            expect(response.body).to include("Add a file for Proof of address")
           end
         end
 
@@ -273,7 +267,7 @@ RSpec.describe "Subject", type: :request do
             end
 
             it "goes to next step" do
-              patch "/request", params: { request_form: { subject_photo: valid_data, subject_proof_of_address: valid_data } }
+              patch "/request", params: { request_form: { subject_photo: valid_data } }
               expect(response).to redirect_to(next_step)
             end
 
@@ -283,7 +277,7 @@ RSpec.describe "Subject", type: :request do
             end
 
             it "saves the associated ID to the session" do
-              patch "/request", params: { request_form: { subject_photo: valid_data, subject_proof_of_address: valid_data } }
+              patch "/request", params: { request_form: { subject_photo: valid_data } }
               expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
               expect(request.session[:information_request][:subject_proof_of_address_id]).to be_an Integer
             end
