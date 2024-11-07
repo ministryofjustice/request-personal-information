@@ -236,8 +236,12 @@ RSpec.describe "Subject", type: :request do
         end
       end
 
-      context "when requesting data for self" do
+      context "when requesting data for self upload photo" do
         let(:information_request) { build(:information_request_for_self) }
+        let(:current_step) { "subject-id" }
+        let(:previous_step) { "subject-date-of-birth" }
+        let(:next_step) { "/subject-address" }
+
 
         it "renders the upload your photo ID page" do
           expect(response).to render_template(:edit)
@@ -245,44 +249,35 @@ RSpec.describe "Subject", type: :request do
           expect(response.body).to include("For example, a driving licence or passport")
         end
 
-        it "renders the upload your proof of address page" do
-          expect(response).to render_template(:edit)
-          expect(response.body).to include("Upload your proof of address")
-          expect(response.body).to include("For example, an electricity or council tax bill")
-        end
-      end
-
-      context "when submitting form with valid photo id data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { subject_photo: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the associated ID to the session" do
-          patch "/request", params: { request_form: { subject_photo: valid_data } }
-          expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
-        end
-      end
-
-      context "when submitting form with valid proof of address data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { subject_proof_of_address: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the associated ID to the session" do
-          patch "/request", params: { request_form: { subject_photo: valid_data, subject_proof_of_address: valid_data } }
-          expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
-          expect(request.session[:information_request][:subject_proof_of_address_id]).to be_an Integer
-        end
-      end
-
-      context "when submitting form with invalid data" do
         it "renders photo id page with error message" do
+          debugger
           patch "/request", params: { request_form: { subject_photo: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Select a photo ID")
+        end
+
+        it "goes to next step" do
+          patch "/request", params: { request_form: { subject_photo: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the associated ID to the session" do
+          patch "/request", params: { request_form: { subject_photo: valid_data } }
+          expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
+        end
+      end
+
+      context "when requesting data for self upload address" do
+        let(:information_request) { build(:information_request_for_self) }
+        let(:current_step) { "subject-address" }
+        let(:previous_step) { "subject-id" }
+        let(:next_step) { "/subject-id-check" }
+
+        it "renders the upload your proof of address page" do
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("Upload your proof of address")
+          expect(response.body).to include("For example, an electricity or council tax bill")
         end
 
         it "renders proof of address page with error message" do
@@ -291,40 +286,170 @@ RSpec.describe "Subject", type: :request do
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Select a proof of address")
         end
+
+        it "goes to next step" do
+          patch "/request", params: { request_form: { subject_proof_of_address: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the associated ID to the session" do
+          patch "/request", params: { request_form: { subject_photo: valid_data, subject_proof_of_address: valid_data } }
+          expect(request.session[:information_request][:subject_proof_of_address_id]).to be_an Integer
+        end
+      end
+
+      context "when returning to photo id page" do
+        let(:photo_upload) { create(:attachment) }
+        let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id) }
+
+        before do
+          set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+          get "/#{current_step}"
+        end
+
+        it "doesn't require repeat photo id upload" do
+          patch "/request", params: { request_form: { subject_photo_id: photo_upload.id } }
+          expect(response).to redirect_to(next_step)
+        end
+      end
+
+      context "when returning to upload your proof of address page" do
+        let(:photo_upload) { create(:attachment) }
+        let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id) }
+
+        before do
+          set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+          get "/#{current_step}"
+        end
+
+        it "doesn't require repeat photo id upload" do
+          patch "/request", params: { request_form: { subject_photo_id: photo_upload.id } }
+          expect(response).to redirect_to(next_step)
+        end
       end
 
       it_behaves_like "question with back link"
     end
+  end
 
-    context "when returning to photo id page" do
-      let(:photo_upload) { create(:attachment) }
-      let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id) }
+  describe "/subject-address" do
+    let(:information_request) { build(:information_request_for_other) }
+    let(:current_step) { "subject-id" }
+    let(:previous_step) { "requester-id" }
+    let(:next_step) { "/subject-address" }
 
-      before do
-        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
-        get "/#{current_step}"
-      end
+    it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
 
-      it "doesn't require repeat photo id upload" do
-        patch "/request", params: { request_form: { subject_photo_id: photo_upload.id } }
-        expect(response).to redirect_to(next_step)
-      end
-    end
-
-    context "when returning to proof of address page" do
-      let(:photo_upload) { create(:attachment) }
-      let(:address_upload) { create(:attachment) }
-      let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id, subject_proof_of_address_id: address_upload.id) }
+    context "when session in progress" do
+      let(:valid_data) { fixture_file_upload("file.jpg") }
+      let(:invalid_data) { nil }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
         get "/#{current_step}"
       end
 
-      it "doesn't require repeat proof of address upload" do
-        patch "/request", params: { request_form: { subject_proof_of_address_id: address_upload.id } }
-        expect(response).to redirect_to(next_step)
+      context "when requesting data for someone else" do
+        it "renders the expected page" do
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("Upload their photo ID")
+          expect(response.body).to include("For example, a driving licence or passport")
+        end
       end
+
+      context "when requesting data for self" do
+        let(:information_request) { build(:information_request_for_self) }
+        let(:current_step) { "subject-id" }
+        let(:previous_step) { "subject-date-of-birth" }
+        let(:next_step) { "/subject-address" }
+
+
+        it "renders the upload your photo ID page" do
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("Upload your photo ID")
+          expect(response.body).to include("For example, a driving licence or passport")
+        end
+
+        it "renders photo id page with error message" do
+          patch "/request", params: { request_form: { subject_photo: invalid_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Select a photo ID")
+        end
+
+        it "goes to next step" do
+          patch "/request", params: { request_form: { subject_photo: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the associated ID to the session" do
+          patch "/request", params: { request_form: { subject_photo: valid_data } }
+          expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
+        end
+      end
+
+      context "when requesting data for self upload address" do
+        let(:information_request) { build(:information_request_for_self) }
+        let(:current_step) { "subject-address" }
+        let(:previous_step) { "subject-id" }
+        let(:next_step) { "/subject-id-check" }
+
+        it "renders the upload your proof of address page" do
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("Upload your proof of address")
+          expect(response.body).to include("For example, an electricity or council tax bill")
+        end
+
+        it "renders proof of address page with error message" do
+          patch "/request", params: { request_form: { subject_proof_of_address: invalid_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Select a proof of address")
+        end
+
+        it "goes to next step" do
+          patch "/request", params: { request_form: { subject_proof_of_address: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the associated ID to the session" do
+          patch "/request", params: { request_form: { subject_photo: valid_data, subject_proof_of_address: valid_data } }
+          expect(request.session[:information_request][:subject_proof_of_address_id]).to be_an Integer
+        end
+      end
+
+      context "when returning to photo id page" do
+        let(:photo_upload) { create(:attachment) }
+        let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id) }
+
+        before do
+          set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+          get "/#{current_step}"
+        end
+
+        it "doesn't require repeat photo id upload" do
+          patch "/request", params: { request_form: { subject_photo_id: photo_upload.id } }
+          expect(response).to redirect_to(next_step)
+        end
+      end
+
+      context "when returning to upload your proof of address page" do
+        let(:photo_upload) { create(:attachment) }
+        let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id) }
+
+        before do
+          set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+          get "/#{current_step}"
+        end
+
+        it "doesn't require repeat proof of address upload" do
+          patch "/request", params: { request_form: { subject_proof_of_address_id: proof_of_address_upload.id } }
+          expect(response).to redirect_to(next_step)
+        end
+      end
+
+      it_behaves_like "question with back link"
     end
   end
 
@@ -373,8 +498,9 @@ RSpec.describe "Subject", type: :request do
           expect(response).to redirect_to("/subject-id")
         end
       end
+    end
 
       it_behaves_like "question with back link"
     end
-  end
+
 end
