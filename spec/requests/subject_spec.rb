@@ -246,7 +246,6 @@ RSpec.describe "Subject", type: :request do
           expect(response.body).to include("For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB.")
         end
 
-
         context "when submitting form with invalid data" do
           it "renders page with error message" do
             patch "/request", params: { request_form: { subject_photo: invalid_data } }
