@@ -95,7 +95,7 @@ RSpec.describe "Subject", type: :request do
             patch "/request", params: { request_form: { full_name: invalid_data } }
             expect(response).to render_template(:edit)
             expect(response.body).to include("There is a problem")
-            expect(response.body).to include("Enter their full name")
+            expect(response.body).to include("Enter the full name of the person whose information you are requesting")
           end
         end
       end
