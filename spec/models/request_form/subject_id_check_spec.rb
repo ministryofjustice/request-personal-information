@@ -23,9 +23,9 @@ RSpec.describe RequestForm::SubjectIdCheck, type: :model do
       let(:attachment_photo) { create(:attachment, key: "subject_photo") }
 
       it "does not remove the attachment" do
-        expect(information_request.subject_photo).to eq Attachment.find(attachment_photo.id)
-        expect(information_request.subject_proof_of_address).to eq Attachment.find(attachment_address.id)
         form_object.valid?
+        expect(information_request.subject_photo_id).to eq attachment_photo.id
+        expect(information_request.subject_proof_of_address_id).to eq attachment_address.id
       end
 
       it "does not change back value" do
