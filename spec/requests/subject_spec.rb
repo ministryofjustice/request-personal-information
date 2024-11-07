@@ -240,25 +240,53 @@ RSpec.describe "Subject", type: :request do
         let(:photo_upload) { create(:attachment) }
         let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id) }
 
-        before do
-          set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
-          get "/#{current_step}"
+        it "renders the expected page" do
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("Upload your ID")
+          expect(response.body).to include("For example, a copy of your driving licence or passport")
+          expect(response.body).to include("For example an electricity or council tax bill in your name")
+
+          before do
+            set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+            get "/#{current_step}"
+          end
+        end
+
+        context "when submitting form with invalid data" do
+          it "renders page with error message" do
+            patch "/request", params: { request_form: { subject_photo: invalid_data, subject_proof_of_address: invalid_data } }
+            expect(response).to render_template(:edit)
+            expect(response.body).to include("There is a problem")
+            expect(response.body).to include("Add a file for Photo ID")
+            expect(response.body).to include("Add a file for Proof of address")
+          end
         end
 
         context "when returning to upload your proof of address page" do
           let(:photo_upload) { create(:attachment) }
           let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id) }
 
-          before do
-            set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
-            get "/#{current_step}"
-          end
+          context "when submitting form with valid data" do
+            it "goes to next step" do
+              patch "/request", params: { request_form: { subject_photo: valid_data, subject_proof_of_address: valid_data } }
+              expect(response).to redirect_to(next_step)
+            end
 
-          it "doesn't require repeat photo id upload" do
-            patch "/request", params: { request_form: { subject_photo_id: photo_upload.id } }
-            expect(response).to redirect_to(next_step)
-          end
-        end
+            before do
+              set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+              get "/#{current_step}"
+            end
+
+            it "repeat photo id upload" do
+              patch "/request", params: { request_form: { subject_photo_id: photo_upload.id } }
+              expect(response).to redirect_to(next_step)
+            end
+
+            it "saves the associated ID to the session" do
+              patch "/request", params: { request_form: { subject_photo: valid_data, subject_proof_of_address: valid_data } }
+              expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
+              expect(request.session[:information_request][:subject_proof_of_address_id]).to be_an Integer
+            end
       end
 
       it_behaves_like "question with back link"
@@ -309,7 +337,7 @@ RSpec.describe "Subject", type: :request do
             get "/#{current_step}"
           end
 
-          it "doesn't require repeat photo id upload" do
+          it "renders photo id upload" do
             patch "/request", params: { request_form: { subject_proof_of_address_id: proof_of_address_upload.id } }
             expect(response).to redirect_to(next_step)
           end
@@ -366,7 +394,32 @@ RSpec.describe "Subject", type: :request do
         end
       end
 
+      context "when the user wants to change uploads" do
+        it "goes to the upload photo id step" do
+          patch "/request", params: { request_form: { subject_id_check: "no" } }
+          expect(response).to redirect_to("/subject-id")
+        end
+      end
+
+      context "when the user wants to continue with uploads" do
+        it "goes to the where do you want information from page" do
+          patch "/request", params: { request_form: { subject_id_check: "yes" } }
+          expect(response).to redirect_to("/moj")
+        end
+      end
+
+      context "when the user doesn't answer if the are the correct uploads" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { subject_id_check: "" } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter an answer if these uploads are correct")
+        end
+      end
+
       it_behaves_like "question with back link"
     end
+  end
+end
   end
 end
