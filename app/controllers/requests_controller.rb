@@ -81,7 +81,7 @@ class RequestsController < ApplicationController
 
     if @form.valid?
       session[:information_request] = @information_request.to_hash
-      @form.back.nil? ? next_step : previous_step
+      @form.back.nil? ? next_step : previous_step(@form.back)
     else
       render :edit
     end
@@ -223,13 +223,12 @@ private
     redirect_to redirect and return
   end
 
-  def previous_step
+  def previous_step(steps_back = 1)
     redirect = nil
-    steps_back = @form.back? ? @form.back : 1
-
     index = current_index - steps_back
 
-    if index <= 0
+    if index.negative?
+      puts current_index
       redirect = "/"
     else
       while redirect.nil?
