@@ -10,20 +10,8 @@
       </h1>
       <%= yield :form_content %>
       <%= f.govuk_submit %>
-
-      <% if I18n.exists?("request_form.#{@form.name}.self_title") %>
-        <details class="govuk-details">
-          <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">
-              <%= t("request_form.#{@form.name}.self_title") %>
-            </span>
-          </summary>
-          <div class="govuk-details__text">
-            <p>
-              <%= t("request_form.#{@form.name}.self_details") %>
-            </p>
-          </div>
-        </details>
+      <% if content_for?(:text) || t("request_form.#{@form.name}.self_details", default: '').present? %>
+        <%= govuk_details(summary_text: t("request_form.#{@form.name}.self_title"), text: t("request_form.#{@form.name}.self_details")) %>
       <% end %>
     <% end %>
   </div>
