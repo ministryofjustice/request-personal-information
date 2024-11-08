@@ -20,7 +20,6 @@ RSpec.describe RequestForm::SubjectIdCheck, type: :model do
 
     context "when upload is correct" do
       let(:check) { "yes" }
-      let(:attachment_photo) { create(:attachment, key: "subject_photo") }
 
       it "does not remove the attachment" do
         form_object.valid?

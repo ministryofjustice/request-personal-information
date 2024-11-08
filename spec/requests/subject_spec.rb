@@ -238,7 +238,7 @@ RSpec.describe "Subject", type: :request do
 
       context "when requesting data for self" do
         let(:photo_upload) { create(:attachment) }
-        let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id) }
+        let(:information_request) { build(:information_request_for_self, subject_photo_id: photo_upload.id) }
 
         it "renders the expected page" do
           expect(response).to render_template(:edit)
@@ -255,9 +255,9 @@ RSpec.describe "Subject", type: :request do
           end
         end
 
-        context "when returning to upload your proof of address page" do
+        context "when submitting form with valid data" do
           let(:photo_upload) { create(:attachment) }
-          let(:information_request) { build(:information_request_by_friend, subject_photo_id: photo_upload.id) }
+          let(:information_request) { build(:information_request_for_self), subject_photo_id: photo_upload.id) }
 
           context "when submitting form with valid data" do
             before do
@@ -265,27 +265,30 @@ RSpec.describe "Subject", type: :request do
               get "/#{current_step}"
             end
 
-            it "goes to next step" do
-              patch "/request", params: { request_form: { photo_upload: valid_data } }
-              expect(response).to redirect_to(next_step)
-            end
-
-            it "photo id upload" do
-              patch "/request", params: { request_form: { subject_photo_id: photo_upload.id } }
-              expect(response).to redirect_to(next_step)
-            end
-
             it "saves the associated ID to the session" do
               patch "/request", params: { request_form: { photo_upload: valid_data } }
               expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
             end
           end
-
-          it_behaves_like "question with back link"
         end
+
+        it_behaves_like "question with back link"
       end
 
+      context "when returning to page" do
+        let(:photo_upload) { create(:attachment) }
+        let(:information_request) { build(:information_request_for_self), subject_photo_id: photo_upload.id, subject_proof_of_address_id: address_upload.id) }
 
+        before do
+          set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+          get "/#{current_step}"
+        end
+
+        it "doesn't require repeat upload" do
+          patch "/request", params: { request_form: { subject_photo_id: photo_upload.id } }
+          expect(response).to redirect_to(next_step)
+        end
+      end
     end
   end
 
