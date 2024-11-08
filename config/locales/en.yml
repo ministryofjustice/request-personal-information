@@ -9,11 +9,11 @@ en:
         request_form/contact_email:
           attributes:
             contact_email:
-              invalid: Enter a valid email
+              invalid: Enter an email address in the correct format, like name@example.com
         request_form/laa:
           attributes:
             laa_text:
-              blank: Enter what information you want
+              blank: Describe the information you want from the Legal Aid Agency
         request_form/laa_dates:
           attributes:
             form_laa_date_from:
@@ -31,11 +31,11 @@ en:
         request_form/moj:
           attributes:
             moj:
-              blank: Choose where you want information from
+              blank: Select where you want information from
         request_form/opg:
           attributes:
             opg_text:
-              blank: Enter what information you want
+              blank: Describe the information you want from the Office of the Public Guardian
         request_form/opg_dates:
           attributes:
             form_opg_date_from:
@@ -49,7 +49,7 @@ en:
         request_form/other:
           attributes:
             moj_other_text:
-              blank: Enter what information you want
+              blank: Describe the information you want from somewhere else in the Ministry of Justice
         request_form/other_dates:
           attributes:
             form_moj_other_date_from:
@@ -65,9 +65,9 @@ en:
         request_form/prison_information:
           attributes:
             prison_data:
-              blank: Enter an answer for "What prison service information do you want?"
+              blank: Select the prison service information you want
             prison_other_data_text:
-              blank: Enter an answer for "What other prison service information do you want?"
+              blank: Describe what other prison service information you want
         request_form/prison_location:
           attributes:
             currently_in_prison:
@@ -87,9 +87,9 @@ en:
         request_form/probation_information:
           attributes:
             probation_data:
-              blank: Enter an answer for "What probation service information do you want?"
+              blank: Select the probation service information you want
             probation_other_data_text:
-              blank: Enter an answer for "What other probation service information do you want?"
+              blank: Describe what other probation service information you want
         request_form/requester_details:
           attributes:
             requester_name:
@@ -107,7 +107,7 @@ en:
         request_form/subject:
           attributes:
             subject:
-              blank: "Choose if you're requesting information for yourself or for someone else"
+              blank: Select if you are requesting your own information or someone else's
         request_form/subject_date_of_birth:
           attributes:
             form_date_of_birth:
@@ -128,7 +128,7 @@ en:
         request_form/subject_relationship:
           attributes:
             relationship:
-              blank: "Choose if you're a legal representative or a relative, friend or something else"
+              blank: Select your relationship to the person whose information you are requesting
         request_form/solicitor_details:
           attributes:
             organisation_name:
@@ -136,9 +136,9 @@ en:
         request_form/upcoming:
           attributes:
             upcoming_court_case:
-              blank: Choose if you need this information for an upcoming court date or hearing
+              blank: Select if you need this information for an upcoming court case or hearing
             upcoming_court_case_text:
-              blank: Provide more details
+              blank: Provide more details of the court case or hearing, such as when it's happening
 
   helpers:
     label:
@@ -239,7 +239,7 @@ en:
     requester_details: Requester Details
     requester_id_check: Check your upload
     solicitor_details: Your details
-    subject: "Are you requesting your own information or someone else's?"
+    subject: Are you requesting your own information or someone else's?
     subject_date_of_birth:
         other: What is their date of birth?
         self: What is your date of birth?
