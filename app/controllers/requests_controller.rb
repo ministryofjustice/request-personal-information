@@ -228,7 +228,6 @@ private
     index = current_index - steps_back
 
     if index.negative?
-      puts current_index
       redirect = "/"
     else
       while redirect.nil?

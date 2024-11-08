@@ -276,7 +276,7 @@ RSpec.describe "Subject", type: :request do
 
       context "when returning to page" do
         let(:photo_upload) { create(:attachment) }
-        let(:information_request) { build(:information_request_for_self, subject_photo_id: photo_upload.id ) }
+        let(:information_request) { build(:information_request_for_self, subject_photo_id: photo_upload.id) }
 
         before do
           set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
