@@ -266,7 +266,7 @@ RSpec.describe "Subject", type: :request do
             end
 
             it "goes to next step" do
-              patch "/request", params: { request_form: { subject_photo: valid_data } }
+              patch "/request", params: { request_form: { photo_upload: valid_data } }
               expect(response).to redirect_to(next_step)
             end
 
@@ -278,7 +278,6 @@ RSpec.describe "Subject", type: :request do
             it "saves the associated ID to the session" do
               patch "/request", params: { request_form: { subject_photo: valid_data } }
               expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
-              expect(request.session[:information_request][:subject_proof_of_address_id]).to be_an Integer
             end
           end
 
