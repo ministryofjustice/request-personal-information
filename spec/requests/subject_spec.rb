@@ -270,13 +270,13 @@ RSpec.describe "Subject", type: :request do
               expect(response).to redirect_to(next_step)
             end
 
-            it "repeat photo id upload" do
+            it "photo id upload" do
               patch "/request", params: { request_form: { subject_photo_id: photo_upload.id } }
               expect(response).to redirect_to(next_step)
             end
 
             it "saves the associated ID to the session" do
-              patch "/request", params: { request_form: { subject_photo: valid_data } }
+              patch "/request", params: { request_form: { photo_upload: valid_data } }
               expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
             end
           end
