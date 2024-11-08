@@ -268,7 +268,6 @@ RSpec.describe "Subject", type: :request do
       end
 
       it_behaves_like "question with back link"
-
     end
 
     context "when returning to page" do
@@ -314,7 +313,6 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting data for self" do
-
         let(:information_request) { build(:information_request_by_friend) }
 
         it "renders the expected page" do
