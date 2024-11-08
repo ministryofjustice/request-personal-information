@@ -262,7 +262,7 @@ RSpec.describe "Subject", type: :request do
         end
 
         it "saves the associated ID to the session" do
-          patch "/request", params: { request_form: { photo_upload: valid_data } }
+          patch "/request", params: { request_form: { subject_photo: valid_data } }
           expect(request.session[:information_request][:subject_photo_id]).to be_an Integer
         end
       end
@@ -313,13 +313,12 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting data for self" do
-        let(:information_request) { build(:information_request_by_friend) }
+        let(:information_request) { build(:information_request_for_self) }
 
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("Upload your ID")
-          expect(response.body).to include("For example, a copy of your driving licence or passport")
-          expect(response.body).to include("For example an electricity or council tax bill in your name")
+          expect(response.body).to include("Upload your proof of address")
+          expect(response.body).to include("For example, an electricity or council tax bill")
         end
       end
 
@@ -328,7 +327,7 @@ RSpec.describe "Subject", type: :request do
           patch "/request", params: { request_form: { subject_proof_of_address: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Add a file for Proof of address")
+          expect(response.body).to include("Select a proof of address")
         end
       end
 
