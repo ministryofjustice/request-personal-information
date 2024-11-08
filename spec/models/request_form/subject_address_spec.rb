@@ -18,7 +18,7 @@ RSpec.describe RequestForm::SubjectAddress, type: :model do
 
     context "when file types are valid" do
       let!(:valid_proof_attachment) do
-        Attachment.create(file: fixture_file_upload(Rails.root.join("spec/fixtures/files/valid_image.jpg"), "image/jpeg"), key: "subject_proof_of_address")
+        Attachment.create(file: fixture_file_upload(Rails.root.join("spec/fixtures/files/file.jpg"), "image/jpeg"), key: "subject_proof_of_address")
       end
 
       before do

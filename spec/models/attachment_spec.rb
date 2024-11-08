@@ -5,7 +5,7 @@ RSpec.describe Attachment, type: :model do
 
   describe "#to_s" do
     it "returns the file name and file size" do
-      expect(attachment.to_s).to eq "file.jpg, 21 Bytes"
+      expect(attachment.to_s).to eq "file.jpg, 24 KB"
     end
   end
 
