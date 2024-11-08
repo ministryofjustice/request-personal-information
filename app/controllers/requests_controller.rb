@@ -225,7 +225,7 @@ private
 
   def previous_step
     redirect = nil
-    steps_back = @form&.back.present? || @form&.back.nil? ? 1 : 2
+    steps_back = @form.back? ? @form.back : 1
 
     index = current_index - steps_back
 
