@@ -5,9 +5,14 @@
       <% content_for(:form_content) { render partial: @form.name, locals: { f: } } %>
       <%= f.govuk_error_summary %>
       <span class="govuk-caption-l"><%= yield :caption %></span>
-      <h1 class="govuk-heading-xl"><%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %></h1>
+      <h1 class="govuk-heading-xl">
+        <%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %>
+      </h1
       <%= yield :form_content %>
       <%= f.govuk_submit %>
+      <% if content_for?(:text) || t("request_form.#{@form.name}.self_details", default: '').present? %>
+        <%= govuk_details(summary_text: t("request_form.#{@form.name}.self_title"), text: t("request_form.#{@form.name}.self_details")) %>
+      <% end %>
     <% end %>
   </div>
 </div>
