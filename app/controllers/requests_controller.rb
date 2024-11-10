@@ -7,6 +7,7 @@ class RequestsController < ApplicationController
     solicitor-details
     requester-details
     requester-id
+    requester-address
     requester-id-check
     letter-of-consent
     letter-of-consent-check
