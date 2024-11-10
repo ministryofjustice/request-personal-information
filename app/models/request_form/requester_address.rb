@@ -1,5 +1,5 @@
 module RequestForm
-  class RequesterId < Base
+  class RequesterAddress < Base
     attribute :requester_proof_of_address
     attribute :requester_proof_of_address_id
     attr_accessor :default
