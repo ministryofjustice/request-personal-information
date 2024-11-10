@@ -20,9 +20,14 @@ RSpec.describe NotifyMailer, type: :mailer do
       expect(mail.body.encoded).to match(/What is your date of birth\?:\s+27 April 1998/)
     end
 
-    it "renders upload information" do
+    it "renders requester id upload information" do
       expect(mail.body.encoded).to match("## Upload your ID")
       expect(mail.body.encoded).to match(/Photo ID:\s+file.jpg, 12.2 KB/)
+    end
+
+    it "renders requester address upload information" do
+      expect(mail.body.encoded).to match("## Upload your ID")
+      expect(mail.body.encoded).to match(/Proof of Address:\s+file.jpg, 12.2 KB/)
     end
 
     it "renders where information is required from" do
