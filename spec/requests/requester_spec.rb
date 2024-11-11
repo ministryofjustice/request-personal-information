@@ -249,7 +249,7 @@ RSpec.describe "Requester", type: :request do
     context "when returning to page" do
       let(:photo_upload) { create(:attachment) }
       let(:address_upload) { create(:attachment) }
-      let(:information_request) { build(:information_request_by_friend, requester_photo_id: photo_upload.id ) }
+      let(:information_request) { build(:information_request_by_friend, requester_photo_id: photo_upload.id) }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
@@ -324,7 +324,7 @@ RSpec.describe "Requester", type: :request do
         expect(response).to redirect_to(next_step)
       end
     end
-    en
+  end
 
   describe "/requester-id-check" do
     let(:information_request) { build(:information_request_with_requester_id) }
