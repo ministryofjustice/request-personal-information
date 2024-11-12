@@ -99,6 +99,7 @@ en:
             requester_photo:
               blank: Select a photo ID
         request_form/requester_address:
+          attributes:
             requester_proof_of_address:
               blank: Select a proof of address
         request_form/requester_id_check:
@@ -235,8 +236,8 @@ en:
       other: Where is their probation office or approved premises?
       self: Where is your probation office or approved premises?
     requester_details: Your details
-    requester_id: Upload your ID
-
+    requester_id: Upload your photo ID
+    requester_address: Upload your proof of address
     requester_id_check: Check your upload
     solicitor_details: Your details
     subject: Are you requesting your own information or someone else's?
