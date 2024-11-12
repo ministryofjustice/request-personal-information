@@ -146,7 +146,6 @@ RSpec.describe InformationRequestSummary, type: :model do
       let(:information_request) { build(:information_request_by_friend) }
 
       it "returns subject photo id details" do
-        puts summary.subject_id[1]
         expect(summary.subject_id[0]).to include({ key: { text: "Proof of ID" } })
         expect(summary.subject_id[0]).to include({ value: { text: "file.jpg, 24 KB" } })
       end
