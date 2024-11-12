@@ -5,7 +5,7 @@ module RequestForm
     attr_accessor :default
 
     validates :requester_proof_of_address, presence: true, unless: -> { Attachment.exists?(requester_proof_of_address_id) }
-    validates :requester_proof_of_address, file_size: { max: 7.megabytes }
+    validates :requester_proof_of_address, file_size: { max: 7.megabytes }, file_type: { allowed: %w[image/jpg image/jpeg image/png application/pdf application/doc application/docx] }
 
     def required?
       request.by_family_or_friend?
@@ -19,7 +19,7 @@ module RequestForm
     end
 
     def updateable_attributes
-      attributes.except("requester_photo")
+      attributes.except("requester_proof_of_address")
     end
   end
 end
