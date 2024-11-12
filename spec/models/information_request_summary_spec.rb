@@ -142,19 +142,20 @@ RSpec.describe InformationRequestSummary, type: :model do
       end
     end
 
-    # context "when requested by friend or family" do
-    #   let(:information_request) { build(:information_request_by_friend) }
-    #
-    #   it "returns subject photo id details" do
-    #     expect(summary.subject_id[0]).to include({ key: { text: "Photo ID" } })
-    #     expect(summary.subject_id[0]).to include({ value: { text: "file.jpg, 12.2 KB" } })
-    #   end
-    #
-    #   it "returns subject proof of address details" do
-    #     expect(summary.subject_id[1]).to include({ key: { text: "Proof of address" } })
-    #     expect(summary.subject_id[1]).to include({ value: { text: "file.jpg, 12.2 KB" } })
-    #   end
-    # end
+    context "when requested by friend or family" do
+      let(:information_request) { build(:information_request_by_friend) }
+
+      it "returns subject photo id details" do
+        puts summary.subject_id[1]
+        expect(summary.subject_id[0]).to include({ key: { text: "Proof of ID" } })
+        expect(summary.subject_id[0]).to include({ value: { text: "file.jpg, 24 KB" } })
+      end
+
+      it "returns subject proof of address details" do
+        expect(summary.subject_id[1]).to include({ key: { text: "Proof of address" } })
+        expect(summary.subject_id[1]).to include({ value: { text: "file.jpg, 24 KB" } })
+      end
+    end
   end
 
   describe "#information" do
