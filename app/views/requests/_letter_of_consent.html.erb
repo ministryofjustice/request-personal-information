@@ -1,3 +1,8 @@
-<%= f.govuk_file_field :letter_of_consent, label: nil %>
+<% content_for :title do %>
+  <%= t("request_form.#{@form.name}") %>
+<% end %>
+
+<%= f.govuk_file_field :letter_of_consent, label:nil, hint: { text: t("helpers.hint.request_form.letter_of_consent") } %>
+
 <%= f.hidden_field :letter_of_consent_id %>
 <%= f.hidden_field :default %>
