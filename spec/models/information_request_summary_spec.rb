@@ -95,7 +95,7 @@ RSpec.describe InformationRequestSummary, type: :model do
 
       it "returns letter of consent details" do
         expect(summary.requester_id[0]).to include({ key: { text: "Upload a letter of consent" } })
-        expect(summary.requester_id[0]).to include({ value: { text: "file.jpg, 12.2 KB" } })
+        expect(summary.requester_id[0]).to include({ value: { text: "file.jpg, 24 KB" } })
       end
     end
 
@@ -104,17 +104,17 @@ RSpec.describe InformationRequestSummary, type: :model do
 
       it "returns requester photo id details" do
         expect(summary.requester_id[0]).to include({ key: { text: "Photo ID" } })
-        expect(summary.requester_id[0]).to include({ value: { text: "file.jpg, 12.2 KB" } })
+        expect(summary.requester_id[0]).to include({ value: { text: "file.jpg, 24 KB" } })
       end
 
       it "returns requester proof of address details" do
         expect(summary.requester_id[1]).to include({ key: { text: "Proof of address" } })
-        expect(summary.requester_id[1]).to include({ value: { text: "file.jpg, 12.2 KB" } })
+        expect(summary.requester_id[1]).to include({ value: { text: "file.jpg, 24 KB" } })
       end
 
       it "returns letter of consent details" do
         expect(summary.requester_id[2]).to include({ key: { text: "Upload a letter of consent" } })
-        expect(summary.requester_id[2]).to include({ value: { text: "file.jpg, 12.2 KB" } })
+        expect(summary.requester_id[2]).to include({ value: { text: "file.jpg, 24 KB" } })
       end
     end
   end
@@ -124,13 +124,13 @@ RSpec.describe InformationRequestSummary, type: :model do
       let(:information_request) { build(:information_request_for_self) }
 
       it "returns subject photo id details" do
-        expect(summary.subject_id[0]).to include({ key: { text: "Photo ID" } })
-        expect(summary.subject_id[0]).to include({ value: { text: "file.jpg, 12.2 KB" } })
+        expect(summary.subject_id[0]).to include({ key: { text: "Proof of ID" } })
+        expect(summary.subject_id[0]).to include({ value: { text: "file.jpg, 24 KB" } })
       end
 
       it "returns subject proof of address details" do
         expect(summary.subject_id[1]).to include({ key: { text: "Proof of address" } })
-        expect(summary.subject_id[1]).to include({ value: { text: "file.jpg, 12.2 KB" } })
+        expect(summary.subject_id[1]).to include({ value: { text: "file.jpg, 24 KB" } })
       end
     end
 
@@ -146,13 +146,13 @@ RSpec.describe InformationRequestSummary, type: :model do
       let(:information_request) { build(:information_request_by_friend) }
 
       it "returns subject photo id details" do
-        expect(summary.subject_id[0]).to include({ key: { text: "Photo ID" } })
-        expect(summary.subject_id[0]).to include({ value: { text: "file.jpg, 12.2 KB" } })
+        expect(summary.subject_id[0]).to include({ key: { text: "Proof of ID" } })
+        expect(summary.subject_id[0]).to include({ value: { text: "file.jpg, 24 KB" } })
       end
 
       it "returns subject proof of address details" do
         expect(summary.subject_id[1]).to include({ key: { text: "Proof of address" } })
-        expect(summary.subject_id[1]).to include({ value: { text: "file.jpg, 12.2 KB" } })
+        expect(summary.subject_id[1]).to include({ value: { text: "file.jpg, 24 KB" } })
       end
     end
   end

@@ -58,7 +58,7 @@ RSpec.describe "Requester", type: :request do
 
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Your details")
+        expect(response.body).to include("Your full name")
       end
 
       context "when submitting form with invalid data" do
