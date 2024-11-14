@@ -49,8 +49,11 @@ RSpec.feature "Request by solicitor", type: :feature do
     choose "Yes, add this upload"
     click_button "Continue"
 
-    # Upload their ID
+    # Upload their photo ID
     attach_file("request-form-subject-photo-field", "spec/fixtures/files/file.jpg")
+    click_button "Continue"
+
+    # Upload their address ID
     attach_file("request-form-subject-proof-of-address-field", "spec/fixtures/files/file.jpg")
     click_button "Continue"
 

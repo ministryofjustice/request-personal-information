@@ -118,13 +118,15 @@ en:
         request_form/subject_id:
           attributes:
             subject_photo:
-              blank: Add a file for Photo ID
+              blank: Select a photo ID
+        request_form/subject_address:
+          attributes:
             subject_proof_of_address:
-              blank: Add a file for Proof of address
+              blank: Select a proof of address
         request_form/subject_id_check:
           attributes:
             subject_id_check:
-              blank: Enter an answer for if these uploads are correct
+              blank: Enter an answer if these uploads are correct
         request_form/subject_relationship:
           attributes:
             relationship:
@@ -157,8 +159,8 @@ en:
         requester_name: Your full name (optional)
         requester_photo: Photo ID
         requester_proof_of_address: Proof of address
-        subject_photo: Photo ID
         subject_proof_of_address: Proof of address
+        subject_photo: Proof of ID
         upcoming_court_case_text: Can you provide more details?
     legend:
       request_form:
@@ -208,15 +210,15 @@ en:
         requester_photo: "For example, a copy of your driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB."
         requester_proof_of_address: "For example an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document. Maximum size: 7MB."
         subject_photo:
-          other: "For example, a copy of their driving licence or passport. Maximum size: 7MB per file"
+          other: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB."
           other_title: If they don’t have photo ID
           other_details: "If they are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
-          self: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
+          self: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB."
         subject_proof_of_address:
-          other: For example an electricity or council tax bill in their name and it must be dated within the last 6 months. Maximum file size 7MB
+          other: "For example, an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document. Maximum size: 7MB."
           other_title: If they don’t have proof of address
           other_details: "If they are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
-          self: For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB
+          self: "For example, an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document. Maximum size: 7MB."
         upcoming_court_case_text: For example, when the trial or hearing is happening.
 
   request_form:
@@ -245,7 +247,7 @@ en:
     probation_location:
       other: Where is their probation office or approved premises?
       self: Where is your probation office or approved premises?
-    requester_details: Your details
+    requester_details: Requester Details
     requester_id: Upload your photo ID
     requester_address: Upload your proof of address
     requester_id_check: Check your upload
@@ -255,9 +257,16 @@ en:
       other: What is their date of birth?
       self: What is your date of birth?
     subject_id:
-      other: Upload their ID
-      self: Upload your ID
-    subject_id_check: Check your upload
+      other: Upload their photo ID
+      self: Upload your photo ID
+      self_title: If you don't have photo ID
+      self_details: If you are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
+    subject_address:
+      other: Upload their proof of address
+      self: Upload your proof of address
+      self_title: If you don’t have proof of address
+      self_details: "If you are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
+    subject_id_check: Check your uploads
     subject_name:
       other: What is their name?
       self: What is your name?

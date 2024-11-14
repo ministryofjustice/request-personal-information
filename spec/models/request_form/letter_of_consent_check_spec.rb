@@ -41,6 +41,7 @@ RSpec.describe RequestForm::LetterOfConsentCheck, type: :model do
 
       it "changes back value" do
         form_object.valid?
+        
         expect(form_object.back).to eq 1
       end
     end
