@@ -26,20 +26,20 @@ FactoryBot.define do
     end
 
     trait :with_consent do
-      letter_of_consent { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
+      letter_of_consent { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpeg") }
     end
 
     trait :with_requester_id do
-      requester_photo { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
-      requester_proof_of_address { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
+      requester_photo { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpeg") }
+      requester_proof_of_address { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpeg") }
     end
 
     trait :with_subject_id do
-      subject_photo { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
+      subject_photo { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpeg") }
     end
 
     trait :with_subject_address do
-      subject_proof_of_address { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
+      subject_proof_of_address { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpeg") }
     end
 
     trait :prison_service do
