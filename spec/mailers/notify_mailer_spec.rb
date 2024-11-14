@@ -27,7 +27,7 @@ RSpec.describe NotifyMailer, type: :mailer do
 
     it "renders requester address upload information" do
       expect(mail.body.encoded).to match("## Upload your ID")
-      expect(mail.body.encoded).to match(/Proof of Address:\s+file.jpg, 12.2 KB/)
+      expect(mail.body.encoded).to match(/Proof of address:\s+file.jpg, 12.2 KB/)
     end
 
     it "renders where information is required from" do

@@ -186,9 +186,9 @@ en:
         form_moj_other_date_to: For example, 12 5 2014
         letter_of_consent: |
           You must provide a letter of consent from the subject of this request which: 
-          * states that they consent to their information being released to you 
-          * is signed by them 
-          * is dated within the last 6 months 
+            • states that they consent to their information being released to you 
+            • is signed by them 
+            • is dated within the last 6 months 
           There is no official template
         letter_of_consent_file_size: "Maximum size: 7MB"
         form_opg_date_from: For example, 3 11 2000
@@ -224,7 +224,7 @@ en:
     contact_email: Your email
     laa: What information do you want from the Legal Aid Agency (LAA)?
     laa_dates: What dates do you want this information from? (optional)
-    letter_of_consent: Upload a Letter of consent
+    letter_of_consent: Upload a letter of consent
     letter_of_consent_check: Check your upload
     moj: Where do you want information from?
     opg: What information do you want from the Office of the Public Guardian (OPG)?

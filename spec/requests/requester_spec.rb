@@ -219,7 +219,7 @@ RSpec.describe "Requester", type: :request do
 
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Upload your ID")
+        expect(response.body).to include("Upload your photo ID")
       end
 
       context "when submitting form with invalid data" do
@@ -227,7 +227,7 @@ RSpec.describe "Requester", type: :request do
           patch "/request", params: { request_form: { requester_photo: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Add a file for Photo ID")
+          expect(response.body).to include("Upload your photo ID")
         end
       end
 
@@ -283,7 +283,7 @@ RSpec.describe "Requester", type: :request do
 
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Upload your ID")
+        expect(response.body).to include("Upload your proof of address")
       end
 
       context "when submitting form with invalid data" do
@@ -291,7 +291,7 @@ RSpec.describe "Requester", type: :request do
           patch "/request", params: { request_form: { requester_proof_of_address: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Add a file for Proof of address")
+          expect(response.body).to include("Upload your proof of address")
         end
       end
 
@@ -354,7 +354,7 @@ RSpec.describe "Requester", type: :request do
           patch "/request", params: { request_form: { requester_id_check: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter an answer for if these uploads are correct")
+          expect(response.body).to include("Enter an answer if these uploads are correct")
         end
       end
 
