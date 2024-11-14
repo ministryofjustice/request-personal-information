@@ -23,6 +23,9 @@ RSpec.feature "Request for self", type: :feature do
 
     # Upload ID
     attach_file("request-form-subject-photo-field", "spec/fixtures/files/file.jpg")
+    click_button "Continue"
+
+    # Upload address
     attach_file("request-form-subject-proof-of-address-field", "spec/fixtures/files/file.jpg")
     click_button "Continue"
 
