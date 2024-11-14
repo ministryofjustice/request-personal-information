@@ -11,6 +11,7 @@ class RequestsController < ApplicationController
     letter-of-consent
     letter-of-consent-check
     subject-id
+    subject-address
     subject-id-check
     moj
     prison-location
@@ -74,12 +75,13 @@ class RequestsController < ApplicationController
 
     set_objects
     @form.assign_attributes(request_params)
+
     @information_request.assign_attributes(@form.saveable_attributes)
     set_form_attributes
 
     if @form.valid?
       session[:information_request] = @information_request.to_hash
-      @form.back.nil? ? next_step : previous_step
+      @form.back.nil? ? next_step : previous_step(@form.back)
     else
       render :edit
     end
@@ -221,15 +223,15 @@ private
     redirect_to redirect and return
   end
 
-  def previous_step
+  def previous_step(steps_back = 1)
     redirect = nil
-    index = current_index
+    index = current_index - steps_back
 
-    if index.zero?
+    if index.negative?
       redirect = "/"
     else
       while redirect.nil?
-        next_to_try = STEPS[index - 1].to_s
+        next_to_try = STEPS[index].to_s
         if session[:history].include?(next_to_try)
           redirect = "/#{next_to_try}"
         end

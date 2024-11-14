@@ -36,6 +36,9 @@ FactoryBot.define do
 
     trait :with_subject_id do
       subject_photo { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
+    end
+
+    trait :with_subject_address do
       subject_proof_of_address { Rack::Test::UploadedFile.new("spec/fixtures/files/file.jpg", "image/jpg") }
     end
 
@@ -85,18 +88,18 @@ FactoryBot.define do
       upcoming_court_case { "no" }
     end
 
-    factory :information_request_for_self, traits: %i[for_self with_subject_id]
+    factory :information_request_for_self, traits: %i[for_self with_subject_id with_subject_address]
     factory :information_request_for_other, traits: %i[for_other]
     factory :information_request_by_solicitor, traits: %i[for_other by_solicitor with_consent]
-    factory :information_request_by_friend, traits: %i[for_other by_friend with_consent with_requester_id with_subject_id]
+    factory :information_request_by_friend, traits: %i[for_other by_friend with_consent with_requester_id with_subject_id with_subject_address]
     factory :information_request_with_consent, traits: %i[for_other with_consent]
     factory :information_request_with_requester_id, traits: %i[for_other with_requester_id]
-    factory :information_request_with_subject_id, traits: %i[for_other with_subject_id]
+    factory :information_request_with_subject_id, traits: %i[for_other with_subject_id with_subject_address]
     factory :information_request_for_prison_service, traits: %i[for_self prison_service]
     factory :information_request_for_probation_service, traits: %i[for_self probation_service]
     factory :information_request_for_laa, traits: %i[for_self laa]
     factory :information_request_for_opg, traits: %i[for_self opg]
     factory :information_request_for_moj_other, traits: %i[for_self moj_other]
-    factory :complete_request, traits: %i[for_self with_subject_id prison_service probation_service with_contact]
+    factory :complete_request, traits: %i[for_self with_subject_id with_subject_address prison_service probation_service with_contact]
   end
 end

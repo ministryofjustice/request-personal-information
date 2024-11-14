@@ -19,7 +19,7 @@ RSpec.shared_examples("file upload") do |attribute|
 
       it "is has the expected error message" do
         form_object.valid?
-        expect(form_object.errors.messages[attribute].first).to eq "The selected file must be smaller than 7 MB"
+        expect(form_object.errors.messages[attribute].first).to eq "The selected file must be 7 MB or smaller"
       end
     end
 
