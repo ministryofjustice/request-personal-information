@@ -209,9 +209,13 @@ en:
         requester_proof_of_address: "For example an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document. Maximum size: 7MB."
         subject_photo:
           other: "For example, a copy of their driving licence or passport. Maximum size: 7MB per file"
+          other_title: If they don’t have photo ID
+          other_details: "If they are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
           self: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
         subject_proof_of_address:
           other: For example an electricity or council tax bill in their name and it must be dated within the last 6 months. Maximum file size 7MB
+          other_title: If they don’t have proof of address
+          other_details: "If they are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
           self: For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB
         upcoming_court_case_text: For example, when the trial or hearing is happening.
 
