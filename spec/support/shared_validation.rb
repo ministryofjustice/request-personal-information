@@ -10,7 +10,7 @@ RSpec.shared_examples("file upload") do |attribute|
       before do
         allow(File).to receive(:size).and_return(8.megabytes)
         form_object.send("#{attribute}_id=", upload.id)
-        form_object.send("#{attribute}=", fixture_file_upload("file.jpg"))
+        form_object.send("#{attribute}=", fixture_file_upload("file.jpg", "image/jpeg") )
       end
 
       it "is not valid" do

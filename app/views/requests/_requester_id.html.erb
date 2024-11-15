@@ -1,7 +1,3 @@
-<% content_for :title do %>
-  <%= t("request_form.#{@form.name}") %>
-<% end %>
-
 <%= f.govuk_file_field :requester_photo, label:nil, hint: { text: t("helpers.hint.request_form.requester_photo") } %>
 
 <%= f.hidden_field :requester_photo_id %>
