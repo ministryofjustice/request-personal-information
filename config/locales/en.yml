@@ -259,7 +259,7 @@ en:
     subject_id:
       other: Upload photo ID of the person you are requesting information for
       other_title: If they don’t have photo ID
-      other_details: If they are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
+      other_details: If they are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
       self: Upload your photo ID
       self_title: If you don't have photo ID
       self_details: If you are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
