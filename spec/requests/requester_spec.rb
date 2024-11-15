@@ -203,13 +203,13 @@ RSpec.describe "Requester", type: :request do
     let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "requester-id" }
     let(:previous_step) { "letter-of-consent" }
-    let(:next_step) { "/requester-address" }
+    let(:next_step) {"/requester-address"}
 
     it_behaves_like "question that requires a session"
     it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:valid_data) { fixture_file_upload("file.jpg") }
+      let(:valid_data) { fixture_file_upload("file.jpg", "image/jpg") }
       let(:invalid_data) { nil }
 
       before do
@@ -248,7 +248,6 @@ RSpec.describe "Requester", type: :request do
 
     context "when returning to page" do
       let(:photo_upload) { create(:attachment) }
-      let(:address_upload) { create(:attachment) }
       let(:information_request) { build(:information_request_by_friend, requester_photo_id: photo_upload.id) }
 
       before do
@@ -273,7 +272,7 @@ RSpec.describe "Requester", type: :request do
     it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:valid_data) { fixture_file_upload("file.jpg") }
+      let(:valid_data) { fixture_file_upload("file.jpg", "image/jpg") }
       let(:invalid_data) { nil }
 
       before do

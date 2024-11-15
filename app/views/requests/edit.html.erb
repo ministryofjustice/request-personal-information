@@ -10,8 +10,10 @@
       </h1>
       <%= yield :form_content %>
       <%= f.govuk_submit %>
-      <% if t("request_form.#{@form.name}.self_details", default: '').present? %>
+      <% if t("request_form.subject_id.self_details").present? %>
         <%= govuk_details(summary_text: t("request_form.#{@form.name}.self_title"), text: t("request_form.#{@form.name}.self_details")) %>
+      <% elsif t("request_form.subject_id.other_details").present? %>
+        <%= govuk_details(summary_text: t("request_form.#{@form.name}.other_title"), text: t("request_form.#{@form.name}.other_details")) %>
       <% end %>
     <% end %>
   </div>

@@ -196,7 +196,7 @@ en:
         form_opg_date_from: For example, 3 11 2000
         form_opg_date_to: For example, 12 5 2014
         other_names: For example, a maiden name, other last names, nicknames or aliases
-        form_prison_date_from: For example, 3 ust provide11 2000
+        form_prison_date_from: For example, 3 11 2000
         form_prison_date_to: For example, 12 5 2014
         prison_other_data_text: We can respond faster if you are able to tell us specifically what you want.
         prison_data: Select all that apply
@@ -258,11 +258,15 @@ en:
       self: What is your date of birth?
     subject_id:
       other: Upload their photo ID
+      other_title: If they don’t have photo ID
+      other_details: If they are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
       self: Upload your photo ID
       self_title: If you don't have photo ID
       self_details: If you are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
     subject_address:
       other: Upload their proof of address
+      other_title: If they don’t have proof of address
+      other_details: If they are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
       self: Upload your proof of address
       self_title: If you don’t have proof of address
       self_details: "If you are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
