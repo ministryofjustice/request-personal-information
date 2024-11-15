@@ -203,7 +203,7 @@ RSpec.describe "Requester", type: :request do
     let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "requester-id" }
     let(:previous_step) { "letter-of-consent" }
-    let(:next_step) {"/requester-address"}
+    let(:next_step) { "/requester-address" }
 
     it_behaves_like "question that requires a session"
     it_behaves_like "question that must be accessed in order"
