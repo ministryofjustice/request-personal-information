@@ -4,7 +4,7 @@
       <% row.with_cell(header: true, text: 'Letter of consent') %>
       <% row.with_cell(text: @information_request.letter_of_consent.to_s) %>
       <% row.with_cell do %>
-        <%= govuk_link_to "Change", "/letter-of-consent", class: "govuk-link" %>
+        <%= govuk_link_to "Change", "/letter-of-consent" %>
       <% end %>
     <% end %>
   <% end %>
