@@ -96,7 +96,7 @@ RSpec.describe "Requester", type: :request do
     it_behaves_like "question that must be accessed in order"
 
     context "when session in progress" do
-      let(:valid_data) { fixture_file_upload("file.jpg", "image/jpeg")  }
+      let(:valid_data) { fixture_file_upload("file.jpg", "image/jpeg") }
       let(:invalid_data) { nil }
 
       before do
