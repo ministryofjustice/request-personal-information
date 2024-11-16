@@ -5,7 +5,7 @@ module RequestForm
     attr_accessor :default
 
     validates :letter_of_consent, presence: true, unless: -> { Attachment.exists?(letter_of_consent_id) }
-    validates :letter_of_consent, file_size: { max: 7.megabytes }
+    validates :letter_of_consent, file_size: { max: 7.megabytes }, file_type: true
 
     def required?
       !request.for_self?
