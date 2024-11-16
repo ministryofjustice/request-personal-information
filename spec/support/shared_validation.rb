@@ -40,7 +40,7 @@ RSpec.shared_examples("file upload") do |attribute|
 
       it "is has the expected error message" do
         form_object.valid?
-        expect(form_object.errors.messages[attribute].first).to eq ("The selected file must be a PDF, image (jpg, .jpeg, .png) or Microsoft Word document (.doc, .docx)")
+        expect(form_object.errors.messages[attribute].first).to eq("The selected file must be a PDF, image (jpg, .jpeg, .png) or Microsoft Word document (.doc, .docx)")
       end
     end
 
@@ -84,8 +84,6 @@ RSpec.shared_examples("file upload") do |attribute|
           expect(form_object.saveable_attributes.keys).not_to include "#{attribute}_id"
         end
       end
-
-
     end
 
     describe "#updateable_attributes" do
