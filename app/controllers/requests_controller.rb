@@ -8,8 +8,8 @@ class RequestsController < ApplicationController
     requester-details
     requester-id
     requester-address
-    requester-id-check
     letter-of-consent
+    requester-id-check
     letter-of-consent-check
     subject-id
     subject-address

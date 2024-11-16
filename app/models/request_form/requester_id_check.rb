@@ -24,8 +24,11 @@ module RequestForm
         attachment_proof = Attachment.find(request.requester_proof_of_address_id)
         attachment_proof.destroy!
         request.requester_proof_of_address_id = nil
+        attachment = Attachment.find(request.letter_of_consent_id)
+        attachment.destroy!
+        request.letter_of_consent_id = nil
 
-        self.back = 2
+        self.back = 3
       end
     end
   end

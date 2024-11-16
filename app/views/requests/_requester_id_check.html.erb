@@ -14,6 +14,13 @@
         <%= govuk_link_to "Change", "/requester-address" %>
       <% end %>
     <% end %>
+    <% body.with_row do |row| %>
+      <% row.with_cell(header: true, text: 'Letter of consent') %>
+      <% row.with_cell(text: @information_request.letter_of_consent.to_s) %>
+      <% row.with_cell do %>
+        <%= govuk_link_to "Change", "/letter-of-consent" %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>
 <%= f.govuk_collection_radio_buttons :requester_id_check, @form.class::OPTIONS, :first, :second %>
