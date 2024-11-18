@@ -8,7 +8,7 @@ module RequestForm
     attr_accessor :default, :subject_id_check
 
     validates :subject_id_check, presence: true
-    validate :check_value
+    validate  :check_value
 
     def required?
       !request.by_solicitor?
@@ -25,7 +25,7 @@ module RequestForm
         attachment_proof.destroy!
         request.subject_proof_of_address_id = nil
 
-        self.back = true
+        self.back = 2
       end
     end
   end

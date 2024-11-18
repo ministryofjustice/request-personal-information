@@ -7,7 +7,7 @@ class FileSizeValidator < ActiveModel::EachValidator
     return if value.nil?
 
     if File.size(value) > max_size
-      record.errors.add attribute, "The selected file must be smaller than #{number_to_human_size(max_size)}"
+      record.errors.add attribute, "The selected file must be #{number_to_human_size(max_size)} or smaller"
     end
   end
 end

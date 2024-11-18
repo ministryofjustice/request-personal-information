@@ -21,7 +21,7 @@ module RequestForm
         attachment = Attachment.find(request.letter_of_consent_id)
         attachment.destroy!
         request.letter_of_consent_id = nil
-        self.back = true
+        self.back = 1
       end
     end
   end
