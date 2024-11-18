@@ -105,6 +105,7 @@ class RequestsController < ApplicationController
   end
 
   def back
+    @information_request = InformationRequest.new(session[:information_request])
     previous_step
   end
 
@@ -232,7 +233,8 @@ private
     else
       while redirect.nil?
         next_to_try = STEPS[index].to_s
-        if session[:history].include?(next_to_try)
+        form = "RequestForm::#{next_to_try.underscore.camelize}".constantize.new(request: @information_request)
+        if form.required? && session[:history].include?(next_to_try)
           redirect = "/#{next_to_try}"
         end
         index -= 1

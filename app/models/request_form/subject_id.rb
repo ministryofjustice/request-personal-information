@@ -5,8 +5,7 @@ module RequestForm
     attr_accessor :default
 
     validates :subject_photo, presence: true, unless: -> { Attachment.exists?(subject_photo_id) }
-    validates :subject_photo, file_size: { max: 7.megabytes }
-    validates :subject_photo, file_type: { allowed: %w[image/jpg image/jpeg image/png application/pdf application/doc application/docx] }
+    validates :subject_photo, file_size: { max: 7.megabytes }, file_type: true
 
     def required?
       !request.by_solicitor?
