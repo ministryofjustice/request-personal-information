@@ -12,7 +12,7 @@ gem "httparty"
 gem "mail-notify"
 gem "pg"
 gem "puma", ">= 5.0"
-gem "rails", "~> 7.1.3"
+gem "rails", "~> 7.2"
 gem "sentry-rails"
 gem "sentry-ruby"
 
