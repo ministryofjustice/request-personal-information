@@ -145,6 +145,9 @@ GEM
       railties (>= 5.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (4.28.3)
+      bigdecimal
+      rake (>= 13)
     google-protobuf (4.28.3-arm64-darwin)
       bigdecimal
       rake (>= 13)
@@ -219,6 +222,7 @@ GEM
     matrix (0.4.2)
     method_source (1.1.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.8)
     minitest (5.25.1)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
@@ -232,6 +236,9 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.4)
+    nokogiri (1.16.7)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.16.7-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-darwin)
@@ -558,6 +565,9 @@ GEM
     rubocop-rspec (3.0.1)
       rubocop (~> 1.61)
     ruby-progressbar (1.13.0)
+    sass-embedded (1.77.8)
+      google-protobuf (~> 4.26)
+      rake (>= 13)
     sass-embedded (1.77.8-arm64-darwin)
       google-protobuf (~> 4.26)
     sass-embedded (1.77.8-x86_64-darwin)
@@ -612,6 +622,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-23
+  ruby
   x86_64-darwin-23
   x86_64-linux
 
@@ -650,4 +661,4 @@ RUBY VERSION
    ruby 3.3.6p108
 
 BUNDLED WITH
-   2.5.11
+   2.5.23
