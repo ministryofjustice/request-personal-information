@@ -112,7 +112,7 @@ $ bundle exec rspec
 ### Run rubocop:
 
 ```
-$ bundle exec rubocop
+$ bin/rubocop
 ```
 
 ## Jobs
