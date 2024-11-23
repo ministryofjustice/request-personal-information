@@ -10,7 +10,7 @@ class RequestsController < ApplicationController
     requester-address
     letter-of-consent
     requester-id-check
-    letter-of-consent-check
+    # letter-of-consent-check
     subject-id
     subject-address
     subject-id-check
