@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Request by solicitor", type: :feature do
+RSpec.feature "Request by family", type: :feature do
   scenario "User makes end to end request" do
     visit "/"
 
@@ -37,16 +37,12 @@ RSpec.feature "Request by solicitor", type: :feature do
     attach_file("request-form-requester-proof-of-address-field", "spec/fixtures/files/file.jpg")
     click_button "Continue"
 
-    # Confirm upload
-    choose "Yes, add these uploads"
-    click_button "Continue"
-
     # Letter of Consent
     attach_file("request-form-letter-of-consent-field", "spec/fixtures/files/file.jpg")
     click_button "Continue"
 
     # Confirm upload
-    choose "Yes, add this upload"
+    choose "Yes, add these uploads"
     click_button "Continue"
 
     # Upload their photo ID
