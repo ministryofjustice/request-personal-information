@@ -11,7 +11,7 @@ module RequestForm
     validate :check_value
 
     def required?
-      !request.for_self?
+      request.by_solicitor?
     end
 
   private
