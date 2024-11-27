@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "letter-of-consent" => "requests#edit"
   get "letter-of-consent-check" => "requests#edit"
   get "requester-id" => "requests#edit"
+  get "requester-address" => "requests#edit"
   get "requester-id-check" => "requests#edit"
   get "subject-id" => "requests#edit"
   get "subject-address" => "requests#edit"

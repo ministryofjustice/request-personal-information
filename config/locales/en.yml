@@ -97,13 +97,15 @@ en:
         request_form/requester_id:
           attributes:
             requester_photo:
-              blank: Add a file for Photo ID
+              blank: Select a photo ID
+        request_form/requester_address:
+          attributes:
             requester_proof_of_address:
-              blank: Add a file for Proof of address
+              blank: Select a proof of address
         request_form/requester_id_check:
           attributes:
             requester_id_check:
-              blank: Enter an answer for if these uploads are correct
+              blank: Enter an answer if these uploads are correct
         request_form/subject:
           attributes:
             subject:
@@ -184,7 +186,13 @@ en:
         moj: Select all that apply
         form_moj_other_date_from: For example, 3 11 2000
         form_moj_other_date_to: For example, 12 5 2014
-        letter_of_consent: "This must be signed by the person you are requesting information about and dated within the last 6 months. There is no official template. Maximum size: 7MB"
+        letter_of_consent: |
+          You must provide a letter of consent from the subject of this request which: 
+            • states that they consent to their information being released to you 
+            • is signed by them 
+            • is dated within the last 6 months 
+          There is no official template
+        letter_of_consent_file_size: "Maximum size: 7MB"
         form_opg_date_from: For example, 3 11 2000
         form_opg_date_to: For example, 12 5 2014
         other_names: For example, a maiden name, other last names, nicknames or aliases
@@ -199,13 +207,17 @@ en:
         probation_office: Enter the town, city or area. For example, Macclesfield.
         form_probation_date_from: For example, 3 11 2000
         form_probation_date_to: For example, 12 5 2014
-        requester_photo: "For example, a copy of your driving licence or passport. Maximum size: 7MB per file"
-        requester_proof_of_address: "For example an electricity or council tax bill in your name and it must be dated within the last 6 months. Maximum file size 7MB"
+        requester_photo: "For example, a copy of your driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB."
+        requester_proof_of_address: "For example an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document. Maximum size: 7MB."
         subject_photo:
           other: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB."
+          other_title: If they don’t have photo ID
+          other_details: "If they are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
           self: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB."
         subject_proof_of_address:
           other: "For example, an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document. Maximum size: 7MB."
+          other_title: If they don’t have proof of address
+          other_details: "If they are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
           self: "For example, an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document. Maximum size: 7MB."
         upcoming_court_case_text: For example, when the trial or hearing is happening.
 
@@ -235,21 +247,26 @@ en:
     probation_location:
       other: Where is their probation office or approved premises?
       self: Where is your probation office or approved premises?
-    requester_id: Upload your ID
     requester_details: Requester Details
+    requester_id: Upload your photo ID
+    requester_address: Upload your proof of address
     requester_id_check: Check your upload
     solicitor_details: Your details
     subject: Are you requesting your own information or someone else's?
     subject_date_of_birth:
-        other: What is their date of birth?
-        self: What is your date of birth?
+      other: What is their date of birth?
+      self: What is your date of birth?
     subject_id:
-      other: Upload their photo ID
+      other: Upload photo ID of the person you are requesting information for
+      other_title: If they don’t have photo ID
+      other_details: If they are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
       self: Upload your photo ID
       self_title: If you don't have photo ID
       self_details: If you are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
     subject_address:
-      other: Upload their proof of address
+      other: Upload proof of address of the person you are requesting information for
+      other_title: If they don’t have proof of address
+      other_details: If they are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here.
       self: Upload your proof of address
       self_title: If you don’t have proof of address
       self_details: "If you are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."

@@ -231,7 +231,7 @@ RSpec.describe "Subject", type: :request do
       context "when requesting data for someone else" do
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("Upload their photo ID")
+          expect(response.body).to include("Upload photo ID of the person you are requesting information for")
           expect(response.body).to include("For example, a driving licence or passport")
         end
       end
@@ -251,7 +251,7 @@ RSpec.describe "Subject", type: :request do
           patch "/request", params: { request_form: { subject_photo: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Upload their photo ID")
+          expect(response.body).to include("Upload photo ID of the person you are requesting information for")
         end
       end
 
@@ -307,7 +307,7 @@ RSpec.describe "Subject", type: :request do
       context "when requesting data for someone else" do
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("Upload their proof of address")
+          expect(response.body).to include("Upload proof of address of the person you are requesting information for")
           expect(response.body).to include("For example, an electricity or council tax bill")
         end
       end

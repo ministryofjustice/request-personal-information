@@ -10,7 +10,7 @@ RSpec.shared_examples("file upload") do |attribute|
       before do
         allow(File).to receive(:size).and_return(8.megabytes)
         form_object.send("#{attribute}_id=", upload.id)
-        form_object.send("#{attribute}=", fixture_file_upload("file.jpg"))
+        form_object.send("#{attribute}=", fixture_file_upload("file.jpg", "image/jpeg"))
       end
 
       it "is not valid" do
@@ -20,6 +20,27 @@ RSpec.shared_examples("file upload") do |attribute|
       it "is has the expected error message" do
         form_object.valid?
         expect(form_object.errors.messages[attribute].first).to eq "The selected file must be 7 MB or smaller"
+      end
+    end
+
+    describe "#allowed_types" do
+      subject(:form_object) { described_class.new }
+
+      let(:upload) { create(:attachment) }
+
+      before do
+        allow(File).to receive(:size).and_return(6.megabytes)
+        form_object.send("#{attribute}_id=", upload.id)
+        form_object.send("#{attribute}=", fixture_file_upload("invalid_image.txt", "plain/txt"))
+      end
+
+      it "is not valid" do
+        expect(form_object).not_to be_valid
+      end
+
+      it "is has the expected error message" do
+        form_object.valid?
+        expect(form_object.errors.messages[attribute].first).to eq("The selected file must be a PDF, image (jpg, .jpeg, .png) or Microsoft Word document (.doc, .docx)")
       end
     end
 
