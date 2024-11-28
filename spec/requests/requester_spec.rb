@@ -285,8 +285,7 @@ RSpec.describe "Requester", type: :request do
     context "when session in progress" do
       let(:previous_step) { "requester-id" }
       let(:next_step) { "/subject-id" }
-      let(:valid_data) { "yes" }
-      let(:invalid_data) { "" }
+      let(:valid_data) { "" }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
@@ -298,26 +297,10 @@ RSpec.describe "Requester", type: :request do
         expect(response.body).to include("Check your upload")
       end
 
-      context "when submitting form with invalid data" do
-        it "renders page with error message" do
-          patch "/request", params: { request_form: { requester_id_check: invalid_data } }
-          expect(response).to render_template(:edit)
-          expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter an answer if these uploads are correct")
-        end
-      end
-
       context "when submitting form with valid data" do
         it "goes to next step" do
-          patch "/request", params: { request_form: { requester_id_check: valid_data } }
+          patch "/request", params: { request_form: { default: valid_data } }
           expect(response).to redirect_to(next_step)
-        end
-      end
-
-      context "when the user wants to change the upload" do
-        it "goes to previous step" do
-          patch "/request", params: { request_form: { requester_id_check: "no" } }
-          expect(response).to redirect_to("/#{previous_step}")
         end
       end
 
@@ -335,8 +318,7 @@ RSpec.describe "Requester", type: :request do
     context "when session in progress" do
       let(:previous_step) { "letter-of-consent" }
       let(:next_step) { "/moj" }
-      let(:valid_data) { "yes" }
-      let(:invalid_data) { "" }
+      let(:valid_data) { "" }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
@@ -348,26 +330,10 @@ RSpec.describe "Requester", type: :request do
         expect(response.body).to include("Check your upload")
       end
 
-      context "when submitting form with invalid data" do
-        it "renders page with error message" do
-          patch "/request", params: { request_form: { letter_of_consent_check: invalid_data } }
-          expect(response).to render_template(:edit)
-          expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter an answer for is this upload is correct")
-        end
-      end
-
       context "when submitting form with valid data" do
         it "goes to next step" do
-          patch "/request", params: { request_form: { letter_of_consent_check: valid_data } }
+          patch "/request", params: { request_form: { default: valid_data } }
           expect(response).to redirect_to(next_step)
-        end
-      end
-
-      context "when the user wants to change the upload" do
-        it "goes to previous step" do
-          patch "/request", params: { request_form: { letter_of_consent_check: "no" } }
-          expect(response).to redirect_to("/#{previous_step}")
         end
       end
 

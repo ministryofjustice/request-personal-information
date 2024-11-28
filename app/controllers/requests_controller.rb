@@ -82,7 +82,7 @@ class RequestsController < ApplicationController
 
     if @form.valid?
       session[:information_request] = @information_request.to_hash
-      @form.back.nil? ? next_step : previous_step(@form.back)
+      next_step
     else
       render :edit
     end
@@ -145,17 +145,14 @@ private
       :requester_name,
       :letter_of_consent,
       :letter_of_consent_id,
-      :letter_of_consent_check,
       :requester_photo,
       :requester_photo_id,
       :requester_proof_of_address,
       :requester_proof_of_address_id,
-      :requester_id_check,
       :subject_photo,
       :subject_photo_id,
       :subject_proof_of_address,
       :subject_proof_of_address_id,
-      :subject_id_check,
       :hmpps_information,
       :prison_service,
       :probation_service,
@@ -225,9 +222,9 @@ private
     redirect_to redirect and return
   end
 
-  def previous_step(steps_back = 1)
+  def previous_step
     redirect = nil
-    index = current_index - steps_back
+    index = current_index - 1
 
     if index.negative?
       redirect = "/"
