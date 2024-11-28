@@ -242,7 +242,7 @@ RSpec.describe "Subject", type: :request do
         it "renders the expected page" do
           expect(response).to render_template(:edit)
           expect(response.body).to include("Upload your photo ID")
-          expect(response.body).to include("For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7MB.")
+          expect(response.body).to include("For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7 MB.")
         end
       end
 

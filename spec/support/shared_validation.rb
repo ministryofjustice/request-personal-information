@@ -2,7 +2,7 @@ RSpec.shared_examples("file upload") do |attribute|
   describe "validation" do
     it { is_expected.to validate_presence_of(attribute) }
 
-    context "when file is > 7MB" do
+    context "when file is > 7 MB" do
       subject(:form_object) { described_class.new }
 
       let(:upload) { create(:attachment) }
