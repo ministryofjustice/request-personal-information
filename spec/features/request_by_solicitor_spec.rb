@@ -33,8 +33,7 @@ RSpec.feature "Request by solicitor", type: :feature do
     attach_file("request-form-letter-of-consent-field", "spec/fixtures/files/file.jpg")
     click_button "Continue"
 
-    # Confirm upload
-    choose "Yes, add this upload"
+    # Contine
     click_button "Continue"
 
     # Information from where

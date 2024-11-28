@@ -41,8 +41,7 @@ RSpec.feature "Request by family", type: :feature do
     attach_file("request-form-letter-of-consent-field", "spec/fixtures/files/file.jpg")
     click_button "Continue"
 
-    # Confirm upload
-    choose "Yes, add these uploads"
+    # Contine
     click_button "Continue"
 
     # Upload their photo ID
@@ -53,8 +52,7 @@ RSpec.feature "Request by family", type: :feature do
     attach_file("request-form-subject-proof-of-address-field", "spec/fixtures/files/file.jpg")
     click_button "Continue"
 
-    # Confirm upload
-    choose "Yes, add these uploads"
+    # Continue
     click_button "Continue"
 
     # Information from where

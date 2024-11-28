@@ -29,8 +29,7 @@ RSpec.feature "Request for self", type: :feature do
     attach_file("request-form-subject-proof-of-address-field", "spec/fixtures/files/file.jpg")
     click_button "Continue"
 
-    # Confirm upload
-    choose "Yes, add these uploads"
+    # Contine
     click_button "Continue"
 
     # Information from where

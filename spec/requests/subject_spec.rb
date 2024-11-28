@@ -372,8 +372,7 @@ RSpec.describe "Subject", type: :request do
     context "when session in progress" do
       let(:previous_step) { "subject-id" }
       let(:next_step) { "/moj" }
-      let(:valid_data) { "yes" }
-      let(:invalid_data) { "" }
+      let(:valid_data) { "" }
 
       before do
         set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
@@ -385,49 +384,10 @@ RSpec.describe "Subject", type: :request do
         expect(response.body).to include("Check your upload")
       end
 
-      context "when submitting form with invalid data" do
-        it "renders page with error message" do
-          patch "/request", params: { request_form: { subject_id_check: invalid_data } }
-          expect(response).to render_template(:edit)
-          expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter an answer if these uploads are correct")
-        end
-      end
-
       context "when submitting form with valid data" do
         it "goes to next step" do
-          patch "/request", params: { request_form: { subject_id_check: valid_data } }
+          patch "/request", params: { request_form: { default: valid_data } }
           expect(response).to redirect_to(next_step)
-        end
-      end
-
-      context "when the user wants to change the photo upload" do
-        it "goes to the previous step" do
-          patch "/request", params: { request_form: { subject_id_check: "no" } }
-          expect(response).to redirect_to("/#{previous_step}")
-        end
-      end
-
-      context "when the user wants to change uploads" do
-        it "goes to the upload photo id step" do
-          patch "/request", params: { request_form: { subject_id_check: "no" } }
-          expect(response).to redirect_to("/subject-id")
-        end
-      end
-
-      context "when the user wants to continue with uploads" do
-        it "goes to the where do you want information from page" do
-          patch "/request", params: { request_form: { subject_id_check: "yes" } }
-          expect(response).to redirect_to("/moj")
-        end
-      end
-
-      context "when the user doesn't answer if the are the correct uploads" do
-        it "renders page with error message" do
-          patch "/request", params: { request_form: { subject_id_check: "" } }
-          expect(response).to render_template(:edit)
-          expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter an answer if these uploads are correct")
         end
       end
 

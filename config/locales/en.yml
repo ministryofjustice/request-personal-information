@@ -24,10 +24,6 @@ en:
           attributes:
             letter_of_consent:
               blank: Choose a file to upload
-        request_form/letter_of_consent_check:
-          attributes:
-            letter_of_consent_check:
-              blank: Enter an answer for is this upload is correct
         request_form/moj:
           attributes:
             moj:
@@ -102,10 +98,6 @@ en:
           attributes:
             requester_proof_of_address:
               blank: Select a proof of address
-        request_form/requester_id_check:
-          attributes:
-            requester_id_check:
-              blank: Enter an answer if these uploads are correct
         request_form/subject:
           attributes:
             subject:
@@ -123,10 +115,6 @@ en:
           attributes:
             subject_proof_of_address:
               blank: Select a proof of address
-        request_form/subject_id_check:
-          attributes:
-            subject_id_check:
-              blank: Enter an answer if these uploads are correct
         request_form/subject_relationship:
           attributes:
             relationship:
@@ -166,7 +154,6 @@ en:
       request_form:
         form_laa_date_from: Enter a date this information should start from
         form_laa_date_to: Enter a date this information should go to
-        letter_of_consent_check: Is this upload correct?
         form_moj_other_date_from: Enter a date this information should start from
         form_moj_other_date_to: Enter a date this information should go to
         form_opg_date_from: Enter a date this information should start from
@@ -175,8 +162,6 @@ en:
         form_prison_date_to: Enter a date this information should go to
         form_probation_date_from: Enter a date this information should start from
         form_probation_date_to: Enter a date this information should go to
-        requester_id_check: Are these uploads correct?
-        subject_id_check: Are these uploads correct?
     hint:
       request_form:
         contact_address: You will receive paper copies of this information. If your request reveals details about another person, that information will not be shared.
@@ -250,7 +235,7 @@ en:
     requester_details: Requester Details
     requester_id: Upload your photo ID
     requester_address: Upload your proof of address
-    requester_id_check: Check your upload
+    requester_id_check: Check your uploads
     solicitor_details: Your details
     subject: Are you requesting your own information or someone else's?
     subject_date_of_birth:
