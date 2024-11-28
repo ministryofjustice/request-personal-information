@@ -124,7 +124,7 @@ private
 
   def set_objects
     @information_request = InformationRequest.new(session[:information_request])
-    @form = "RequestForm::#{session[:current_step].underscore.camelize}".constantize.new(request: @information_request)
+    @form = "RequestForm::#{session[:current_step].underscore.camelize}".constantize.new(request: @information_request, return_to:)
     set_form_attributes
   end
 
@@ -136,6 +136,7 @@ private
 
   def request_params
     params.require(:request_form).permit(
+      :return_to,
       :subject,
       :full_name,
       :other_names,
@@ -199,43 +200,47 @@ private
   end
 
   def next_step
-    redirect = nil
-    index = current_index + 1
+    redirect = return_path
 
-    if index >= STEPS.size
-      step = "check-answers"
-      session[:history] << step unless session[:history].include?(step)
-      redirect = "/#{step}"
-    else
-      while redirect.nil?
-        next_to_try = STEPS[index].to_s
-        form = "RequestForm::#{next_to_try.underscore.camelize}".constantize.new(request: @information_request)
-        if form.required?
-          session[:history] << next_to_try unless session[:history].include?(next_to_try)
-          redirect = "/#{next_to_try}"
+    if redirect.nil?
+      index = current_index + 1
+
+      if index >= STEPS.size
+        step = "check-answers"
+        session[:history] << step unless session[:history].include?(step)
+        redirect = "/#{step}"
+      else
+        while redirect.nil?
+          next_to_try = STEPS[index].to_s
+          form = "RequestForm::#{next_to_try.underscore.camelize}".constantize.new(request: @information_request)
+          if form.required?
+            session[:history] << next_to_try unless session[:history].include?(next_to_try)
+            redirect = "/#{next_to_try}"
+          end
+          index += 1
         end
-        index += 1
       end
-
     end
 
     redirect_to redirect and return
   end
 
   def previous_step
-    redirect = nil
+    redirect = return_path
     index = current_index - 1
 
-    if index.negative?
-      redirect = "/"
-    else
-      while redirect.nil?
-        next_to_try = STEPS[index].to_s
-        form = "RequestForm::#{next_to_try.underscore.camelize}".constantize.new(request: @information_request)
-        if form.required? && session[:history].include?(next_to_try)
-          redirect = "/#{next_to_try}"
+    if redirect.nil?
+      if index.negative?
+        redirect = "/"
+      else
+        while redirect.nil?
+          next_to_try = STEPS[index].to_s
+          form = "RequestForm::#{next_to_try.underscore.camelize}".constantize.new(request: @information_request, return_to:)
+          if form.required? && session[:history].include?(next_to_try)
+            redirect = "/#{next_to_try}"
+          end
+          index -= 1
         end
-        index -= 1
       end
     end
 
@@ -244,5 +249,17 @@ private
 
   def current_index
     STEPS.find_index(session[:current_step].to_sym)
+  end
+
+  def return_path
+    return if return_to.blank?
+
+    if STEPS.include?(return_to.to_sym) && session[:history].include?(return_to)
+      "/#{return_to}"
+    end
+  end
+
+  def return_to
+    params[:return_to] || (params[:request_form].present? && request_params[:return_to])
   end
 end

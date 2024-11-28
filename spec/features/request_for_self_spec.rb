@@ -68,4 +68,43 @@ RSpec.feature "Request for self", type: :feature do
     # Form sent
     expect(page).to have_text("Request sent")
   end
+
+  scenario "User changes upload" do
+    visit "/"
+
+    # Start page
+    click_link "Start now"
+
+    # Subject
+    choose "My own"
+    click_button "Continue"
+
+    # Your details
+    fill_in("Full name", with: "John")
+    click_button "Continue"
+
+    # Date of birth
+    fill_in("Day", with: "1")
+    fill_in("Month", with: "1")
+    fill_in("Year", with: "2000")
+    click_button "Continue"
+
+    # Upload ID
+    attach_file("request-form-subject-photo-field", "spec/fixtures/files/file.jpg")
+    click_button "Continue"
+
+    # Upload address
+    attach_file("request-form-subject-proof-of-address-field", "spec/fixtures/files/file.jpg")
+    click_button "Continue"
+
+    # Change upload
+    first("tr").click_link "Change"
+
+    # Upload new ID
+    attach_file("request-form-subject-photo-field", "spec/fixtures/files/file.jpg")
+    click_button "Continue"
+
+    # Back to check page
+    expect(page).to have_text("Check your uploads")
+  end
 end
