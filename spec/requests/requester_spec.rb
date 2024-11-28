@@ -86,119 +86,6 @@ RSpec.describe "Requester", type: :request do
     end
   end
 
-  describe "/letter-of-consent" do
-    let(:information_request) { build(:information_request_for_other) }
-    let(:current_step) { "letter-of-consent" }
-    let(:previous_step) { "requester-details" }
-    let(:next_step) { "/letter-of-consent-check" }
-
-    it_behaves_like "question that requires a session"
-    it_behaves_like "question that must be accessed in order"
-
-    context "when session in progress" do
-      let(:valid_data) { fixture_file_upload("file.jpg", "image/jpeg") }
-      let(:invalid_data) { nil }
-
-      before do
-        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
-        get "/#{current_step}"
-      end
-
-      it "renders the expected page" do
-        expect(response).to render_template(:edit)
-        expect(response.body).to include("Upload a letter of consent")
-      end
-
-      context "when submitting form with invalid data" do
-        it "renders page with error message" do
-          patch "/request", params: { request_form: { letter_of_consent: invalid_data } }
-          expect(response).to render_template(:edit)
-          expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Choose a file to upload")
-        end
-      end
-
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { letter_of_consent: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the associated ID to the session" do
-          patch "/request", params: { request_form: { letter_of_consent: valid_data } }
-          expect(request.session[:information_request][:letter_of_consent_id]).to be_an Integer
-        end
-      end
-
-      it_behaves_like "question with back link"
-    end
-
-    context "when returning to page" do
-      let(:letter_of_consent) { create(:attachment) }
-      let(:information_request) { build(:information_request_for_other, letter_of_consent_id: letter_of_consent.id) }
-
-      before do
-        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
-        get "/#{current_step}"
-      end
-
-      it "doesn't require repeat upload" do
-        patch "/request", params: { request_form: { letter_of_consent_id: letter_of_consent.id } }
-        expect(response).to redirect_to(next_step)
-      end
-    end
-  end
-
-  describe "/letter-of-consent-check" do
-    let(:information_request) { build(:information_request_with_consent) }
-    let(:current_step) { "letter-of-consent-check" }
-
-    it_behaves_like "question that requires a session"
-    it_behaves_like "question that must be accessed in order"
-
-    context "when session in progress" do
-      let(:previous_step) { "letter-of-consent" }
-      let(:next_step) { "/subject-id" }
-      let(:valid_data) { "yes" }
-      let(:invalid_data) { "" }
-
-      before do
-        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
-        get "/#{current_step}"
-      end
-
-      it "renders the expected page" do
-        expect(response).to render_template(:edit)
-        expect(response.body).to include("Check your upload")
-      end
-
-      context "when submitting form with invalid data" do
-        it "renders page with error message" do
-          patch "/request", params: { request_form: { letter_of_consent_check: invalid_data } }
-          expect(response).to render_template(:edit)
-          expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Enter an answer for is this upload is correct")
-        end
-      end
-
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { letter_of_consent_check: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-      end
-
-      context "when the user wants to change the upload" do
-        it "goes to previous step" do
-          patch "/request", params: { request_form: { letter_of_consent_check: "no" } }
-          expect(response).to redirect_to("/#{previous_step}")
-        end
-      end
-
-      it_behaves_like "question with back link"
-    end
-  end
-
   describe "/requester-id" do
     let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "requester-id" }
@@ -266,7 +153,7 @@ RSpec.describe "Requester", type: :request do
     let(:information_request) { build(:information_request_for_other) }
     let(:current_step) { "requester-address" }
     let(:previous_step) { "requester-id" }
-    let(:next_step) { "/requester-id-check" }
+    let(:next_step) { "/letter-of-consent" }
 
     it_behaves_like "question that requires a session"
     it_behaves_like "question that must be accessed in order"
@@ -325,6 +212,69 @@ RSpec.describe "Requester", type: :request do
     end
   end
 
+  describe "/letter-of-consent" do
+    let(:information_request) { build(:information_request_for_other) }
+    let(:current_step) { "letter-of-consent" }
+    let(:previous_step) { "requester-address" }
+    let(:next_step) { "/requester-id-check" }
+
+    it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
+
+    context "when session in progress" do
+      let(:valid_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+      let(:invalid_data) { nil }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:edit)
+        expect(response.body).to include("Upload a letter of consent")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { letter_of_consent: invalid_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Choose a file to upload")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { letter_of_consent: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+
+        it "saves the associated ID to the session" do
+          patch "/request", params: { request_form: { letter_of_consent: valid_data } }
+          expect(request.session[:information_request][:letter_of_consent_id]).to be_an Integer
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+
+    context "when returning to page" do
+      let(:letter_of_consent) { create(:attachment) }
+      let(:information_request) { build(:information_request_for_other, letter_of_consent_id: letter_of_consent.id) }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+        get "/#{current_step}"
+      end
+
+      it "doesn't require repeat upload" do
+        patch "/request", params: { request_form: { letter_of_consent_id: letter_of_consent.id } }
+        expect(response).to redirect_to(next_step)
+      end
+    end
+  end
+
   describe "/requester-id-check" do
     let(:information_request) { build(:information_request_with_requester_id) }
     let(:current_step) { "requester-id-check" }
@@ -334,7 +284,7 @@ RSpec.describe "Requester", type: :request do
 
     context "when session in progress" do
       let(:previous_step) { "requester-id" }
-      let(:next_step) { "/letter-of-consent" }
+      let(:next_step) { "/subject-id" }
       let(:valid_data) { "yes" }
       let(:invalid_data) { "" }
 
@@ -367,6 +317,56 @@ RSpec.describe "Requester", type: :request do
       context "when the user wants to change the upload" do
         it "goes to previous step" do
           patch "/request", params: { request_form: { requester_id_check: "no" } }
+          expect(response).to redirect_to("/#{previous_step}")
+        end
+      end
+
+      it_behaves_like "question with back link"
+    end
+  end
+
+  describe "/letter-of-consent-check" do
+    let(:information_request) { build(:information_request_by_solicitor) }
+    let(:current_step) { "letter-of-consent-check" }
+
+    it_behaves_like "question that requires a session"
+    it_behaves_like "question that must be accessed in order"
+
+    context "when session in progress" do
+      let(:previous_step) { "letter-of-consent" }
+      let(:next_step) { "/moj" }
+      let(:valid_data) { "yes" }
+      let(:invalid_data) { "" }
+
+      before do
+        set_session(information_request: information_request.to_hash, current_step: previous_step, history: [previous_step, current_step])
+        get "/#{current_step}"
+      end
+
+      it "renders the expected page" do
+        expect(response).to render_template(:edit)
+        expect(response.body).to include("Check your upload")
+      end
+
+      context "when submitting form with invalid data" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { letter_of_consent_check: invalid_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("Enter an answer for is this upload is correct")
+        end
+      end
+
+      context "when submitting form with valid data" do
+        it "goes to next step" do
+          patch "/request", params: { request_form: { letter_of_consent_check: valid_data } }
+          expect(response).to redirect_to(next_step)
+        end
+      end
+
+      context "when the user wants to change the upload" do
+        it "goes to previous step" do
+          patch "/request", params: { request_form: { letter_of_consent_check: "no" } }
           expect(response).to redirect_to("/#{previous_step}")
         end
       end

@@ -95,7 +95,6 @@ FactoryBot.define do
     factory :information_request_for_other, traits: %i[for_other]
     factory :information_request_by_solicitor, traits: %i[for_other by_solicitor with_consent]
     factory :information_request_by_friend, traits: %i[for_other by_friend with_consent with_requester_id with_requester_address with_subject_id with_subject_address]
-    factory :information_request_with_consent, traits: %i[for_other with_consent]
     factory :information_request_with_requester_id, traits: %i[for_other with_requester_id with_requester_address]
     factory :information_request_with_subject_id, traits: %i[for_other with_subject_id with_subject_address]
     factory :information_request_for_prison_service, traits: %i[for_self prison_service]
