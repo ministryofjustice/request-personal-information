@@ -33,18 +33,7 @@ RSpec.describe "contact information", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { contact_address: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the value to the session" do
-          patch "/request", params: { request_form: { contact_address: valid_data } }
-          expect(request.session[:information_request][:contact_address]).to eq valid_data
-        end
-      end
-
+      it_behaves_like "question that accepts valid data", :contact_address
       it_behaves_like "question with back link"
     end
   end
@@ -81,18 +70,7 @@ RSpec.describe "contact information", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { contact_email: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the value to the session" do
-          patch "/request", params: { request_form: { contact_email: valid_data } }
-          expect(request.session[:information_request][:contact_email]).to eq valid_data
-        end
-      end
-
+      it_behaves_like "question that accepts valid data", :contact_email
       it_behaves_like "question with back link"
     end
   end
@@ -129,18 +107,7 @@ RSpec.describe "contact information", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { upcoming_court_case: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the value to the session" do
-          patch "/request", params: { request_form: { upcoming_court_case: valid_data } }
-          expect(request.session[:information_request][:upcoming_court_case]).to eq valid_data
-        end
-      end
-
+      it_behaves_like "question that accepts valid data", :upcoming_court_case
       it_behaves_like "question with back link"
 
       context "when user has upcoming court case" do
