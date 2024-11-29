@@ -262,7 +262,7 @@ private
   end
 
   def valid_return?
-    return_to == CHECK_ANSWERS_STEP || STEPS.include?(return_to.to_sym)
+    (return_to == CHECK_ANSWERS_STEP && @information_request.valid?) || STEPS.include?(return_to.to_sym)
   end
 
   def return_to
