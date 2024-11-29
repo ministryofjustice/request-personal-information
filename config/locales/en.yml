@@ -171,13 +171,7 @@ en:
         moj: Select all that apply
         form_moj_other_date_from: For example, 3 11 2000
         form_moj_other_date_to: For example, 12 5 2014
-        letter_of_consent: |
-          You must provide a letter of consent from the subject of this request which:
-            • states that they consent to their information being released to you
-            • is signed by them
-            • is dated within the last 6 months
-          There is no official template
-        letter_of_consent_file_size: "Maximum size: 7 MB"
+        letter_of_consent_file_size: "Maximum size: 7 MB."
         form_opg_date_from: For example, 3 11 2000
         form_opg_date_to: For example, 12 5 2014
         other_names: For example, a maiden name, other last names, nicknames or aliases
