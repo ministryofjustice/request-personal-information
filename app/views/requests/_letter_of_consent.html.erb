@@ -1,14 +1,13 @@
 <span class="govuk-body">You must provide a letter of consent from the subject of this request which:</span>
-<ul class="govuk-list govuk-list--bullet">
+<ul class="govuk-list govuk-list--bullet" style="margin-bottom:0;">
   <li>States that they consent to their information being released to you</li>
   <li>Is signed by them</li>
   <li>Is dated within the last 6 months</li>
-</ul><span class="govuk-body-m">There is no official template.</span>
+</ul>
+<p class="govuk-body-m">There is no official template.</p>
 
 <p><strong class="govuk-body">Letter of consent</strong></p>
 <p class="govuk-hint">Maximum size: 7MB.</p>
-
-<%= f.govuk_file_field :letter_of_consent, label: nil %>
 
 <%= f.hidden_field :letter_of_consent_id %>
 <%= f.hidden_field :default %>
