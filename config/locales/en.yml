@@ -137,6 +137,7 @@ en:
         contact_email: Email address (optional)
         current_prison_name: Which prison are they in?
         full_name: Full name
+        letter_of_consent_no_template: There is no official template.
         other_names:
           other: Any other names that their information may be stored under? (optional)
           self: Any other names that your information may be stored under? (optional)
@@ -207,6 +208,7 @@ en:
     laa_dates: What dates do you want this information from? (optional)
     letter_of_consent: Upload a letter of consent
     letter_of_consent_check: Check your upload
+    letter_of_consent_title: Letter of consent
     moj: Where do you want information from?
     opg: What information do you want from the Office of the Public Guardian (OPG)?
     opg_dates: What dates do you want this information from? (optional)
