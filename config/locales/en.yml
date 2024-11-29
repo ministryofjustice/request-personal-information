@@ -23,7 +23,7 @@ en:
         request_form/letter_of_consent:
           attributes:
             letter_of_consent:
-              blank: Choose a file to upload
+              blank: Select a letter of consent
         request_form/moj:
           attributes:
             moj:
