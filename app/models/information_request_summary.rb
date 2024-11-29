@@ -10,17 +10,17 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("helpers.label.request_form.full_name") },
         value: { text: @information_request.full_name },
-        actions: { text: "Change", href: "/subject-name", visually_hidden_text: I18n.t("helpers.label.request_form.full_name") },
+        actions: { text: "Change", href: "/subject-name#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.full_name") },
       },
       {
         key: { text: I18n.t("helpers.label.request_form.other_names.#{@information_request.subject}") },
         value: { text: @information_request.other_names },
-        actions: { text: "Change", href: "/subject-name", visually_hidden_text: I18n.t("helpers.label.request_form.other_names.#{@information_request.subject}") },
+        actions: { text: "Change", href: "/subject-name#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.other_names.#{@information_request.subject}") },
       },
       {
         key: { text: I18n.t("request_form.subject_date_of_birth.#{@information_request.subject}") },
         value: { text: format_date(@information_request.date_of_birth) },
-        actions: { text: "Change", href: "/subject-date-of-birth", visually_hidden_text: I18n.t("helpers.label.request_form.date_of_birth") },
+        actions: { text: "Change", href: "/subject-date-of-birth#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.date_of_birth") },
       },
     ]
 
@@ -45,12 +45,12 @@ class InformationRequestSummary
         {
           key: { text: I18n.t("helpers.label.request_form.organisation_name") },
           value: { text: @information_request.organisation_name },
-          actions: { text: "Change", href: "/solicitor-details", visually_hidden_text: I18n.t("helpers.label.request_form.organisation_name") },
+          actions: { text: "Change", href: "/solicitor-details#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.organisation_name") },
         },
         {
           key: { text: I18n.t("helpers.label.request_form.requester_name") },
           value: { text: @information_request.requester_name },
-          actions: { text: "Change", href: "/requester-name", visually_hidden_text: I18n.t("helpers.label.request_form.requester_name") },
+          actions: { text: "Change", href: "/requester-name#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.requester_name") },
         },
       ]
     else
@@ -58,7 +58,7 @@ class InformationRequestSummary
         {
           key: { text: "Your full name" },
           value: { text: @information_request.requester_name },
-          actions: { text: "Change", href: "/requester-name", visually_hidden_text: I18n.t("helpers.label.request_form.requester_name") },
+          actions: { text: "Change", href: "/requester-name#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.requester_name") },
         },
       ]
     end
@@ -74,12 +74,12 @@ class InformationRequestSummary
         {
           key: { text: I18n.t("helpers.label.request_form.requester_photo") },
           value: { text: @information_request.requester_photo.to_s },
-          actions: { text: "Change", href: "/requester-id", visually_hidden_text: I18n.t("helpers.label.request_form.requester_photo") },
+          actions: { text: "Change", href: "/requester-id#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.requester_photo") },
         },
         {
           key: { text: I18n.t("helpers.label.request_form.requester_proof_of_address") },
           value: { text: @information_request.requester_proof_of_address.to_s },
-          actions: { text: "Change", href: "/requester-id", visually_hidden_text: I18n.t("helpers.label.request_form.requester_proof_of_address") },
+          actions: { text: "Change", href: "/requester-address#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.requester_proof_of_address") },
         },
       )
     end
@@ -88,7 +88,7 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("request_form.letter_of_consent") },
         value: { text: @information_request.letter_of_consent.to_s },
-        actions: { text: "Change", href: "/letter-of-consent", visually_hidden_text: I18n.t("request_form.letter_of_consent") },
+        actions: { text: "Change", href: "/letter-of-consent#{return_query_string}", visually_hidden_text: I18n.t("request_form.letter_of_consent") },
       },
     )
 
@@ -102,12 +102,12 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("helpers.label.request_form.subject_photo") },
         value: { text: @information_request.subject_photo.to_s },
-        actions: { text: "Change", href: "/subject-id", visually_hidden_text: I18n.t("helpers.label.request_form.subject_photo") },
+        actions: { text: "Change", href: "/subject-id#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.subject_photo") },
       },
       {
         key: { text: I18n.t("helpers.label.request_form.subject_proof_of_address") },
         value: { text: @information_request.subject_proof_of_address.to_s },
-        actions: { text: "Change", href: "/subject-id", visually_hidden_text: I18n.t("helpers.label.request_form.subject_proof_of_address") },
+        actions: { text: "Change", href: "/subject-address#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.subject_proof_of_address") },
       },
     ]
   end
@@ -130,7 +130,7 @@ class InformationRequestSummary
         {
           key: { text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
           value: { text: @information_request.recent_prison_name },
-          actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
+          actions: { text: "Change", href: "/prison-location#{return_query_string}", visually_hidden_text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
         },
       )
     end
@@ -140,7 +140,7 @@ class InformationRequestSummary
         {
           key: { text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
           value: { text: @information_request.currently_in_prison.capitalize },
-          actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
+          actions: { text: "Change", href: "/prison-location#{return_query_string}", visually_hidden_text: I18n.t("request_form.prison_location.#{@information_request.subject}") },
         },
       )
 
@@ -149,7 +149,7 @@ class InformationRequestSummary
           {
             key: { text: I18n.t("helpers.label.request_form.current_prison_name") },
             value: { text: @information_request.current_prison_name },
-            actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("helpers.label.request_form.current_prison_name") },
+            actions: { text: "Change", href: "/prison-location#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.current_prison_name") },
           },
         )
       else
@@ -157,7 +157,7 @@ class InformationRequestSummary
           {
             key: { text: I18n.t("helpers.label.request_form.recent_prison_name") },
             value: { text: @information_request.recent_prison_name },
-            actions: { text: "Change", href: "/prison-location", visually_hidden_text: I18n.t("helpers.label.request_form.recent_prison_name") },
+            actions: { text: "Change", href: "/prison-location#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.recent_prison_name") },
           },
         )
       end
@@ -167,12 +167,12 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("request_form.prison_number.#{@information_request.subject}") },
         value: { text: @information_request.prison_number },
-        actions: { text: "Change", href: "/prison-number", visually_hidden_text: I18n.t("request_form.prison_number.#{@information_request.subject}") },
+        actions: { text: "Change", href: "/prison-number#{return_query_string}", visually_hidden_text: I18n.t("request_form.prison_number.#{@information_request.subject}") },
       },
       {
         key: { text: I18n.t("request_form.prison_information") },
         value: { text: format_list(@information_request.prison_information) },
-        actions: { text: "Change", href: "/prison-information", visually_hidden_text: I18n.t("request_form.prison_information") },
+        actions: { text: "Change", href: "/prison-information#{return_query_string}", visually_hidden_text: I18n.t("request_form.prison_information") },
       },
     )
 
@@ -181,7 +181,7 @@ class InformationRequestSummary
         {
           key: { text: I18n.t("helpers.label.request_form.prison_other_data_text") },
           value: { text: @information_request.prison_other_data_text },
-          actions: { text: "Change", href: "/prison-information", visually_hidden_text: I18n.t("helpers.label.request_form.prison_other_data_text") },
+          actions: { text: "Change", href: "/prison-information#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.prison_other_data_text") },
         },
       )
     end
@@ -190,12 +190,12 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("helpers.legend.request_form.form_prison_date_from") },
         value: { text: format_date(@information_request.prison_date_from) },
-        actions: { text: "Change", href: "/prison-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_prison_date_from") },
+        actions: { text: "Change", href: "/prison-dates#{return_query_string}", visually_hidden_text: I18n.t("helpers.legend.request_form.form_prison_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_prison_date_to") },
         value: { text: format_date(@information_request.prison_date_to) },
-        actions: { text: "Change", href: "/prison-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_prison_date_to") },
+        actions: { text: "Change", href: "/prison-dates#{return_query_string}", visually_hidden_text: I18n.t("helpers.legend.request_form.form_prison_date_to") },
       },
     )
 
@@ -209,12 +209,12 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("request_form.probation_location.#{@information_request.subject}") },
         value: { text: @information_request.probation_office },
-        actions: { text: "Change", href: "/probation-location", visually_hidden_text: I18n.t("request_form.probation_location.#{@information_request.subject}") },
+        actions: { text: "Change", href: "/probation-location#{return_query_string}", visually_hidden_text: I18n.t("request_form.probation_location.#{@information_request.subject}") },
       },
       {
         key: { text: I18n.t("request_form.probation_information") },
         value: { text: format_list(@information_request.probation_information) },
-        actions: { text: "Change", href: "/probation-information", visually_hidden_text: I18n.t("request_form.probation_information") },
+        actions: { text: "Change", href: "/probation-information#{return_query_string}", visually_hidden_text: I18n.t("request_form.probation_information") },
       },
     ]
 
@@ -223,7 +223,7 @@ class InformationRequestSummary
         {
           key: { text: I18n.t("helpers.label.request_form.probation_other_data_text") },
           value: { text: @information_request.probation_other_data_text },
-          actions: { text: "Change", href: "/probation-information", visually_hidden_text: I18n.t("helpers.label.request_form.probation_other_data_text") },
+          actions: { text: "Change", href: "/probation-information#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.probation_other_data_text") },
         },
       )
     end
@@ -232,12 +232,12 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("helpers.legend.request_form.form_probation_date_from") },
         value: { text: format_date(@information_request.probation_date_from) },
-        actions: { text: "Change", href: "/probation-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_probation_date_from") },
+        actions: { text: "Change", href: "/probation-dates#{return_query_string}", visually_hidden_text: I18n.t("helpers.legend.request_form.form_probation_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_probation_date_to") },
         value: { text: format_date(@information_request.probation_date_to) },
-        actions: { text: "Change", href: "/probation-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_probation_date_to") },
+        actions: { text: "Change", href: "/probation-dates#{return_query_string}", visually_hidden_text: I18n.t("helpers.legend.request_form.form_probation_date_to") },
       },
     )
 
@@ -251,17 +251,17 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("request_form.laa") },
         value: { text: @information_request.laa_text },
-        actions: { text: "Change", href: "/laa", visually_hidden_text: I18n.t("request_form.laa") },
+        actions: { text: "Change", href: "/laa#{return_query_string}", visually_hidden_text: I18n.t("request_form.laa") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_laa_date_from") },
         value: { text: format_date(@information_request.laa_date_from) },
-        actions: { text: "Change", href: "/laa-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_laa_date_from") },
+        actions: { text: "Change", href: "/laa-dates#{return_query_string}", visually_hidden_text: I18n.t("helpers.legend.request_form.form_laa_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_laa_date_to") },
         value: { text: format_date(@information_request.laa_date_to) },
-        actions: { text: "Change", href: "/laa-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_laa_date_to") },
+        actions: { text: "Change", href: "/laa-dates#{return_query_string}", visually_hidden_text: I18n.t("helpers.legend.request_form.form_laa_date_to") },
       },
     ]
   end
@@ -273,17 +273,17 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("request_form.opg") },
         value: { text: @information_request.opg_text },
-        actions: { text: "Change", href: "/opg", visually_hidden_text: I18n.t("request_form.opg") },
+        actions: { text: "Change", href: "/opg#{return_query_string}", visually_hidden_text: I18n.t("request_form.opg") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_opg_date_from") },
         value: { text: format_date(@information_request.opg_date_from) },
-        actions: { text: "Change", href: "/opg-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_opg_date_from") },
+        actions: { text: "Change", href: "/opg-dates#{return_query_string}", visually_hidden_text: I18n.t("helpers.legend.request_form.form_opg_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_opg_date_to") },
         value: { text: format_date(@information_request.opg_date_to) },
-        actions: { text: "Change", href: "/opg-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_opg_date_to") },
+        actions: { text: "Change", href: "/opg-dates#{return_query_string}", visually_hidden_text: I18n.t("helpers.legend.request_form.form_opg_date_to") },
       },
     ]
   end
@@ -296,22 +296,22 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("request_form.other_where") },
         value: { text: @information_request.moj_other_where },
-        actions: { text: "Change", href: "/other-where", visually_hidden_text: I18n.t("request_form.other_where") },
+        actions: { text: "Change", href: "/other-where#{return_query_string}", visually_hidden_text: I18n.t("request_form.other_where") },
       },
       {
         key: { text: I18n.t("request_form.other") },
         value: { text: @information_request.moj_other_text },
-        actions: { text: "Change", href: "/other", visually_hidden_text: I18n.t("request_form.other") },
+        actions: { text: "Change", href: "/other#{return_query_string}", visually_hidden_text: I18n.t("request_form.other") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_moj_other_date_from") },
         value: { text: format_date(@information_request.moj_other_date_from) },
-        actions: { text: "Change", href: "/other-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_moj_other_date_from") },
+        actions: { text: "Change", href: "/other-dates#{return_query_string}", visually_hidden_text: I18n.t("helpers.legend.request_form.form_moj_other_date_from") },
       },
       {
         key: { text: I18n.t("helpers.legend.request_form.form_moj_other_date_to") },
         value: { text: format_date(@information_request.moj_other_date_to) },
-        actions: { text: "Change", href: "/other-dates", visually_hidden_text: I18n.t("helpers.legend.request_form.form_moj_other_date_to") },
+        actions: { text: "Change", href: "/other-dates#{return_query_string}", visually_hidden_text: I18n.t("helpers.legend.request_form.form_moj_other_date_to") },
       },
     ]
   end
@@ -321,17 +321,17 @@ class InformationRequestSummary
       {
         key: { text: I18n.t("helpers.label.request_form.contact_address") },
         value: { text: @information_request.contact_address },
-        actions: { text: "Change", href: "/contact-address", visually_hidden_text: I18n.t("helpers.label.request_form.contact_address") },
+        actions: { text: "Change", href: "/contact-address#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.contact_address") },
       },
       {
         key: { text: I18n.t("helpers.label.request_form.contact_email") },
         value: { text: @information_request.contact_email },
-        actions: { text: "Change", href: "/contact-email", visually_hidden_text: I18n.t("helpers.label.request_form.contact_email") },
+        actions: { text: "Change", href: "/contact-email#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.contact_email") },
       },
       {
         key: { text: I18n.t("request_form.upcoming") },
         value: { text: @information_request.upcoming_court_case.capitalize },
-        actions: { text: "Change", href: "/upcoming", visually_hidden_text: I18n.t("request_form.upcoming") },
+        actions: { text: "Change", href: "/upcoming#{return_query_string}", visually_hidden_text: I18n.t("request_form.upcoming") },
       },
     ]
 
@@ -340,7 +340,7 @@ class InformationRequestSummary
         {
           key: { text: I18n.t("helpers.label.request_form.upcoming_court_case_text") },
           value: { text: @information_request.upcoming_court_case_text },
-          actions: { text: "Change", href: "/upcoming", visually_hidden_text: I18n.t("helpers.label.request_form.upcoming_court_case_text") },
+          actions: { text: "Change", href: "/upcoming#{return_query_string}", visually_hidden_text: I18n.t("helpers.label.request_form.upcoming_court_case_text") },
         },
       )
     end
@@ -356,5 +356,9 @@ private
 
   def format_date(date)
     date&.to_fs(:day_month_and_year)
+  end
+
+  def return_query_string
+    "?return_to=check-answers"
   end
 end
