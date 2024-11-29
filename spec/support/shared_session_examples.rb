@@ -38,4 +38,14 @@ RSpec.shared_examples("question with back link") do
       expect(response).to redirect_to("/#{previous_step}")
     end
   end
+
+  context "when return path is specified" do
+    it "goes to specified step" do
+      history = session[:history] << "subject"
+      set_session(history:)
+
+      get("/request/back?return_to=subject")
+      expect(response).to redirect_to("/subject")
+    end
+  end
 end

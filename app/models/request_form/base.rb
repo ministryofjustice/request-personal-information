@@ -4,7 +4,7 @@ module RequestForm
     include ActiveModel::Attributes
     include ActiveModel::Validations
 
-    attr_accessor :request, :back
+    attr_accessor :request, :return_to
 
     def initialize(**args)
       super
