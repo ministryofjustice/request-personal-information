@@ -4,7 +4,7 @@
       <% row.with_cell(header: true, text: 'Photo ID') %>
       <% row.with_cell(text: @information_request.subject_photo.to_s) %>
       <% row.with_cell do %>
-        <%= govuk_link_to "Change", "/subject-id" %>
+        <%= govuk_link_to "Change", "/subject-id?return_to=subject-id-check" %>
       <% end %>
     <% end %>
 
@@ -12,7 +12,7 @@
       <% row.with_cell(header: true, text: 'Proof of address') %>
       <% row.with_cell(text: @information_request.subject_proof_of_address.to_s) %>
       <% row.with_cell do %>
-        <%= govuk_link_to "Change", "/subject-address" %>
+        <%= govuk_link_to "Change", "/subject-address?return_to=subject-id-check" %>
       <% end %>
     <% end %>
   <% end %>

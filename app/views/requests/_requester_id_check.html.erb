@@ -4,7 +4,7 @@
       <% row.with_cell(header: true, text: 'Photo ID') %>
       <% row.with_cell(text: @information_request.requester_photo.to_s) %>
       <% row.with_cell do %>
-        <%= govuk_link_to "Change", "/requester-id" %>
+        <%= govuk_link_to "Change", "/requester-id?return_to=requester-id-check" %>
       <% end %>
     <% end %>
 
@@ -12,7 +12,7 @@
       <% row.with_cell(header: true, text: 'Proof of address') %>
       <% row.with_cell(text: @information_request.requester_proof_of_address.to_s) %>
       <% row.with_cell do %>
-        <%= govuk_link_to "Change", "/requester-address" %>
+        <%= govuk_link_to "Change", "/requester-address?return_to=requester-id-check" %>
       <% end %>
     <% end %>
 
@@ -20,7 +20,7 @@
       <% row.with_cell(header: true, text: 'Letter of consent') %>
       <% row.with_cell(text: @information_request.letter_of_consent.to_s) %>
       <% row.with_cell do %>
-        <%= govuk_link_to "Change", "/letter-of-consent" %>
+        <%= govuk_link_to "Change", "/letter-of-consent?return_to=requester-id-check" %>
       <% end %>
     <% end %>
   <% end %>

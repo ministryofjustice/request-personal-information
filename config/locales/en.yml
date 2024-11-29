@@ -172,10 +172,10 @@ en:
         form_moj_other_date_from: For example, 3 11 2000
         form_moj_other_date_to: For example, 12 5 2014
         letter_of_consent: |
-          You must provide a letter of consent from the subject of this request which: 
-            • states that they consent to their information being released to you 
-            • is signed by them 
-            • is dated within the last 6 months 
+          You must provide a letter of consent from the subject of this request which:
+            • states that they consent to their information being released to you
+            • is signed by them
+            • is dated within the last 6 months
           There is no official template
         letter_of_consent_file_size: "Maximum size: 7 MB"
         form_opg_date_from: For example, 3 11 2000
@@ -192,18 +192,18 @@ en:
         probation_office: Enter the town, city or area. For example, Macclesfield.
         form_probation_date_from: For example, 3 11 2000
         form_probation_date_to: For example, 12 5 2014
-        requester_photo: "For example, a copy of your driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7 MB."
+        requester_photo_html: "For example, a copy of your driving licence or passport. This can be a photograph, scan or photocopy of the original document.<br>Maximum size: 7 MB."
         requester_proof_of_address: "For example an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document. Maximum size: 7 MB."
         subject_photo:
-          other: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7 MB."
+          other_html: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document.<br>Maximum size: 7 MB."
           other_title: If they don’t have photo ID
           other_details: "If they are on probation and do not have photo ID, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
-          self: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document. Maximum size: 7 MB."
+          self_html: "For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document.<br>Maximum size: 7 MB."
         subject_proof_of_address:
-          other: "For example, an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document. Maximum size: 7 MB."
+          other_html: "For example, an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document.<br>Maximum size: 7 MB."
           other_title: If they don’t have proof of address
           other_details: "If they are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
-          self: "For example, an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document. Maximum size: 7 MB."
+          self_html: "For example, an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document.<br>Maximum size: 7 MB."
         upcoming_court_case_text: For example, when the trial or hearing is happening.
 
   request_form:
