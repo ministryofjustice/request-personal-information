@@ -34,6 +34,8 @@ class RequestsController < ApplicationController
     upcoming
   ].freeze
 
+  CHECK_ANSWERS_STEP = "check-answers".freeze
+
   before_action :enable_back_button
 
   def new
@@ -206,7 +208,7 @@ private
       index = current_index + 1
 
       if index >= STEPS.size
-        step = "check-answers"
+        step = CHECK_ANSWERS_STEP
         session[:history] << step unless session[:history].include?(step)
         redirect = "/#{step}"
       else
@@ -254,9 +256,13 @@ private
   def return_path
     return if return_to.blank?
 
-    if STEPS.include?(return_to.to_sym) && session[:history].include?(return_to)
+    if valid_return? && session[:history].include?(return_to)
       "/#{return_to}"
     end
+  end
+
+  def valid_return?
+    return_to == CHECK_ANSWERS_STEP || STEPS.include?(return_to.to_sym)
   end
 
   def return_to
