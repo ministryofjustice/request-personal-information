@@ -81,18 +81,7 @@ RSpec.describe "Which data is required", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { laa_text: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the value to the session" do
-          patch "/request", params: { request_form: { laa_text: valid_data } }
-          expect(request.session[:information_request][:laa_text]).to eq valid_data
-        end
-      end
-
+      it_behaves_like "question that accepts valid data", :laa_text
       it_behaves_like "question with back link"
     end
   end
@@ -175,18 +164,7 @@ RSpec.describe "Which data is required", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { opg_text: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the value to the session" do
-          patch "/request", params: { request_form: { opg_text: valid_data } }
-          expect(request.session[:information_request][:opg_text]).to eq valid_data
-        end
-      end
-
+      it_behaves_like "question that accepts valid data", :opg_text
       it_behaves_like "question with back link"
     end
   end
@@ -269,18 +247,7 @@ RSpec.describe "Which data is required", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { moj_other_where: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the value to the session" do
-          patch "/request", params: { request_form: { moj_other_where: valid_data } }
-          expect(request.session[:information_request][:moj_other_where]).to eq valid_data
-        end
-      end
-
+      it_behaves_like "question that accepts valid data", :moj_other_where
       it_behaves_like "question with back link"
     end
   end
@@ -317,18 +284,7 @@ RSpec.describe "Which data is required", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { moj_other_text: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the value to the session" do
-          patch "/request", params: { request_form: { moj_other_text: valid_data } }
-          expect(request.session[:information_request][:moj_other_text]).to eq valid_data
-        end
-      end
-
+      it_behaves_like "question that accepts valid data", :moj_other_text
       it_behaves_like "question with back link"
     end
   end
