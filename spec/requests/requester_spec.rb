@@ -70,18 +70,7 @@ RSpec.describe "Requester", type: :request do
         end
       end
 
-      context "when submitting form with valid data" do
-        it "goes to next step" do
-          patch "/request", params: { request_form: { requester_name: valid_data } }
-          expect(response).to redirect_to(next_step)
-        end
-
-        it "saves the value to the session" do
-          patch "/request", params: { request_form: { requester_name: valid_data } }
-          expect(request.session[:information_request][:requester_name]).to eq valid_data
-        end
-      end
-
+      it_behaves_like "question that accepts valid data", :requester_name
       it_behaves_like "question with back link"
     end
   end
