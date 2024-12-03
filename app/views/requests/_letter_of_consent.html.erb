@@ -5,6 +5,6 @@
                  "Is dated within the last 6 months"
                ], type: :bullet %>
 
-<%= f.govuk_file_field :letter_of_consent, { size: "s", text: t("helpers.label.request_form.letter_of_consent_title") }, { text: t("helpers.hint.request_form.letter_of_consent") } %>
+<%= f.govuk_file_field :letter_of_consent, label: { size: "s" } %>
 <%= f.hidden_field :letter_of_consent_id %>
 <%= f.hidden_field :default %>

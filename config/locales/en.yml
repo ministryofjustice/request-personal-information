@@ -138,7 +138,7 @@ en:
         current_prison_name: Which prison are they in?
         full_name: Full name
         letter_of_consent_no_template: There is no official template.
-        letter_of_consent_title: Letter of consent
+        letter_of_consent: Letter of consent
         other_names:
           other: Any other names that their information may be stored under? (optional)
           self: Any other names that your information may be stored under? (optional)
