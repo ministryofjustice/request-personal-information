@@ -229,7 +229,7 @@ RSpec.describe "Requester", type: :request do
           patch "/request", params: { request_form: { letter_of_consent: invalid_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("Choose a file to upload")
+          expect(response.body).to include("Select a letter of consent")
         end
       end
 
