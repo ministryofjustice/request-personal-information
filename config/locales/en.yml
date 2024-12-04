@@ -137,7 +137,6 @@ en:
         contact_email: Email address (optional)
         current_prison_name: Which prison are they in?
         full_name: Full name
-        letter_of_consent_no_template: There is no official template.
         letter_of_consent: Letter of consent
         other_names:
           other: Any other names that their information may be stored under? (optional)
@@ -257,6 +256,7 @@ en:
       self: What is your name?
     subject_relationship: What is your relationship to them?
     upcoming: Do you need this information for an upcoming court case or hearing?
+    letter_of_consent_template: There is no official template.
   service:
     name: Request personal information
     prison:
