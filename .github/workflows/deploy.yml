@@ -118,3 +118,65 @@ jobs:
           pending-migrations="${{ vars.ECR_URL }}:$SHA" \
           jobs="${{ vars.ECR_URL }}:$SHA" \
           webapp="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    environment: production
+
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: read  # This is required for actions/checkout
+
+    env:
+      KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
+      KUBE_CERT: ${{ secrets.KUBE_CERT }}
+      KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
+      KUBE_CLUSTER: ${{ secrets.KUBE_CLUSTER }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Assume role in Cloud Platform
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.ECR_REGION }}
+
+      - name: Login to container repository
+        uses: aws-actions/amazon-ecr-login@v2
+        id: login-ecr
+
+      - name: Store build tag
+        id: vars
+        run: |
+          branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+          short_sha=$(git rev-parse --short $SHA)
+          build_tag=$PREFIX-$branch-$short_sha
+          echo "build_tag=$build_tag" >> $GITHUB_OUTPUT
+
+      - name: Tag build and push to ECR
+        run: |
+          docker pull ${{ vars.ECR_URL }}:$SHA
+          docker tag ${{ vars.ECR_URL }}:$SHA ${{ vars.ECR_URL }}:staging.latest
+          docker push ${{ vars.ECR_URL }}:staging.latest
+
+      - name: Authenticate to the cluster
+        run: |
+          echo "${KUBE_CERT}" > ca.crt
+          kubectl config set-cluster ${KUBE_CLUSTER} --certificate-authority=./ca.crt --server=https://${KUBE_CLUSTER}
+          kubectl config set-credentials deploy-user --token=${KUBE_TOKEN}
+          kubectl config set-context ${KUBE_CLUSTER} --cluster=${KUBE_CLUSTER} --user=deploy-user --namespace=${KUBE_NAMESPACE}
+          kubectl config use-context ${KUBE_CLUSTER}
+
+      - name: Rollout restart deployment
+        run: |
+          # Apply migrations job config
+          kubectl set image -f config/kubernetes/production/migrations.yml \
+          migrations="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
+
+          # Apply image specific config
+          kubectl set image -f config/kubernetes/production/deployment.yml \
+          pending-migrations="${{ vars.ECR_URL }}:$SHA" \
+          jobs="${{ vars.ECR_URL }}:$SHA" \
+          webapp="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
