@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: request-personal-information-configmap-production
+  namespace: request-personal-information-production
+data:
+  RAILS_ENV: production
+  SENTRY_CURRENT_ENV: production
+  RAILS_SERVE_STATIC_FILES: enabled
+  API_URL: "https://qa.track-a-query.service.justice.gov.uk/api/rpi/v2"
