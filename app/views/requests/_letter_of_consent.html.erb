@@ -1,6 +1,5 @@
 <p class="govuk-body">You must provide a letter of consent from the subject of this request which:</p>
-<%= govuk_list ["States that they consent to their information being released to you", "Is signed by them", "Is dated within the last 6 months"], type: :bullet %>
-
+<%= govuk_list ["states that they consent to their information being released to you", "is signed by them", "is dated within the last 6 months"], type: :bullet %>
 <p class="govuk-body"><%= t("request_form.letter_of_consent_template") %></p>
 <%= f.govuk_file_field :letter_of_consent, label: { size: "s" } %>
 <%= f.hidden_field :letter_of_consent_id %>
