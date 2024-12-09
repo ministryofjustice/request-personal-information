@@ -45,12 +45,12 @@ class InformationRequestSummary
         {
           key: { text: I18n.t("helpers.label.request_form.organisation_name") },
           value: { text: @information_request.organisation_name },
-          actions: { text: "Change", href: with_query_string("/solicitor-details#"), visually_hidden_text: I18n.t("helpers.label.request_form.organisation_name") },
+          actions: { text: "Change", href: with_query_string("/solicitor-details"), visually_hidden_text: I18n.t("helpers.label.request_form.organisation_name") },
         },
         {
           key: { text: I18n.t("helpers.label.request_form.requester_name") },
           value: { text: @information_request.requester_name },
-          actions: { text: "Change", href: with_query_string("/requester-name"), visually_hidden_text: I18n.t("helpers.label.request_form.requester_name") },
+          actions: { text: "Change", href: with_query_string("/solicitor-details"), visually_hidden_text: I18n.t("helpers.label.request_form.requester_name") },
         },
       ]
     else
@@ -58,7 +58,7 @@ class InformationRequestSummary
         {
           key: { text: "Your full name" },
           value: { text: @information_request.requester_name },
-          actions: { text: "Change", href: with_query_string("/requester-name"), visually_hidden_text: I18n.t("helpers.label.request_form.requester_name") },
+          actions: { text: "Change", href: with_query_string("/requester-details"), visually_hidden_text: I18n.t("helpers.label.request_form.requester_name") },
         },
       ]
     end
