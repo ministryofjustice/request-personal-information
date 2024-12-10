@@ -4,7 +4,7 @@ metadata:
   name: request-personal-information-production
   namespace: request-personal-information-production
 spec:
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 5
   strategy:
     type: RollingUpdate
