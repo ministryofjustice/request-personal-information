@@ -13,8 +13,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build-approval:
+    if: ${{ github.ref == 'refs/heads/main' }}
+
+  build-approval:
+    if: ${{ github.ref != 'refs/heads/main' }}
+    environment: build
+
   build:
     runs-on: ubuntu-latest
+    needs: build-approval
 
     permissions:
       id-token: write # This is required for requesting the JWT
