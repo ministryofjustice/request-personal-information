@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   build-approval:
-    if: ${{ github.ref != 'refs/heads/main' }}
+    if: ${{ github.ref != 'refs/heads/build-pr' }}
     runs-on: ubuntu-latest
     environment: build
 
