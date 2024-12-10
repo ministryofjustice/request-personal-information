@@ -18,7 +18,7 @@ jobs:
     environment: build
 
     steps:
-      run: echo "Build approval"
+      - run: echo "Build approval"
 
   build:
     runs-on: ubuntu-latest
