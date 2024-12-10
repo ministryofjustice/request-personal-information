@@ -66,9 +66,9 @@ jobs:
   build-and-deploy:
     if: ${{ github.ref != 'refs/heads/main' }}
     needs: test
-    environment: build
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
+    environment: build
 
   build-and-deploy-main:
     if: ${{ github.ref == 'refs/heads/main' }}
