@@ -63,7 +63,7 @@ jobs:
           minimum_suite_coverage: 100
           minimum_file_coverage: 100
 
-  build-and-deploy-main:
+  build-and-deploy:
     needs: test
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
