@@ -23,7 +23,7 @@ spec:
       serviceAccountName: request-personal-information
       containers:
       - name: webapp
-        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-production:production.latest
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:production.latest
         imagePullPolicy: Always
         ports:
           - containerPort: 3000
@@ -74,7 +74,7 @@ spec:
                 name: s3-bucket-output
                 key: bucket_name
       - name: jobs
-        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-production:production.latest
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:production.latest
         imagePullPolicy: Always
         ports:
           - containerPort: 3000
@@ -97,7 +97,7 @@ spec:
                 key: bucket_name
       initContainers:
         - name: pending-migrations
-          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-production:production.latest
+          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:production.latest
           command:
             - /bin/sh
             - -c
