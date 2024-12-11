@@ -119,33 +119,11 @@ jobs:
           webapp="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
 
       - name: Send deploy notification to product Slack channel
-        uses: slackapi/slack-github-action@v2.0.0
+        uses: ./.github/workflows/notification.yml
         with:
+          build_tag: ${{ steps.vars.outputs.build_tag }}
+          environment: Staging
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          webhook-type: incoming-webhook
-          payload: |
-            {
-              "attachments": [
-                {
-                  "color": "#1d990c",
-                  "text": "${{ github.actor }} deployed *${{ steps.vars.outputs.build_tag }}* to *Staging*",
-                  "fields": [
-                    {
-                      "title": "Project",
-                      "value": "Request for Personal Information",
-                      "short": true
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "text": "Visit Job",
-                      "type": "button",
-                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                    }
-                  ]
-                }
-              ]
-            }
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -212,59 +190,15 @@ jobs:
           webapp="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
 
       - name: Send deploy notification to product Slack channel
-        uses: slackapi/slack-github-action@v2.0.0
+        uses: ./.github/workflows/notification.yml
         with:
+          build_tag: ${{ steps.vars.outputs.build_tag }}
+          environment: Production
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          webhook-type: incoming-webhook
-          payload: |
-            {
-              "attachments": [
-                {
-                  "color": "#1d990c",
-                  "text": "${{ github.actor }} deployed *${{ steps.vars.outputs.build_tag }}* to *Production*",
-                  "fields": [
-                    {
-                      "title": "Project",
-                      "value": "Request for Personal Information",
-                      "short": true
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "text": "Visit Job",
-                      "type": "button",
-                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                    }
-                  ]
-                }
-              ]
-            }
 
       - name: Send deploy notification to production deploys Slack channel
-        uses: slackapi/slack-github-action@v2.0.0
+        uses: ./.github/workflows/notification.yml
         with:
+          build_tag: ${{ steps.vars.outputs.build_tag }}
+          environment: Production
           webhook: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
-          webhook-type: incoming-webhook
-          payload: |
-            {
-              "attachments": [
-                {
-                  "color": "#1d990c",
-                  "text": "${{ github.actor }} deployed *${{ steps.vars.outputs.build_tag }}* to *Production*",
-                  "fields": [
-                    {
-                      "title": "Project",
-                      "value": "Request for Personal Information",
-                      "short": true
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "text": "Visit Job",
-                      "type": "button",
-                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                    }
-                  ]
-                }
-              ]
-            }
