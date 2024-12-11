@@ -15,6 +15,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    outputs:
+      build_tag: ${{ steps.vars.outputs.build_tag }}
+
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read  # This is required for actions/checkout
@@ -84,14 +87,6 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
         id: login-ecr
 
-      - name: Store build tag
-        id: vars
-        run: |
-          branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-          short_sha=$(git rev-parse --short $SHA)
-          build_tag=$PREFIX-$branch-$short_sha
-          echo "build_tag=$build_tag" >> $GITHUB_OUTPUT
-
       - name: Tag build and push to ECR
         run: |
           docker pull ${{ vars.ECR_URL }}:$SHA
@@ -118,12 +113,13 @@ jobs:
           jobs="${{ vars.ECR_URL }}:$SHA" \
           webapp="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
 
-      - name: Send deploy notification to product Slack channel
-        uses: ./.github/workflows/notification.yml
-        with:
-          build_tag: ${{ steps.vars.outputs.build_tag }}
-          environment: Staging
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+  notify-staging:
+    needs: [build, deploy-staging]
+    uses: ./.github/workflows/notification.yml
+      with:
+        build_tag: ${{ needs.build.outputs.build_tag }}
+        environment: Staging
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -155,14 +151,6 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
         id: login-ecr
 
-      - name: Store build tag
-        id: vars
-        run: |
-          branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-          short_sha=$(git rev-parse --short $SHA)
-          build_tag=$PREFIX-$branch-$short_sha
-          echo "build_tag=$build_tag" >> $GITHUB_OUTPUT
-
       - name: Tag build and push to ECR
         run: |
           docker pull ${{ vars.ECR_URL }}:$SHA
@@ -189,16 +177,18 @@ jobs:
           jobs="${{ vars.ECR_URL }}:$SHA" \
           webapp="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
 
-      - name: Send deploy notification to product Slack channel
-        uses: ./.github/workflows/notification.yml
-        with:
-          build_tag: ${{ steps.vars.outputs.build_tag }}
-          environment: Production
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+  notify-production:
+    needs: [build, deploy-production]
+    uses: ./.github/workflows/notification.yml
+      with:
+        build_tag: ${{ needs.build.outputs.build_tag }}
+        environment: Productio
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - name: Send deploy notification to production deploys Slack channel
-        uses: ./.github/workflows/notification.yml
-        with:
-          build_tag: ${{ steps.vars.outputs.build_tag }}
-          environment: Production
-          webhook: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
+  notify-production-2:
+    needs: [build, deploy-production]
+    uses: ./.github/workflows/notification.yml
+      with:
+        build_tag: ${{ needs.build.outputs.build_tag }}
+        environment: Productio
+        webhook: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
