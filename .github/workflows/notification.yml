@@ -35,13 +35,7 @@ jobs:
                       "short": true
                     }
                   ],
-                  "actions": [
-                    {
-                      "text": "Visit Job",
-                      "type": "button",
-                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                    }
-                  ]
+                  "footer": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                 }
               ]
             }
