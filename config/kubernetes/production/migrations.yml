@@ -9,7 +9,7 @@ spec:
       serviceAccountName: request-personal-information
       containers:
       - name: migrations
-        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-production:production.latest
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/request-personal-information-staging:production.latest
         command: ["./config/docker/entrypoint-migrations.sh"]
         resources:
           requests:
