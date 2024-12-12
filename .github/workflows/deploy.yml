@@ -117,11 +117,13 @@ jobs:
 
   notify-staging:
     needs: [build, deploy-staging]
-    uses: ./.github/workflows/notification.yml
-    with:
-      build_tag: ${{ needs.build.outputs.build_tag }}
-      environment: Staging
-      webhook: ${{ env.SLACK_WEBHOOK_URL }}
+    steps:
+      - name: Slack notification
+        uses: ./.github/workflows/notification.yml
+        with:
+          build_tag: ${{ needs.build.outputs.build_tag }}
+          environment: Staging
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   deploy-production:
     runs-on: ubuntu-latest
