@@ -17,8 +17,8 @@ jobs:
 
     outputs:
       build_tag: ${{ steps.vars.outputs.build_tag }}
-      slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-      prod_slack_webhook_url: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
+      slack_webhook_url: ${{ steps.vars.outputs.SLACK_WEBHOOK_URL }}
+      prod_slack_webhook_url: ${{ steps.vars.outputs.PROD_SLACK_WEBHOOK_URL }}
 
     permissions:
       id-token: write # This is required for requesting the JWT
@@ -41,13 +41,15 @@ jobs:
       - name: Store current date
         run: echo "BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z)" >> $GITHUB_ENV
 
-      - name: Store build tag
+      - name: Store build tag and webhooks
         id: vars
         run: |
           branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
           short_sha=$(git rev-parse --short $SHA)
           build_tag=$PREFIX-$branch-$short_sha
           echo "build_tag=$build_tag" >> $GITHUB_OUTPUT
+          echo "slack_webhook_url=$SLACK_WEBHOOK_URL" >> $GITHUB_OUTPUT
+          echo "prod_slack_webhook_url=$PROD_SLACK_WEBHOOK_URL" >> $GITHUB_OUTPUT
 
       - name: Build
         run: |
