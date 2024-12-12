@@ -121,7 +121,7 @@ jobs:
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Staging
-      webhook: ${{ $SLACK_WEBHOOK_URL }}
+      webhook: ${{ env.SLACK_WEBHOOK_URL }}
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -185,7 +185,7 @@ jobs:
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Production
-      webhook: ${{ $SLACK_WEBHOOK_URL }}
+      webhook: ${{ env.SLACK_WEBHOOK_URL }}
 
   notify-production-2:
     needs: [build, deploy-production]
@@ -193,4 +193,4 @@ jobs:
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Production
-      webhook: ${{ $PROD_SLACK_WEBHOOK_URL }}
+      webhook: ${{ env.PROD_SLACK_WEBHOOK_URL }}
