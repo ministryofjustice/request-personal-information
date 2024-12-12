@@ -17,8 +17,6 @@ jobs:
 
     outputs:
       build_tag: ${{ steps.vars.outputs.build_tag }}
-      slack_webhook_url: ${{ steps.vars.outputs.slack_webhook_url }}
-      prod_slack_webhook_url: ${{ steps.vars.outputs.prod_slack_webhook_url }}
 
     permissions:
       id-token: write # This is required for requesting the JWT
@@ -41,15 +39,13 @@ jobs:
       - name: Store current date
         run: echo "BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z)" >> $GITHUB_ENV
 
-      - name: Store build tag and webhooks
+      - name: Store build tag
         id: vars
         run: |
           branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
           short_sha=$(git rev-parse --short $SHA)
           build_tag=$PREFIX-$branch-$short_sha
           echo "build_tag=$build_tag" >> $GITHUB_OUTPUT
-          echo "slack_webhook_url=${{ secrets.SLACK_WEBHOOK_URL }}" >> $GITHUB_OUTPUT
-          echo "prod_slack_webhook_url=${{ secrets.PROD_SLACK_WEBHOOK_URL }}" >> $GITHUB_OUTPUT
 
       - name: Build
         run: |
@@ -120,10 +116,11 @@ jobs:
   notify-staging:
     needs: [build, deploy-staging]
     uses: ./.github/workflows/notification.yml
+    secrets:
+      webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Staging
-      webhook: ${{ needs.build.outputs.slack_webhook_url }}
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -184,15 +181,17 @@ jobs:
   notify-production:
     needs: [build, deploy-production]
     uses: ./.github/workflows/notification.yml
+    secrets:
+      webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Production
-      webhook: ${{ needs.build.outputs.slack_webhook_url }}
 
   notify-production-2:
     needs: [build, deploy-production]
     uses: ./.github/workflows/notification.yml
+    secrets:
+      webhook_url: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Production
-      webhook: ${{ needs.build.outputs.prod_slack_webhook_url }}

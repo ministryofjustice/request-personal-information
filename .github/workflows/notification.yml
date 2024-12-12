@@ -2,14 +2,14 @@ name: Notification Workflow
 
 on:
   workflow_call:
+    secrets:
+      webhook_url:
+        required: true
     inputs:
       build_tag:
         required: true
         type: string
       environment:
-        required: true
-        type: string
-      webhook:
         required: true
         type: string
 
@@ -21,7 +21,7 @@ jobs:
       - name: Slack notification
         uses: slackapi/slack-github-action@v2.0.0
         with:
-          webhook: ${{ inputs.webhook }}
+          webhook: ${{ secrets.webhook_url }}
           webhook-type: incoming-webhook
           payload: |
             {
