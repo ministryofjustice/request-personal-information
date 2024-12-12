@@ -119,7 +119,7 @@ jobs:
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Staging
-      webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+      webhook: secrets.SLACK_WEBHOOK_URL
 
   deploy-production:
     runs-on: ubuntu-latest
