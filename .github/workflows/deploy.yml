@@ -116,6 +116,7 @@ jobs:
           webapp="${{ vars.ECR_URL }}:$SHA" --local --output yaml | kubectl apply -n $KUBE_NAMESPACE -f -
 
   notify-staging:
+    runs-on: ubuntu-latest
     needs: [build, deploy-staging]
     steps:
       - name: Slack notification
