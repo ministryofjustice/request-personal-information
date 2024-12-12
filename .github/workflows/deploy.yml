@@ -48,8 +48,8 @@ jobs:
           short_sha=$(git rev-parse --short $SHA)
           build_tag=$PREFIX-$branch-$short_sha
           echo "build_tag=$build_tag" >> $GITHUB_OUTPUT
-          echo "slack_webhook_url=$SLACK_WEBHOOK_URL" >> $GITHUB_OUTPUT
-          echo "prod_slack_webhook_url=$PROD_SLACK_WEBHOOK_URL" >> $GITHUB_OUTPUT
+          echo "slack_webhook_url=${{ secrets.SLACK_WEBHOOK_URL }}" >> $GITHUB_OUTPUT
+          echo "prod_slack_webhook_url=${{ secrets.PROD_SLACK_WEBHOOK_URL }}" >> $GITHUB_OUTPUT
 
       - name: Build
         run: |
