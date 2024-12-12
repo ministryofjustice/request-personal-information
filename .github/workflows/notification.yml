@@ -16,6 +16,7 @@ on:
 jobs:
   notify:
     runs-on: ubuntu-latest
+    name: "notify-${{ inputs.environment }}"
 
     steps:
       - name: Slack notification
