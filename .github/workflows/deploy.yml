@@ -188,7 +188,7 @@ jobs:
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Production
-      webhook: ${{ env.SLACK_WEBHOOK_URL }}
+      webhook: $SLACK_WEBHOOK_URL
 
   notify-production-2:
     needs: [build, deploy-production]
@@ -196,4 +196,4 @@ jobs:
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Production
-      webhook: ${{ env.PROD_SLACK_WEBHOOK_URL }}
+      webhook: $PROD_SLACK_WEBHOOK_URL
