@@ -116,10 +116,11 @@ jobs:
   notify-staging:
     needs: [build, deploy-staging]
     uses: ./.github/workflows/notification.yml
+    secrets: inherit
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Staging
-      webhook: secrets.SLACK_WEBHOOK_URL
+      webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -180,15 +181,17 @@ jobs:
   notify-production:
     needs: [build, deploy-production]
     uses: ./.github/workflows/notification.yml
+    secrets: inherit
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Production
-      webhook: secrets.SLACK_WEBHOOK_URL
+      webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   notify-production-2:
     needs: [build, deploy-production]
     uses: ./.github/workflows/notification.yml
+    secrets: inherit
     with:
       build_tag: ${{ needs.build.outputs.build_tag }}
       environment: Production
-      webhook: secrets.PROD_SLACK_WEBHOOK_URL
+      webhook: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
