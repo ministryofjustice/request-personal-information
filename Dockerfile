@@ -20,7 +20,8 @@ RUN apk --no-cache add \
     build-base \
     postgresql-dev \
     tzdata \
-    yarn
+    yarn \
+    yaml-dev
 
 # Copy required files
 COPY .ruby-version Gemfile* package.json yarn.lock ./
