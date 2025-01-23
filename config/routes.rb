@@ -54,7 +54,6 @@ Rails.application.routes.draw do
 
   root to: "pages#homepage"
 
-
   if Rails.env.test?
     namespace :test do
       resource :session, only: %i[create]

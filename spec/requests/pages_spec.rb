@@ -8,6 +8,7 @@ RSpec.describe "Pages", type: :request do
       expect(response.body).to include("Request personal information from the Ministry of Justice")
     end
   end
+
   describe "#feedbackpage" do
     it "shows the feedback page" do
       get feedback_path
