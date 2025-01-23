@@ -13,7 +13,7 @@ RSpec.describe "Pages", type: :request do
     it "shows the feedback page" do
       get feedback_path
       expect(response).to be_successful
-      expect(response.body).to include("Give feedback on this service")
+      expect(response.body).to include("Give feedback on Request personal information")
       expect(response.body).to include("Overall, how did you feel about the service you received today?")
       expect(response.body).to include("How could we improve this service?")
     end
