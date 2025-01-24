@@ -9,7 +9,7 @@ RSpec.describe "Pages", type: :request do
     end
   end
 
-  describe "#feedbackpage" do
+  describe "#feedback" do
     it "shows the feedback page" do
       get feedback_path
       expect(response).to be_successful

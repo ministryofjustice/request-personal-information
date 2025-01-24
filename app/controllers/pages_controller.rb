@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
   def homepage; end
 
-  def feedbackpage; end
+  def feedback; end
 end

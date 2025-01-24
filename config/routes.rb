@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unprocessable_entity"
   get "/500", to: "errors#internal_error"
 
-  get "/feedback", to: "pages#feedbackpage"
+  get "/feedback", to: "pages#feedback"
 
   root to: "pages#homepage"
 
