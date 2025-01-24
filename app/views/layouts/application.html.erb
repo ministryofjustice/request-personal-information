@@ -37,7 +37,7 @@
 
     <%= govuk_skip_link %>
 
-    <%= govuk_header(homepage_url: "/", service_name: t("service.name")) %>
+    <%= govuk_header(homepage_url: "https://www.gov.uk/", service_name: t("service.name")) %>
 
     <div class="govuk-width-container">
       <%= govuk_phase_banner(tag: { text: "Beta" }, text: "This is a new service – your feedback will help us to improve it. ") %>
@@ -47,7 +47,7 @@
     </div>
 
     <%= govuk_footer(meta_items_title: "Support links", meta_items: {
-      t("footer.help") => "https://www.gov.uk/help", t("footer.cookie") => "https://www.gov.uk/help/cookies" }) %>
+      t("footer.cookie") => "https://www.gov.uk/help/cookies" }) %>
 
     <%= render "shared/debug" if Rails.env.development? %>
   </body>
