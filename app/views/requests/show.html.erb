@@ -12,56 +12,56 @@
       end;
     end %>
 
-    <h3 class="govuk-heading-m"><%= "#{@information_request.possessive_pronoun.capitalize} details" %></h3>
+    <h2 class="govuk-heading-m"><%= "#{@information_request.possessive_pronoun.capitalize} details" %></h2>
     <%= govuk_summary_list rows: @summary[:subject_summary] %>
 
     <% if @summary[:requester_summary].present? %>
-      <h3 class="govuk-heading-m">Your details</h3>
+      <h2 class="govuk-heading-m">Your details</h2>
       <%= govuk_summary_list rows: @summary[:requester_summary] %>
     <% end %>
 
     <% if @summary[:requester_id_summary].present? %>
-      <h3 class="govuk-heading-m">Upload your ID</h3>
+      <h2 class="govuk-heading-m">Upload your ID</h2>
       <%= govuk_summary_list rows: @summary[:requester_id_summary] %>
     <% end %>
 
     <% if @summary[:subject_id_summary].present? %>
-      <h3 class="govuk-heading-m"><%= "Upload #{@information_request.possessive_pronoun} ID" %></h3>
+      <h2 class="govuk-heading-m"><%= "Upload #{@information_request.possessive_pronoun} ID" %></h2>
       <%= govuk_summary_list rows: @summary[:subject_id_summary] %>
     <% end %>
 
-    <h3 class="govuk-heading-m"><%= t("request_form.moj") %></h3>
+    <h2 class="govuk-heading-m"><%= t("request_form.moj") %></h2>
     <%= govuk_summary_list rows: @summary[:information_summary] %>
 
     <% if @summary[:prison_summary].present? %>
-      <h3 class="govuk-heading-m"><%= t("service.prison.name") %></h3>
+      <h2 class="govuk-heading-m"><%= t("service.prison.name") %></h2>
       <%= govuk_summary_list rows: @summary[:prison_summary] %>
     <% end %>
 
     <% if @summary[:probation_summary].present? %>
-      <h3 class="govuk-heading-m"><%= t("service.probation.name") %></h3>
+      <h2 class="govuk-heading-m"><%= t("service.probation.name") %></h2>
       <%= govuk_summary_list rows: @summary[:probation_summary] %>
     <% end %>
 
     <% if @summary[:laa_summary].present? %>
-      <h3 class="govuk-heading-m"><%= t("service.laa.name") %></h3>
+      <h2 class="govuk-heading-m"><%= t("service.laa.name") %></h2>
       <%= govuk_summary_list rows: @summary[:laa_summary] %>
     <% end %>
 
     <% if @summary[:opg_summary].present? %>
-      <h3 class="govuk-heading-m"><%= t("service.opg.name") %></h3>
+      <h2 class="govuk-heading-m"><%= t("service.opg.name") %></h2>
       <%= govuk_summary_list rows: @summary[:opg_summary] %>
     <% end %>
 
     <% if @summary[:moj_other_summary].present? %>
-      <h3 class="govuk-heading-m"><%= t("service.other.name") %></h3>
+      <h2 class="govuk-heading-m"><%= t("service.other.name") %></h2>
       <%= govuk_summary_list rows: @summary[:moj_other_summary] %>
     <% end %>
 
-    <h3 class="govuk-heading-m"><%= t("request_form.contact_address") %></h3>
+    <h2 class="govuk-heading-m"><%= t("request_form.contact_address") %></h2>
     <%= govuk_summary_list rows: @summary[:contact_summary] %>
 
-    <h3 class="govuk-heading-m">Now send your request</h3>
+    <h2 class="govuk-heading-m">Now send your request</h2>
     <p class="govuk-body">By sending this request you confirm that, to the best of your knowledge, the details you are providing are correct.<p>
     <p class="govuk-body">You might want to save or print this page for your own records.</p>
 
