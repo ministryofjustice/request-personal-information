@@ -40,7 +40,9 @@
     <%= govuk_header(homepage_url: "/", service_name: t("service.name")) %>
 
     <div class="govuk-width-container">
-      <%= govuk_phase_banner(tag: { text: "Beta" }) do %>This is a new service. Help us improve it and
+      <%= govuk_phase_banner(tag: { text: "Beta" }) do %>
+        This is a new service.
+        Help us improve it and
         <%= govuk_link_to("give your feedback", "/feedback") %>
         .
       <% end %>
