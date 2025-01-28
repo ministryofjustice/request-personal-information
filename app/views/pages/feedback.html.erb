@@ -1,8 +1,11 @@
-<div class="govuk-form-group">
-  <fieldset class="govuk-fieldset">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-    Give feedback on Request personal information
-            </legend>
+<%= form_with(model: @feedback, url: feedback_path, method: :post) do |form| %> <%# Start form, creates @feedback %>
+  <div class="govuk-form-group">
+    <%= govuk_link_to("Home", "/") %>
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        Give feedback on Request personal information
+      </legend>
+
       <div>
         <h2 class="govuk-heading-m">Satisfaction survey</h2>
       </div>
@@ -11,55 +14,28 @@
           Overall, how did you feel about the service you received today?
         </h2>
       </div>
+
       <div class="govuk-radios" data-module="govuk-radios">
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="service_very_satisfied" name="service" type="radio" value="very_satisfied">
-          <label class="govuk-label govuk-radios__label" for="service_very_satisfied">
-            Very satisfied
-          </label>
-        </div>
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="service_satisfied" name="service" type="radio" value="satisfied">
-          <label class="govuk-label govuk-radios__label" for="service_satisfied">
-            Satisfied
-          </label>
-        </div>
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="service_neither" name="service" type="radio" value="neither">
-          <label class="govuk-label govuk-radios__label" for="service_neither">
-            Neither satisfied nor dissatisfied
-          </label>
-        </div>
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="service_dissatisfied" name="service" type="radio" value="dissatisfied">
-          <label class="govuk-label govuk-radios__label" for="service_dissatisfied">
-            Dissatisfied
-          </label>
-        </div>
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="service_very_dissatisfied" name="service" type="radio" value="very_dissatisfied">
-          <label class="govuk-label govuk-radios__label" for="service_very_dissatisfied">
-            Very dissatisfied
-          </label>
-        </div>
+        <% %w[very_satisfied satisfied neither dissatisfied very_dissatisfied].each do |value| %>
+          <div class="govuk-radios__item">
+            <%= form.radio_button :service_satisfaction_level, value, id: "service_#{value}" %>
+            <%= form.label :service_satisfaction_level, value.humanize.titleize, for: "service_#{value}" %>
+          </div>
+        <% end %>
       </div>
     </fieldset>
   </div>
-  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
-      <h3 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--m" for="with-hint">
-          How could we improve this service?
-        </label>
-      </h3>
-      <div id="with-hint-hint" class="govuk-hint">
-        Do not include any personal or financial information, for example your National Insurance or credit card numbers.
-      </div>
-      <textarea class="govuk-textarea govuk-js-character-count" id="word-count" name="wordCount" rows="5" aria-describedby="word-count-info"></textarea>
-      <div id="word-count-info" class="govuk-hint govuk-character-count__message">
-        You have 1200 characters remaining
-      </div>
-  </div>
-  <button type="submit" class="govuk-button" data-module="govuk-button">
-      Send feedback
-    </button>
 
+  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
+    <%= form.label :comments, "How could we improve this service?", class: "govuk-label govuk-label--m" %>
+    <div id="with-hint-hint" class="govuk-hint">
+      Do not include any personal or financial information, for example your National Insurance or credit card numbers.
+    </div>
+    <%= form.text_area :comments, rows: 5, class: "govuk-textarea govuk-js-character-count", id: "word-count", aria-describedby: "word-count-info" %>
+    <div id="word-count-info" class="govuk-hint govuk-character-count__message">
+      You have 1200 characters remaining
+    </div>
+  </div>
+
+  <%= form.submit "Send feedback", class: "govuk-button" %>
+<% end %>
