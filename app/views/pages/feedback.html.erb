@@ -1,19 +1,16 @@
-<%= form_with(model: @feedback, url: feedback_path, method: :post) do |form| %> <%# Start form, creates @feedback %>
+<%= form_with(model: @feedback, url: feedback_path, method: :post) do |form| %>
+  <%= govuk_back_link_to({ text: 'Home', href: '/' }) %>
+
+  <%= govuk_page_header(title_text: 'Give feedback on Request personal information') %>
+
   <div class="govuk-form-group">
-    <%= govuk_link_to("Home", "/") %>
     <fieldset class="govuk-fieldset">
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        Give feedback on Request personal information
+        Satisfaction survey
       </legend>
-
-      <div>
-        <h2 class="govuk-heading-m">Satisfaction survey</h2>
-      </div>
-      <div>
-        <h2 class="govuk-heading-s">
-          Overall, how did you feel about the service you received today?
-        </h2>
-      </div>
+      <h2 class="govuk-heading-s">
+        Overall, how did you feel about the service you received today?
+      </h2>
 
       <div class="govuk-radios" data-module="govuk-radios">
         <% %w[very_satisfied satisfied neither dissatisfied very_dissatisfied].each do |value| %>
@@ -24,18 +21,18 @@
         <% end %>
       </div>
     </fieldset>
+
+    <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="1200"> <%# govuk-form-group is not needed here %>
+      <%= form.label :comments, "How could we improve this service?", class: "govuk-label govuk-label--m" %>
+      <div id="with-hint-hint" class="govuk-hint">
+        Do not include any personal or financial information, for example your National Insurance or credit card numbers.
+      </div>
+      <%= form.text_area :comments, rows: 5, class: "govuk-textarea govuk-js-character-count", id: "word-count", aria-describedby: "word-count-info" %>
+      <span id="word-count-info" class="govuk-hint govuk-character-count__message">
+        You have 1200 characters remaining
+      </span> <%# Should be a <span> %>
+    </div>
   </div>
 
-  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
-    <%= form.label :comments, "How could we improve this service?", class: "govuk-label govuk-label--m" %>
-    <div id="with-hint-hint" class="govuk-hint">
-      Do not include any personal or financial information, for example your National Insurance or credit card numbers.
-    </div>
-    <%= form.text_area :comments, rows: 5, class: "govuk-textarea govuk-js-character-count", id: "word-count", aria-describedby: "word-count-info" %>
-    <div id="word-count-info" class="govuk-hint govuk-character-count__message">
-      You have 1200 characters remaining
-    </div>
-  </div>
-
-  <%= form.submit "Send feedback", class: "govuk-button" %>
+  <%= form.govuk_submit "Send feedback" %>
 <% end %>
