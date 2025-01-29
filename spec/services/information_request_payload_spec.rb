@@ -46,7 +46,7 @@ RSpec.describe InformationRequestPayload, type: :service do
           relationship: "",
           currently_in_prison: "No",
           upcoming_court_case: "No",
-          prison_information: "NOMIS Records",
+          prison_information: "NOMIS records",
           probation_information: "nDelius file",
           letter_of_consent_file_name: nil,
           requester_photo_file_name: nil,
