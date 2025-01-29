@@ -6,8 +6,8 @@
                                        :first,
                                        :last,
                                        legend: { text: 'Satisfaction survey' },
-                                       hint: { text: 'Overall, how did you feel about the service you received today?' } %>
-  <%= f.label :comments, "How could we improve this service?", class: "govuk-label govuk-label--m" %>
+                                       hint: { text: '<strong>Overall, how did you feel about the service you received today?</strong>'.html_safe } %>
+  <%= f.label :comments, "How could we improve this service?", class: "govuk-label govuk-label--s" %>
   <%= f.govuk_text_area :comments, label: { text: 'Do not include any personal or financial information, for example your National Insurance or credit card numbers.' }, max_words: 1200 %>
   <%= f.govuk_submit %>
 <% end %>
