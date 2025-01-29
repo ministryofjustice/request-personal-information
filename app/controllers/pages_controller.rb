@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def homepage; end
 
-  def feedbacks
+  def feedback
     @feedback = Feedback.new # Create a dummy feedback object
   end
 
