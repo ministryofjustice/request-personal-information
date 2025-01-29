@@ -44,7 +44,7 @@ RSpec.feature "Request for self", type: :feature do
     click_button "Continue"
 
     # Types of information
-    check "NOMIS Records"
+    check "NOMIS records"
     click_button "Continue"
 
     # Date range

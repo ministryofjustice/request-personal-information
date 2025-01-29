@@ -212,7 +212,7 @@ RSpec.describe InformationRequestSummary, type: :model do
 
       it "returns what information is required" do
         expect(summary.prison[3]).to include({ key: { text: "What prison service information do you want?" } })
-        expect(summary.prison[3]).to include({ value: { text: "NOMIS Records" } })
+        expect(summary.prison[3]).to include({ value: { text: "NOMIS records" } })
       end
 
       it "returns dates information is required for" do
@@ -237,7 +237,7 @@ RSpec.describe InformationRequestSummary, type: :model do
           information_request.prison_other_data = true
           information_request.prison_other_data_text = "this is details of information required"
 
-          expect(summary.prison[3]).to include({ value: { text: "NOMIS Records<br>Something else" } })
+          expect(summary.prison[3]).to include({ value: { text: "NOMIS records<br>Something else" } })
           expect(summary.prison[4]).to include({ key: { text: "What other information do you want?" } })
           expect(summary.prison[4]).to include({ value: { text: "this is details of information required" } })
         end
