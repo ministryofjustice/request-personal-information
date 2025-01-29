@@ -1,14 +1,18 @@
-<%= govuk_link_to("Home", "/") %>
-<%= govuk_label text: 'Give feedback on Request personal information', tag: 'h1', size: 'l' %>
-<%= govuk_label text: 'Satisfaction survey', tag: 'h2', size: 'm' %>
-<%= form_with(model: @feedbacks, local: true) do |f| %>
-  <%= f.govuk_collection_radio_buttons :service_satisfaction_level,
-                                       [[1, 'Very satisfied'], [2, 'Satisfied'], [3, 'Neither satisfied or dissatisfied'], [4, 'Dissatisfied'], [5, 'Very dissatisfied']],
-                                       :first,
-                                       :last,
-                                       legend: { text: 'Overall, how did you feel about the service you received today?', tag: 'h2', size: 'm'  } %>
-  <%= f.label :comments, 'How could we improve this service?', class: "govuk-label govuk-label--m" %>
-  <%= f.govuk_text_area :comments, label: nil,
-                        hint: { text: 'Do not include any personal or financial information, for example your National Insurance or credit card numbers.' }, max_words: 1200 %>
-  <%= f.govuk_submit %>
-<% end %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= govuk_link_to("Home", "/") %>
+    <h1 class="govuk-heading-l">Give feedback on Request personal information</h1>
+    <h2 class="govuk-heading-m">Satisfaction survey</h2>
+    <%= form_with(local: true) do |f| %>
+      <%= f.govuk_collection_radio_buttons :service_satisfaction_level,
+                                           [[1, 'Very satisfied'], [2, 'Satisfied'], [3, 'Neither satisfied or dissatisfied'], [4, 'Dissatisfied'], [5, 'Very dissatisfied']],
+                                           :first,
+                                           :last,
+                                           legend: { text: 'Overall, how did you feel about the service you received today?', tag: 'h2', size: 'm'  } %>
+      <%= f.label :comments, 'How could we improve this service?', class: "govuk-label govuk-label--m" %>
+      <%= f.govuk_text_area :comments, label: nil,
+                            hint: { text: 'Do not include any personal or financial information, for example your National Insurance or credit card numbers.' }, max_words: 1200 %>
+      <%= f.govuk_submit %>
+    <% end %>
+  </div>
+</div>
