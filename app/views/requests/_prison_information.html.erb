@@ -5,7 +5,7 @@
 <%= f.govuk_check_boxes_fieldset :prison_data, legend: nil do %>
   <%= f.govuk_check_box :prison_nomis_records,
         true,
-        label: { text: "NOMIS Records" },
+        label: { text: "NOMIS records" },
         hint: { text: "Including case notes, incidents, visits and visitors"},
         multiple: false,
         checked: f.object.prison_nomis_records.present? %>

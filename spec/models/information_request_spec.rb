@@ -183,7 +183,7 @@ RSpec.describe InformationRequest, type: :model do
       it "returns list with one item" do
         info = build(:information_request_for_prison_service)
         info.prison_nomis_records = true
-        expect(info.prison_information).to eq "NOMIS Records"
+        expect(info.prison_information).to eq "NOMIS records"
       end
     end
 
@@ -192,7 +192,7 @@ RSpec.describe InformationRequest, type: :model do
         info = build(:information_request_for_prison_service)
         info.prison_nomis_records = true
         info.prison_other_data = true
-        expect(info.prison_information).to eq "NOMIS Records, Something else"
+        expect(info.prison_information).to eq "NOMIS records, Something else"
       end
     end
   end

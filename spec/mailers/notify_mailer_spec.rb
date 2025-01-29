@@ -39,7 +39,7 @@ RSpec.describe NotifyMailer, type: :mailer do
       expect(mail.body.encoded).to match("## HM Prison Service")
       expect(mail.body.encoded).to match(/Which prison were you most recently in\?:\s+HMP Fosse Way/)
       expect(mail.body.encoded).to match(/What was your prison number\? \(optional\):\s+ABC123/)
-      expect(mail.body.encoded).to match(/What prison service information do you want\?:\s+NOMIS Records/)
+      expect(mail.body.encoded).to match(/What prison service information do you want\?:\s+NOMIS records/)
       expect(mail.body.encoded).to match(/Enter a date this information should start from:\s+10 March 2010/)
       expect(mail.body.encoded).to match(/Enter a date this information should go to:\s+20 May 2012/)
     end
