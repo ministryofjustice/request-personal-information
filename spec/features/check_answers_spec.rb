@@ -83,7 +83,7 @@ RSpec.feature "Edit answers", type: :feature do
     click_button "Continue"
 
     # Types of information
-    check "NOMIS Records"
+    check "NOMIS records"
     click_button "Continue"
 
     # Date range
@@ -159,7 +159,7 @@ RSpec.feature "Edit answers", type: :feature do
     click_button "Continue"
 
     # Types of information
-    check "NOMIS Records"
+    check "NOMIS records"
     click_button "Continue"
 
     # Date range

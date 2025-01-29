@@ -92,7 +92,7 @@ class InformationRequest < ApplicationRecord
 
   def prison_information
     info = []
-    info << "NOMIS Records" if prison_nomis_records?
+    info << "NOMIS records" if prison_nomis_records?
     info << "Security data" if prison_security_data?
     info << "Something else" if prison_other_data?
     info.join(", ")
