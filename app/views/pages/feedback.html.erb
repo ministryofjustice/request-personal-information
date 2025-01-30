@@ -1,6 +1,6 @@
+<p><%= govuk_link_to("Home", "/") %></p>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= govuk_link_to("Home", "/") %>
     <h1 class="govuk-heading-l">Give feedback on Request personal information</h1>
     <h2 class="govuk-heading-m">Satisfaction survey</h2>
     <%= form_with(local: true) do |f| %>
@@ -8,11 +8,10 @@
                                            [[1, 'Very satisfied'], [2, 'Satisfied'], [3, 'Neither satisfied or dissatisfied'], [4, 'Dissatisfied'], [5, 'Very dissatisfied']],
                                            :first,
                                            :last,
-                                           legend: { text: 'Overall, how did you feel about the service you received today?', tag: 'h2', size: 'm'  } %>
-      <%= f.label :comments, 'How could we improve this service?', class: "govuk-label govuk-label--m" %>
-      <%= f.govuk_text_area :comments, label: nil,
-                            hint: { text: 'Do not include any personal or financial information, for example your National Insurance or credit card numbers.' }, max_words: 1200 %>
-      <%= f.govuk_submit %>
+                                           legend: { text: 'Overall, how did you feel about the service you received today?', tag: 'h3', size: 'm'  } %>
+      <%= f.govuk_text_area :comments, label: { text: "<strong>How could we improve this service?</strong>".html_safe },
+                            hint: { text: 'Do not include any personal or financial information, for example your National Insurance or credit card numbers.' }, max_chars: 1200 %>
+      <%= f.govuk_submit "Send feedback" %>
     <% end %>
   </div>
 </div>
