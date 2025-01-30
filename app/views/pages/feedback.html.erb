@@ -8,7 +8,7 @@
                                            [[1, 'Very satisfied'], [2, 'Satisfied'], [3, 'Neither satisfied or dissatisfied'], [4, 'Dissatisfied'], [5, 'Very dissatisfied']],
                                            :first,
                                            :last,
-                                           legend: { text: 'Overall, how did you feel about the service you received today?', tag: 'h3', size: 'm'  } %>
+                                           legend: { text: 'Overall, how did you feel about the service you received today?', tag: 'h3'  } %>
       <%= f.govuk_text_area :comments, label: { text: "<strong>How could we improve this service?</strong>".html_safe },
                             hint: { text: 'Do not include any personal or financial information, for example your National Insurance or credit card numbers.' }, max_chars: 1200 %>
       <%= f.govuk_submit "Send feedback" %>
