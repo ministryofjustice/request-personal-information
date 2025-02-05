@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  get "cookies/accept", as: 'set_cookie'
-  get "cookies/reject", as: 'reject_cookie'
-  get "cookies/show", as: 'get_cookie'
-  get 'cookies/delete', as: 'delete_cookie'
+  get "cookies/accept", as: "set_cookie"
+  get "cookies/reject", as: "reject_cookie"
+  get "cookies/show", as: "get_cookie"
+  get "cookies/delete", as: "delete_cookie"
 
   get "ping", to: "ping#index"
   get "up" => "rails/health#show", as: :rails_health_check
@@ -54,8 +54,6 @@ Rails.application.routes.draw do
   get "/404", to: "errors#not_found"
   get "/422", to: "errors#unprocessable_entity"
   get "/500", to: "errors#internal_error"
-
-
 
   root to: "pages#homepage"
 
