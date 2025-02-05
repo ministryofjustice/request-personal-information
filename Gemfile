@@ -19,6 +19,7 @@ gem "sentry-ruby"
 gem "dartsass-rails", "~> 0.5.1"
 gem "jsbundling-rails"
 gem "sprockets-rails"
+gem "selenium-webdriver"
 
 group :test do
   gem "database_cleaner-active_record"
