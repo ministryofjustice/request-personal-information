@@ -1,0 +1,44 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Accessibility statement</h1>
+
+    <p class="govuk-body">This accessibility statement applies to the Request personal information form at: <%= govuk_link_to "https://request-personal-info.form.service.justice.gov.uk" %>.</p>
+    <p class="govuk-body">This form was built by the Ministry of Justice. Justice Digital is responsible for the content of this form.</p>
+    <h2 class="govuk-heading-m">Using this form</h2>
+    <p class="govuk-body">We want as many people as possible to be able to use this form. For example, that means you should be able to:</p>
+    <%= govuk_list ["change colours, contrast levels and fonts",
+                    "zoom in up to 300% without the text spilling off the screen",
+                    "navigate the form using just a keyboard",
+                    "navigate the form using speech recognition software",
+                    "listen to the form using a screen reader (including recent versions of JAWS, NVDA and VoiceOver)"], type: :bullet %>
+
+    <p class="govuk-body">We have also made the text as simple as possible to understand.</p>
+    <p class="govuk-body"><%= govuk_link_to "AbilityNet", "https://mcmw.abilitynet.org.uk/" %> has advice on making your device easier to use if you have a disability.</p>
+
+    <h2 class="govuk-heading-m">How accessible this form is</h2>
+    <p class="govuk-body">We have performed a basic accessibility check of this form and believe it meets the <%= govuk_link_to "Web Content Accessibility Guidelines version 2.2 AA standard", "https://www.w3.org/TR/WCAG22/" %>.</p>
+
+    <h2 class="govuk-heading-m">Feedback and contact information</h2>
+    <p class="govuk-body">If you require an alternative method of making a subject access request to this online form, you can also make a request by email or letter. Follow the guidance set out in the  <%= govuk_link_to "Personal information charter", "https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter" %>.</p>
+    <p class="govuk-body">If you have problems using this form or need additional support, email <%= t("pages.accessibility.sar_research_email_html")%>.</p>
+
+    <h2 class="govuk-heading-m">Reporting accessibility problems with this form</h2>
+    <p class="govuk-body">We're always looking to improve the accessibility of this form. If you find any problems or think we're not meeting accessibility requirements, email: <%= t("pages.accessibility.sar_research_email_html")%>.</p>
+
+    <h2 class="govuk-heading-m">Enforcement procedure</h2>
+    <p class="govuk-body">The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations'). If you're not happy with how we respond to your complaint, contact the <%= govuk_link_to "Equality Advisory and Support Service (EASS)", "https://www.equalityadvisoryservice.com/" %>.</p>
+ 
+    <h2 class="govuk-heading-m">Technical information about this form's accessibility</h2>
+    <p class="govuk-body">We are committed to making this form accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.</p>
+
+    <h3 class="govuk-heading-s">Compliance status</h3>
+    <p class="govuk-body">This form is fully compliant with the <%= govuk_link_to "Web Content Accessibility Guidelines version 2.2 AA standard", "https://www.w3.org/TR/WCAG22/" %>.</p>
+
+    <h2 class="govuk-heading-m">What we're doing to improve accessibility</h2>
+    <p class="govuk-body">We review the content and performance of this site on an ongoing basis and fix any accessibility issues identified or reported to us.</p>
+
+    <h2 class="govuk-heading-m">Preparation of this accessibility statement</h2>
+    <p class="govuk-body">This statement was prepared on 30 January 2025.</p>
+    <p class="govuk-body">The tests on the website were carried out by the Ministry of Justice. We completed accessibility checks on a representative sample of pages using keyboard testing and the WAVE automated testing tool.</p>
+  </div>
+</div>
