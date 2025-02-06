@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  get "cookies/accept", as: "set_cookie"
-  get "cookies/reject", as: "reject_cookie"
-  get "cookies/show", as: "get_cookie"
-  get "cookies/delete", as: "delete_cookie"
 
   get "ping", to: "ping#index"
   get "up" => "rails/health#show", as: :rails_health_check
+
+  resource :cookies, only: %i[show update]
 
   resource :request, only: %i[new update create] do
     get "/back", to: "requests#back"
