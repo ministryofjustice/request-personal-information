@@ -13,7 +13,6 @@ gem "mail-notify"
 gem "pg"
 gem "puma", ">= 5.0"
 gem "rails", "~> 7.2"
-gem "selenium-webdriver"
 gem "sentry-rails"
 gem "sentry-ruby"
 
@@ -31,11 +30,13 @@ group :test do
 end
 
 group :development, :test do
+  gem 'selenium-webdriver'
   gem "brakeman", require: false
   gem "capybara"
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "rspec-rails"
   gem "rubocop-govuk", require: false
+  gem "cucumber-rails", require: false
 end
 
 group :development do
