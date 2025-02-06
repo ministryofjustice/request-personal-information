@@ -35,8 +35,16 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <%= render "cookies/cookie_banner" if cookies[:analytics].blank? %>
+    <% content_for(:cookie_banner) do %>
+      <% unless analytics_consent_cookie.present? %>
+        <%= render partial: 'layouts/cookie_banner' %>
+      <% end %>
 
+      <% if flash['cookies_consent_updated'] %>
+        <%= render partial: 'layouts/cookie_banner_confirmation', locals: { result: flash['cookies_consent_updated'] } %>
+      <% end %>
+    <% end %>
+    <%= yield :cookie_banner %>
     <%= govuk_skip_link %>
 
     <%= govuk_header(homepage_url: "https://www.gov.uk/", service_name: t("service.name")) %>
