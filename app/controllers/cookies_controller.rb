@@ -1,17 +1,18 @@
 class CookiesController < ApplicationController
-  def accept
-    cookies[:analytics] = {
-      value: "accepted",
-      expires: 1.year.from_now,
-    }
-    redirect_to root_path
+  def show; end
+
+  def update
+    result = CookieSettingsForm.new(
+      consent: consent_param,
+      cookies: cookies,
+    ).save
+
+    redirect_back fallback_location: root_path, flash: { cookies_consent_updated: result }
   end
 
-  def reject
-    cookies[:analytics] = {
-      value: "rejected",
-      expires: 1.year.from_now,
-    }
-    redirect_to root_path
+private
+
+  def consent_param
+    params.require(:cookies)
   end
 end

@@ -45,6 +45,5 @@ module RequestPersonalInformation
     # Cookies permission banner
     config.x.cookies_consent_name = "rpi_cookies_consent".freeze
     config.x.cookies_consent_expiration = 1.year
-
   end
 end
