@@ -13,9 +13,9 @@ gem "mail-notify"
 gem "pg"
 gem "puma", ">= 5.0"
 gem "rails", "~> 7.2"
+gem "selenium-webdriver"
 gem "sentry-rails"
 gem "sentry-ruby"
-gem 'selenium-webdriver'
 
 gem "dartsass-rails", "~> 0.5.1"
 gem "jsbundling-rails"
