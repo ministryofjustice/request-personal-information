@@ -1,5 +1,4 @@
 class CookiesController < ApplicationController
-
   def update
     result = CookieSettingsForm.new(
       consent: consent_param,
