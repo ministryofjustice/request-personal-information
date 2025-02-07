@@ -1,5 +1,4 @@
 class CookiesController < ApplicationController
-  def show; end
 
   def update
     result = CookieSettingsForm.new(
