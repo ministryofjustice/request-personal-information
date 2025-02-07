@@ -36,3 +36,19 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+# spec/rails_helper.rb
+require "capybara/rspec"
+require "selenium/webdriver"
+
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.javascript_driver = :selenium_chrome
+
+RSpec.configure do |config|
+  config.before(:each, type: :feature, js: true) do
+    driven_by :selenium_chrome
+  end
+end
