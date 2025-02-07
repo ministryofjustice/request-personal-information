@@ -6,9 +6,6 @@ class CookieSettingsForm
   CONSENT_REJECT = "reject".freeze
 
   def save
-    Rails.logger.debug "Consent parameter: #{consent}"
-    Rails.logger.debug "Accept or Reject: #{accept_or_reject}"
-
     cookies[cookie_name] = {
       expires: expiration,
       value: accept_or_reject,
