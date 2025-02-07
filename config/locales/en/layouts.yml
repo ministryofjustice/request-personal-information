@@ -27,6 +27,3 @@ en:
       content_html: |
         You can <a href="%{cookies_link}" class="govuk-link">change your cookie settings</a> at any time.
       hide_button: Hide this message
-    notification_banner:
-      title: Important
-      content_paragraph_html: New legislative changes to rehabilitation periods came into effect on 28th October 2023 which may have impacted when your caution or conviction becomes spent. Please see guidance on <a href="https://www.gov.uk/guidance/rehabilitation-periods" class="govuk-link" rel="external" target="_blank">rehabilitation periods</a>.
