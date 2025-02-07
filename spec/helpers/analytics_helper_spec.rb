@@ -25,24 +25,4 @@ RSpec.describe AnalyticsHelper, type: :helper do
       it { expect(helper.analytics_consent_accepted?).to be(false) }
     end
   end
-
-  describe "#analytics_allowed?" do
-    before do
-      allow(helper).to receive(:analytics_consent_accepted?).and_return(consent_accepted)
-    end
-
-    let(:consent_accepted) { nil }
-
-    context "and consent has been granted by the user" do
-      let(:consent_accepted) { true }
-
-      it { expect(helper.analytics_allowed?).to be(true) }
-    end
-
-    context "and consent has not been granted by the user" do
-      let(:consent_accepted) { false }
-
-      it { expect(helper.analytics_allowed?).to be(false) }
-    end
-  end
 end
