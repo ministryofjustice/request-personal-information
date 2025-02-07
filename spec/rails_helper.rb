@@ -48,7 +48,7 @@ end
 Capybara.javascript_driver = :selenium_chrome
 
 RSpec.configure do |config|
-  config.before(:each, type: :feature, js: true) do
+  config.before(:each, :js, type: :feature) do
     driven_by :selenium_chrome
   end
 end
