@@ -1,15 +1,10 @@
 <%= govuk_cookie_banner do |cb| %>
   <% cb.with_message(heading_text: "Cookies on Request personal information") do |m| %>
+    <% m.with_action { govuk_button_link_to("Hide this message", "/", class: "cookie-hide-button") } %>
 
     <p class="govuk-body">
       <%= t ".result.#{result}" %>
       <%= t '.content_html', cookies_link: "/cookies" %>
     </p>
-
-    <div class="govuk-button-group">
-      <a href="/" role="button" draggable="false" class="app--js-cookie-banner-hide govuk-button" data-module="govuk-button">
-        <%= t '.hide_button' %>
-      </a>
-    </div>
   <% end %>
 <% end %>

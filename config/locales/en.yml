@@ -217,7 +217,6 @@ en:
         reject: You've rejected analytics cookies.
       content_html: |
         You can <a href="%{cookies_link}" class="govuk-link">change your cookie settings</a> at any time.
-      hide_button: Hide this message
   request_form:
     contact_address: Where we'll send the information
     contact_email: Your email
