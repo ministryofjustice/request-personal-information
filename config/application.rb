@@ -41,9 +41,5 @@ module RequestPersonalInformation
     config.exceptions_app = routes
     # Don't generate system test files.
     config.generators.system_tests = nil
-
-    # Cookies permission banner
-    config.x.cookies_consent_name = "rpi_cookies_consent".freeze
-    config.x.cookies_consent_expiration = 1.year
   end
 end
