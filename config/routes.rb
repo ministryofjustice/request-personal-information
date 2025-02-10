@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "ping", to: "ping#index"
   get "up" => "rails/health#show", as: :rails_health_check
 
-  resource :cookies, only: %i[show update]
+  get "cookies/:consent" => "cookies#update"
 
   resource :request, only: %i[new update create] do
     get "/back", to: "requests#back"

@@ -1,27 +1,15 @@
-<div class="govuk-cookie-banner" data-nosnippet role="region" aria-label="Cookies on [name of service]">
-  <div class="govuk-cookie-banner__message govuk-width-container">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h2 class="govuk-cookie-banner__heading govuk-heading-m">
-          <%=t '.title', service_name: service_name %>
-        </h2>
-        <div class="govuk-cookie-banner__content">
-          <%=t '.content_html' %>
-        </div>
-      </div>
-    </div>
-    <%= form_with url: cookies_path, method: :put do %>
-      <div class="govuk-button-group">
-        <button value="accept" type="submit" name="cookies" class="govuk-button" data-module="govuk-button">
-          <%=t '.accept_button' %>
-        </button>
+<%= govuk_cookie_banner do |cb| %>
+  <% cb.with_message(heading_text: "Cookies on Request personal information") do |m| %>
+    <% m.with_action { govuk_button_link_to("Accept analytics cookies", "/cookies/accept") } %>
+    <% m.with_action { govuk_button_link_to("Reject analytics cookies", "cookies/reject") } %>
+    <% m.with_action { govuk_link_to("View cookies", "/cookies") } %>
 
-        <button value="reject" type="submit" name="cookies" class="govuk-button" data-module="govuk-button">
-          <%=t '.reject_button' %>
-        </button>
-
-        <%= link_to t('.cookies_link'), cookies_path, class: 'govuk-link' %>
-      </div>
-    <% end %>
-  </div>
-</div>
+    <p class="govuk-body">
+      We use some essential cookies to make this service work.
+    </p>
+    <p class="govuk-body">
+      We’d also like to use analytics cookies so we can understand
+      how you use the service and make improvements.
+    </p>
+  <% end %>
+<% end %>

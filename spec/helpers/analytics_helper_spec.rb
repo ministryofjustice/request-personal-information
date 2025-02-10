@@ -14,15 +14,15 @@ RSpec.describe AnalyticsHelper, type: :helper do
     end
 
     context "when cookies has been accepted" do
-      let(:value) { CookieSettingsForm::CONSENT_ACCEPT }
+      let(:value) { ConsentCookie::ACCEPT }
 
-      it { expect(helper.analytics_consent_accepted?).to be(true) }
+      it { expect(helper.analytics_consent_accepted?).to be true }
     end
 
     context "when cookies has been rejected" do
-      let(:value) { CookieSettingsForm::CONSENT_REJECT }
+      let(:value) { ConsentCookie::REJECT }
 
-      it { expect(helper.analytics_consent_accepted?).to be(false) }
+      it { expect(helper.analytics_consent_accepted?).to be false }
     end
   end
 end

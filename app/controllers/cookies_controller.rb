@@ -1,16 +1,16 @@
 class CookiesController < ApplicationController
   def update
-    result = CookieSettingsForm.new(
-      consent: consent_param,
-      cookies: cookies,
-    ).save
+    consent = params[:consent].presence_in([ConsentCookie::ACCEPT, ConsentCookie::REJECT])
 
-    redirect_back fallback_location: root_path, flash: { cookies_consent_updated: result }
-  end
+    if consent.nil?
+      head :not_found and return
+    end
 
-private
+    cookies[ConsentCookie::COOKIE_NAME] = {
+      expires: ConsentCookie::EXPIRATION,
+      value: consent,
+    }
 
-  def consent_param
-    params.require(:cookies)
+    redirect_back fallback_location: root_path, flash: { cookies_consent_updated: consent }
   end
 end
