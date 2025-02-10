@@ -515,7 +515,6 @@ GEM
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
-    rexml (3.4.0)
     rouge (4.2.1)
     rspec-core (3.13.2)
       rspec-support (~> 3.13.0)
@@ -565,7 +564,6 @@ GEM
     rubocop-rspec (3.3.0)
       rubocop (~> 1.61)
     ruby-progressbar (1.13.0)
-    rubyzip (2.4.1)
     sass-embedded (1.77.8)
       google-protobuf (~> 4.26)
       rake (>= 13)
@@ -576,12 +574,6 @@ GEM
     sass-embedded (1.77.8-x86_64-linux-gnu)
       google-protobuf (~> 4.26)
     securerandom (0.4.1)
-    selenium-webdriver (4.28.0)
-      base64 (~> 0.2)
-      logger (~> 1.4)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
-      websocket (~> 1.0)
     sentry-rails (5.22.1)
       railties (>= 5.0)
       sentry-ruby (~> 5.22.1)
@@ -621,7 +613,6 @@ GEM
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
     webrick (1.9.1)
-    websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -659,7 +650,6 @@ DEPENDENCIES
   rails-controller-testing
   rspec-rails
   rubocop-govuk
-  selenium-webdriver
   sentry-rails
   sentry-ruby
   shoulda-matchers
