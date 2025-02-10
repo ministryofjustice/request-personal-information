@@ -205,6 +205,7 @@ en:
       footer:
         cookie: Cookies
         accessibility: Accessibility
+        privacy: Privacy notice
   pages:
     accessibility:
       sar_research_email_html: "<a href='mailto:sar.research@digital.justice.gov.uk'>sar.research@digital.justice.gov.uk</a>"
