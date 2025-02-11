@@ -202,10 +202,18 @@ en:
         upcoming_court_case_text: For example, when the trial or hearing is happening.
 
   layouts:
-    cookie_banner_confirmation:
-      result:
-        accept: You've accepted analytics cookies.
-        reject: You've rejected analytics cookies.
+    application:
+      footer:
+        cookie: Cookies
+        accessibility: Accessibility
+      cookie_banner_confirmation:
+        result:
+          accept: You've accepted analytics cookies.
+          reject: You've rejected analytics cookies.
+  pages:
+    accessibility:
+      sar_research_email_html: "<a href='mailto:sar.research@digital.justice.gov.uk'>sar.research@digital.justice.gov.uk</a>"
+
   request_form:
     contact_address: Where we'll send the information
     contact_email: Your email

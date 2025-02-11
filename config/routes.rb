@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get "/back", to: "requests#back"
   end
 
+  get "accessibility" => "pages#accessibility", as: "accessibility"
+
   get "subject" => "requests#edit"
   get "subject-name" => "requests#edit"
   get "subject-date-of-birth" => "requests#edit"
