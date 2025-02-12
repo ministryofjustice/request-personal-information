@@ -16,4 +16,12 @@ RSpec.describe "Pages", type: :request do
       expect(response.body).to include("Accessibility statement")
     end
   end
+
+  describe "#privacy" do
+    it "shows the privacy page" do
+      get "/privacy"
+      expect(response).to be_successful
+      expect(response.body).to include("Privacy notice")
+    end
+  end
 end

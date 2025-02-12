@@ -55,8 +55,9 @@
     </div>
 
     <%= govuk_footer(meta_items_title: "Support links", meta_items: {
-      t("layouts.application.footer.cookie") => "https://www.gov.uk/help/cookies",
-      t("layouts.application.footer.accessibility") => accessibility_path }) %>
+      t(".footer.cookie") => "https://www.gov.uk/help/cookies",
+      t(".footer.accessibility") => accessibility_path,
+      t(".footer.privacy") => privacy_path }) %>
 
     <%= render "shared/debug" if Rails.env.development? %>
   </body>

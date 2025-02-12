@@ -206,6 +206,7 @@ en:
       footer:
         cookie: Cookies
         accessibility: Accessibility
+        privacy: Privacy notice
     cookie_banner_confirmation:
       result:
         accept: You've accepted analytics cookies.
