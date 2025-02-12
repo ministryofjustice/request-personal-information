@@ -6,8 +6,6 @@ Rails.application.routes.draw do
     get "/back", to: "requests#back"
   end
 
-  get "accessibility" => "pages#accessibility", as: "accessibility"
-
   get "subject" => "requests#edit"
   get "subject-name" => "requests#edit"
   get "subject-date-of-birth" => "requests#edit"
@@ -52,6 +50,8 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unprocessable_entity"
   get "/500", to: "errors#internal_error"
 
+  get "accessibility" => "pages#accessibility", as: "accessibility"
+  get "privacy" => "pages#privacy", as: "privacy"
   root to: "pages#homepage"
 
   if Rails.env.test?
