@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   get "ping", to: "ping#index"
   get "up" => "rails/health#show", as: :rails_health_check
 
-  get "cookies/:consent" => "cookies#update"
-
   resource :request, only: %i[new update create] do
     get "/back", to: "requests#back"
   end
@@ -52,8 +50,13 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unprocessable_entity"
   get "/500", to: "errors#internal_error"
 
+  get "cookies/:consent" => "cookies#update"
+  post "cookies" => "cookies#update"
+  get "cookies" => "pages#cookie_consent", as: "cookies_consent"
+
   get "accessibility" => "pages#accessibility", as: "accessibility"
   get "privacy" => "pages#privacy", as: "privacy"
+
   root to: "pages#homepage"
 
   if Rails.env.test?

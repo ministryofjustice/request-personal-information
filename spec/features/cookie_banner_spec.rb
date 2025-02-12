@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CookieBanner", type: :feature do
+RSpec.feature "Cookie Banner", type: :feature do
   before do
     visit "/"
   end
