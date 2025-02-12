@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "cookies/:consent" => "cookies#update"
+  post "cookies" => "cookies#update"
 
   resource :request, only: %i[new update create] do
     get "/back", to: "requests#back"
@@ -53,6 +54,7 @@ Rails.application.routes.draw do
   get "/500", to: "errors#internal_error"
 
   get "accessibility" => "pages#accessibility", as: "accessibility"
+  get "cookies" => "pages#cookie_consent"
   get "privacy" => "pages#privacy", as: "privacy"
   root to: "pages#homepage"
 
