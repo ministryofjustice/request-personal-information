@@ -9,11 +9,11 @@ RSpec.describe AnalyticsHelper, type: :helper do
   end
 
   describe "#analytics_allowed?" do
-    context "when cookie has not been set" do
+    context "when consent cookie has not been set" do
       it { expect(helper.analytics_allowed?).to be false }
     end
 
-    context "when cookie has been set" do
+    context "when consent cookie has been set" do
       before do
         allow(controller.cookies).to receive(:[]).with("rpi_cookies_consent").and_return(value)
       end
