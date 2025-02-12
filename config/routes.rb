@@ -54,7 +54,7 @@ Rails.application.routes.draw do
   get "/500", to: "errors#internal_error"
 
   get "accessibility" => "pages#accessibility", as: "accessibility"
-  get "cookies" => "pages#cookie_consent"
+  get "cookies" => "pages#cookie_consent", as: "cookies_consent"
   get "privacy" => "pages#privacy", as: "privacy"
   root to: "pages#homepage"
 
