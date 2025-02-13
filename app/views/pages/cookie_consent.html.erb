@@ -71,7 +71,6 @@
     <h2 class="govuk-heading-m">Change your cookie settings</h2>
 
     <%= form_with url: cookies_path, method: :post do |f| %>
-      <%#= f.hidden_field :cookie %>
       <%= f.govuk_radio_buttons_fieldset :consent, legend: { text: "Do you want to accept analytics cookies?" } do %>
         <%= f.govuk_radio_button :consent, ConsentCookie::ACCEPT, label: { text: 'Yes' }, checked: @consent == ConsentCookie::ACCEPT %>
         <%= f.govuk_radio_button :consent, ConsentCookie::REJECT, label: { text: 'No' }, checked: @consent == ConsentCookie::REJECT %>
