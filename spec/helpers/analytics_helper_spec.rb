@@ -8,21 +8,27 @@ RSpec.describe AnalyticsHelper, type: :helper do
     end
   end
 
-  describe "#analytics_consent_accepted?" do
-    before do
-      allow(controller.cookies).to receive(:[]).with("rpi_cookies_consent").and_return(value)
+  describe "#analytics_allowed?" do
+    context "when consent cookie has not been set" do
+      it { expect(helper.analytics_allowed?).to be false }
     end
 
-    context "when cookies has been accepted" do
-      let(:value) { ConsentCookie::ACCEPT }
+    context "when consent cookie has been set" do
+      before do
+        allow(controller.cookies).to receive(:[]).with("rpi_cookies_consent").and_return(value)
+      end
 
-      it { expect(helper.analytics_consent_accepted?).to be true }
-    end
+      context "when cookies have been accepted" do
+        let(:value) { ConsentCookie::ACCEPT }
 
-    context "when cookies has been rejected" do
-      let(:value) { ConsentCookie::REJECT }
+        it { expect(helper.analytics_allowed?).to be true }
+      end
 
-      it { expect(helper.analytics_consent_accepted?).to be false }
+      context "when cookies have been rejected" do
+        let(:value) { ConsentCookie::REJECT }
+
+        it { expect(helper.analytics_allowed?).to be false }
+      end
     end
   end
 end
