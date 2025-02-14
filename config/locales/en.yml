@@ -213,7 +213,12 @@ en:
         reject: You've rejected analytics cookies.
   pages:
     accessibility:
+      page_title: Accessibility statement
       sar_research_email_html: "<a href='mailto:sar.research@digital.justice.gov.uk'>sar.research@digital.justice.gov.uk</a>"
+    cookie_consent:
+      page_title: Cookies
+    privacy:
+      page_title: Privacy notice
 
   request_form:
     contact_address: Where we'll send the information
@@ -241,7 +246,7 @@ en:
     probation_location:
       other: Where is their probation office or approved premises?
       self: Where is your probation office or approved premises?
-    requester_details: Requester Details
+    requester_details: Requester details
     requester_id: Upload your photo ID
     requester_address: Upload your proof of address
     requester_id_check: Check your uploads
@@ -271,6 +276,12 @@ en:
     subject_relationship: What is your relationship to them?
     upcoming: Do you need this information for an upcoming court case or hearing?
     letter_of_consent_template: There is no official template.
+  requests:
+    complete:
+      page_title: What happens next
+    show:
+      page_title: Check your answers
+
   service:
     name: Request personal information
     prison:
