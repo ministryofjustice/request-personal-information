@@ -278,7 +278,7 @@ en:
     letter_of_consent_template: There is no official template.
   requests:
     complete:
-      page_title: What happens next
+      page_title: Request Sent
     show:
       page_title: Check your answers
 
