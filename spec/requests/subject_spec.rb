@@ -123,7 +123,6 @@ RSpec.describe "Subject", type: :request do
         get "/#{current_step}"
       end
 
-
       context "when requesting own data" do
         it_behaves_like "question with a title", "What is your date of birth?"
 
