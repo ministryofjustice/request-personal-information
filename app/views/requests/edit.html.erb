@@ -2,8 +2,9 @@
   <div class="govuk-grid-column-two-thirds">
     <%= govuk_back_link(href: back_request_path(return_to: params[:return_to])) %>
     <%= form_with model: @form, scope: :request_form, url: request_path, method: :patch do |f| %>
-      <% title content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %>
       <% content_for(:form_content) { render partial: @form.name, locals: { f: } } %>
+
+      <% title content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %>
 
       <%= f.govuk_error_summary %>
 
