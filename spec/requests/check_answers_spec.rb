@@ -14,9 +14,10 @@ RSpec.describe "check answers", type: :request do
       get "/#{current_step}"
     end
 
+    it_behaves_like "question with a title", "Check your answers"
+
     it "renders the expected page" do
       expect(response).to render_template(:show)
-      expect(response.body).to include("Check your answers")
     end
 
     it "shows expected information" do

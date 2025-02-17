@@ -22,9 +22,10 @@ RSpec.describe "Data required from prison service", type: :request do
       context "when request for yourself" do
         let(:information_request) { build(:information_request_for_prison_service) }
 
+        it_behaves_like "question with a title", "Which prison were you most recently in?"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("Which prison were you most recently in?")
         end
 
         context "when submitting form with invalid data" do
@@ -38,9 +39,10 @@ RSpec.describe "Data required from prison service", type: :request do
       end
 
       context "when request for someone else" do
+        it_behaves_like "question with a title", "Are they currently in prison?"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("Are they currently in prison?")
         end
 
         context "when submitting form with invalid data" do
@@ -90,9 +92,10 @@ RSpec.describe "Data required from prison service", type: :request do
       context "when requesting own data" do
         let(:information_request) { build(:information_request_for_prison_service) }
 
+        it_behaves_like "question with a title", "What was your prison number? (optional)"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("What was your prison number? (optional)")
         end
 
         it_behaves_like "question that accepts valid data", :prison_number
@@ -102,9 +105,10 @@ RSpec.describe "Data required from prison service", type: :request do
       context "when requesting someone else's data" do
         let(:information_request) { build(:information_request_for_prison_service, subject: "other") }
 
+        it_behaves_like "question with a title", "What is their prison number?"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("What is their prison number?")
         end
 
         context "when submitting form with invalid data" do
@@ -135,9 +139,10 @@ RSpec.describe "Data required from prison service", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What prison service information do you want?"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("What prison service information do you want?")
       end
 
       context "when submitting form with invalid data" do
@@ -181,9 +186,10 @@ RSpec.describe "Data required from prison service", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What dates do you want this information from? (optional)"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("What dates do you want this information from? (optional)")
       end
 
       context "when submitting form with invalid data" do

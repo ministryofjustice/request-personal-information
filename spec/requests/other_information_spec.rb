@@ -19,9 +19,10 @@ RSpec.describe "Which data is required", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Where do you want information from?"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Where do you want information from?")
       end
 
       context "when submitting form with invalid data" do
@@ -67,9 +68,10 @@ RSpec.describe "Which data is required", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What information do you want from the Legal Aid Agency (LAA)?"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("What information do you want from the Legal Aid Agency (LAA)?")
       end
 
       context "when submitting form with invalid data" do
@@ -102,9 +104,10 @@ RSpec.describe "Which data is required", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What dates do you want this information from? (optional)"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("What dates do you want this information from? (optional)")
       end
 
       context "when submitting form with invalid data" do
@@ -150,9 +153,10 @@ RSpec.describe "Which data is required", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What information do you want from the Office of the Public Guardian (OPG)?"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("What information do you want from the Office of the Public Guardian (OPG)?")
       end
 
       context "when submitting form with invalid data" do
@@ -185,9 +189,10 @@ RSpec.describe "Which data is required", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What dates do you want this information from? (optional)"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("What dates do you want this information from? (optional)")
       end
 
       context "when submitting form with invalid data" do
@@ -233,9 +238,10 @@ RSpec.describe "Which data is required", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Where in the Ministry of Justice do you think this information is held?"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Where in the Ministry of Justice do you think this information is held?")
       end
 
       context "when submitting form with invalid data" do
@@ -270,9 +276,10 @@ RSpec.describe "Which data is required", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What information do you want from somewhere else in the Ministry of Justice?"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("What information do you want from somewhere else in the Ministry of Justice?")
       end
 
       context "when submitting form with invalid data" do
@@ -305,9 +312,10 @@ RSpec.describe "Which data is required", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What dates do you want this information from? (optional)"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("What dates do you want this information from? (optional)")
       end
 
       context "when submitting form with invalid data" do

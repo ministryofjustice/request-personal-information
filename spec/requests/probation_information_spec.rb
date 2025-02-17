@@ -19,9 +19,10 @@ RSpec.describe "Data required from probation service", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Where is your probation office or approved premises?"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Where is your probation office or approved premises?")
       end
 
       context "when submitting form with invalid data" do
@@ -65,9 +66,10 @@ RSpec.describe "Data required from probation service", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What probation service information do you want?"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("What probation service information do you want?")
       end
 
       context "when submitting form with invalid data" do
@@ -111,9 +113,10 @@ RSpec.describe "Data required from probation service", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What dates do you want this information from? (optional)"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("What dates do you want this information from? (optional)")
       end
 
       context "when submitting form with invalid data" do

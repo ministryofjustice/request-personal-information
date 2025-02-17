@@ -19,9 +19,10 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Your details"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Your details")
       end
 
       context "when submitting form with invalid data" do
@@ -56,9 +57,10 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Requester details"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Your full name")
       end
 
       context "when submitting form with invalid data" do
@@ -93,9 +95,10 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Upload your photo ID"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Upload your photo ID")
       end
 
       context "when submitting form with invalid data" do
@@ -156,9 +159,10 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Upload your proof of address"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Upload your proof of address")
       end
 
       context "when submitting form with invalid data" do
@@ -219,9 +223,10 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Upload a letter of consent"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Upload a letter of consent")
       end
 
       context "when submitting form with invalid data" do
@@ -281,9 +286,10 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Check your uploads"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Check your upload")
       end
 
       context "when submitting form with valid data" do
@@ -314,9 +320,10 @@ RSpec.describe "Requester", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Check your upload"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Check your upload")
       end
 
       context "when submitting form with valid data" do

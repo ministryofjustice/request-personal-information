@@ -49,3 +49,10 @@ RSpec.shared_examples("question with back link") do
     end
   end
 end
+
+RSpec.shared_examples("question with a title") do |title|
+  it "renders the expected title" do
+    expect(response.body).to have_selector("h1", text: title)
+    expect(response.body).to have_title("#{title} - Request personal information")
+  end
+end
