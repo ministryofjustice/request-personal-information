@@ -88,6 +88,7 @@ RSpec.describe "Requester", type: :request do
 
     context "when session in progress" do
       let(:valid_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+      let(:eicar_data) { fixture_file_upload("eicar.jpg", "image/jpeg") }
       let(:invalid_data) { nil }
 
       before do
@@ -99,6 +100,15 @@ RSpec.describe "Requester", type: :request do
 
       it "renders the expected page" do
         expect(response).to render_template(:edit)
+      end
+
+      context "when submitting file with virus" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { requester_photo: eicar_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("contains a virus")
+        end
       end
 
       context "when submitting form with invalid data" do
@@ -152,6 +162,7 @@ RSpec.describe "Requester", type: :request do
 
     context "when session in progress" do
       let(:valid_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+      let(:eicar_data) { fixture_file_upload("eicar.jpg", "image/jpeg") }
       let(:invalid_data) { nil }
 
       before do
@@ -171,6 +182,15 @@ RSpec.describe "Requester", type: :request do
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("Upload your proof of address")
+        end
+      end
+
+      context "when submitting file with virus" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { requester_proof_of_address: eicar_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("contains a virus")
         end
       end
 
@@ -216,6 +236,7 @@ RSpec.describe "Requester", type: :request do
 
     context "when session in progress" do
       let(:valid_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+      let(:eicar_data) { fixture_file_upload("eicar.jpg", "image/jpeg") }
       let(:invalid_data) { nil }
 
       before do
@@ -227,6 +248,15 @@ RSpec.describe "Requester", type: :request do
 
       it "renders the expected page" do
         expect(response).to render_template(:edit)
+      end
+
+      context "when submitting file with virus" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { letter_of_consent: eicar_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("contains a virus")
+        end
       end
 
       context "when submitting form with invalid data" do

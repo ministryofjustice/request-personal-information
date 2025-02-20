@@ -2,7 +2,7 @@ class Attachment < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
   has_one_attached :file
-  validates :file, antivirus: true
+  validates :key, presence: true
 
   before_destroy :purge_file
 
