@@ -1,0 +1,183 @@
+#!/bin/bash
+#
+# THIS IS ONLY INTENDED TO BE USED FOR DEVELOPMENT PURPOSES
+#
+# This is a simple "dummy" version of the ClamAV clamscan executable. This can
+# be used to test ClamAV integration libraries for returning the correct values
+# expected from the ClamAV executables.
+#
+# For example, this can be used to test Clamby:
+# https://github.com/kobaltz/clamby
+#
+# Obviously, this does not do any acual virus checks. The only case where this
+# script reports a virus is if it detects an EICAR text file as defined by:
+# https://en.wikipedia.org/wiki/EICAR_test_file
+#
+# This tries to replicate the clamscan outputs and exit codes in the same format
+# as the actual utility.
+#
+# Return codes:
+#   0 : Script ran correctly and did not detect any EICAR test files
+#   1 : EICAR test file(s) detected
+#   2 : No EICAR test file(s) detected but some of file(s) could not be read
+#
+# Usage:
+#
+# Scan the current directory and all its files and subfolders:
+# ./clamdscan
+#
+# Scan a directory:
+# ./clamscan /path/to/dir
+#
+# Scan some files:
+# ./clamscan /path/to/file1 /path/to/file2
+
+OUTPUT=true
+VERSION_CHECK=false
+FILES=()
+EXIT_CODE=0
+START_TIME=`date +%s%3N`
+
+# Files that couldn't be processed
+declare -A ERROR_FILES
+# Files that contain a virus
+declare -A VIRUS_FILES
+
+function output() {
+  if $OUTPUT ; then
+    echo $1
+  fi
+}
+
+function scan_file() {
+  file=$1
+  print=$2
+
+  if [ -d "$file" ] ; then
+    scan_directory $file
+  elif [[ -f "$file" && -r "$file" ]] ; then
+    contents=$( cat $file | sed -e 's/^[ \t]*//' )
+    sum=$( echo $contents | sha256sum | cut -d " " -f 1 )
+
+    # EICAR SHA256 hash
+    if [[ $sum == "131f95c51cc819465fa1797f6ccacf9d494aaaff46fa3eac73ae63ffbdfd8267" ]] ; then
+      VIRUS_FILES[$file]="Eicar-Test-Signature FOUND"
+
+      if $print ; then
+        output "$file: Eicar-Test-Signature FOUND"
+      fi
+    else
+      if $print ; then
+        output "$file: OK"
+      fi
+    fi
+  else
+    ERROR_FILES[$file]="Access denied. ERROR"
+
+    if $print ; then
+      output "ERROR: Can't access file $file"
+    fi
+  fi
+}
+
+function scan_directory() {
+  directory=$1
+
+  # Go through all files in dir
+  for file in $directory/* ; do
+    scan_file $file false
+  done
+}
+
+function print_time() {
+  start=$1
+  end=$2
+  diff=$(( end-start ))
+  seconds=$(( diff / 1000 ))
+  microseconds=$(( diff - seconds * 1000 ))
+
+  micropart=$( printf "%03d\n" $microseconds )
+  minutepart=$(( seconds / 60 ))
+  secondpart=$(( seconds - minutepart * 60 ))
+
+  output "Time: $seconds.$micropart sec ($minutepart m $secondpart s)"
+}
+
+# Handle the arguments
+while test $# -gt 0 ; do
+  case "$1" in
+    --version)
+        VERSION_CHECK=true
+        ;;
+    --quiet)
+        OUTPUT=false
+        ;;
+    --*)
+        # Nothing for unknown options
+        ;;
+    *)
+        FILES+=( $1 )
+        ;;
+  esac
+  shift
+done
+
+if $VERSION_CHECK ; then
+  # Normally ClamAV would output something like:
+  # ClamAV 0.83/855/Tue Apr 26 06:40:32 2005
+  date=$( env LC_ALL=en_US.UTF-8 date +'%a %b %d %H:%M:%S %Y' )
+  output "ClamAVDummy 0.1/1/$date"
+  exit 0
+fi
+
+# In case no files are provided, scan the current directory
+if [ ${#FILES[@]} -eq 0 ]; then
+  FILES+=( $PWD )
+fi
+
+# Scan files and directories
+for file in "${FILES[@]}" ; do
+  if [[ ${file:0:1} != "/" ]] ; then
+    file=$PWD/$file
+  fi
+
+  if [ -d "$file" ] ; then
+    # Scan directory
+    scan_directory $PWD
+
+    for file in "${!VIRUS_FILES[@]}"; do
+      output "$file: ${VIRUS_FILES[$file]}"
+    done
+
+    for file in "${!ERROR_FILES[@]}" ; do
+      output "$file: ${ERROR_FILES[$file]}"
+    done
+
+    if [[ ${#VIRUS_FILES[@]} -eq 0 && ${#ERROR_FILES[@]} -eq 0 ]]; then
+      output "$PWD: OK"
+    fi
+  else
+    # Scan file
+    scan_file $file true
+  fi
+done
+
+# Define the exit codes as per:
+# https://linux.die.net/man/1/clamscan
+if [ ${#VIRUS_FILES[@]} -gt 0 ]; then
+  EXIT_CODE=1
+elif [ ${#ERROR_FILES[@]} -gt 0 ]; then
+  EXIT_CODE=2
+fi
+
+END_TIME=`date +%s%3N`
+
+output ""
+output "----------- SCAN SUMMARY -----------"
+output "Infected files: ${#VIRUS_FILES[@]}"
+if [ ${#ERROR_FILES[@]} -gt 0 ]; then
+  output "Total errors: ${#ERROR_FILES[@]}"
+fi
+print_time $START_TIME $END_TIME
+
+exit $EXIT_CODE
