@@ -19,9 +19,10 @@ RSpec.describe "contact information", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Where we'll send the information"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("send the information")
       end
 
       context "when submitting form with invalid data" do
@@ -56,9 +57,10 @@ RSpec.describe "contact information", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Your email"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Your email")
       end
 
       context "when submitting form with invalid data" do
@@ -93,9 +95,10 @@ RSpec.describe "contact information", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Do you need this information for an upcoming court case or hearing?"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Do you need this information for an upcoming court case or hearing?")
       end
 
       context "when submitting form with invalid data" do

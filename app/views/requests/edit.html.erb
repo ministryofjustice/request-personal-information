@@ -3,14 +3,20 @@
     <%= govuk_back_link(href: back_request_path(return_to: params[:return_to])) %>
     <%= form_with model: @form, scope: :request_form, url: request_path, method: :patch do |f| %>
       <% content_for(:form_content) { render partial: @form.name, locals: { f: } } %>
+
+      <% title content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %>
+
       <%= f.govuk_error_summary %>
+
       <span class="govuk-caption-l"><%= yield :caption %></span>
       <h1 class="govuk-heading-xl">
         <%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %>
       </h1>
+
       <%= yield :form_content %>
       <%= f.hidden_field :return_to, value: @form.return_to %>
       <%= f.govuk_submit %>
+
       <% if t("request_form.#{@form.name}.#{@information_request.subject}_title", default: '').present? %>
         <%= govuk_details(summary_text: t("request_form.#{@form.name}.#{@information_request.subject}_title"), text: t("request_form.#{@form.name}.#{@information_request.subject}_details")) %>
       <% end %>

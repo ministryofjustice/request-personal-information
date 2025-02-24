@@ -39,9 +39,10 @@ RSpec.describe "submissions", type: :request do
       get "/form-sent"
     end
 
+    it_behaves_like "question with a title", "Request sent"
+
     it "renders the expected page" do
       expect(response).to render_template(:complete)
-      expect(response.body).to include("Request sent")
     end
   end
 end
