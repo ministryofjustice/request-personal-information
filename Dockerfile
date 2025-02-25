@@ -6,7 +6,9 @@ WORKDIR /app
 # tzdata: required to set timezone
 RUN apk add --no-cache \
     tzdata \
-    postgresql-client
+    postgresql-client \
+    clamav \
+    clamav-daemon
 
 # Ensure latest rubygems is installed
 RUN gem update --system
