@@ -63,6 +63,11 @@ RUN addgroup -g 1000 -S appgroup && \
 RUN mkdir -p log tmp
 RUN chown -R appuser:appgroup ./*
 
+# Setup ClamAV
+RUN echo "FollowDirectorySymlinks true" >> /etc/clamav/clamd.conf
+RUN echo "FollowFileSymlinks true" >> /etc/clamav/clamd.conf
+RUN chown -R appuser:appgroup /var/lib/clamav
+
 # Set user
 USER 1000
 
