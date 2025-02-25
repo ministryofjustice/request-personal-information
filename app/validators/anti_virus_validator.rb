@@ -14,8 +14,6 @@ class AntiVirusValidator < ActiveModel::EachValidator
       scanner.errors.each do |err|
         record.errors.add attribute, err
       end
-    else
-      record.errors.add attribute, :antivirus_virus_detected
     end
   end
 end
