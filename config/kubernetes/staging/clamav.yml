@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: request-personal-information--clamav-staging
+  labels:
+    app: clamav
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: clamav
+  template:
+    metadata:
+      labels:
+        app: clamav
+    spec:
+      serviceAccountName: request-personal-information
+      containers:
+      - name: clamav
+        image: clamav/clamav:latest
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 3310
+          name: clamav
+        volumeMounts:
+        - name: virus-definitions
+          mountPath: /var/lib/clamav
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - clamdscan --ping
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - clamdscan --ping
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      volumes:
+      - name: virus-definitions
+        persistentVolumeClaim:
+          claimName: clamav-definitions-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clamav
+  namespace: request-personal-information-staging
+spec:
+  selector:
+    app: clamav
+  ports:
+  - port: 3310
+    targetPort: 3310
+    name: clamav
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: clamav-definitions-pvc
+  namespace: request-personal-information-staging
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: clamav-freshclam-updater
+  namespace: request-personal-information-staging
+spec:
+  schedule: "0 */6 * * *"  # Run every 6 hours
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: freshclam
+            image: clamav/clamav:latest
+            command: ["/bin/sh", "-c"]
+            args:
+            - freshclam
+            volumeMounts:
+            - name: virus-definitions
+              mountPath: /var/lib/clamav
+          volumes:
+          - name: virus-definitions
+            persistentVolumeClaim:
+              claimName: clamav-definitions-pvc
+          restartPolicy: OnFailure
