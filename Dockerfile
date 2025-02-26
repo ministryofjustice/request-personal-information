@@ -7,9 +7,7 @@ WORKDIR /app
 RUN apk add --no-cache \
     tzdata \
     postgresql-client \
-    clamav \
-    clamav-daemon \
-    openrc
+    clamav-daemon
 
 # Ensure latest rubygems is installed
 RUN gem update --system
@@ -64,17 +62,8 @@ RUN addgroup -g 1000 -S appgroup && \
 RUN mkdir -p log tmp
 RUN chown -R appuser:appgroup ./*
 
-# Setup ClamAV
-RUN echo "FollowDirectorySymlinks true" >> /etc/clamav/clamd.conf
-RUN echo "FollowFileSymlinks true" >> /etc/clamav/clamd.conf
-RUN chown -R appuser:appgroup /var/lib/clamav /var/log/clamav
-RUN rc-update add clamd default
-
 # Set user
 USER 1000
-
-# Update AV database
-RUN freshclam
 
 ARG APP_BUILD_DATE
 ENV APP_BUILD_DATE ${APP_BUILD_DATE}
