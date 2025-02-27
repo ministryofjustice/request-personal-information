@@ -9,6 +9,10 @@ RUN apk add --no-cache \
     postgresql-client \
     clamav-daemon
 
+# configure clamav connection
+RUN echo "TCPSocket 3310" >> /etc/clamav/clamd.conf
+RUN echo "TCPAddr 0.0.0.0" >> /etc/clamav/clamd.conf
+
 # Ensure latest rubygems is installed
 RUN gem update --system
 
