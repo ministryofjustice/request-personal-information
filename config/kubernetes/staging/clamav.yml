@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: request-personal-information--clamav-staging
+  name: request-personal-information-clamav-staging
   labels:
     app: clamav
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: clamav
@@ -17,7 +17,7 @@ spec:
       serviceAccountName: request-personal-information
       containers:
       - name: clamav
-        image: clamav/clamav:latest
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/cdpt-av:latest
         resources:
           requests:
             memory: "512Mi"
@@ -27,10 +27,6 @@ spec:
             cpu: "1000m"
         ports:
         - containerPort: 3310
-          name: clamav
-        volumeMounts:
-        - name: virus-definitions
-          mountPath: /var/lib/clamav
         livenessProbe:
           exec:
             command:
@@ -47,10 +43,6 @@ spec:
             - clamdscan --ping
           initialDelaySeconds: 30
           periodSeconds: 10
-      volumes:
-      - name: virus-definitions
-        persistentVolumeClaim:
-          claimName: clamav-definitions-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -65,41 +57,3 @@ spec:
     targetPort: 3310
     name: clamav
   type: ClusterIP
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: clamav-definitions-pvc
-  namespace: request-personal-information-staging
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: clamav-freshclam-updater
-  namespace: request-personal-information-staging
-spec:
-  schedule: "0 */6 * * *"  # Run every 6 hours
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: freshclam
-            image: clamav/clamav:latest
-            command: ["/bin/sh", "-c"]
-            args:
-            - freshclam
-            volumeMounts:
-            - name: virus-definitions
-              mountPath: /var/lib/clamav
-          volumes:
-          - name: virus-definitions
-            persistentVolumeClaim:
-              claimName: clamav-definitions-pvc
-          restartPolicy: OnFailure
