@@ -20,11 +20,11 @@ spec:
         image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/cdpt-av:latest
         resources:
           requests:
-            memory: "512Mi"
-            cpu: "500m"
+            memory: "4Gi"
+            cpu: "1Gi"
           limits:
-            memory: "1Gi"
-            cpu: "1000m"
+            memory: "4Gi"
+            cpu: "2Gi"
         ports:
         - containerPort: 3310
         livenessProbe:
@@ -32,7 +32,7 @@ spec:
             command:
             - /bin/sh
             - -c
-            - clamdscan --ping
+            - clamdscan --ping ping
           initialDelaySeconds: 60
           periodSeconds: 30
         readinessProbe:
@@ -40,7 +40,7 @@ spec:
             command:
             - /bin/sh
             - -c
-            - clamdscan --ping
+            - clamdscan --ping pong
           initialDelaySeconds: 30
           periodSeconds: 10
 ---
