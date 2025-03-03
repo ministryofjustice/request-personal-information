@@ -28,19 +28,13 @@ spec:
         ports:
         - containerPort: 3310
         livenessProbe:
-          exec:
-            command:
-            - /bin/sh
-            - -c
-            - clamdscan --ping ping
+          tcpSocket:
+            port: 3310
           initialDelaySeconds: 60
           periodSeconds: 30
         readinessProbe:
-          exec:
-            command:
-            - /bin/sh
-            - -c
-            - clamdscan --ping pong
+          tcpSocket:
+            port: 3310
           initialDelaySeconds: 30
           periodSeconds: 10
 ---
