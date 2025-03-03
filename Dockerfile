@@ -11,7 +11,7 @@ RUN apk add --no-cache \
 
 # configure clamav connection
 RUN echo "TCPSocket 3310" >> /etc/clamav/clamd.conf
-RUN echo "TCPAddr 0.0.0.0" >> /etc/clamav/clamd.conf
+RUN echo "TCPAddr request-personal-information-clamav-service" >> /etc/clamav/clamd.conf
 
 # Ensure latest rubygems is installed
 RUN gem update --system
