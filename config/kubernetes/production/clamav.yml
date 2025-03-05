@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: request-personal-information-clamav-production
+  labels:
+    app: clamav
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clamav
+  template:
+    metadata:
+      labels:
+        app: clamav
+    spec:
+      serviceAccountName: request-personal-information
+      containers:
+      - name: clamav
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/cdpt-av:latest
+        resources:
+          requests:
+            cpu: 25m
+            memory: 1Gi
+          limits:
+            cpu: 500m
+            memory: 3Gi
+        ports:
+        - containerPort: 3310
+        livenessProbe:
+          tcpSocket:
+            port: 3310
+          initialDelaySeconds: 60
+          periodSeconds: 60
+        readinessProbe:
+          tcpSocket:
+            port: 3310
+          initialDelaySeconds: 60
+          periodSeconds: 60
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: request-personal-information-clamav-service
+  namespace: request-personal-information-production
+spec:
+  selector:
+    app: clamav
+  ports:
+  - port: 3310
+    targetPort: 3310
+    name: clamav
+  type: ClusterIP
