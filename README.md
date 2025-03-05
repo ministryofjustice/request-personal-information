@@ -139,3 +139,5 @@ We run Clam AV inside a container inside our Cloud Platform namespace. There is 
 ```
 kubectl apply -f <CLAM_AV_DEPLOYMENT_FILEPATH> -n <NAMESPACE>
 ```
+
+For testing purposes we use an eicar file which will trigger a fake virus response. This is used in the tests and is also configured for use locally.

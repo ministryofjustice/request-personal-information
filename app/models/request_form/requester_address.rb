@@ -4,7 +4,7 @@ module RequestForm
     attribute :requester_proof_of_address_id
     attr_accessor :default
 
-    validates :requester_proof_of_address, presence: true, antivirus: true, unless: -> { Attachment.exists?(requester_proof_of_address_id) }
+    validates :requester_proof_of_address, presence: true, unless: -> { Attachment.exists?(requester_proof_of_address_id) }
     validates :requester_proof_of_address, file_size: { max: 7.megabytes }, file_type: true, anti_virus: true
 
     def required?
