@@ -123,3 +123,13 @@ When running in development, no jobs are run.
 
 ## Exceptions
 Any exceptions raised in any deployed environment will be sent to [Sentry](https://ministryofjustice.sentry.io/projects/request-personal-information).
+
+## Attachment scanning
+
+We use a combination of the gem Ratonvirus and Clam AV for our attachment virus scanning.
+
+We run Clam AV inside a container inside our Cloud Platform namespaces. There is a deployment and service in this repo for the Clam AV container, but currently this is manually deployed. If you need to redeploy for any reason:
+
+```
+kubectl apply -f <CLAM_AV_DEPLOYMENT_FILEPATH> -n <NAMESPACE>
+```
