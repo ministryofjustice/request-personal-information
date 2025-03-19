@@ -121,5 +121,9 @@ After a request is completed, a Job will be created that will send the request t
 
 When running in development, no jobs are run.
 
+### API
+
+The api url is set in an environment variable `API_URL` which is set in the Kubernetes ConfigMap for the environment
+
 ## Exceptions
 Any exceptions raised in any deployed environment will be sent to [Sentry](https://ministryofjustice.sentry.io/projects/request-personal-information).
