@@ -7,4 +7,4 @@ data:
   RAILS_ENV: production
   SENTRY_CURRENT_ENV: staging
   RAILS_SERVE_STATIC_FILES: enabled
-  API_URL: "https://track-a-query.service.justice.gov.uk/api/rpi/v2"
+  API_URL: "https://qa.track-a-query.service.justice.gov.uk/api/rpi/v2"
