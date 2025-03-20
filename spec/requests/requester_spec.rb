@@ -112,11 +112,9 @@ RSpec.describe "Requester", type: :request do
       end
 
       context "when Clam AV service is unavailable" do
-        let(:valid_file) { fixture_file_upload(Rails.root.join("spec/fixtures/files/file.jpg"), "image/jpg") }
-
         it "shows internal error page" do
           allow(Ratonvirus.scanner).to receive_messages(available?: true, virus?: true, errors: [:antivirus_client_error])
-          patch "/request", params: { request_form: { requester_photo: valid_file } }
+          patch "/request", params: { request_form: { requester_photo: valid_data } }
           expect(response).to render_template("errors/internal_error")
           expect(response.body).to include("Sorry, there is a problem with this service")
         end
