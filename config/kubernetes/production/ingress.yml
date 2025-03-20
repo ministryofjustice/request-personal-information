@@ -20,6 +20,7 @@ spec:
     - request-personal-information-production.apps.live.cloud-platform.service.justice.gov.uk
   - hosts:
     - request-for-personal-information.service.justice.gov.uk
+    secretName: request-personal-information-certificate
   rules:
   - host: request-personal-information-production.apps.live.cloud-platform.service.justice.gov.uk
     http:
