@@ -260,7 +260,7 @@ RSpec.describe "Subject", type: :request do
           patch "/request", params: { request_form: { subject_photo: eicar_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("contains a virus")
+          expect(response.body).to include("File contains a virus")
         end
       end
 
@@ -348,7 +348,7 @@ RSpec.describe "Subject", type: :request do
           patch "/request", params: { request_form: { subject_proof_of_address: eicar_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("contains a virus")
+          expect(response.body).to include("File contains a virus")
         end
       end
 

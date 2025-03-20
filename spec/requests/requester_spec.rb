@@ -107,7 +107,18 @@ RSpec.describe "Requester", type: :request do
           patch "/request", params: { request_form: { requester_photo: eicar_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("contains a virus")
+          expect(response.body).to include("File contains a virus")
+        end
+      end
+
+      context "when Clam AV service is unavailable" do
+        let(:valid_file) { fixture_file_upload(Rails.root.join("spec/fixtures/files/file.jpg"), "image/jpg") }
+
+        it "shows internal error page" do
+          allow(Ratonvirus.scanner).to receive_messages(available?: true, virus?: true, errors: [:antivirus_client_error])
+          patch "/request", params: { request_form: { requester_photo: valid_file } }
+          expect(response).to render_template("errors/internal_error")
+          expect(response.body).to include("Sorry, there is a problem with this service")
         end
       end
 
@@ -190,7 +201,7 @@ RSpec.describe "Requester", type: :request do
           patch "/request", params: { request_form: { requester_proof_of_address: eicar_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("contains a virus")
+          expect(response.body).to include("File contains a virus")
         end
       end
 
@@ -255,7 +266,7 @@ RSpec.describe "Requester", type: :request do
           patch "/request", params: { request_form: { letter_of_consent: eicar_data } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
-          expect(response.body).to include("contains a virus")
+          expect(response.body).to include("File contains a virus")
         end
       end
 

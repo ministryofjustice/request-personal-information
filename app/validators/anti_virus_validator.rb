@@ -12,6 +12,8 @@ class AntiVirusValidator < ActiveModel::EachValidator
 
     if scanner.errors.any?
       scanner.errors.each do |err|
+        raise RequestsController::ClientProcessingError if err == :antivirus_client_error
+
         record.errors.add attribute, err
       end
     end

@@ -71,7 +71,7 @@ RSpec.shared_examples("file upload") do |attribute|
 
       it "is has the expected error message" do
         form_object.valid?
-        expect(form_object.errors.messages[attribute].first).to eq("contains a virus")
+        expect(form_object.errors.messages[attribute].first).to eq("File contains a virus")
       end
     end
 
