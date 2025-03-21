@@ -1,6 +1,10 @@
 en:
   activemodel:
     errors:
+      messages:
+        antivirus_virus_detected: 'File contains a virus'
+        antivirus_client_error: 'File could not be processed for virus scan'
+        antivirus_file_not_found: 'File could not be found for virus scan'
       models:
         request_form/contact_address:
           attributes:

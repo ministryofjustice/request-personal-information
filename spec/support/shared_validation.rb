@@ -58,6 +58,23 @@ RSpec.shared_examples("file upload") do |attribute|
       end
     end
 
+    context "when file has a virus" do
+      subject(:form_object) { described_class.new }
+
+      before do
+        form_object.send("#{attribute}=", fixture_file_upload("eicar.jpg", "image/jpeg"))
+      end
+
+      it "is not valid" do
+        expect(form_object).not_to be_valid
+      end
+
+      it "is has the expected error message" do
+        form_object.valid?
+        expect(form_object.errors.messages[attribute].first).to eq("File contains a virus")
+      end
+    end
+
     describe "#saveable_attributes" do
       subject(:form_object) { described_class.new }
 
