@@ -39,6 +39,6 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: find-unclaimed-court-money-service
+            name: request-personal-information-service-production
             port:
               number: 3000
