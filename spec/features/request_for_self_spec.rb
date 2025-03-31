@@ -96,6 +96,9 @@ RSpec.feature "Request for self", type: :feature do
       click_button "Continue"
       expect(page).to have_text("There is a problem")
       expect(page).to have_text("Upload your proof of address")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload your proof of address")
     end
   end
 end

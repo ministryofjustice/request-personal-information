@@ -84,6 +84,9 @@ RSpec.feature "Request by solicitor", type: :feature do
       click_button "Continue"
       expect(page).to have_text("There is a problem")
       expect(page).to have_text("Upload a letter of consent")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload a letter of consent")
     end
   end
 end

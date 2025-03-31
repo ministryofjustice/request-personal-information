@@ -103,6 +103,7 @@ RSpec.feature "Request by family", type: :feature do
       expect(page).to have_text("Upload your photo ID")
       click_button "Continue"
       expect(page).not_to have_text("Upload your proof of address")
+      expect(page).to have_text("There is a problem")
       expect(page).to have_text("Upload your photo ID")
     end
 
@@ -113,6 +114,9 @@ RSpec.feature "Request by family", type: :feature do
       expect(page).to have_text("Upload your proof of address")
       # Upload address
       attach_file("request-form-requester-proof-of-address-field", "spec/fixtures/files/invalid_image.txt")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload your proof of address")
       click_button "Continue"
       expect(page).to have_text("There is a problem")
       expect(page).to have_text("Upload your proof of address")
@@ -129,6 +133,9 @@ RSpec.feature "Request by family", type: :feature do
       expect(page).to have_text("Upload a letter of consent")
       # Letter of Consent
       attach_file("request-form-letter-of-consent-field", "spec/fixtures/files/invalid_image.txt")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload a letter of consent")
       click_button "Continue"
       expect(page).to have_text("There is a problem")
       expect(page).to have_text("Upload a letter of consent")
