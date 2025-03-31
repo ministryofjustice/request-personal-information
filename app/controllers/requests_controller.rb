@@ -36,6 +36,14 @@ class RequestsController < ApplicationController
 
   CHECK_ANSWERS_STEP = "check-answers".freeze
 
+  ATTACHMENT_MAPPINGS = {
+    "requester-id" => "requester_photo_id",
+    "subject-id" => "subject_photo_id",
+    "letter-of-consent" => "letter_of_consent_id",
+    "subject-address" => "subject_proof_of_address_id",
+    "requester-address" => "requester_proof_of_address_id",
+  }.freeze
+
   before_action :enable_back_button
 
   def new
@@ -86,6 +94,10 @@ class RequestsController < ApplicationController
       session[:information_request] = @information_request.to_hash
       next_step
     else
+      attribute = @form.attributes[ATTACHMENT_MAPPINGS[session[:current_step]]]
+      if attachment_step? && Attachment.exists?(attribute)
+        Attachment.find(attribute).destroy!
+      end
       render :edit
     end
   end
@@ -267,5 +279,9 @@ private
 
   def return_to
     params[:return_to] || (params[:request_form].present? && request_params[:return_to])
+  end
+
+  def attachment_step?
+    session[:current_step].in?(%w[requester-id subject-id letter-of-consent subject-address requester-address])
   end
 end
