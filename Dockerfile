@@ -6,7 +6,12 @@ WORKDIR /app
 # tzdata: required to set timezone
 RUN apk add --no-cache \
     tzdata \
-    postgresql-client
+    postgresql-client \
+    clamav-daemon
+
+# configure clamav connection
+RUN echo "TCPSocket 3310" > /etc/clamav/clamd.conf
+RUN echo "TCPAddr request-personal-information-clamav-service" >> /etc/clamav/clamd.conf
 
 # Ensure latest rubygems is installed
 RUN gem update --system

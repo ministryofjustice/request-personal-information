@@ -38,6 +38,13 @@ class RequestsController < ApplicationController
 
   before_action :enable_back_button
 
+  class ClientProcessingError < StandardError; end
+
+  rescue_from ClientProcessingError do |e|
+    Sentry.capture_exception(e)
+    render "errors/internal_error"
+  end
+
   def new
     reset_session
     redirect_to "/#{STEPS.first}"
