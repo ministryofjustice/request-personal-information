@@ -26,9 +26,10 @@ RSpec.describe "Subject", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Are you requesting your own information or someone else's?"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include(CGI.escapeHTML("Are you requesting your own information or someone else's?"))
       end
 
       context "when submitting form with invalid data" do
@@ -63,10 +64,11 @@ RSpec.describe "Subject", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "What is your name?"
+
       context "when requesting own data" do
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("What is your name?")
         end
 
         context "when submitting form with invalid data" do
@@ -85,9 +87,10 @@ RSpec.describe "Subject", type: :request do
       context "when requesting someone else's data" do
         let(:information_request) { build(:information_request_for_other) }
 
+        it_behaves_like "question with a title", "What is their name?"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("What is their name?")
         end
 
         context "when submitting form with invalid data" do
@@ -121,9 +124,10 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting own data" do
+        it_behaves_like "question with a title", "What is your date of birth?"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("What is your date of birth?")
         end
 
         context "when submitting form with invalid data" do
@@ -153,9 +157,10 @@ RSpec.describe "Subject", type: :request do
       context "when requesting someone else's data" do
         let(:information_request) { build(:information_request_for_other) }
 
+        it_behaves_like "question with a title", "What is their date of birth?"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("What is their date of birth?")
         end
       end
     end
@@ -190,9 +195,10 @@ RSpec.describe "Subject", type: :request do
       context "when requesting someone else's data" do
         let(:information_request) { build(:information_request_for_other) }
 
+        it_behaves_like "question with a title", "What is your relationship to them?"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("What is your relationship to them?")
         end
 
         context "when submitting form with invalid data" do
@@ -221,6 +227,7 @@ RSpec.describe "Subject", type: :request do
 
     context "when session in progress" do
       let(:valid_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+      let(:eicar_data) { fixture_file_upload("eicar.jpg", "image/jpeg") }
       let(:invalid_data) { nil }
 
       before do
@@ -229,9 +236,10 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting data for someone else" do
+        it_behaves_like "question with a title", "Upload photo ID of the person you are requesting information for"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("Upload photo ID of the person you are requesting information for")
           expect(response.body).to include("For example, a driving licence or passport")
         end
       end
@@ -239,10 +247,20 @@ RSpec.describe "Subject", type: :request do
       context "when requesting data for self" do
         let(:information_request) { build(:information_request_for_self) }
 
+        it_behaves_like "question with a title", "Upload your photo ID"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("Upload your photo ID")
           expect(response.body).to include("For example, a driving licence or passport. This can be a photograph, scan or photocopy of the original document.<br>Maximum size: 7 MB.")
+        end
+      end
+
+      context "when submitting file with virus" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { subject_photo: eicar_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("File contains a virus")
         end
       end
 
@@ -297,6 +315,7 @@ RSpec.describe "Subject", type: :request do
 
     context "when session in progress" do
       let(:valid_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+      let(:eicar_data) { fixture_file_upload("eicar.jpg", "image/jpeg") }
       let(:invalid_data) { nil }
 
       before do
@@ -305,9 +324,10 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when requesting data for someone else" do
+        it_behaves_like "question with a title", "Upload proof of address of the person you are requesting information for"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("Upload proof of address of the person you are requesting information for")
           expect(response.body).to include("For example, an electricity or council tax bill")
         end
       end
@@ -315,10 +335,20 @@ RSpec.describe "Subject", type: :request do
       context "when requesting data for self" do
         let(:information_request) { build(:information_request_for_self) }
 
+        it_behaves_like "question with a title", "Upload your proof of address"
+
         it "renders the expected page" do
           expect(response).to render_template(:edit)
-          expect(response.body).to include("Upload your proof of address")
           expect(response.body).to include("For example, an electricity or council tax bill")
+        end
+      end
+
+      context "when submitting file with virus" do
+        it "renders page with error message" do
+          patch "/request", params: { request_form: { subject_proof_of_address: eicar_data } }
+          expect(response).to render_template(:edit)
+          expect(response.body).to include("There is a problem")
+          expect(response.body).to include("File contains a virus")
         end
       end
 
@@ -379,9 +409,10 @@ RSpec.describe "Subject", type: :request do
         get "/#{current_step}"
       end
 
+      it_behaves_like "question with a title", "Check your uploads"
+
       it "renders the expected page" do
         expect(response).to render_template(:edit)
-        expect(response.body).to include("Check your upload")
       end
 
       context "when submitting form with valid data" do

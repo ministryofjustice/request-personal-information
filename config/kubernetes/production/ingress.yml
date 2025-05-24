@@ -18,14 +18,27 @@ spec:
   tls:
   - hosts:
     - request-personal-information-production.apps.live.cloud-platform.service.justice.gov.uk
+  - hosts:
+    - request-for-personal-information.service.justice.gov.uk
+    secretName: request-personal-information-certificate
   rules:
   - host: request-personal-information-production.apps.live.cloud-platform.service.justice.gov.uk
     http:
       paths:
       - path: /
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: request-personal-information-service-production
             port:
               number: 80
+  - host: request-for-personal-information.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: request-personal-information-service-production
+            port:
+              number: 3000

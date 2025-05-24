@@ -36,7 +36,22 @@ class RequestsController < ApplicationController
 
   CHECK_ANSWERS_STEP = "check-answers".freeze
 
+  ATTACHMENT_ID_MAPPINGS = {
+    "requester-id" => "requester_photo_id",
+    "subject-id" => "subject_photo_id",
+    "letter-of-consent" => "letter_of_consent_id",
+    "subject-address" => "subject_proof_of_address_id",
+    "requester-address" => "requester_proof_of_address_id",
+  }.freeze
+
   before_action :enable_back_button
+
+  class ClientProcessingError < StandardError; end
+
+  rescue_from ClientProcessingError do |e|
+    Sentry.capture_exception(e)
+    render "errors/internal_error"
+  end
 
   def new
     reset_session
@@ -86,6 +101,10 @@ class RequestsController < ApplicationController
       session[:information_request] = @information_request.to_hash
       next_step
     else
+      attachment_id = @form.attributes[ATTACHMENT_ID_MAPPINGS[session[:current_step]]]
+      if Attachment.exists?(attachment_id)
+        Attachment.find(attachment_id).destroy!
+      end
       render :edit
     end
   end

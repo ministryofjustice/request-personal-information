@@ -88,4 +88,57 @@ RSpec.feature "Request by family", type: :feature do
     # Form sent
     expect(page).to have_text("Request sent")
   end
+
+  describe "User uploads invalid files and cannot progress" do
+    before do
+      start_application
+      fill_in_request_type_and_initial_personal_details(type: "Relative, friend or something else")
+    end
+
+    scenario "when requester photo id" do
+      # Upload ID
+      attach_file("request-form-requester-photo-field", "spec/fixtures/files/invalid_image.txt")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload your photo ID")
+      click_button "Continue"
+      expect(page).not_to have_text("Upload your proof of address")
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload your photo ID")
+    end
+
+    scenario "when requester address" do
+      # Upload ID
+      attach_file("request-form-requester-photo-field", "spec/fixtures/files/file.jpg")
+      click_button "Continue"
+      expect(page).to have_text("Upload your proof of address")
+      # Upload address
+      attach_file("request-form-requester-proof-of-address-field", "spec/fixtures/files/invalid_image.txt")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload your proof of address")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload your proof of address")
+    end
+
+    scenario "when requester letter of consent" do
+      # Upload ID
+      attach_file("request-form-requester-photo-field", "spec/fixtures/files/file.jpg")
+      click_button "Continue"
+      expect(page).to have_text("Upload your proof of address")
+      # Upload address
+      attach_file("request-form-requester-proof-of-address-field", "spec/fixtures/files/file.jpg")
+      click_button "Continue"
+      expect(page).to have_text("Upload a letter of consent")
+      # Letter of Consent
+      attach_file("request-form-letter-of-consent-field", "spec/fixtures/files/invalid_image.txt")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload a letter of consent")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload a letter of consent")
+    end
+  end
 end

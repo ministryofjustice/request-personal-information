@@ -68,4 +68,37 @@ RSpec.feature "Request for self", type: :feature do
     # Form sent
     expect(page).to have_text("Request sent")
   end
+
+  describe "User uploads invalid files and cannot progress" do
+    before do
+      start_application
+      fill_in_request_type_and_initial_personal_details(type: "My own")
+    end
+
+    scenario "when subject photo id" do
+      # Upload ID
+      attach_file("request-form-subject-photo-field", "spec/fixtures/files/invalid_image.txt")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload your photo ID")
+      click_button "Continue"
+      expect(page).not_to have_text("Upload your proof of address")
+      expect(page).to have_text("Upload your photo ID")
+    end
+
+    scenario "when subject address" do
+      # Upload ID
+      attach_file("request-form-subject-photo-field", "spec/fixtures/files/file.jpg")
+      click_button "Continue"
+      expect(page).to have_text("Upload your proof of address")
+      # Upload address
+      attach_file("request-form-subject-proof-of-address-field", "spec/fixtures/files/invalid_image.txt")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload your proof of address")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload your proof of address")
+    end
+  end
 end

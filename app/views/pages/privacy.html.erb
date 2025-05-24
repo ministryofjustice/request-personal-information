@@ -1,0 +1,107 @@
+<% title t(".page_title") %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t(".page_title") %></h1>
+    <p class="govuk-body">This privacy notice explains what the Ministry of Justice means when we talk about personal data, why we ask for this information about you and what we do with it when you use this form.</p>
+    <p class="govuk-body">It also explains how we store your data, how you can get a copy of the information we've collected about you and how you can complain if you think we've done something wrong.</p>
+
+    <h2 class="govuk-heading-m">Who manages this service</h2>
+    <p class="govuk-body">This form is managed by the Ministry of Justice.</p>
+    <p class="govuk-body">The information you submit will be processed by the Ministry of Justice.</p>
+    <p class="govuk-body">The Ministry of Justice is the data controller for the personal data collected by this form.</p>
+
+    <h2 class="govuk-heading-m">When we ask for personal data</h2>
+    <p class="govuk-body">Whenever we ask for information about you, we promise to:</p>
+    <%= govuk_list ["always let you know why we need it",
+                    "ask for relevant personal information only",
+                    "make sure we do not keep it longer than needed",
+                    "keep your information safe and make sure nobody can access it unless authorised to do so",
+                    "only share your data with other organisations for legitimate purposes",
+                    "consider any request you make to correct or delete your personal data"], type: :bullet%>
+    <p class="govuk-body">We also promise to make it easy for you to:</p>
+    <%= govuk_list ["tell us at any time if you want us to stop storing your personal data",
+                    "make a complaint to the supervisory authority"], type: :bullet%>
+
+    <h2 class="govuk-heading-m">The personal data we collect</h2>
+    <p class="govuk-body">We only collect personal data that you directly provide with your application.</p>
+    <p class="govuk-body">We only collect the information we need to deliver this service to you. The personal data collected includes:</p>
+    <%= govuk_list ["your name and contact details",
+                    "your date of birth",
+                    "any relevant identifiers (e.g. your Prison number) which may help us to find your records"], type: :bullet%>
+    <p class="govuk-body">We <%= govuk_link_to "use cookies", "http://www.aboutcookies.org.uk/managing-cookies" %> to collect data that tells us about how the service is used, including:</p>
+    <%= govuk_list ["your computer, phone or tablet's IP address",
+                    "the region or town where you are using your computer, phone or tablet",
+                    "the operating system and web browser you use"], type: :bullet%>
+    <p class="govuk-body">This information is not used to identify you personally. You can find out more about what cookies we use and why on our <%= govuk_link_to "cookie page", cookies_consent_path %>.</p>
+
+    <h2 class="govuk-heading-m">Why we collect your personal data</h2>
+    <p class="govuk-body">We collect data to enable us to process and respond to your request for personal information. The processing of your personal data is necessary for identifying and sharing the personal information which you are entitled to receive as part of your request.</p>
+    <p class="govuk-body">The legal basis for collecting and processing your personal data is to ensure compliance with General Data Protection Regulation (GDPR).</p>
+    <p class="govuk-body">Use of the online form is voluntary. If you do not provide all the information we ask for, we may not be able to process your request.</p>
+    <p class="govuk-body">Please note that transmitting information over the internet is generally not completely secure, and the Ministry of Justice can't guarantee the security of your data. Any data you transmit is at your own risk. The Ministry of Justice has procedures and security features in place to keep your data secure once we receive it.</p>
+
+    <h2 class="govuk-heading-m">Sharing your personal data</h2>
+    <p class="govuk-body">The information you provide will not be shared with any third parties.</p>
+    <p class="govuk-body">We may use your contact information to ask for feedback on using the service, but only when you have given your consent for us to do so.</p>
+    <p class="govuk-body">We'll never share your information with other organisations for marketing, market research or commercial purposes.</p>
+
+    <h2 class="govuk-heading-m">Keeping your personal data</h2>
+    <p class="govuk-body">To protect your personal information, any data you enter as you progress through the online form is held temporarily and securely until you submit your application, after which your application cannot be viewed or modified further online.</p>
+    <p class="govuk-body">The Ministry of Justice will keep your data for up to 2 years from when we respond to and close your request.</p>
+    <p class="govuk-body">All deleted data will be destroyed securely and confidentially.</p>
+
+    <h2 class="govuk-heading-m">How we use your personal data</h2>
+    <p class="govuk-body">Your online submission will be sent from the online form to the Ministry of Justice via encrypted email. The system does not retain a copy of your information.</p>
+    <p class="govuk-body">Your personal data is not used in any automated decision making (a decision made solely by automated means without any human involvement) or profiling (automated processing of personal data to evaluate certain conditions about an individual).</p>
+
+    <h2 class="govuk-heading-m">How we store your personal data</h2>
+    <p class="govuk-body">The Ministry of Justice takes data security very seriously and takes every step to ensure that your data remains private and secure. All data collected by this service is stored in a secure database kept entirely within the UK.</p>
+    <p class="govuk-body">Your application will only be accessible to Ministry of Justice staff who require access to process applications</p>
+
+    <h2 class="govuk-heading-m">Your rights</h2>
+    <p class="govuk-body">You have a number of rights, depending on the reason for processing your information. These include:</p>
+    <%= govuk_list ["the right to have inaccuracies in your personal data corrected",
+                    "the right to fill in any gaps in your personal data, including by means of a supplementary statement",
+                    "the right to ask for the processing of your personal data to be restricted",
+                    "the right to ask for your personal data to be deleted if there is no longer a justification for it",
+                    "the right to object to automated decision making, including profiling, that has a legal or significant effect on you as an individual"], type: :bullet%>
+    <p class="govuk-body">If you want to request any of these, email <a href='mailto:data.access@justice.gov.uk'>data.access@justice.gov.uk</a> or send your request by post to:</p>
+    <ul class="govuk-list address">
+      <li>Disclosure Team</li>
+      <li>Post point 10.25</li>
+      <li>102 Petty France</li>
+      <li>London</li>
+      <li>SW1H 9AJ</li>
+    </ul>
+
+    <h2 class="govuk-heading-m">Getting more information</h2>
+    <p class="govuk-body">You can get more details on:</p>
+    <%= govuk_list ["agreements we have with other organisations for sharing information",
+                    "when we can pass on personal information without telling you, for example, to help with the prevention or detection of crime or to produce anonymised statistics",
+                    "instructions we give to staff on how to collect, use or delete your personal information",
+                    "how we check that the information we have is accurate and up-to-date",
+                    "how to make a complaint"], type: :bullet%>
+    <p class="govuk-body">For more information, please contact the Ministry of Justice data protection officer at:</p>
+    <ul class="govuk-list address">
+      <li>The Data Protection Officer</li>
+      <li>Ministry of Justice</li>
+      <li>10 South Colonnade</li>
+      <li>Canary Wharf</li>
+      <li>E14 4PU</li>
+    </ul>
+    <p class="govuk-body">Email: <a href='mailto:dpo@justice.gov.uk'>dpo@justice.gov.uk</a></p>
+
+    <h2 class="govuk-heading-m">Making a complaint</h2>
+    <p class="govuk-body">When we ask you for information, we will keep to the law. If you think that your information has not been handled correctly, you can contact the <%= govuk_link_to "Information Commissioner", "https://ico.org.uk/"%> for independent advice about data protection on the address below:</p>
+     <ul class="govuk-list address">
+      <li>Information Commissioner's Office</li>
+      <li>Wycliffe House</li>
+      <li>Water Lane</li>
+      <li>Wilmslow</li>
+      <li>Cheshire</li>
+      <li>SK9 5AF</li>
+    </ul>
+    <p class="govuk-body">Telephone: 0303 123 1113</a></p>
+  </div>
+</div>

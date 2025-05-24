@@ -121,5 +121,23 @@ After a request is completed, a Job will be created that will send the request t
 
 When running in development, no jobs are run.
 
+### API
+
+The api url is set in an environment variable `API_URL` which is set in the Kubernetes ConfigMap for the environment
+
 ## Exceptions
 Any exceptions raised in any deployed environment will be sent to [Sentry](https://ministryofjustice.sentry.io/projects/request-personal-information).
+
+## Attachment scanning
+
+We use a combination of the gem [Ratonvirus](https://github.com/mainio/ratonvirus) and [Clam AV](https://docs.clamav.net/) for our attachment virus scanning.
+
+We have created our own CDPT image of Clam AV here: https://github.com/ministryofjustice/cdpt-av
+
+We run Clam AV inside a container inside our Cloud Platform namespace. There is a deployment and service in this repo for the Clam AV container, but currently this is manually deployed. If you need to redeploy for any reason:
+
+```
+kubectl apply -f <CLAM_AV_DEPLOYMENT_FILEPATH> -n <NAMESPACE>
+```
+
+For testing purposes we use an eicar file which will trigger a fake virus response. This is used in the tests and is also configured for use locally.

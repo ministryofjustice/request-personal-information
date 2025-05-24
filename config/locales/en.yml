@@ -1,6 +1,10 @@
 en:
   activemodel:
     errors:
+      messages:
+        antivirus_virus_detected: 'File contains a virus'
+        antivirus_client_error: 'File could not be processed for virus scan'
+        antivirus_file_not_found: 'File could not be found for virus scan'
       models:
         request_form/contact_address:
           attributes:
@@ -201,6 +205,25 @@ en:
           self_html: "For example, an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document.<br>Maximum size: 7 MB."
         upcoming_court_case_text: For example, when the trial or hearing is happening.
 
+  layouts:
+    application:
+      footer:
+        cookie: Cookies
+        accessibility: Accessibility
+        privacy: Privacy notice
+    cookie_banner_confirmation:
+      result:
+        accept: You've accepted analytics cookies.
+        reject: You've rejected analytics cookies.
+  pages:
+    accessibility:
+      page_title: Accessibility statement
+      sar_research_email_html: "<a href='mailto:sar.research@digital.justice.gov.uk'>sar.research@digital.justice.gov.uk</a>"
+    cookie_consent:
+      page_title: Cookies
+    privacy:
+      page_title: Privacy notice
+
   request_form:
     contact_address: Where we'll send the information
     contact_email: Your email
@@ -227,7 +250,7 @@ en:
     probation_location:
       other: Where is their probation office or approved premises?
       self: Where is your probation office or approved premises?
-    requester_details: Requester Details
+    requester_details: Requester details
     requester_id: Upload your photo ID
     requester_address: Upload your proof of address
     requester_id_check: Check your uploads
@@ -257,6 +280,12 @@ en:
     subject_relationship: What is your relationship to them?
     upcoming: Do you need this information for an upcoming court case or hearing?
     letter_of_consent_template: There is no official template.
+  requests:
+    complete:
+      page_title: Request sent
+    show:
+      page_title: Check your answers
+
   service:
     name: Request personal information
     prison:

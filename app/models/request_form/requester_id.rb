@@ -6,7 +6,7 @@ module RequestForm
     attr_accessor :default
 
     validates :requester_photo, presence: true, unless: -> { Attachment.exists?(requester_photo_id) }
-    validates :requester_photo, file_size: { max: 7.megabytes }, file_type: true
+    validates :requester_photo, file_size: { max: 7.megabytes }, file_type: true, anti_virus: true
 
     def required?
       request.by_family_or_friend?

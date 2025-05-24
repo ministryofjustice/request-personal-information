@@ -71,4 +71,22 @@ RSpec.feature "Request by solicitor", type: :feature do
     # Form sent
     expect(page).to have_text("Request sent")
   end
+
+  describe "User uploads invalid files and cannot progress" do
+    before do
+      start_application
+      fill_in_request_type_and_initial_personal_details(type: "Legal representative")
+    end
+
+    scenario "when requester letter of consent" do
+      # Letter of Consent
+      attach_file("request-form-letter-of-consent-field", "spec/fixtures/files/invalid_image.txt")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload a letter of consent")
+      click_button "Continue"
+      expect(page).to have_text("There is a problem")
+      expect(page).to have_text("Upload a letter of consent")
+    end
+  end
 end
