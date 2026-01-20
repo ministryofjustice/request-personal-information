@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class="govuk-template">
+<html lang="en" class="govuk-template--rebranded">
   <head>
-    <title><%= content_for?(:page_title) ? yield(:page_title) : "Request personal information from the Ministry of Justice" %></title>
+    <title><%= yield(:page_title) %></title>
+    # <title><%= content_for?(:page_title) ? yield(:page_title) : "Request personal information from the Ministry of Justice" %></title>
 
     <%= csrf_meta_tags %>
 
