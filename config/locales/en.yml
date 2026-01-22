@@ -209,8 +209,8 @@ en:
     application:
       footer:
         cookie: Cookies
-        accessibility: Accessibility
-        privacy: Privacy notice
+        accessibility: Accessibility statement
+        privacy: Privacy
     cookie_banner_confirmation:
       result:
         accept: You've accepted analytics cookies.
