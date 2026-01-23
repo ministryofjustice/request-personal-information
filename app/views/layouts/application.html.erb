@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" class="govuk-template">
+<html class="govuk-template govuk-template--rebranded" lang="en">
   <head>
-    <title><%= content_for?(:page_title) ? yield(:page_title) : "Request personal information from the Ministry of Justice" %></title>
+    <title lang="en"><%= yield(:page_title) %></title>
 
     <%= csrf_meta_tags %>
 
@@ -36,7 +36,11 @@
 
     <%= govuk_skip_link %>
 
-    <%= govuk_header(homepage_url: "https://www.gov.uk/", service_name: t("service.name")) %>
+    <%= govuk_header(homepage_url: "https://www.gov.uk") %>
+
+    <% unless current_page?(root_path) %>
+      <%= govuk_service_navigation(service_name: t("service.name"), service_url: "/") %>
+    <% end %>
 
     <div class="govuk-width-container">
       <%= govuk_phase_banner(tag: { text: "Beta" }, text: "This is a new service – your feedback will help us to improve it. ") %>
@@ -46,8 +50,8 @@
     </div>
 
     <%= govuk_footer(meta_items_title: "Support links", meta_items: {
-      t(".footer.cookie") => cookies_consent_path,
       t(".footer.accessibility") => accessibility_path,
+      t(".footer.cookie") => cookies_consent_path,
       t(".footer.privacy") => privacy_path }) %>
 
     <%= render "shared/debug" if Rails.env.development? %>
