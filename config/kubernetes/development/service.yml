@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: request-personal-information-service-development
+  namespace: request-personal-information-development
+  labels:
+    app: request-personal-information-web-development
+spec:
+  ports:
+  - port: 80
+    name: http
+    targetPort: 3000
+  selector:
+    app: request-personal-information-web-development
