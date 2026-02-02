@@ -13,11 +13,11 @@ spec:
       maxSurge: 100%
   selector:
     matchLabels:
-      app: request-personal-information-development
+      app: request-personal-information-web-development
   template:
     metadata:
       labels:
-        app: request-personal-information-development
+        app: request-personal-information-webdevelopment
         tier: frontend
     spec:
       serviceAccountName: request-personal-information
