@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       labels:
-        app: request-personal-information-webdevelopment
+        app: request-personal-information-web-development
         tier: frontend
     spec:
       serviceAccountName: request-personal-information
