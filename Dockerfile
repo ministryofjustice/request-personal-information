@@ -21,6 +21,7 @@ FROM base as builder
 
 # Install packages needed to build gems
 RUN apk --no-cache add \
+    libc6-compat \
     ruby-dev \
     build-base \
     postgresql-dev \
