@@ -278,6 +278,7 @@ en:
       other: What is their name?
       self: What is your name?
     subject_relationship: What is your relationship to them?
+    submission_id: 'Submission ID:'
     upcoming: Do you need this information for an upcoming court case or hearing?
     letter_of_consent_template: There is no official template.
   requests:
