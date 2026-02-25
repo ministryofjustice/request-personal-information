@@ -5,6 +5,7 @@ WORKDIR /app
 
 # tzdata: required to set timezone
 RUN apk add --no-cache \
+    libc6-compat \
     tzdata \
     postgresql-client \
     clamav-daemon
@@ -21,7 +22,6 @@ FROM base as builder
 
 # Install packages needed to build gems
 RUN apk --no-cache add \
-    libc6-compat \
     ruby-dev \
     build-base \
     postgresql-dev \
