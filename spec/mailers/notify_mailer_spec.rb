@@ -6,7 +6,7 @@ RSpec.describe NotifyMailer, type: :mailer do
     let(:request) { create(:complete_request) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Request Personal Information")
+      expect(mail.subject).to eq("Submission from Request personal information Cristian Romero DoB 27/04/1998")
       expect(mail.to).to eq([request.contact_email])
     end
 
