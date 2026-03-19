@@ -5,10 +5,11 @@ RSpec.describe NotifyMailer, type: :mailer do
     let(:mail) { described_class.new_request(request) }
     let(:request) { create(:complete_request) }
 
-    # it "renders the headers" do
-    #   expect(mail.subject).to eq("Submission from Request personal information Cristian Romero DoB 27/04/1998")
-    #   expect(mail.to).to eq([request.contact_email])
-    # end
+    it "renders the headers" do
+      expect(mail.subject).to eq("Submission from Request personal information Cristian Romero DoB 27/04/1998")
+      # expect(mail.to).to eq([request.contact_email])
+      expect(mail.to).to eq(["nick.preddy@digital.justice.gov.uk"]).or eq(["nick.preddy@justice.gov.uk"])
+    end
 
     it "renders the body" do
       expect(mail.body.encoded).to match("The information you provided is shown below.")
