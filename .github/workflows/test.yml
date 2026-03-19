@@ -18,8 +18,6 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1/request_personal_information_test"
-      OFFENDER_SAR_EMAIL: "nick.preddy@justice.gov.uk"
-      SAR_EMAIL: "nick.preddy@digital.justice.gov.uk"
 
     services:
       postgres:

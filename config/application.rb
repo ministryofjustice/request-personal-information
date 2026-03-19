@@ -36,9 +36,6 @@ module RequestPersonalInformation
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.offender_sar_email = ENV.fetch("OFFENDER_SAR_EMAIL")
-    config.sar_email = ENV.fetch("SAR_EMAIL")
-
     config.active_job.queue_adapter = :delayed_job
 
     config.exceptions_app = routes

@@ -5,9 +5,9 @@ class NotifyMailer < ApplicationMailer
     @summary = request.summary
 
     forwarding_department = if request.probation_service? || request.prison_service?
-                              Rails.configuration.offender_sar_email
+                              "nick.preddy@justice.gov.uk"
                             else
-                              Rails.configuration.sar_email
+                              "nick.preddy@digital.justice.gov.uk"
                             end
 
     # view_mail("ed38a7b5-d9d1-44a5-bdc3-0a3319fa54c6", to: request.contact_email, subject: "Submission from Request personal information #{@information_request.full_name} DoB #{@information_request.date_of_birth.strftime('%d/%m/%Y')}")
