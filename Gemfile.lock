@@ -655,7 +655,6 @@ DEPENDENCIES
   govuk_design_system_formbuilder
   httparty
   jsbundling-rails
-  jwt (~> 3.1, >= 3.1.2)
   mail-notify
   pg
   puma (>= 5.0)
