@@ -24,4 +24,11 @@ class Attachment < ApplicationRecord
       filename:,
     }
   end
+
+  def download_url(expires_in: 30.days)
+    Rails.application.routes.url_helpers.rails_blob_url(
+      file.signed_id(expires_in:),
+      host: ENV["APPLICATION_HOST"],
+    )
+  end
 end
