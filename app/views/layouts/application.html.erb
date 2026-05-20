@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="govuk-template govuk-template--rebranded" lang="en">
   <head>
-    <title lang="en"><%= yield(:page_title) %></title>
+    <title><%= [yield(:page_title).presence, t('service.name')].compact.join(' - ') %></title>
 
     <%= csrf_meta_tags %>
 
