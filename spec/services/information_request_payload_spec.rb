@@ -10,6 +10,10 @@ RSpec.describe InformationRequestPayload, type: :service do
       expect(payload[:submission_id]).to eq information_request.submission_id
     end
 
+    it "returns a hash including the schema" do
+      expect(payload[:schema]).to eq "2"
+    end
+
     it "returns a hash including the answers" do
       expect(payload[:answers]).to eq(
         {

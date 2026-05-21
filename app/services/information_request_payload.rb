@@ -18,6 +18,7 @@ class InformationRequestPayload
 
   def call
     {
+      schema:,
       submission_id:,
       answers:,
       attachments:,
@@ -25,6 +26,10 @@ class InformationRequestPayload
   end
 
 private
+
+  def schema
+    ENV["API_SCHEMA"] || "2"
+  end
 
   def submission_id
     @request.submission_id
