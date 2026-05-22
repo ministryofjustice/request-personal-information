@@ -7,6 +7,8 @@ class InformationRequestPayload
     other: "someone else's",
   }.freeze
 
+  SCHEMA = "2".freeze
+
   SUBJECT_RELATIONSHIP = {
     legal_representative: "legal representative",
     other: "relative, friend or something else",
@@ -18,6 +20,7 @@ class InformationRequestPayload
 
   def call
     {
+      schema:,
       submission_id:,
       answers:,
       attachments:,
@@ -25,6 +28,10 @@ class InformationRequestPayload
   end
 
 private
+
+  def schema
+    ENV["API_SCHEMA"] || SCHEMA
+  end
 
   def submission_id
     @request.submission_id
