@@ -133,7 +133,6 @@ en:
               blank: Select if you need this information for an upcoming court case or hearing
             upcoming_court_case_text:
               blank: Provide more details of the court case or hearing, such as when it's happening
-
   helpers:
     label:
       request_form:
@@ -205,7 +204,6 @@ en:
           other_details: "If they are on probation and do not have proof of address, we will accept a letter signed by a probation officer on probation service headed paper. Upload this file here."
           self_html: "For example, an electricity or council tax bill. It must be dated within the last 6 months. This can be a photograph, scan or copy of the original document.<br>Maximum size: 7 MB."
         upcoming_court_case_text: For example, when the trial or hearing is happening.
-
   layouts:
     application:
       footer:
@@ -226,7 +224,6 @@ en:
       page_title: Start
     privacy:
       page_title: Privacy notice
-
   request_form:
     contact_address: Where we'll send the information
     contact_email: Your email
@@ -288,7 +285,6 @@ en:
       page_title: Request sent
     show:
       page_title: Check your answers
-
   service:
     name: Request personal information
     prison:
