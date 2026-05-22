@@ -167,6 +167,7 @@ en:
         form_prison_date_to: Enter a date this information should go to
         form_probation_date_from: Enter a date this information should start from
         form_probation_date_to: Enter a date this information should go to
+        form_request_subject: "Are you requesting your own information or someone else's?"
     hint:
       request_form:
         contact_address: You will receive paper copies of this information. If your request reveals details about another person, that information will not be shared.
@@ -257,7 +258,6 @@ en:
     requester_address: Upload your proof of address
     requester_id_check: Check your uploads
     solicitor_details: Your details
-    subject: Are you requesting your own information or someone else's?
     subject_date_of_birth:
       other: What is their date of birth?
       self: What is your date of birth?
