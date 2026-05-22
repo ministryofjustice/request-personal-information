@@ -4,8 +4,6 @@
     <%= form_with model: @form, scope: :request_form, url: request_path, method: :patch do |f| %>
       <% content_for(:form_content) { render partial: @form.name, locals: { f: } } %>
 
-      <% title content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %>
-
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l"><%= yield :caption %></span>
