@@ -10,10 +10,6 @@ RSpec.describe InformationRequestPayload, type: :service do
       expect(payload[:submission_id]).to eq information_request.submission_id
     end
 
-    it "returns a hash including the schema" do
-      expect(payload[:schema]).to eq "2"
-    end
-
     it "returns a hash including the answers" do
       expect(payload[:answers]).to eq(
         {
@@ -69,6 +65,21 @@ RSpec.describe InformationRequestPayload, type: :service do
     it "returns a hash including the attachments" do
       expect(payload[:attachments][0][:filename]).to eq(information_request.subject_photo.payload[:filename])
       expect(payload[:attachments][1][:filename]).to eq(information_request.subject_proof_of_address.payload[:filename])
+    end
+
+    it "returns a hash including the default schema" do
+      expect(payload[:schema]).to eq "2"
+    end
+
+    context "when API_SCHEMA environment variable is set" do
+      before do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with("API_SCHEMA").and_return("1")
+      end
+
+      it "uses the schema version from the environment variable" do
+        expect(payload[:schema]).to eq "1"
+      end
     end
   end
 end
