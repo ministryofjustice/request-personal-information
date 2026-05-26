@@ -1,3 +1,3 @@
 GOVUKDesignSystemFormBuilder.configure do |config|
-  config.default_legend_size = "xl"
+  config.default_legend_size = "s"
 end

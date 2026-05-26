@@ -10,6 +10,12 @@
 
       <span class="govuk-caption-l"><%= yield :caption %></span>
 
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+        <h1 class="govuk-heading-xl">
+          <%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %>
+        </h1>
+      </legend>
+
       <%= yield :form_content %>
       <%= f.hidden_field :return_to, value: @form.return_to %>
       <%= f.govuk_submit %>
