@@ -1,2 +1,2 @@
-<%= f.govuk_collection_radio_buttons :subject, @form.class::OPTIONS, :first, :second, legend: nil %>
+<%= f.govuk_collection_radio_buttons :subject, @form.class::OPTIONS, :first, :second, legend: { text: t("request_form.#{@form.name}.#{@information_request.subject}"), tag: "h1" } %>
 <%= f.hidden_field :default %>

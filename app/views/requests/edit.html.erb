@@ -9,9 +9,6 @@
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l"><%= yield :caption %></span>
-      <h1 class="govuk-heading-xl">
-        <%= content_for?(:title) ? yield(:title) : t("request_form.#{@form.name}") %>
-      </h1>
 
       <%= yield :form_content %>
       <%= f.hidden_field :return_to, value: @form.return_to %>
