@@ -7,7 +7,9 @@
 <% end %>
 
 <% if @information_request.for_self? %>
-  <%= f.govuk_text_field :recent_prison_name, label: nil %>
+  <%= f.govuk_fieldset legend: { text: t("request_form.#{@form.name}.#{@information_request.subject}"), tag: "h1" } do %>
+    <%= f.govuk_text_field :recent_prison_name, label: nil %>
+  <% end %>
 <% else %>
   <%= f.govuk_radio_buttons_fieldset :hmpps_information, legend: nil do %>
     <%= f.govuk_radio_button :currently_in_prison, "yes", label: { text: "Yes" } do %>

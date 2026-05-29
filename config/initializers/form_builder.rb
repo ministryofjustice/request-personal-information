@@ -1,3 +1,5 @@
 GOVUKDesignSystemFormBuilder.configure do |config|
-  config.default_legend_size = "s"
+  config.default_legend_tag   = "h1"
+  config.default_legend_size  = "xl"
+  config.default_caption_size = "xl"
 end

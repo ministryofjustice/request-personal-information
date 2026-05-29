@@ -1,31 +1,31 @@
-<p class="govuk-body">For information or documents from the Courts (within HMCTS) contact the court or tribunal you dealt with directly.</p>
-
-<%= f.govuk_check_boxes_fieldset :moj, legend: nil do %>
+<%= f.govuk_check_boxes_fieldset :moj, legend: { text: t("request_form.moj"), tag: "h1" } do %>
   <%= f.govuk_check_box :prison_service,
-        true,
-        label: { text: "Prison service" },
-        multiple: false,
-        checked: f.object.prison_service.present? %>
+      true,
+      label: { text: "Prison service" },
+      multiple: false,
+      checked: f.object.prison_service.present? %>
   <%= f.govuk_check_box :probation_service,
-        true,
-        label: { text: "Probation service" },
-        multiple: false,
-        checked: f.object.probation_service.present? %>
+      true,
+      label: { text: "Probation service" },
+      multiple: false,
+      checked: f.object.probation_service.present? %>
   <%= f.govuk_check_box :laa,
-        true,
-        label: { text: "Legal Aid Agency" },
-        hint: { text: "Including information from legal aid applications." },
-        multiple: false,
-        checked: f.object.laa.present? %>
+      true,
+      label: { text: "Legal Aid Agency" },
+      hint: { text: "Including information from legal aid applications." },
+      multiple: false,
+      checked: f.object.laa.present? %>
   <%= f.govuk_check_box :opg,
-        true,
-        label: { text: "Office of the Public Guardian (OPG)" },
-        hint: { text: "Including information about lasting power of attorney." },
-        multiple: false,
-        checked: f.object.opg.present? %>
+      true,
+      label: { text: "Office of the Public Guardian (OPG)" },
+      hint: { text: "Including information about lasting power of attorney." },
+      multiple: false,
+      checked: f.object.opg.present? %>
   <%= f.govuk_check_box :moj_other,
-        true,
-        label: { text: "Somewhere else in the Ministry of Justice" },
-        multiple: false,
-        checked: f.object.moj_other.present? %>
+      true,
+      label: { text: "Somewhere else in the Ministry of Justice" },
+      multiple: false,
+      checked: f.object.moj_other.present? %>
 <% end %>
+
+<div class="govuk-inset-text">For information or documents from the Courts (within HMCTS) contact the court or tribunal you dealt with directly.</div>
