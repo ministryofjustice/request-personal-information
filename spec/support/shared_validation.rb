@@ -62,7 +62,11 @@ RSpec.shared_examples("file upload") do |attribute|
       subject(:form_object) { described_class.new }
 
       before do
-        form_object.send("#{attribute}=", fixture_file_upload("eicar.jpg", "image/jpeg"))
+        clamav_client = instance_double(ClamAV::Client)
+        allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
+        allow(clamav_client).to receive(:execute)
+                                  .and_return([ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature")])
+        form_object.send("#{attribute}=", fixture_file_upload("file.jpg", "image/jpeg"))
       end
 
       it "is not valid" do
@@ -72,6 +76,22 @@ RSpec.shared_examples("file upload") do |attribute|
       it "is has the expected error message" do
         form_object.valid?
         expect(form_object.errors.messages[attribute].first).to eq("File contains a virus")
+      end
+    end
+
+    context "when ClamAV returns an error response" do
+      subject(:form_object) { described_class.new }
+
+      before do
+        clamav_client = instance_double(ClamAV::Client)
+        allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
+        allow(clamav_client).to receive(:execute)
+                                  .and_return([ClamAV::ErrorResponse.new("error")])
+        form_object.send("#{attribute}=", fixture_file_upload("file.jpg", "image/jpeg"))
+      end
+
+      it "raises ClientProcessingError" do
+        expect { form_object.valid? }.to raise_error(RequestsController::ClientProcessingError)
       end
     end
 

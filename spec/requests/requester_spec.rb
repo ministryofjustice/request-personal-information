@@ -26,6 +26,13 @@ RSpec.describe "Requester", type: :request do
       end
 
       context "when submitting form with invalid data" do
+        before do
+          clamav_client = instance_double(ClamAV::Client)
+          allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
+          allow(clamav_client).to receive(:execute)
+                                    .and_return([ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature")])
+        end
+
         it "renders page with error message" do
           patch "/request", params: { request_form: { organisation_name: invalid_data } }
           expect(response).to render_template(:edit)
@@ -103,6 +110,15 @@ RSpec.describe "Requester", type: :request do
       end
 
       context "when submitting file with virus" do
+        let(:eicar_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+
+        before do
+          clamav_client = instance_double(ClamAV::Client)
+          allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
+          allow(clamav_client).to receive(:execute)
+                                    .and_return([ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature")])
+        end
+
         it "renders page with error message" do
           patch "/request", params: { request_form: { requester_photo: eicar_data } }
           expect(response).to render_template(:edit)
@@ -113,7 +129,10 @@ RSpec.describe "Requester", type: :request do
 
       context "when Clam AV service is unavailable" do
         it "shows internal error page" do
-          allow(Ratonvirus.scanner).to receive_messages(available?: true, virus?: true, errors: [:antivirus_client_error])
+          clamav_client = instance_double(ClamAV::Client)
+          allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
+          allow(clamav_client).to receive(:execute)
+                                    .and_raise(Errno::ECONNREFUSED)
           patch "/request", params: { request_form: { requester_photo: valid_data } }
           expect(response).to render_template("errors/internal_error")
           expect(response.body).to include("Sorry, there is a problem with this service")
@@ -195,6 +214,15 @@ RSpec.describe "Requester", type: :request do
       end
 
       context "when submitting file with virus" do
+        let(:eicar_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+
+        before do
+          clamav_client = instance_double(ClamAV::Client)
+          allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
+          allow(clamav_client).to receive(:execute)
+                                    .and_return([ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature")])
+        end
+
         it "renders page with error message" do
           patch "/request", params: { request_form: { requester_proof_of_address: eicar_data } }
           expect(response).to render_template(:edit)
@@ -260,6 +288,15 @@ RSpec.describe "Requester", type: :request do
       end
 
       context "when submitting file with virus" do
+        let(:eicar_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+
+        before do
+          clamav_client = instance_double(ClamAV::Client)
+          allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
+          allow(clamav_client).to receive(:execute)
+                                    .and_return([ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature")])
+        end
+
         it "renders page with error message" do
           patch "/request", params: { request_form: { letter_of_consent: eicar_data } }
           expect(response).to render_template(:edit)

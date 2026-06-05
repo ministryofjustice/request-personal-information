@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 gem "aws-sdk-s3", require: false
+gem "clamav-client"
 gem "daemons"
 gem "delayed_job_active_record"
 gem "govuk_app_config", ">= 9.15.4"
@@ -13,8 +14,6 @@ gem "mail-notify"
 gem "pg"
 gem "puma", ">= 5.0"
 gem "rails"
-gem "ratonvirus"
-gem "ratonvirus-clamby"
 gem "sentry-rails", ">= 5.22.2"
 gem "sentry-ruby"
 

@@ -256,6 +256,15 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when submitting file with virus" do
+        let(:eicar_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+
+        before do
+          clamav_client = instance_double(ClamAV::Client)
+          allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
+          allow(clamav_client).to receive(:execute)
+                                    .and_return([ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature")])
+        end
+
         it "renders page with error message" do
           patch "/request", params: { request_form: { subject_photo: eicar_data } }
           expect(response).to render_template(:edit)
@@ -344,6 +353,15 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when submitting file with virus" do
+        let(:eicar_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+
+        before do
+          clamav_client = instance_double(ClamAV::Client)
+          allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
+          allow(clamav_client).to receive(:execute)
+                                    .and_return([ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature")])
+        end
+
         it "renders page with error message" do
           patch "/request", params: { request_form: { subject_proof_of_address: eicar_data } }
           expect(response).to render_template(:edit)
