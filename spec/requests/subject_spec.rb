@@ -258,6 +258,7 @@ RSpec.describe "Subject", type: :request do
       context "when submitting file with virus" do
         let(:virus_file) { fixture_file_upload("file.jpg", "image/jpeg") }
 
+
         before do
           clamav_client = instance_double(ClamAV::Client)
           allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
