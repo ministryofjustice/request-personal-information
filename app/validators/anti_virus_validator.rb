@@ -5,7 +5,7 @@ class AntiVirusValidator < ActiveModel::EachValidator
     path = value.path
     return unless path.present? && File.exist?(path)
 
-    client = build_client
+    client = clamav_client
     response = client.execute(ClamAV::Commands::ScanCommand.new(path)).first
 
     case response
@@ -14,13 +14,21 @@ class AntiVirusValidator < ActiveModel::EachValidator
     when ClamAV::ErrorResponse
       raise RequestsController::ClientProcessingError
     end
-  rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT, Errno::ENOENT
+  rescue SocketError,
+         IOError,
+         Timeout::Error,
+         Errno::ECONNREFUSED,
+         Errno::ECONNRESET,
+         Errno::EHOSTUNREACH,
+         Errno::ENETUNREACH,
+         Errno::ETIMEDOUT,
+         Errno::ENOENT
     raise RequestsController::ClientProcessingError
   end
 
 private
 
-  def build_client
+  def clamav_client
     ClamAV::Client.new(
       ClamAV::Connection.new(
         socket: ::TCPSocket.new(

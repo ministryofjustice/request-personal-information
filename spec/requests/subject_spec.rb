@@ -256,7 +256,7 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when submitting file with virus" do
-        let(:eicar_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+        let(:virus_file) { fixture_file_upload("file.jpg", "image/jpeg") }
 
         before do
           clamav_client = instance_double(ClamAV::Client)
@@ -266,7 +266,7 @@ RSpec.describe "Subject", type: :request do
         end
 
         it "renders page with error message" do
-          patch "/request", params: { request_form: { subject_photo: eicar_data } }
+          patch "/request", params: { request_form: { subject_photo: virus_file } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("File contains a virus")
@@ -353,7 +353,7 @@ RSpec.describe "Subject", type: :request do
       end
 
       context "when submitting file with virus" do
-        let(:eicar_data) { fixture_file_upload("file.jpg", "image/jpeg") }
+        let(:virus_file) { fixture_file_upload("file.jpg", "image/jpeg") }
 
         before do
           clamav_client = instance_double(ClamAV::Client)
@@ -363,7 +363,7 @@ RSpec.describe "Subject", type: :request do
         end
 
         it "renders page with error message" do
-          patch "/request", params: { request_form: { subject_proof_of_address: eicar_data } }
+          patch "/request", params: { request_form: { subject_proof_of_address: virus_file } }
           expect(response).to render_template(:edit)
           expect(response.body).to include("There is a problem")
           expect(response.body).to include("File contains a virus")
