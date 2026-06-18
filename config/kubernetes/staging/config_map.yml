@@ -9,3 +9,5 @@ data:
   RAILS_SERVE_STATIC_FILES: enabled
   API_URL: "https://qa.track-a-query.service.justice.gov.uk/api/rpi/"
   API_SCHEMA: "2"
+  CLAMD_TCP_HOST: request-personal-information-clamav-service
+  CLAMD_TCP_PORT: "3310"

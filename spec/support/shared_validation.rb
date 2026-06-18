@@ -65,7 +65,7 @@ RSpec.shared_examples("file upload") do |attribute|
         clamav_client = instance_double(ClamAV::Client)
         allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
         allow(clamav_client).to receive(:execute)
-                                  .and_return([ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature")])
+                                  .and_return(ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature"))
         form_object.send("#{attribute}=", fixture_file_upload("file.jpg", "image/jpeg"))
       end
 
@@ -86,7 +86,7 @@ RSpec.shared_examples("file upload") do |attribute|
         clamav_client = instance_double(ClamAV::Client)
         allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
         allow(clamav_client).to receive(:execute)
-                                  .and_return([ClamAV::ErrorResponse.new("error")])
+                                  .and_return(ClamAV::ErrorResponse.new("error"))
         form_object.send("#{attribute}=", fixture_file_upload("file.jpg", "image/jpeg"))
       end
 

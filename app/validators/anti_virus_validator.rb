@@ -6,7 +6,7 @@ class AntiVirusValidator < ActiveModel::EachValidator
     return unless path.present? && File.exist?(path)
 
     client = clamav_client
-    response = client.execute(ClamAV::Commands::ScanCommand.new(path)).first
+    response = File.open(path) { |f| client.execute(ClamAV::Commands::InstreamCommand.new(f)) }
 
     case response
     when ClamAV::VirusResponse
