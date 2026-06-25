@@ -9,6 +9,6 @@ RSpec.configure do |config|
     clamav_client = instance_double(ClamAV::Client)
     allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
     allow(clamav_client).to receive(:execute)
-                              .and_return([ClamAV::SuccessResponse.new("/path/to/file")])
+                              .and_return(ClamAV::SuccessResponse.new("/path/to/file"))
   end
 end

@@ -262,7 +262,7 @@ RSpec.describe "Subject", type: :request do
           clamav_client = instance_double(ClamAV::Client)
           allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
           allow(clamav_client).to receive(:execute)
-                                    .and_return([ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature")])
+                                    .and_return(ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature"))
         end
 
         it "renders page with error message" do
@@ -359,7 +359,7 @@ RSpec.describe "Subject", type: :request do
           clamav_client = instance_double(ClamAV::Client)
           allow(ClamAV::Client).to receive(:new).and_return(clamav_client)
           allow(clamav_client).to receive(:execute)
-                                    .and_return([ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature")])
+                                    .and_return(ClamAV::VirusResponse.new("/path/to/file", "Eicar-Test-Signature"))
         end
 
         it "renders page with error message" do
