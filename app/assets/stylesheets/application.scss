@@ -1,1 +1,6 @@
 @use "govuk-frontend/dist/govuk/index";
+
+.gtm-noscript {
+  display: none;
+  visibility: hidden;
+}
