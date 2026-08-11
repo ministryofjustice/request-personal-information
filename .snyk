@@ -1,0 +1,10 @@
+# Snyk (https://snyk.io) policy file
+version: v1.25.0
+ignore:
+  'snyk:lic:rubygems:clamav-client:GPL-3.0':
+    - '*':
+        reason: >-
+          clamav-client was deliberately chosen for antivirus scanning
+          (CDPTKAN-1048); GPL-3.0 is expected and accepted for this
+          dependency. Re-review before the expiry date below.
+        expires: 2027-08-10T00:00:00.000Z
