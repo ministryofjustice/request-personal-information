@@ -117,6 +117,23 @@ $ bundle exec rspec
 $ bin/rubocop
 ```
 
+### Building the Docker image
+
+Use `bin/docker-build` instead of calling `docker build` directly. It reads the
+required Ruby version from `.ruby-version` and passes it to the build as the
+`RUBY_VERSION` build arg, so the image always matches the version the app is
+developed against.
+
+```
+$ bin/docker-build
+```
+
+Any extra arguments are forwarded to `docker build`, for example to tag the image:
+
+```
+$ bin/docker-build -t request-personal-information:latest
+```
+
 ## Jobs
 
 After a request is completed, a Job will be created that will send the request to the track-a-query API using DelayedJob.
