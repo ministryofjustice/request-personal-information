@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 gem "aws-sdk-s3", require: false
+gem "benchmark"
 gem "clamav-client"
 gem "daemons"
 gem "delayed_job_active_record"
