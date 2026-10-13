@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "ping", to: "ping#index"
+  get "deploy_info", to: "ping#deploy_info"
   get "up" => "rails/health#show", as: :rails_health_check
 
   resource :request, only: %i[new update create] do
