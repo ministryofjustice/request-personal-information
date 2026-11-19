@@ -14,7 +14,7 @@ gem "httparty"
 gem "mail-notify"
 gem "pg"
 gem "puma", ">= 5.0"
-gem "rails", "~> 8.1.3"
+gem "rails", "~> 8.1.4"
 gem "sentry-rails", ">= 5.22.2"
 gem "sentry-ruby"
 
